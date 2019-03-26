@@ -80,7 +80,17 @@
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.2.8.0\lib\net46\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.File.4.0.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -130,14 +140,16 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\JsonSettings.cs" />
+    <Compile Include="Model\ConnectionInterface.cs" />
     <Compile Include="Model\Common.cs" />
     <Compile Include="Model\Read\CityGml.cs" />
     <Compile Include="Model\Read\DXF.cs" />
-    <Compile Include="Model\Read\Input.cs" />
+    <Compile Include="Model\Read\ReadInput.cs" />
     <Compile Include="Model\Read\LandXml.cs" />
     <Compile Include="Model\Read\RebDa.cs" />
     <Compile Include="Model\Read\Result.cs" />
-    <Compile Include="Model\Write\Input.cs" />
+    <Compile Include="Model\Write\WriteInput.cs" />
     <Compile Include="Model\Write\WriteIfc2.cs" />
     <Compile Include="Model\Write\WriteIfc4.cs" />
     <Compile Include="Program.cs" />
@@ -199,7 +211,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\DD-BIM-LOGO.png" />
@@ -217,7 +231,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Projekte\bimgiscadlib\BimGisCad\BimGisCad.csproj">
+    <ProjectReference Include="..\..\..\bimgiscadlib-master\bimgiscadlib-master\BimGisCad\BimGisCad.csproj">
       <Project>{6a5c39ed-1d4d-4e31-9b37-3c477dfacbed}</Project>
       <Name>BimGisCad</Name>
     </ProjectReference>

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace IFCTerrain.Properties {
+namespace IFCTerrainGUI.Properties {
     using System;
     
     

@@ -39,6 +39,8 @@
             this.tbMinDist = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.chk3D = new System.Windows.Forms.CheckBox();
+            this.SaveLogFile = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.gpEditor.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -149,17 +151,36 @@
             this.chk3D.Text = "Terrain is 3 dimensional";
             this.chk3D.UseVisualStyleBackColor = true;
             // 
+            // SaveLogFile
+            // 
+            this.SaveLogFile.Location = new System.Drawing.Point(14, 177);
+            this.SaveLogFile.Name = "SaveLogFile";
+            this.SaveLogFile.Size = new System.Drawing.Size(75, 23);
+            this.SaveLogFile.TabIndex = 5;
+            this.SaveLogFile.Text = "Save";
+            this.SaveLogFile.UseVisualStyleBackColor = true;
+            this.SaveLogFile.Click += new System.EventHandler(this.SaveLogFile_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(121, 179);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(144, 20);
+            this.textBox1.TabIndex = 6;
+            // 
             // SettingsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.SaveLogFile);
             this.Controls.Add(this.chk3D);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbMinDist);
             this.Controls.Add(this.lblPtDist);
             this.Controls.Add(this.gpEditor);
             this.Name = "SettingsControl";
-            this.Size = new System.Drawing.Size(294, 182);
+            this.Size = new System.Drawing.Size(294, 231);
             this.gpEditor.ResumeLayout(false);
             this.gpEditor.PerformLayout();
             this.ResumeLayout(false);
@@ -180,5 +201,7 @@
         private System.Windows.Forms.TextBox tbMinDist;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox chk3D;
+        private System.Windows.Forms.Button SaveLogFile;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

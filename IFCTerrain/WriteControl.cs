@@ -244,7 +244,7 @@ namespace IFCTerrain
 
                 this.Enabled = false;
                 this.progressBar.Show();
-                this.backgroundWorker.RunWorkerAsync(new Input() {
+                this.backgroundWorker.RunWorkerAsync(new WriteInput() {
                     Filename = sfd.FileName,
                     IFCType = this.rb2.Checked ? IFCType.IFC2x3 : IFCType.IFC4,
                     FileType = sfd.FilterIndex == 1 ? FileType.Step : FileType.XML,
@@ -257,8 +257,7 @@ namespace IFCTerrain
 
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-
-            var input = e.Argument as Input;
+            var input = e.Argument as WriteInput;
 
             if(input.IFCType == IFCType.IFC2x3)
             {
@@ -273,7 +272,7 @@ namespace IFCTerrain
                 WriteIfc4.WriteFile(model, input.Filename, input.FileType == FileType.XML);
             }
             e.Result = Path.GetFileName(input.Filename);
-         }
+        }
 
         private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {

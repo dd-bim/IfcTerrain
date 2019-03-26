@@ -1,0 +1,39 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="IFCTerrain.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="initialDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="readTinFilterIndex" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="ifcVersion" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+    <Setting Name="ifcShape" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="ifcBreakL" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="ifcName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Terrain</Value>
+    </Setting>
+    <Setting Name="givenName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Klaus</Value>
+    </Setting>
+    <Setting Name="familyName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Mustermann</Value>
+    </Setting>
+    <Setting Name="company" Type="System.String" Scope="User">
+      <Value Profile="(Default)">HTW Dresden</Value>
+    </Setting>
+    <Setting Name="minDistance" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.001</Value>
+    </Setting>
+    <Setting Name="is3D" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

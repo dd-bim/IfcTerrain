@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
+using System.IO;
 
 namespace IFCTerrain
 {
@@ -42,6 +43,35 @@ namespace IFCTerrain
             this.tbMinDist.Text = Properties.Settings.Default.minDistance.ToString();
         }
 
+        private void SaveLogFile_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Text File | *.txt";
+            if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string path = sfd.FileName;
+                BinaryWriter bw = new BinaryWriter(File.Create(path));
+                bw.Dispose();
+                
+                textBox1.Text = path;
 
+                var key = "LogFilePath";
+                var configFile = System.Configuration.ConfigurationManager.OpenExeConfiguration(System.Configuration.ConfigurationUserLevel.None);
+                var settings = configFile.AppSettings.Settings;
+
+                if (settings[key] == null)
+                {
+                    settings.Add(key, path);
+                }
+                else
+                {
+                    settings[key].Value = path;
+                }
+                configFile.Save(System.Configuration.ConfigurationSaveMode.Modified);
+                System.Configuration.ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
+                
+            }
+
+        }
     }
 }

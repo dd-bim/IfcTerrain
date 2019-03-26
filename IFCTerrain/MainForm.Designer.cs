@@ -86,6 +86,7 @@
             this.gpMsg.TabIndex = 7;
             this.gpMsg.TabStop = false;
             this.gpMsg.Text = "Messages";
+            this.gpMsg.Enter += new System.EventHandler(this.gpMsg_Enter);
             // 
             // btnExit
             // 

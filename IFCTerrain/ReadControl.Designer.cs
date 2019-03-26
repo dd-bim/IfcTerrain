@@ -60,6 +60,7 @@ namespace IFCTerrain
             this.btnReadReb = new System.Windows.Forms.Button();
             this.backgroundWorkerReb = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorkerProcessReb = new System.ComponentModel.BackgroundWorker();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.gpFile.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpXML.SuspendLayout();
@@ -113,6 +114,7 @@ namespace IFCTerrain
             this.tbCount.ReadOnly = true;
             this.tbCount.Size = new System.Drawing.Size(189, 20);
             this.tbCount.TabIndex = 7;
+            this.tbCount.TextChanged += new System.EventHandler(this.tbCount_TextChanged);
             // 
             // lblCnt
             // 
@@ -414,5 +416,6 @@ namespace IFCTerrain
         private System.Windows.Forms.Label lblHorizon;
         private System.Windows.Forms.TextBox tbCount;
         private System.Windows.Forms.Label lblCnt;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
