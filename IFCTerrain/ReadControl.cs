@@ -21,7 +21,7 @@ namespace IFCTerrain
     public partial class ReadControl : UserControl
     {
         public Mesh Mesh { get; private set; } = null;
-        public Input Input { get; private set; } = new Input();
+        public ReadInput Input { get; private set; } = new ReadInput();
         private DxfFile dxfFile = null;
         private RebDaData rebData = null;
 
@@ -245,7 +245,7 @@ namespace IFCTerrain
         private void lbLayer_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.btnProcess.Enabled = this.lbLayer.SelectedItem is string;
-         }
+        }
 
         private void btnReadReb_Click(object sender, EventArgs e)
         {
@@ -344,6 +344,11 @@ namespace IFCTerrain
         private void lbHorizon_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.btnProcessReb.Enabled = this.lbHorizon.SelectedIndex > -1;
+        }
+
+        private void tbCount_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
         //private void btnConvert_Click(object sender, EventArgs e)

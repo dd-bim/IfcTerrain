@@ -83,12 +83,12 @@ namespace IFCTerrain
         {
             this.panelMain.Controls.Clear();
 
-            if(this.rbInput.Checked)
+            if (this.rbInput.Checked)
             {
                 this.settingsControl.WriteSetting();
                 this.panelMain.Controls.Add(this.readControl);
             }
-            else if(this.rbOutput.Checked)
+            else if (this.rbOutput.Checked)
             {
                 this.settingsControl.WriteSetting();
                 this.writeControl.Mesh = this.readControl.Mesh;
@@ -96,14 +96,19 @@ namespace IFCTerrain
                 this.writeControl.SetDataState();
                 this.panelMain.Controls.Add(this.writeControl);
             }
-            else if(this.rbSettings.Checked)
+            else if (this.rbSettings.Checked)
             {
-               this.panelMain.Controls.Add(this.settingsControl);
+                this.panelMain.Controls.Add(this.settingsControl);
             }
-            else if(this.rbInfo.Checked)
+            else if (this.rbInfo.Checked)
             {
                 this.panelMain.Controls.Add(this.infoControl);
             }
+
+        }
+
+        private void gpMsg_Enter(object sender, EventArgs e)
+        {
 
         }
     }

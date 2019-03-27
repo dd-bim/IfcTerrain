@@ -117,22 +117,157 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="backgroundWorkerXml.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="backgroundWorkerDXF.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>174, 17</value>
-  </metadata>
-  <metadata name="backgroundWorkerProcess.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>353, 17</value>
-  </metadata>
-  <metadata name="backgroundWorkerReb.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>551, 17</value>
-  </metadata>
-  <metadata name="backgroundWorkerProcessReb.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>729, 17</value>
-  </metadata>
-  <metadata name="backgroundWorker1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>948, 17</value>
-  </metadata>
+  <data name="btnChoose" xml:space="preserve">
+    <value>Datei &amp;Auswählen</value>
+  </data>
+  <data name="btnConvert" xml:space="preserve">
+    <value>In TIN umwandeln</value>
+  </data>
+  <data name="btnExit" xml:space="preserve">
+    <value>&amp;Beenden</value>
+  </data>
+  <data name="btnInput" xml:space="preserve">
+    <value>Eingabe</value>
+  </data>
+  <data name="btnOutput" xml:space="preserve">
+    <value>Ausgabe</value>
+  </data>
+  <data name="btnRead" xml:space="preserve">
+    <value>Ein&amp;lesen</value>
+  </data>
+  <data name="btnReadFile" xml:space="preserve">
+    <value>Datei &amp;Einlesen</value>
+  </data>
+  <data name="btnSettings" xml:space="preserve">
+    <value>&amp;Einstellungen</value>
+  </data>
+  <data name="btnWrite" xml:space="preserve">
+    <value>IFC &amp;Schreiben</value>
+  </data>
+  <data name="chkReplace" xml:space="preserve">
+    <value>Erzeuge Punkte auf Bruchlinien</value>
+  </data>
+  <data name="chkZ" xml:space="preserve">
+    <value>Ursprung Z-Wert = 0</value>
+  </data>
+  <data name="errFileNotReadable" xml:space="preserve">
+    <value>Die Datei {0} ist nicht lesbar.</value>
+  </data>
+  <data name="errNoLineData" xml:space="preserve">
+    <value>Der Layer enthält keine Liniendaten.</value>
+  </data>
+  <data name="errNoTIN" xml:space="preserve">
+    <value>Die Datei {0} enthält kein TIN.</value>
+  </data>
+  <data name="errNoTINData" xml:space="preserve">
+    <value>Das TIN in Datei {0} enthält keine lesbaren Daten.</value>
+  </data>
+  <data name="gpEditor" xml:space="preserve">
+    <value>Bearbeiter</value>
+  </data>
+  <data name="gpFile" xml:space="preserve">
+    <value>Aktuelles Gelände</value>
+  </data>
+  <data name="gpMenu" xml:space="preserve">
+    <value>Menü</value>
+  </data>
+  <data name="gpMsg" xml:space="preserve">
+    <value>Meldungen</value>
+  </data>
+  <data name="gpOrigin" xml:space="preserve">
+    <value>Site Ursprung</value>
+  </data>
+  <data name="lblCompany" xml:space="preserve">
+    <value>Firma</value>
+  </data>
+  <data name="lblCount" xml:space="preserve">
+    <value>Anzahl</value>
+  </data>
+  <data name="lblDist" xml:space="preserve">
+    <value>mit Abstand</value>
+  </data>
+  <data name="lblExtent" xml:space="preserve">
+    <value>Ausdehnung</value>
+  </data>
+  <data name="lblFamily" xml:space="preserve">
+    <value>Familienname</value>
+  </data>
+  <data name="lblFile" xml:space="preserve">
+    <value>Dateiname</value>
+  </data>
+  <data name="lblGiven" xml:space="preserve">
+    <value>Vorname</value>
+  </data>
+  <data name="lblHorizon" xml:space="preserve">
+    <value>Horizont:</value>
+  </data>
+  <data name="lblName" xml:space="preserve">
+    <value>Projektname</value>
+  </data>
+  <data name="lblPtDist" xml:space="preserve">
+    <value>Mindestabstand Punkte</value>
+  </data>
+  <data name="lblType" xml:space="preserve">
+    <value>Dateityp</value>
+  </data>
+  <data name="msgCount" xml:space="preserve">
+    <value>Punkte: {0} Linien: {1} Flächen: {2}</value>
+  </data>
+  <data name="msgHorizonSuccess" xml:space="preserve">
+    <value>Horizont erfolgreich eingelesen.</value>
+  </data>
+  <data name="msgLayerSucces" xml:space="preserve">
+    <value>Layer erfolgreich eingelesen.</value>
+  </data>
+  <data name="msgProcess" xml:space="preserve">
+    <value>Verarbeite Layer {0}.</value>
+  </data>
+  <data name="msgProcessReb" xml:space="preserve">
+    <value>Verarbeite Horizont {0}.</value>
+  </data>
+  <data name="msgReadFile" xml:space="preserve">
+    <value>Lese {0} Datei {1}.</value>
+  </data>
+  <data name="msgSuccessRead" xml:space="preserve">
+    <value>{0} Datei {1} erfolgreich eingelesen.</value>
+  </data>
+  <data name="msgTINConv" xml:space="preserve">
+    <value>TIN mit {0} Dreiecken erzeugt.</value>
+  </data>
+  <data name="msgWriteFile" xml:space="preserve">
+    <value>Erzeuge IFC und schreibe in Datei {0}.</value>
+  </data>
+  <data name="msgWriteSuccess" xml:space="preserve">
+    <value>IFC Datei {0} erfolgreich geschrieben.</value>
+  </data>
+  <data name="process" xml:space="preserve">
+    <value>Verarbeite Daten</value>
+  </data>
+  <data name="rb3D" xml:space="preserve">
+    <value>Gelände hat senkrechte Flächen</value>
+  </data>
+  <data name="rbCtr" xml:space="preserve">
+    <value>Geländemitte</value>
+  </data>
+  <data name="rbCust" xml:space="preserve">
+    <value>Eingabe</value>
+  </data>
+  <data name="rbFaces" xml:space="preserve">
+    <value>Lese Flächen</value>
+  </data>
+  <data name="rbIndPoly" xml:space="preserve">
+    <value>Lese Punkte / Linien</value>
+  </data>
+  <data name="rbMax" xml:space="preserve">
+    <value>Geländemaximum</value>
+  </data>
+  <data name="rbMin" xml:space="preserve">
+    <value>Geländeminimum</value>
+  </data>
+  <data name="rbSys" xml:space="preserve">
+    <value>Koordinatenursprung</value>
+  </data>
+  <data name="read" xml:space="preserve">
+    <value>Lese</value>
+  </data>
 </root>

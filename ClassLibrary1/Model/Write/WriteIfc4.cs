@@ -1,28 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BimGisCad.Collections;
 using BimGisCad.Representation.Geometry;
 using BimGisCad.Representation.Geometry.Elementary;
+
 using Xbim.Common;
 using Xbim.Common.Step21;
 using Xbim.Ifc;
-using Xbim.Ifc2x3.GeometricConstraintResource;
-using Xbim.Ifc2x3.GeometricModelResource;
-using Xbim.Ifc2x3.GeometryResource;
-using Xbim.Ifc2x3.Kernel;
-using Xbim.Ifc2x3.MeasureResource;
-using Xbim.Ifc2x3.ProductExtension;
-using Xbim.Ifc2x3.RepresentationResource;
-using Xbim.Ifc2x3.TopologyResource;
+using Xbim.Ifc4.GeometricConstraintResource;
+using Xbim.Ifc4.GeometricModelResource;
+using Xbim.Ifc4.GeometryResource;
+using Xbim.Ifc4.Interfaces;
+using Xbim.Ifc4.Kernel;
+using Xbim.Ifc4.MeasureResource;
+using Xbim.Ifc4.ProductExtension;
+using Xbim.Ifc4.RepresentationResource;
+using Xbim.Ifc4.TopologyResource;
 using Xbim.IO;
-using Serilog;
 
 namespace IFCTerrain.Model.Write
 {
-    public static class WriteIfc2
+    public enum SurfaceType
+    {
+        GCS, SBSM, TFS
+    }
+
+    public enum RepresentationType
+    {
+        SweptSolid, Brep, Clipping, CSG, Curve2D, GeometricCurveSet, Tessellation, SurfaceModel
+    }
+
+    public enum RepresentationIdentifier
+    {
+        Body, Axis, FootPrint, SurveyPoints, Surface
+    }
+
+    public static class WriteIfc4
     {
         // Nur innerhalb Transaction aufrufen!
         private static IfcLocalPlacement createLocalPlacement(IfcStore model, Axis2Placement3D placement)
@@ -58,7 +72,7 @@ namespace IFCTerrain.Model.Write
                 EditorsOrganisationName = editorsOrganisationName
             };
 
-            var model = IfcStore.Create(credentials, IfcSchemaVersion.Ifc2X3, XbimStoreType.EsentDatabase);
+            var model = IfcStore.Create(credentials, IfcSchemaVersion.Ifc4, XbimStoreType.EsentDatabase);
 
             //Begin a transaction as all changes to a model are ACID
             using(var txn = model.BeginTransaction("Initialise Model"))
@@ -94,11 +108,7 @@ namespace IFCTerrain.Model.Write
              double? refElevation = null,
              IfcElementCompositionEnum compositionType = IfcElementCompositionEnum.ELEMENT)
         {
-            Serilog.Log.Logger = new LoggerConfiguration()
-               .MinimumLevel.Debug()
-               .WriteTo.File(System.Configuration.ConfigurationManager.AppSettings["LogFilePath"])
-               .CreateLogger();
-            using (var txn = model.BeginTransaction("Create Site"))
+            using(var txn = model.BeginTransaction("Create Site"))
             {
                 var site = model.Instances.New<IfcSite>(s =>
                 {
@@ -117,8 +127,8 @@ namespace IFCTerrain.Model.Write
                     placement = placement ?? Axis2Placement3D.Standard;
                     s.ObjectPlacement = createLocalPlacement(model, placement);
                 });
+
                 txn.Commit();
-                Log.Information("IfcSite created");
                 return site;
             }
         }
@@ -135,12 +145,9 @@ namespace IFCTerrain.Model.Write
             out RepresentationType representationType,
             out RepresentationIdentifier representationIdentifier)
         {
-            Serilog.Log.Logger = new LoggerConfiguration()
-               .MinimumLevel.Debug()
-               .WriteTo.File(System.Configuration.ConfigurationManager.AppSettings["LogFilePath"])
-               .CreateLogger();
+
             //begin a transaction
-            using (var txn = model.BeginTransaction("Create DTM"))
+            using(var txn = model.BeginTransaction("Create DTM"))
             {
 
                 // CartesianPoints erzeugen
@@ -209,8 +216,54 @@ namespace IFCTerrain.Model.Write
                 txn.Commit();
                 representationIdentifier = RepresentationIdentifier.SurveyPoints;
                 representationType = RepresentationType.GeometricCurveSet;
-                Log.Information("IfcGeometricCurveSet created");
                 return dtm;
+            }
+        }
+
+        /// Achtung mesh muss zwingend aus Dreiecken Bestehen
+        private static IfcTriangulatedFaceSet createTriangulatedFaceSet(IfcStore model, Vector3 origin, Mesh mesh,
+            out RepresentationType representationType,
+            out RepresentationIdentifier representationIdentifier)
+        {
+            if(mesh.MaxFaceCorners != 3 || mesh.MinFaceCorners != 3)
+            { throw new Exception("Mesh is not Triangular"); }
+            using(var txn = model.BeginTransaction("Create TIN"))
+            {
+                var vmap = new Dictionary<int, int>();
+                var cpl = model.Instances.New<IfcCartesianPointList3D>(c =>
+                {
+                    for(int i = 0, j = 0; i < mesh.Points.Count; i++)
+                    {
+                        if(mesh.VertexEdges[i] < 0)
+                        { continue; }
+                        vmap.Add(i, j + 1);
+                        var pt = mesh.Points[i];
+                        var coo = c.CoordList.GetAt(j++);
+                        coo.Add(pt.X - origin.X);
+                        coo.Add(pt.Y - origin.Y);
+                        coo.Add(pt.Z - origin.Z);
+                    }
+                });
+
+                var tfs = model.Instances.New<IfcTriangulatedFaceSet>(t =>
+                {
+                    t.Closed = false; // nur bei Volumenkörpern
+                    t.Coordinates = cpl;
+                    int cnt = 0;
+                    foreach(int fe in mesh.FaceEdges)
+                    {
+                        var fi = t.CoordIndex.GetAt(cnt++);
+                        fi.Add(vmap[mesh.EdgeVertices[fe]]);
+                        fi.Add(vmap[mesh.EdgeVertices[mesh.EdgeNexts[fe]]]);
+                        fi.Add(vmap[mesh.EdgeVertices[mesh.EdgeNexts[mesh.EdgeNexts[fe]]]]);
+                    }
+                });
+
+                txn.Commit();
+                representationIdentifier = RepresentationIdentifier.Body;
+                representationType = RepresentationType.Tessellation;
+
+                return tfs;
             }
         }
 
@@ -218,16 +271,8 @@ namespace IFCTerrain.Model.Write
             out RepresentationType representationType,
             out RepresentationIdentifier representationIdentifier)
         {
-            Serilog.Log.Logger = new LoggerConfiguration()
-               .MinimumLevel.Debug()
-               .WriteTo.File(System.Configuration.ConfigurationManager.AppSettings["LogFilePath"])
-               .CreateLogger();
-
-            if (mesh.MaxFaceCorners < 3)
-            {
-                Log.Error("Creation of IfcShellBasedSurfaceModel unsuccessful. Mesh has no Faces");
-                throw new Exception("Mesh has no Faces");
-            }
+            if(mesh.MaxFaceCorners < 3)
+            { throw new Exception("Mesh has no Faces"); }
             using(var txn = model.BeginTransaction("Create Mesh"))
             {
                 var vmap = new Dictionary<int, int>();
@@ -262,7 +307,7 @@ namespace IFCTerrain.Model.Write
                 txn.Commit();
                 representationIdentifier = RepresentationIdentifier.Body;
                 representationType = RepresentationType.SurfaceModel;
-                Log.Information("IfcShellBasedSurfaceModel created");
+
                 return sbsm;
             }
         }
@@ -295,6 +340,82 @@ namespace IFCTerrain.Model.Write
             }
         }
 
+        private static IfcGeographicElement createTerrain(IfcStore model, IfcLabel name, IfcIdentifier tag, Axis2Placement3D placement, IfcShapeRepresentation representation)
+        {
+            //begin a transaction
+            using(var txn = model.BeginTransaction("Create Terrain"))
+            {
+                // Gelände
+                var terrain = model.Instances.New<IfcGeographicElement>(s =>
+                {
+                    s.Name = name;
+                    s.PredefinedType = IfcGeographicElementTypeEnum.TERRAIN;
+                    s.Tag = tag;
+                    placement = placement ?? Axis2Placement3D.Standard;
+                    s.ObjectPlacement = createLocalPlacement(model, placement);
+                    s.Representation = model.Instances.New<IfcProductDefinitionShape>(r => r.Representations.Add(representation));
+                });
+
+                txn.Commit();
+
+                return terrain;
+            }
+        }
+
+        /// <summary>
+        ///  Site mit DGM
+        /// </summary>
+        public static IfcStore CreateSiteWithGeo(
+            string projectName,
+            string editorsFamilyName,
+            string editorsGivenName,
+            string editorsOrganisationName,
+            IfcLabel siteName,
+            Axis2Placement3D sitePlacement,
+            Mesh mesh,
+            SurfaceType surfaceType,
+            double? breakDist = null,
+             double? refLatitude = null,
+             double? refLongitude = null,
+             double? refElevation = null)
+        {
+            var model = createandInitModel(projectName, editorsFamilyName, editorsGivenName, editorsOrganisationName, out var project);
+            var site = createSite(model, siteName, sitePlacement, refLatitude, refLongitude, refElevation);
+            RepresentationType representationType;
+            RepresentationIdentifier representationIdentifier;
+            IfcGeometricRepresentationItem shape;
+            switch(surfaceType)
+            {
+                case SurfaceType.TFS:
+                    shape = createTriangulatedFaceSet(model, sitePlacement.Location, mesh, out representationType, out representationIdentifier);
+                    break;
+                case SurfaceType.SBSM:
+                    shape = createShellBasedSurfaceModel(model, sitePlacement.Location, mesh, out representationType, out representationIdentifier);
+                    break;
+                default:
+                    shape = createGeometricCurveSet(model, sitePlacement.Location, mesh, breakDist, out representationType, out representationIdentifier);
+                    break;
+            }
+            var repres = createShapeRepresentation(model, shape, representationIdentifier, representationType);
+            //var terrain = createTerrain(model, "TIN", mesh.Id, null, repres);
+            var terrain = createTerrain(model, "TIN", null, null, repres);
+
+            using(var txn = model.BeginTransaction("Add Site to Project"))
+            {
+                site.AddElement(terrain);
+                var lp = terrain.ObjectPlacement as IfcLocalPlacement;
+                lp.PlacementRelTo = site.ObjectPlacement;
+                project.AddSite(site);
+
+                model.OwnerHistoryAddObject.CreationDate = DateTime.Now;
+                model.OwnerHistoryAddObject.LastModifiedDate = model.OwnerHistoryAddObject.CreationDate;
+
+                txn.Commit();
+            }
+
+            return model;
+        }
+
         /// <summary>
         ///  Site mit DGM
         /// </summary>
@@ -320,7 +441,8 @@ namespace IFCTerrain.Model.Write
             switch(surfaceType)
             {
                 case SurfaceType.TFS:
-                    return null;
+                    shape = createTriangulatedFaceSet(model, sitePlacement.Location, mesh, out representationType, out representationIdentifier);
+                    break;
                 case SurfaceType.SBSM:
                     shape = createShellBasedSurfaceModel(model, sitePlacement.Location, mesh, out representationType, out representationIdentifier);
                     break;

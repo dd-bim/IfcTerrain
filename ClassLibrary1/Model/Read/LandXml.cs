@@ -28,7 +28,7 @@ namespace IFCTerrain.Model.Read
 
             Serilog.Log.Logger = new LoggerConfiguration()
                .MinimumLevel.Debug()
-               .WriteTo.File(@"C:\Users\possner\Desktop\Test\log.txt")
+               .WriteTo.File(System.Configuration.ConfigurationManager.AppSettings["LogFilePath"])
                .CreateLogger();
 
             try
