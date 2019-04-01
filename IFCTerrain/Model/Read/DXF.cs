@@ -47,7 +47,7 @@ namespace IFCTerrain.Model.Read
             
         }
 
-        public static Result ReadDXFIndPoly(bool is3d, DxfFile dxfFile, string layer, double minDist)
+        public static Result ReadDXFIndPoly(bool is3d, DxfFile dxfFile, string layer, double minDist, string logFilePath, string verbosityLevel)
         {
             var result = new Result();
             if(!UnitToMeter.TryGetValue(dxfFile.Header.DefaultDrawingUnits, out double scale))
@@ -55,10 +55,28 @@ namespace IFCTerrain.Model.Read
                 scale = 1.0;
             }
             var pp = new Mesh(is3d, minDist);
-            Serilog.Log.Logger = new LoggerConfiguration()
-               .MinimumLevel.Debug()
-               .WriteTo.File(System.Configuration.ConfigurationManager.AppSettings["LogFilePath"])
-               .CreateLogger();
+
+            switch (verbosityLevel)
+            {
+                case "Debug":
+                    Serilog.Log.Logger = new LoggerConfiguration()
+                               .MinimumLevel.Debug()
+                               .WriteTo.File(logFilePath)
+                               .CreateLogger();
+                    break;
+                case "Error":
+                    Serilog.Log.Logger = new LoggerConfiguration()
+                               .MinimumLevel.Error()
+                               .WriteTo.File(logFilePath)
+                               .CreateLogger();
+                    break;
+                default:
+                    Serilog.Log.Logger = new LoggerConfiguration()
+                               .WriteTo.File(logFilePath)
+                               .CreateLogger();
+                    break;
+            }
+
 
             foreach (var entity in dxfFile.Entities)
             {
@@ -105,7 +123,7 @@ namespace IFCTerrain.Model.Read
             return result;
         }
 
-        public static Result ReadDXFTin(bool is3d, DxfFile dxfFile, string layer, double minDist)
+        public static Result ReadDXFTin(bool is3d, DxfFile dxfFile, string layer, double minDist, string logFilePath, string verbosityLevel)
         {
             double minDistSq = minDist * minDist;
             var result = new Result();
@@ -114,10 +132,28 @@ namespace IFCTerrain.Model.Read
                 scale = 1.0;
             }
             var tin = new Mesh(is3d, minDist);
-            Serilog.Log.Logger = new LoggerConfiguration()
-               .MinimumLevel.Debug()
-               .WriteTo.File(System.Configuration.ConfigurationManager.AppSettings["LogFilePath"])
-               .CreateLogger();
+
+            switch (verbosityLevel)
+            {
+                case "Debug":
+                    Serilog.Log.Logger = new LoggerConfiguration()
+                               .MinimumLevel.Debug()
+                               .WriteTo.File(logFilePath)
+                               .CreateLogger();
+                    break;
+                case "Error":
+                    Serilog.Log.Logger = new LoggerConfiguration()
+                               .MinimumLevel.Error()
+                               .WriteTo.File(logFilePath)
+                               .CreateLogger();
+                    break;
+                default:
+                    Serilog.Log.Logger = new LoggerConfiguration()
+                               .WriteTo.File(logFilePath)
+                               .CreateLogger();
+                    break;
+            }
+
             foreach (var entity in dxfFile.Entities)
             {
                 if(entity.Layer == layer && entity is Dxf3DFace face)

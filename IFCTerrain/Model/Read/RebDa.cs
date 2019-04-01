@@ -139,12 +139,28 @@ namespace IFCTerrain.Model.Read
             return rebData;
         } //End ReadTIN
 
-        public static Result ConvertReb(bool is3D, RebDaData rebData, int horizon, double minDist)
+        public static Result ConvertReb(bool is3D, RebDaData rebData, int horizon, double minDist, string logFilePath, string verbosityLevel)
         {
-            Serilog.Log.Logger = new LoggerConfiguration()
-               .MinimumLevel.Debug()
-               .WriteTo.File(System.Configuration.ConfigurationManager.AppSettings["LogFilePath"])
-               .CreateLogger();
+            switch (verbosityLevel)
+            {
+                case "Debug":
+                    Serilog.Log.Logger = new LoggerConfiguration()
+                               .MinimumLevel.Debug()
+                               .WriteTo.File(logFilePath)
+                               .CreateLogger();
+                    break;
+                case "Error":
+                    Serilog.Log.Logger = new LoggerConfiguration()
+                               .MinimumLevel.Error()
+                               .WriteTo.File(logFilePath)
+                               .CreateLogger();
+                    break;
+                default:
+                    Serilog.Log.Logger = new LoggerConfiguration()
+                               .WriteTo.File(logFilePath)
+                               .CreateLogger();
+                    break;
+            }
             var mesh = new Mesh(is3D, minDist);
             var result = new Result();
             var pmap = new Dictionary<long, int>();
