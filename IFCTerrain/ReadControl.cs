@@ -24,6 +24,7 @@ namespace IFCTerrain
         public ReadInput Input { get; private set; } = new ReadInput();
         private DxfFile dxfFile = null;
         private RebDaData rebData = null;
+        private string st;
 
         Action<string> logText;
         ProgressBar progressBar;
@@ -86,10 +87,10 @@ namespace IFCTerrain
             switch(this.Input.InputType)
             {
                 case InputType.LandXML:
-                    e.Result = LandXml.ReadTIN(Properties.Settings.Default.is3D, this.Input.FileNames[0], Properties.Settings.Default.minDistance);
+                    e.Result = LandXml.ReadTIN(Properties.Settings.Default.is3D, this.Input.FileNames[0], Properties.Settings.Default.minDistance, st, st);
                     break;
                 case InputType.CityGML:
-                    e.Result = CityGml.ReadTIN(Properties.Settings.Default.is3D, this.Input.FileNames[0], Properties.Settings.Default.minDistance);
+                    e.Result = CityGml.ReadTIN(Properties.Settings.Default.is3D, this.Input.FileNames[0], Properties.Settings.Default.minDistance, st, st);
                     break;
             }
         }
@@ -208,11 +209,11 @@ namespace IFCTerrain
             var lt = (LayType)e.Argument;
             if(lt.IsTin)
             {
-                e.Result = DXF.ReadDXFTin(Properties.Settings.Default.is3D, this.dxfFile, lt.Layer, Properties.Settings.Default.minDistance);
+                e.Result = DXF.ReadDXFTin(Properties.Settings.Default.is3D, this.dxfFile, lt.Layer, Properties.Settings.Default.minDistance, st, st);
             }
             else
             {
-                e.Result = DXF.ReadDXFIndPoly(Properties.Settings.Default.is3D, this.dxfFile, lt.Layer, Properties.Settings.Default.minDistance);
+                e.Result = DXF.ReadDXFIndPoly(Properties.Settings.Default.is3D, this.dxfFile, lt.Layer, Properties.Settings.Default.minDistance, st, st);
             }
         }
 
@@ -312,7 +313,7 @@ namespace IFCTerrain
         private void backgroundWorkerProcessReb_DoWork(object sender, DoWorkEventArgs e)
         {
             int horizon = (int)e.Argument;
-            e.Result = RebDa.ConvertReb(Properties.Settings.Default.is3D, this.rebData, horizon, Properties.Settings.Default.minDistance);
+            e.Result = RebDa.ConvertReb(Properties.Settings.Default.is3D, this.rebData, horizon, Properties.Settings.Default.minDistance, st, st);
          }
 
         private void backgroundWorkerProcessReb_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

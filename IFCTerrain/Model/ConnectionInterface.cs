@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace IFCTerrain.Model
 {
-    class ConnectionInterface
+    public class ConnectionInterface
     {
         public Mesh Mesh { get; private set; } = null;
         public ReadInput Input { get; private set; } = new ReadInput();
@@ -97,7 +97,7 @@ namespace IFCTerrain.Model
             }
             else
             {
-                var model = jSettings.geoElement == "True"
+                var model = jSettings.geoElement 
                     ? WriteIfc4.CreateSiteWithGeo(jSettings.projectName,
                                                  jSettings.editorsFamilyName,
                                                  jSettings.editorsGivenName,

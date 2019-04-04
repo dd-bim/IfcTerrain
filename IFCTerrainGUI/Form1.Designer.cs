@@ -31,10 +31,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.gpFile = new System.Windows.Forms.GroupBox();
-            this.tbCount = new System.Windows.Forms.TextBox();
-            this.lblCnt = new System.Windows.Forms.Label();
-            this.tbExtent = new System.Windows.Forms.TextBox();
-            this.lblExtent = new System.Windows.Forms.Label();
+            this.tbLayHor = new System.Windows.Forms.TextBox();
+            this.lblLayHor = new System.Windows.Forms.Label();
             this.tbType = new System.Windows.Forms.TextBox();
             this.tbFile = new System.Windows.Forms.TextBox();
             this.lblType = new System.Windows.Forms.Label();
@@ -67,8 +65,14 @@
             this.rbGCS = new System.Windows.Forms.RadioButton();
             this.lblName = new System.Windows.Forms.Label();
             this.tbName = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnStart = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.backgroundWorkerDXF = new System.ComponentModel.BackgroundWorker();
+            this.backgroundWorkerREB = new System.ComponentModel.BackgroundWorker();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tbTarDir = new System.Windows.Forms.TextBox();
+            this.backgroundWorkerIFC = new System.ComponentModel.BackgroundWorker();
             this.gpFile.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpXML.SuspendLayout();
@@ -100,68 +104,44 @@
             // 
             // gpFile
             // 
-            this.gpFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.gpFile.Controls.Add(this.tbCount);
-            this.gpFile.Controls.Add(this.lblCnt);
-            this.gpFile.Controls.Add(this.tbExtent);
-            this.gpFile.Controls.Add(this.lblExtent);
+            this.gpFile.Controls.Add(this.tbLayHor);
+            this.gpFile.Controls.Add(this.lblLayHor);
             this.gpFile.Controls.Add(this.tbType);
             this.gpFile.Controls.Add(this.tbFile);
             this.gpFile.Controls.Add(this.lblType);
             this.gpFile.Controls.Add(this.lblFile);
             this.gpFile.Location = new System.Drawing.Point(29, 209);
             this.gpFile.Name = "gpFile";
-            this.gpFile.Size = new System.Drawing.Size(296, 137);
+            this.gpFile.Size = new System.Drawing.Size(296, 133);
             this.gpFile.TabIndex = 8;
             this.gpFile.TabStop = false;
             this.gpFile.Text = "Current Terrain";
             // 
-            // tbCount
+            // tbLayHor
             // 
-            this.tbCount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.tbLayHor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbCount.Location = new System.Drawing.Point(119, 111);
-            this.tbCount.Name = "tbCount";
-            this.tbCount.ReadOnly = true;
-            this.tbCount.Size = new System.Drawing.Size(171, 20);
-            this.tbCount.TabIndex = 7;
+            this.tbLayHor.Location = new System.Drawing.Point(119, 81);
+            this.tbLayHor.Name = "tbLayHor";
+            this.tbLayHor.ReadOnly = true;
+            this.tbLayHor.Size = new System.Drawing.Size(171, 20);
+            this.tbLayHor.TabIndex = 5;
             // 
-            // lblCnt
+            // lblLayHor
             // 
-            this.lblCnt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblCnt.AutoSize = true;
-            this.lblCnt.Location = new System.Drawing.Point(7, 114);
-            this.lblCnt.Name = "lblCnt";
-            this.lblCnt.Size = new System.Drawing.Size(35, 13);
-            this.lblCnt.TabIndex = 6;
-            this.lblCnt.Text = "Count";
-            // 
-            // tbExtent
-            // 
-            this.tbExtent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbExtent.Location = new System.Drawing.Point(119, 85);
-            this.tbExtent.Name = "tbExtent";
-            this.tbExtent.ReadOnly = true;
-            this.tbExtent.Size = new System.Drawing.Size(171, 20);
-            this.tbExtent.TabIndex = 5;
-            // 
-            // lblExtent
-            // 
-            this.lblExtent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblExtent.AutoSize = true;
-            this.lblExtent.Location = new System.Drawing.Point(7, 88);
-            this.lblExtent.Name = "lblExtent";
-            this.lblExtent.Size = new System.Drawing.Size(37, 13);
-            this.lblExtent.TabIndex = 4;
-            this.lblExtent.Text = "Extent";
+            this.lblLayHor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblLayHor.AutoSize = true;
+            this.lblLayHor.Location = new System.Drawing.Point(7, 84);
+            this.lblLayHor.Name = "lblLayHor";
+            this.lblLayHor.Size = new System.Drawing.Size(80, 13);
+            this.lblLayHor.TabIndex = 4;
+            this.lblLayHor.Text = "Layer / Horizon";
             // 
             // tbType
             // 
             this.tbType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbType.Location = new System.Drawing.Point(119, 59);
+            this.tbType.Location = new System.Drawing.Point(119, 55);
             this.tbType.Name = "tbType";
             this.tbType.ReadOnly = true;
             this.tbType.Size = new System.Drawing.Size(171, 20);
@@ -171,7 +151,7 @@
             // 
             this.tbFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbFile.Location = new System.Drawing.Point(119, 33);
+            this.tbFile.Location = new System.Drawing.Point(119, 29);
             this.tbFile.Name = "tbFile";
             this.tbFile.ReadOnly = true;
             this.tbFile.Size = new System.Drawing.Size(171, 20);
@@ -181,7 +161,7 @@
             // 
             this.lblType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblType.AutoSize = true;
-            this.lblType.Location = new System.Drawing.Point(7, 62);
+            this.lblType.Location = new System.Drawing.Point(7, 58);
             this.lblType.Name = "lblType";
             this.lblType.Size = new System.Drawing.Size(46, 13);
             this.lblType.TabIndex = 1;
@@ -191,7 +171,7 @@
             // 
             this.lblFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblFile.AutoSize = true;
-            this.lblFile.Location = new System.Drawing.Point(6, 36);
+            this.lblFile.Location = new System.Drawing.Point(6, 32);
             this.lblFile.Name = "lblFile";
             this.lblFile.Size = new System.Drawing.Size(52, 13);
             this.lblFile.TabIndex = 0;
@@ -199,9 +179,6 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tpXML);
             this.tabControl1.Controls.Add(this.tpDXF);
             this.tabControl1.Controls.Add(this.tpREB);
@@ -285,6 +262,7 @@
             this.btnReadDXF.TabIndex = 0;
             this.btnReadDXF.Text = "Read";
             this.btnReadDXF.UseVisualStyleBackColor = true;
+            this.btnReadDXF.Click += new System.EventHandler(this.btnReadDXF_Click);
             // 
             // lbLayer
             // 
@@ -296,6 +274,7 @@
             this.lbLayer.Name = "lbLayer";
             this.lbLayer.Size = new System.Drawing.Size(325, 43);
             this.lbLayer.TabIndex = 1;
+            this.lbLayer.SelectedIndexChanged += new System.EventHandler(this.lbLayer_SelectedIndexChanged);
             // 
             // btnProcess
             // 
@@ -307,6 +286,7 @@
             this.btnProcess.TabIndex = 2;
             this.btnProcess.Text = "Process";
             this.btnProcess.UseVisualStyleBackColor = true;
+            this.btnProcess.Click += new System.EventHandler(this.btnProcess_Click);
             // 
             // tpREB
             // 
@@ -340,6 +320,7 @@
             this.btnProcessReb.TabIndex = 3;
             this.btnProcessReb.Text = "Process";
             this.btnProcessReb.UseVisualStyleBackColor = true;
+            this.btnProcessReb.Click += new System.EventHandler(this.btnProcessReb_Click);
             // 
             // lbHorizon
             // 
@@ -351,6 +332,7 @@
             this.lbHorizon.Name = "lbHorizon";
             this.lbHorizon.Size = new System.Drawing.Size(216, 56);
             this.lbHorizon.TabIndex = 2;
+            this.lbHorizon.SelectedIndexChanged += new System.EventHandler(this.lbHorizon_SelectedIndexChanged);
             // 
             // btnReadReb
             // 
@@ -362,6 +344,7 @@
             this.btnReadReb.TabIndex = 0;
             this.btnReadReb.Text = "Read";
             this.btnReadReb.UseVisualStyleBackColor = true;
+            this.btnReadReb.Click += new System.EventHandler(this.btnReadReb_Click);
             // 
             // gpVersion
             // 
@@ -372,7 +355,7 @@
             this.gpVersion.Controls.Add(this.rb2);
             this.gpVersion.Location = new System.Drawing.Point(379, 41);
             this.gpVersion.Name = "gpVersion";
-            this.gpVersion.Size = new System.Drawing.Size(326, 48);
+            this.gpVersion.Size = new System.Drawing.Size(338, 48);
             this.gpVersion.TabIndex = 10;
             this.gpVersion.TabStop = false;
             this.gpVersion.Text = "IFC Version";
@@ -422,7 +405,7 @@
             this.gpType.Controls.Add(this.rbGCS);
             this.gpType.Location = new System.Drawing.Point(379, 115);
             this.gpType.Name = "gpType";
-            this.gpType.Size = new System.Drawing.Size(348, 94);
+            this.gpType.Size = new System.Drawing.Size(360, 94);
             this.gpType.TabIndex = 11;
             this.gpType.TabStop = false;
             this.gpType.Text = "Shape";
@@ -513,35 +496,81 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbName.Location = new System.Drawing.Point(479, 234);
             this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(161, 20);
+            this.tbName.Size = new System.Drawing.Size(173, 20);
             this.tbName.TabIndex = 13;
             this.tbName.Text = "Terrain";
             // 
-            // button1
+            // btnStart
             // 
-            this.button1.Location = new System.Drawing.Point(652, 319);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 14;
-            this.button1.Text = "Start";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnStart.Location = new System.Drawing.Point(642, 359);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(75, 23);
+            this.btnStart.TabIndex = 14;
+            this.btnStart.Text = "Start";
+            this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(386, 319);
+            this.button2.Location = new System.Drawing.Point(380, 359);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(129, 23);
             this.button2.TabIndex = 15;
             this.button2.Text = "User Settings";
             this.button2.UseVisualStyleBackColor = true;
             // 
+            // backgroundWorkerDXF
+            // 
+            this.backgroundWorkerDXF.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerDXF_DoWork_1);
+            this.backgroundWorkerDXF.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerDXF_RunWorkerCompleted_1);
+            // 
+            // backgroundWorkerREB
+            // 
+            this.backgroundWorkerREB.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerREB_DoWork);
+            this.backgroundWorkerREB.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerREB_RunWorkerCompleted);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(386, 304);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 23);
+            this.btnSave.TabIndex = 16;
+            this.btnSave.Text = "Choose";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(393, 288);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(116, 13);
+            this.label3.TabIndex = 17;
+            this.label3.Text = "Target IFC-file directory";
+            // 
+            // tbTarDir
+            // 
+            this.tbTarDir.Location = new System.Drawing.Point(467, 307);
+            this.tbTarDir.Name = "tbTarDir";
+            this.tbTarDir.ReadOnly = true;
+            this.tbTarDir.Size = new System.Drawing.Size(224, 20);
+            this.tbTarDir.TabIndex = 18;
+            // 
+            // backgroundWorkerIFC
+            // 
+            this.backgroundWorkerIFC.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerIFC_DoWork);
+            this.backgroundWorkerIFC.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerIFC_RunWorkerCompleted);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(741, 358);
+            this.ClientSize = new System.Drawing.Size(753, 394);
+            this.Controls.Add(this.tbTarDir);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnStart);
             this.Controls.Add(this.tbName);
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.gpType);
@@ -575,10 +604,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox gpFile;
-        private System.Windows.Forms.TextBox tbCount;
-        private System.Windows.Forms.Label lblCnt;
-        private System.Windows.Forms.TextBox tbExtent;
-        private System.Windows.Forms.Label lblExtent;
+        private System.Windows.Forms.TextBox tbLayHor;
+        private System.Windows.Forms.Label lblLayHor;
         private System.Windows.Forms.TextBox tbType;
         private System.Windows.Forms.TextBox tbFile;
         private System.Windows.Forms.Label lblType;
@@ -611,7 +638,13 @@
         private System.Windows.Forms.RadioButton rbGCS;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.TextBox tbName;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Button button2;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerDXF;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerREB;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox tbTarDir;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerIFC;
     }
 }
