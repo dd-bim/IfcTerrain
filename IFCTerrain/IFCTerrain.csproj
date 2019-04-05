@@ -200,6 +200,7 @@
     </EmbeddedResource>
     <None Include="packages.config" />
     <Resource Include="Properties\IFCTerrain.rtf" />
+    <None Include="Properties\Documentation IFCTerrain.rtf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
