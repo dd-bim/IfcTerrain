@@ -25,7 +25,7 @@ namespace IFCTerrainGUI
         private RebDaData rebData = null;
         private JsonSettings jSettings { get; set; } = new JsonSettings();
         private string[] fileNames = new string[1];
-
+        
         Action<string> logText;
         ProgressBar progressBar;
 
@@ -297,6 +297,7 @@ namespace IFCTerrainGUI
             string path = Path.GetDirectoryName(this.jSettings.destFileName);
             this.jSettings.logFilePath = path + @"\log.txt";
             this.jSettings.verbosityLevel = "Debug";
+            MessageBox.Show("Transformation gestartet");
             this.Enabled = false;
             this.backgroundWorkerIFC.RunWorkerAsync();
         }

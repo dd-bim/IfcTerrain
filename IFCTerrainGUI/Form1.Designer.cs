@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.gpFile = new System.Windows.Forms.GroupBox();
@@ -73,6 +74,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.tbTarDir = new System.Windows.Forms.TextBox();
             this.backgroundWorkerIFC = new System.ComponentModel.BackgroundWorker();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.gpFile.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpXML.SuspendLayout();
@@ -80,12 +82,13 @@
             this.tpREB.SuspendLayout();
             this.gpVersion.SuspendLayout();
             this.gpType.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 13);
+            this.label1.Location = new System.Drawing.Point(16, 60);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(77, 13);
             this.label1.TabIndex = 1;
@@ -110,7 +113,7 @@
             this.gpFile.Controls.Add(this.tbFile);
             this.gpFile.Controls.Add(this.lblType);
             this.gpFile.Controls.Add(this.lblFile);
-            this.gpFile.Location = new System.Drawing.Point(29, 209);
+            this.gpFile.Location = new System.Drawing.Point(23, 249);
             this.gpFile.Name = "gpFile";
             this.gpFile.Size = new System.Drawing.Size(296, 133);
             this.gpFile.TabIndex = 8;
@@ -182,7 +185,7 @@
             this.tabControl1.Controls.Add(this.tpXML);
             this.tabControl1.Controls.Add(this.tpDXF);
             this.tabControl1.Controls.Add(this.tpREB);
-            this.tabControl1.Location = new System.Drawing.Point(19, 38);
+            this.tabControl1.Location = new System.Drawing.Point(19, 81);
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -561,11 +564,21 @@
             this.backgroundWorkerIFC.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerIFC_DoWork);
             this.backgroundWorkerIFC.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerIFC_RunWorkerCompleted);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(164, 45);
+            this.pictureBox1.TabIndex = 19;
+            this.pictureBox1.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(753, 394);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.tbTarDir);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnSave);
@@ -580,7 +593,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "IFCTerrain GUI";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.gpFile.ResumeLayout(false);
             this.gpFile.PerformLayout();
@@ -595,6 +608,7 @@
             this.gpVersion.PerformLayout();
             this.gpType.ResumeLayout(false);
             this.gpType.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -646,5 +660,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tbTarDir;
         private System.ComponentModel.BackgroundWorker backgroundWorkerIFC;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

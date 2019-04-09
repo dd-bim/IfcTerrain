@@ -114,7 +114,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\DD-BIM-LOGO.png" />
+    <None Include="Resources\DDBIM_Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DD_BIM_LOGO.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
