@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 using IFCTerrain.Model.Read;
 using IFCTerrain.Model.Write;
@@ -26,6 +27,13 @@ namespace IFCTerrain.Model
 
         public void mapProcess(JsonSettings jSettings, double? breakDist = null, double? refLatitude = null, double? refLongitude = null, double? refElevation = null)
         {
+            BinaryWriter bw = new BinaryWriter(File.Create(jSettings.logFilePath));
+            bw.Dispose();
+
+            Serilog.Log.Logger = new LoggerConfiguration()
+                               .WriteTo.File(jSettings.logFilePath)
+                               .CreateLogger();
+
             switch (jSettings.verbosityLevel)
             {
                 case "Debug":
@@ -37,11 +45,6 @@ namespace IFCTerrain.Model
                 case "Error":
                     Serilog.Log.Logger = new LoggerConfiguration()
                                .MinimumLevel.Error()
-                               .WriteTo.File(jSettings.logFilePath)
-                               .CreateLogger();
-                    break;
-                default:
-                    Serilog.Log.Logger = new LoggerConfiguration()
                                .WriteTo.File(jSettings.logFilePath)
                                .CreateLogger();
                     break;

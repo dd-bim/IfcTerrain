@@ -141,6 +141,9 @@ namespace IFCTerrain.Model.Read
 
         public static Result ConvertReb(bool is3D, RebDaData rebData, int horizon, double minDist, string logFilePath, string verbosityLevel)
         {
+            Serilog.Log.Logger = new LoggerConfiguration()
+                               .WriteTo.File(logFilePath)
+                               .CreateLogger();
             switch (verbosityLevel)
             {
                 case "Debug":
@@ -152,11 +155,6 @@ namespace IFCTerrain.Model.Read
                 case "Error":
                     Serilog.Log.Logger = new LoggerConfiguration()
                                .MinimumLevel.Error()
-                               .WriteTo.File(logFilePath)
-                               .CreateLogger();
-                    break;
-                default:
-                    Serilog.Log.Logger = new LoggerConfiguration()
                                .WriteTo.File(logFilePath)
                                .CreateLogger();
                     break;

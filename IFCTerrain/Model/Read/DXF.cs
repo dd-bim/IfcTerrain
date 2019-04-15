@@ -56,6 +56,9 @@ namespace IFCTerrain.Model.Read
             }
             var pp = new Mesh(is3d, minDist);
 
+            Serilog.Log.Logger = new LoggerConfiguration()
+                               .WriteTo.File(logFilePath)
+                               .CreateLogger();
             switch (verbosityLevel)
             {
                 case "Debug":
@@ -67,11 +70,6 @@ namespace IFCTerrain.Model.Read
                 case "Error":
                     Serilog.Log.Logger = new LoggerConfiguration()
                                .MinimumLevel.Error()
-                               .WriteTo.File(logFilePath)
-                               .CreateLogger();
-                    break;
-                default:
-                    Serilog.Log.Logger = new LoggerConfiguration()
                                .WriteTo.File(logFilePath)
                                .CreateLogger();
                     break;
@@ -133,6 +131,9 @@ namespace IFCTerrain.Model.Read
             }
             var tin = new Mesh(is3d, minDist);
 
+            Serilog.Log.Logger = new LoggerConfiguration()
+                               .WriteTo.File(logFilePath)
+                               .CreateLogger();
             switch (verbosityLevel)
             {
                 case "Debug":
@@ -144,11 +145,6 @@ namespace IFCTerrain.Model.Read
                 case "Error":
                     Serilog.Log.Logger = new LoggerConfiguration()
                                .MinimumLevel.Error()
-                               .WriteTo.File(logFilePath)
-                               .CreateLogger();
-                    break;
-                default:
-                    Serilog.Log.Logger = new LoggerConfiguration()
                                .WriteTo.File(logFilePath)
                                .CreateLogger();
                     break;

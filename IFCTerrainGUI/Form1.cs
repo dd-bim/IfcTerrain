@@ -13,6 +13,7 @@ using IFCTerrain.Model;
 using IFCTerrain.Model.Read;
 using BimGisCad.Collections;
 using IxMilia.Dxf;
+using Newtonsoft.Json;
 
 
 namespace IFCTerrainGUI
@@ -274,6 +275,7 @@ namespace IFCTerrainGUI
             }
         }
 
+        #region Start
         private void btnStart_Click(object sender, EventArgs e)
         {
             this.jSettings.geoElement = chkGeo.Checked;
@@ -284,7 +286,7 @@ namespace IFCTerrainGUI
             {
                 this.jSettings.minDist = Convert.ToDouble(tbDist.Text);
             }
-            this.jSettings.outIFCType = rb4.Checked ? "IFC2x3": "IFC4";
+            this.jSettings.outIFCType = rb4.Checked ? "IFC4": "IFC2x3";
             this.jSettings.surfaceType = "TFS";
             if (rbGCS.Checked)
             {
@@ -296,7 +298,17 @@ namespace IFCTerrainGUI
             }
             string path = Path.GetDirectoryName(this.jSettings.destFileName);
             this.jSettings.logFilePath = path + @"\log.txt";
-            this.jSettings.verbosityLevel = "Debug";
+            this.jSettings.verbosityLevel = "Information";
+            try
+            {
+                string jExportText = JsonConvert.SerializeObject(this.jSettings);
+                System.IO.File.WriteAllText(path + @"\config.json", jExportText);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.Write(ex.Message.ToString() + Environment.NewLine);
+            }
+            
             MessageBox.Show("Transformation gestartet");
             this.Enabled = false;
             this.backgroundWorkerIFC.RunWorkerAsync();
@@ -311,7 +323,15 @@ namespace IFCTerrainGUI
         private void backgroundWorkerIFC_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             MessageBox.Show("IFC Datei erfolgreich erstellt");
+
             this.Enabled = true;
+        }
+        #endregion
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
+
