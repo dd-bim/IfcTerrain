@@ -60,14 +60,13 @@
             this.lblUnit = new System.Windows.Forms.Label();
             this.tbDist = new System.Windows.Forms.TextBox();
             this.lblDist = new System.Windows.Forms.Label();
-            this.chkReplace = new System.Windows.Forms.CheckBox();
             this.rbTFS = new System.Windows.Forms.RadioButton();
             this.rbSSM = new System.Windows.Forms.RadioButton();
             this.rbGCS = new System.Windows.Forms.RadioButton();
             this.lblName = new System.Windows.Forms.Label();
             this.tbName = new System.Windows.Forms.TextBox();
             this.btnStart = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnSettings = new System.Windows.Forms.Button();
             this.backgroundWorkerDXF = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorkerREB = new System.ComponentModel.BackgroundWorker();
             this.btnSave = new System.Windows.Forms.Button();
@@ -75,6 +74,7 @@
             this.tbTarDir = new System.Windows.Forms.TextBox();
             this.backgroundWorkerIFC = new System.ComponentModel.BackgroundWorker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.progressBarIFC = new System.Windows.Forms.ProgressBar();
             this.gpFile.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpXML.SuspendLayout();
@@ -402,7 +402,6 @@
             this.gpType.Controls.Add(this.lblUnit);
             this.gpType.Controls.Add(this.tbDist);
             this.gpType.Controls.Add(this.lblDist);
-            this.gpType.Controls.Add(this.chkReplace);
             this.gpType.Controls.Add(this.rbTFS);
             this.gpType.Controls.Add(this.rbSSM);
             this.gpType.Controls.Add(this.rbGCS);
@@ -416,7 +415,7 @@
             // lblUnit
             // 
             this.lblUnit.AutoSize = true;
-            this.lblUnit.Location = new System.Drawing.Point(307, 43);
+            this.lblUnit.Location = new System.Drawing.Point(297, 26);
             this.lblUnit.Name = "lblUnit";
             this.lblUnit.Size = new System.Drawing.Size(15, 13);
             this.lblUnit.TabIndex = 6;
@@ -424,7 +423,7 @@
             // 
             // tbDist
             // 
-            this.tbDist.Location = new System.Drawing.Point(235, 41);
+            this.tbDist.Location = new System.Drawing.Point(226, 19);
             this.tbDist.Name = "tbDist";
             this.tbDist.Size = new System.Drawing.Size(65, 20);
             this.tbDist.TabIndex = 5;
@@ -434,21 +433,11 @@
             // lblDist
             // 
             this.lblDist.AutoSize = true;
-            this.lblDist.Location = new System.Drawing.Point(157, 44);
+            this.lblDist.Location = new System.Drawing.Point(151, 24);
             this.lblDist.Name = "lblDist";
             this.lblDist.Size = new System.Drawing.Size(69, 13);
             this.lblDist.TabIndex = 4;
             this.lblDist.Text = "with distance";
-            // 
-            // chkReplace
-            // 
-            this.chkReplace.AutoSize = true;
-            this.chkReplace.Location = new System.Drawing.Point(157, 20);
-            this.chkReplace.Name = "chkReplace";
-            this.chkReplace.Size = new System.Drawing.Size(169, 17);
-            this.chkReplace.TabIndex = 3;
-            this.chkReplace.Text = "Generate Points on Breaklines";
-            this.chkReplace.UseVisualStyleBackColor = true;
             // 
             // rbTFS
             // 
@@ -513,15 +502,15 @@
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
-            // button2
+            // btnSettings
             // 
-            this.button2.Location = new System.Drawing.Point(380, 359);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(129, 23);
-            this.button2.TabIndex = 15;
-            this.button2.Text = "User Settings";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnSettings.Location = new System.Drawing.Point(380, 359);
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.Size = new System.Drawing.Size(129, 23);
+            this.btnSettings.TabIndex = 15;
+            this.btnSettings.Text = "User Settings";
+            this.btnSettings.UseVisualStyleBackColor = true;
+            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
             // backgroundWorkerDXF
             // 
@@ -563,6 +552,7 @@
             // backgroundWorkerIFC
             // 
             this.backgroundWorkerIFC.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerIFC_DoWork);
+            this.backgroundWorkerIFC.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorkerIFC_ProgressChanged);
             this.backgroundWorkerIFC.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerIFC_RunWorkerCompleted);
             // 
             // pictureBox1
@@ -574,16 +564,25 @@
             this.pictureBox1.TabIndex = 19;
             this.pictureBox1.TabStop = false;
             // 
+            // progressBarIFC
+            // 
+            this.progressBarIFC.Location = new System.Drawing.Point(533, 359);
+            this.progressBarIFC.Name = "progressBarIFC";
+            this.progressBarIFC.Size = new System.Drawing.Size(100, 23);
+            this.progressBarIFC.TabIndex = 20;
+            this.progressBarIFC.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(753, 394);
+            this.ClientSize = new System.Drawing.Size(753, 395);
+            this.Controls.Add(this.progressBarIFC);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.tbTarDir);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.tbName);
             this.Controls.Add(this.lblName);
@@ -593,6 +592,7 @@
             this.Controls.Add(this.gpFile);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "IFCTerrain GUI";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -647,14 +647,13 @@
         private System.Windows.Forms.Label lblUnit;
         private System.Windows.Forms.TextBox tbDist;
         private System.Windows.Forms.Label lblDist;
-        private System.Windows.Forms.CheckBox chkReplace;
         private System.Windows.Forms.RadioButton rbTFS;
         private System.Windows.Forms.RadioButton rbSSM;
         private System.Windows.Forms.RadioButton rbGCS;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.TextBox tbName;
         private System.Windows.Forms.Button btnStart;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnSettings;
         private System.ComponentModel.BackgroundWorker backgroundWorkerDXF;
         private System.ComponentModel.BackgroundWorker backgroundWorkerREB;
         private System.Windows.Forms.Button btnSave;
@@ -662,5 +661,6 @@
         private System.Windows.Forms.TextBox tbTarDir;
         private System.ComponentModel.BackgroundWorker backgroundWorkerIFC;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ProgressBar progressBarIFC;
     }
 }

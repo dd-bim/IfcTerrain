@@ -156,7 +156,6 @@
             this.Controls.Add(this.tbGiv);
             this.Controls.Add(this.tbOrg);
             this.Controls.Add(this.label1);
-            this.Enabled = false;
             this.Name = "UserSettings";
             this.Text = "UserSettings";
             this.ResumeLayout(false);

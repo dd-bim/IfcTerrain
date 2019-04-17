@@ -140,6 +140,7 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Class1.cs" />
     <Compile Include="Model\JsonSettings.cs" />
     <Compile Include="Model\ConnectionInterface.cs" />
     <Compile Include="Model\Common.cs" />

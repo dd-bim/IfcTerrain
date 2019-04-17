@@ -35,11 +35,7 @@ namespace IFCTerrainGUI
             sfd.Filter = "Text File | *.txt";
             if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                
-
                 tbLog.Text = sfd.FileName;
-
-                
             }
         }
 
@@ -93,8 +89,21 @@ namespace IFCTerrainGUI
                 settings[famKey].Value = famValue;
             }
 
+            string verKey = "VerbosityLevel";
+            string verValue = cbLog.Text;
+            if (settings[verKey] == null)
+            {
+                settings.Add(verKey, verValue);
+            }
+            else
+            {
+                settings[verKey].Value = verValue;
+            }
+
             configFile.Save(System.Configuration.ConfigurationSaveMode.Modified);
             System.Configuration.ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
+
+            this.Close();
         }
     }
 }

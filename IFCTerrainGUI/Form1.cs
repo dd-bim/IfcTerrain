@@ -14,7 +14,7 @@ using IFCTerrain.Model.Read;
 using BimGisCad.Collections;
 using IxMilia.Dxf;
 using Newtonsoft.Json;
-
+using System.Xml;
 
 namespace IFCTerrainGUI
 {
@@ -296,9 +296,67 @@ namespace IFCTerrainGUI
             {
                 this.jSettings.surfaceType = "SBSM";
             }
+
             string path = Path.GetDirectoryName(this.jSettings.destFileName);
-            this.jSettings.logFilePath = path + @"\log.txt";
-            this.jSettings.verbosityLevel = "Information";
+
+            //Werte aus UserSettings übernehmen bzw. Standardwerte
+            if (System.Configuration.ConfigurationManager.AppSettings["LogFilePath"] == null)
+            {
+                this.jSettings.logFilePath = path + @"\log.txt";            }
+            else
+            {
+                this.jSettings.logFilePath = System.Configuration.ConfigurationManager.AppSettings["LogFilePath"];
+            }
+            
+            if (System.Configuration.ConfigurationManager.AppSettings["VerbosityLevel"] == null)
+            {
+                this.jSettings.verbosityLevel = "Information";
+            }
+            else
+            {
+                switch (System.Configuration.ConfigurationManager.AppSettings["VerbosityLevel"])
+                {
+                    case "Error":
+                        this.jSettings.verbosityLevel = "Error";
+                        break;
+                    case "Debug":
+                        this.jSettings.verbosityLevel = "Debug";
+                        break;
+                    default:
+                        this.jSettings.verbosityLevel = "Information";
+                        break;
+                }       
+            }
+
+            if (System.Configuration.ConfigurationManager.AppSettings["Organisation"] == null)
+            {
+                this.jSettings.editorsOrganisationName = "Organisation";
+            }
+            else
+            {
+                this.jSettings.editorsOrganisationName = System.Configuration.ConfigurationManager.AppSettings["Organisation"];
+            }
+
+            if (System.Configuration.ConfigurationManager.AppSettings["GivenName"] == null)
+            {
+                this.jSettings.editorsGivenName = "GivenName";
+            }
+            else
+            {
+                this.jSettings.editorsGivenName = System.Configuration.ConfigurationManager.AppSettings["GivenName"];
+            }
+
+            if (System.Configuration.ConfigurationManager.AppSettings["FamilyName"] == null)
+            {
+                this.jSettings.editorsFamilyName = "FamilyName";
+            }
+            else
+            {
+                this.jSettings.editorsFamilyName = System.Configuration.ConfigurationManager.AppSettings["FamilyName"];
+            }
+
+            MessageBox.Show(this.jSettings.editorsFamilyName);
+            // Serialisieren von Json-Datei
             try
             {
                 string jExportText = JsonConvert.SerializeObject(this.jSettings);
@@ -310,12 +368,24 @@ namespace IFCTerrainGUI
             }
             
             MessageBox.Show("Transformation gestartet");
+            progressBarIFC.Visible = true;
             this.Enabled = false;
             this.backgroundWorkerIFC.RunWorkerAsync();
         }
 
         private void backgroundWorkerIFC_DoWork(object sender, DoWorkEventArgs e)
         {
+            //BackgroundWorker workerSender = sender as BackgroundWorker;
+
+            //// get a node list from agrument passed to RunWorkerAsync
+            //XmlNodeList node = e.Argument as XmlNodeList;
+
+            //for (int i = 0; i < node.Count; i++)
+            //{
+            //    textBox2.Text = node[i].InnerText;
+            //    workerSender.ReportProgress(node.Count / i);
+            //}
+
             ConnectionInterface conInt = new ConnectionInterface();
             conInt.mapProcess(this.jSettings);
         }
@@ -328,9 +398,15 @@ namespace IFCTerrainGUI
         }
         #endregion
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnSettings_Click(object sender, EventArgs e)
         {
+            UserSettings settingsForm = new UserSettings();
+            settingsForm.Show();
+        }
 
+        private void backgroundWorkerIFC_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            progressBarIFC.Value = e.ProgressPercentage;
         }
     }
 }
