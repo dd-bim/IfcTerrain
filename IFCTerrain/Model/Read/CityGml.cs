@@ -16,19 +16,27 @@ namespace IFCTerrain.Model.Read
         /// </summary>
         /// <param name="fileName">  </param>
         /// <returns>  </returns>
-        public static Result ReadTIN(bool is3d, string fileName, double minDist)
+        public static Result ReadTIN(bool is3d, string fileName, double minDist, string logFilePath, string verbosityLevel)
         {
-            //Serilog.Log.Logger = new LoggerConfiguration()
-            //   .MinimumLevel.Debug()
-            //   //.WriteTo.File(@"D:\\Daten\\myapp.txt", rollingInterval: RollingInterval.Day)
-            //   .WriteTo.File(System.Configuration.ConfigurationManager.AppSettings["LogFilePath"])
-            //   .CreateLogger();
             Serilog.Log.Logger = new LoggerConfiguration()
-               .MinimumLevel.Debug()
-               //.WriteTo.File(@"D:\\Daten\\myapp.txt", rollingInterval: RollingInterval.Day)
-               .WriteTo.File(@"D:\\Daten\\myapp.txt")
-               .CreateLogger();
-
+                               .WriteTo.File(logFilePath)
+                               .CreateLogger();
+            switch (verbosityLevel)
+            {
+                case "Debug":
+                    Serilog.Log.Logger = new LoggerConfiguration()
+                               .MinimumLevel.Debug()
+                               .WriteTo.File(logFilePath)
+                               .CreateLogger();
+                    break;
+                case "Error":
+                    Serilog.Log.Logger = new LoggerConfiguration()
+                               .MinimumLevel.Error()
+                               .WriteTo.File(logFilePath)
+                               .CreateLogger();
+                    break;
+            }
+            
             var result = new Result();
             try
             {

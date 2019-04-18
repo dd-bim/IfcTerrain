@@ -140,6 +140,7 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Class1.cs" />
     <Compile Include="Model\JsonSettings.cs" />
     <Compile Include="Model\ConnectionInterface.cs" />
     <Compile Include="Model\Common.cs" />
@@ -200,6 +201,7 @@
     </EmbeddedResource>
     <None Include="packages.config" />
     <Resource Include="Properties\IFCTerrain.rtf" />
+    <None Include="Properties\Documentation IFCTerrain.rtf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

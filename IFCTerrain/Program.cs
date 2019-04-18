@@ -28,19 +28,13 @@ namespace IFCTerrain
 
             JsonSettings jSettings = JsonConvert.DeserializeObject<JsonSettings>(jText);
             
-            string[] fileNames = new string[1];
-            fileNames[0] = jSettings.fileName;
-            
             double? breakDist = 0.0;
             double? refLatitude = 0.0;
             double? refLongitude = 0.0;
             double? refElevation = 0.0;
             
             var conn = new ConnectionInterface();
-            conn.mapProcess(jSettings.is3D, jSettings.minDist, fileNames, jSettings.fileType, jSettings.layer, jSettings.horizon, jSettings.isTin, 
-                            jSettings.projectName, jSettings.editorsFamilyName, jSettings.editorsGivenName, jSettings.editorsOrganisationName,
-                            jSettings.destFileName, jSettings.outIFCType, jSettings.outFileType, jSettings.surfaceType, jSettings.geoElement, 
-                            breakDist, refLatitude, refLongitude, refElevation); 
+            conn.mapProcess(jSettings, breakDist, refLatitude, refLongitude, refElevation); 
         }
     }
 }

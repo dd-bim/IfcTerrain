@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IFCTerrain.Model
 {
-    class JsonSettings
+    public class JsonSettings
     {
         public bool is3D { get; set; }
         public double minDist { get; set; }
@@ -23,6 +23,8 @@ namespace IFCTerrain.Model
         public string outIFCType { get; set; }
         public string outFileType { get; set; }
         public string surfaceType { get; set; }
-        public string geoElement { get; set; }
+        public bool geoElement { get; set; }
+        public string logFilePath { get; set; }
+        public string verbosityLevel { get; set; }
     }
 }

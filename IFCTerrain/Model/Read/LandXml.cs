@@ -22,14 +22,28 @@ namespace IFCTerrain.Model.Read
         /// <param name="fileName"></param>
         /// <param name="errors"></param>
         /// <returns></returns>
-        public static Result ReadTIN(bool is3d, string fileName, double minDist)
+        public static Result ReadTIN(bool is3d, string fileName, double minDist, string logFilePath, string verbosityLevel)
         {
             var result = new Result();
 
             Serilog.Log.Logger = new LoggerConfiguration()
-               .MinimumLevel.Debug()
-               .WriteTo.File(@"C:\Users\possner\Desktop\Test\log.txt")
-               .CreateLogger();
+                               .WriteTo.File(logFilePath)
+                               .CreateLogger();
+            switch (verbosityLevel)
+            {
+                case "Debug":
+                    Serilog.Log.Logger = new LoggerConfiguration()
+                               .MinimumLevel.Debug()
+                               .WriteTo.File(logFilePath)
+                               .CreateLogger();
+                    break;
+                case "Error":
+                    Serilog.Log.Logger = new LoggerConfiguration()
+                               .MinimumLevel.Error()
+                               .WriteTo.File(logFilePath)
+                               .CreateLogger();
+                    break;
+            }
 
             try
             {

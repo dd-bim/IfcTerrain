@@ -94,10 +94,10 @@ namespace IFCTerrain.Model.Write
              double? refElevation = null,
              IfcElementCompositionEnum compositionType = IfcElementCompositionEnum.ELEMENT)
         {
-            Serilog.Log.Logger = new LoggerConfiguration()
-               .MinimumLevel.Debug()
-               .WriteTo.File(System.Configuration.ConfigurationManager.AppSettings["LogFilePath"])
-               .CreateLogger();
+            //Serilog.Log.Logger = new LoggerConfiguration()
+            //   .MinimumLevel.Debug()
+            //   .WriteTo.File(System.Configuration.ConfigurationManager.AppSettings["LogFilePath"])
+            //   .CreateLogger();
             using (var txn = model.BeginTransaction("Create Site"))
             {
                 var site = model.Instances.New<IfcSite>(s =>
@@ -118,7 +118,7 @@ namespace IFCTerrain.Model.Write
                     s.ObjectPlacement = createLocalPlacement(model, placement);
                 });
                 txn.Commit();
-                Log.Information("IfcSite created");
+                //Log.Information("IfcSite created");
                 return site;
             }
         }
@@ -135,10 +135,10 @@ namespace IFCTerrain.Model.Write
             out RepresentationType representationType,
             out RepresentationIdentifier representationIdentifier)
         {
-            Serilog.Log.Logger = new LoggerConfiguration()
-               .MinimumLevel.Debug()
-               .WriteTo.File(System.Configuration.ConfigurationManager.AppSettings["LogFilePath"])
-               .CreateLogger();
+            //Serilog.Log.Logger = new LoggerConfiguration()
+            //   .MinimumLevel.Debug()
+            //   .WriteTo.File(System.Configuration.ConfigurationManager.AppSettings["LogFilePath"])
+            //   .CreateLogger();
             //begin a transaction
             using (var txn = model.BeginTransaction("Create DTM"))
             {
@@ -209,7 +209,7 @@ namespace IFCTerrain.Model.Write
                 txn.Commit();
                 representationIdentifier = RepresentationIdentifier.SurveyPoints;
                 representationType = RepresentationType.GeometricCurveSet;
-                Log.Information("IfcGeometricCurveSet created");
+                //Log.Information("IfcGeometricCurveSet created");
                 return dtm;
             }
         }
@@ -218,10 +218,10 @@ namespace IFCTerrain.Model.Write
             out RepresentationType representationType,
             out RepresentationIdentifier representationIdentifier)
         {
-            Serilog.Log.Logger = new LoggerConfiguration()
-               .MinimumLevel.Debug()
-               .WriteTo.File(System.Configuration.ConfigurationManager.AppSettings["LogFilePath"])
-               .CreateLogger();
+            //Serilog.Log.Logger = new LoggerConfiguration()
+            //   .MinimumLevel.Debug()
+            //   .WriteTo.File(System.Configuration.ConfigurationManager.AppSettings["LogFilePath"])
+            //   .CreateLogger();
 
             if (mesh.MaxFaceCorners < 3)
             {
@@ -262,7 +262,7 @@ namespace IFCTerrain.Model.Write
                 txn.Commit();
                 representationIdentifier = RepresentationIdentifier.Body;
                 representationType = RepresentationType.SurfaceModel;
-                Log.Information("IfcShellBasedSurfaceModel created");
+                //Log.Information("IfcShellBasedSurfaceModel created");
                 return sbsm;
             }
         }
