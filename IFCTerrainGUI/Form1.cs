@@ -355,7 +355,7 @@ namespace IFCTerrainGUI
                 this.jSettings.editorsFamilyName = System.Configuration.ConfigurationManager.AppSettings["FamilyName"];
             }
 
-            MessageBox.Show(this.jSettings.editorsFamilyName);
+            
             // Serialisieren von Json-Datei
             try
             {
