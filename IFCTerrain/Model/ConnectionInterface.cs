@@ -107,7 +107,11 @@ namespace IFCTerrain.Model
             else if (jSettings.surfaceType == "SBSM")
             { writeInput.SurfaceType = SurfaceType.SBSM; }
 
-            writeInput.FileType = jSettings.outFileType == "Step" ? FileType.Step : FileType.XML;
+            writeInput.FileType = FileType.Step;
+            if (jSettings.outFileType == "XML")
+            {
+                writeInput.FileType = FileType.XML;
+            }
 
             Log.Debug("Writing IFC with:");
             Log.Debug("IFC Version: " + jSettings.outIFCType);

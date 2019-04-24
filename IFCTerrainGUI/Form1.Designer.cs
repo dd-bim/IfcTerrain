@@ -75,6 +75,7 @@
             this.backgroundWorkerIFC = new System.ComponentModel.BackgroundWorker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.progressBarIFC = new System.Windows.Forms.ProgressBar();
+            this.chkXML = new System.Windows.Forms.CheckBox();
             this.gpFile.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpXML.SuspendLayout();
@@ -353,12 +354,13 @@
             // 
             this.gpVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.gpVersion.Controls.Add(this.chkXML);
             this.gpVersion.Controls.Add(this.chkGeo);
             this.gpVersion.Controls.Add(this.rb4);
             this.gpVersion.Controls.Add(this.rb2);
             this.gpVersion.Location = new System.Drawing.Point(379, 41);
             this.gpVersion.Name = "gpVersion";
-            this.gpVersion.Size = new System.Drawing.Size(338, 48);
+            this.gpVersion.Size = new System.Drawing.Size(338, 68);
             this.gpVersion.TabIndex = 10;
             this.gpVersion.TabStop = false;
             this.gpVersion.Text = "IFC Version";
@@ -572,11 +574,21 @@
             this.progressBarIFC.TabIndex = 20;
             this.progressBarIFC.Visible = false;
             // 
+            // chkXML
+            // 
+            this.chkXML.AutoSize = true;
+            this.chkXML.Location = new System.Drawing.Point(123, 43);
+            this.chkXML.Name = "chkXML";
+            this.chkXML.Size = new System.Drawing.Size(97, 17);
+            this.chkXML.TabIndex = 3;
+            this.chkXML.Text = "Export IFCXML";
+            this.chkXML.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(753, 395);
+            this.ClientSize = new System.Drawing.Size(753, 417);
             this.Controls.Add(this.progressBarIFC);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.tbTarDir);
@@ -662,5 +674,6 @@
         private System.ComponentModel.BackgroundWorker backgroundWorkerIFC;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ProgressBar progressBarIFC;
+        private System.Windows.Forms.CheckBox chkXML;
     }
 }

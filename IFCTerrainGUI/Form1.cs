@@ -288,6 +288,11 @@ namespace IFCTerrainGUI
             }
             this.jSettings.outIFCType = rb4.Checked ? "IFC4": "IFC2x3";
             this.jSettings.surfaceType = "TFS";
+            this.jSettings.outFileType = "Step";
+            if (chkXML.Checked)
+            {
+                this.jSettings.outFileType = "XML";
+            }
             if (rbGCS.Checked)
             {
                 this.jSettings.surfaceType = "GCS";
