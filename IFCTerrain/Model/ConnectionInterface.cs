@@ -12,7 +12,9 @@ using BimGisCad.Collections;
 using Xbim.Ifc2x3.MeasureResource;
 using BimGisCad.Representation.Geometry;
 using System.Windows.Forms;
-using Serilog;
+using NLog;
+using NLog.Targets;
+using NLog.Config;
 
 namespace IFCTerrain.Model
 {
@@ -27,28 +29,27 @@ namespace IFCTerrain.Model
 
         public void mapProcess(JsonSettings jSettings, double? breakDist = null, double? refLatitude = null, double? refLongitude = null, double? refElevation = null)
         {
-            BinaryWriter bw = new BinaryWriter(File.Create(jSettings.logFilePath));
-            bw.Dispose();
+            //BinaryWriter bw = new BinaryWriter(File.Create(jSettings.logFilePath));
+            //bw.Dispose();
 
-            Serilog.Log.Logger = new LoggerConfiguration()
-                               .WriteTo.File(jSettings.logFilePath)
-                               .CreateLogger();
-
-            switch (jSettings.verbosityLevel)
+            
+            //create configuration object
+            var config = new LoggingConfiguration();
+            //create target
+            string tp = Path.GetTempPath();
+            //MessageBox.Show(tp);
+            var fileTarget = new FileTarget("target1")
             {
-                case "Debug":
-                    Serilog.Log.Logger = new LoggerConfiguration()
-                               .MinimumLevel.Debug()
-                               .WriteTo.File(jSettings.logFilePath)
-                               .CreateLogger();
-                    break;
-                case "Error":
-                    Serilog.Log.Logger = new LoggerConfiguration()
-                               .MinimumLevel.Error()
-                               .WriteTo.File(jSettings.logFilePath)
-                               .CreateLogger();
-                    break;
-            }
+                FileName = Path.GetFullPath(Path.Combine(tp, @"${shortdate}_IFCTerrain.log")),
+                Layout = "${longdate} ${level} ${message}  ${exception}"
+            };
+            config.AddTarget(fileTarget);
+            //define rules
+            config.AddRuleForAllLevels(fileTarget);
+            //activate the configuration
+            LogManager.Configuration = config;
+
+            Logger logger = LogManager.GetLogger("Example");
 
             //
             //Read
@@ -90,7 +91,7 @@ namespace IFCTerrain.Model
             }
             this.Mesh = result.Mesh;
 
-            Log.Debug("Mesh created with: " + this.Mesh.Points.Count + " Points; " + this.Mesh.FixedEdges + " Lines; " + this.Mesh.FaceEdges + " Faces");
+            logger.Debug("Mesh created with: " + this.Mesh.Points.Count + " Points; " + this.Mesh.FixedEdges + " Lines; " + this.Mesh.FaceEdges + " Faces");
 
             //
             //Write
@@ -107,12 +108,16 @@ namespace IFCTerrain.Model
             else if (jSettings.surfaceType == "SBSM")
             { writeInput.SurfaceType = SurfaceType.SBSM; }
 
-            writeInput.FileType = jSettings.outFileType == "Step" ? FileType.Step : FileType.XML;
+            writeInput.FileType = FileType.Step;
+            if (jSettings.outFileType == "XML")
+            {
+                writeInput.FileType = FileType.XML;
+            }
 
-            Log.Debug("Writing IFC with:");
-            Log.Debug("IFC Version: " + jSettings.outIFCType);
-            Log.Debug("Surfacetype: " + jSettings.surfaceType);
-            Log.Debug("Filetype: " + jSettings.fileType);
+            logger.Debug("Writing IFC with:");
+            logger.Debug("IFC Version: " + jSettings.outIFCType);
+            logger.Debug("Surfacetype: " + jSettings.surfaceType);
+            logger.Debug("Filetype: " + jSettings.fileType);
 
             if (jSettings.outIFCType == "IFC2x3")
             {
@@ -125,13 +130,13 @@ namespace IFCTerrain.Model
                                                  this.Mesh,
                                                  writeInput.SurfaceType,
                                                  breakDist);
-                Log.Debug("IFC Site created");
+                logger.Debug("IFC Site created");
                 WriteIfc2.WriteFile(model, jSettings.destFileName, writeInput.FileType == FileType.XML);
-                Log.Information("IFC file writen: " + jSettings.destFileName);
+                logger.Info("IFC file writen: " + jSettings.destFileName);
             }
             else
             {
-                Log.Debug("Geographical Element: " + jSettings.geoElement);
+                logger.Debug("Geographical Element: " + jSettings.geoElement);
                 var model = jSettings.geoElement 
                     ? WriteIfc4.CreateSiteWithGeo(jSettings.projectName,
                                                  jSettings.editorsFamilyName,
@@ -151,9 +156,9 @@ namespace IFCTerrain.Model
                                                  this.Mesh,
                                                  writeInput.SurfaceType,
                                                  breakDist);
-                Log.Debug("IFC Site created");
+                logger.Debug("IFC Site created");
                 WriteIfc4.WriteFile(model, jSettings.destFileName, writeInput.FileType == FileType.XML);
-                Log.Information("IFC file writen: " + jSettings.destFileName);
+                logger.Info("IFC file writen: " + jSettings.destFileName);
             }
         }
     }

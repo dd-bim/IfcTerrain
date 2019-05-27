@@ -27,7 +27,7 @@ namespace IFCTerrainGUI
         private JsonSettings jSettings { get; set; } = new JsonSettings();
         private string[] fileNames = new string[1];
         
-        Action<string> logText;
+        //Action<string> logText;
         ProgressBar progressBar;
 
         #region Empty Labels
@@ -288,6 +288,11 @@ namespace IFCTerrainGUI
             }
             this.jSettings.outIFCType = rb4.Checked ? "IFC4": "IFC2x3";
             this.jSettings.surfaceType = "TFS";
+            this.jSettings.outFileType = "Step";
+            if (chkXML.Checked)
+            {
+                this.jSettings.outFileType = "XML";
+            }
             if (rbGCS.Checked)
             {
                 this.jSettings.surfaceType = "GCS";
@@ -408,6 +413,26 @@ namespace IFCTerrainGUI
         {
             progressBarIFC.Value = e.ProgressPercentage;
         }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rb2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rb2.Checked)
+            {
+                chkGeo.Visible = false;
+            }
+        }
+
+        private void rb4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rb4.Checked)
+            {
+                chkGeo.Visible = true;
+            }
+        }
     }
 }
-

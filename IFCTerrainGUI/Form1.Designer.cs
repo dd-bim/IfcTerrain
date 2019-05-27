@@ -42,6 +42,7 @@
             this.tpXML = new System.Windows.Forms.TabPage();
             this.btnReadXml = new System.Windows.Forms.Button();
             this.tpDXF = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
             this.rbFaces = new System.Windows.Forms.RadioButton();
             this.rbIndPoly = new System.Windows.Forms.RadioButton();
             this.btnReadDXF = new System.Windows.Forms.Button();
@@ -53,6 +54,7 @@
             this.lbHorizon = new System.Windows.Forms.ListBox();
             this.btnReadReb = new System.Windows.Forms.Button();
             this.gpVersion = new System.Windows.Forms.GroupBox();
+            this.chkXML = new System.Windows.Forms.CheckBox();
             this.chkGeo = new System.Windows.Forms.CheckBox();
             this.rb4 = new System.Windows.Forms.RadioButton();
             this.rb2 = new System.Windows.Forms.RadioButton();
@@ -87,428 +89,282 @@
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 60);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Import Settings";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(376, 13);
+            resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(78, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Export Settings";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // gpFile
             // 
+            resources.ApplyResources(this.gpFile, "gpFile");
             this.gpFile.Controls.Add(this.tbLayHor);
             this.gpFile.Controls.Add(this.lblLayHor);
             this.gpFile.Controls.Add(this.tbType);
             this.gpFile.Controls.Add(this.tbFile);
             this.gpFile.Controls.Add(this.lblType);
             this.gpFile.Controls.Add(this.lblFile);
-            this.gpFile.Location = new System.Drawing.Point(23, 249);
             this.gpFile.Name = "gpFile";
-            this.gpFile.Size = new System.Drawing.Size(296, 133);
-            this.gpFile.TabIndex = 8;
             this.gpFile.TabStop = false;
-            this.gpFile.Text = "Current Terrain";
             // 
             // tbLayHor
             // 
-            this.tbLayHor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbLayHor.Location = new System.Drawing.Point(119, 81);
+            resources.ApplyResources(this.tbLayHor, "tbLayHor");
             this.tbLayHor.Name = "tbLayHor";
             this.tbLayHor.ReadOnly = true;
-            this.tbLayHor.Size = new System.Drawing.Size(171, 20);
-            this.tbLayHor.TabIndex = 5;
             // 
             // lblLayHor
             // 
-            this.lblLayHor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblLayHor.AutoSize = true;
-            this.lblLayHor.Location = new System.Drawing.Point(7, 84);
+            resources.ApplyResources(this.lblLayHor, "lblLayHor");
             this.lblLayHor.Name = "lblLayHor";
-            this.lblLayHor.Size = new System.Drawing.Size(80, 13);
-            this.lblLayHor.TabIndex = 4;
-            this.lblLayHor.Text = "Layer / Horizon";
             // 
             // tbType
             // 
-            this.tbType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbType.Location = new System.Drawing.Point(119, 55);
+            resources.ApplyResources(this.tbType, "tbType");
             this.tbType.Name = "tbType";
             this.tbType.ReadOnly = true;
-            this.tbType.Size = new System.Drawing.Size(171, 20);
-            this.tbType.TabIndex = 3;
             // 
             // tbFile
             // 
-            this.tbFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbFile.Location = new System.Drawing.Point(119, 29);
+            resources.ApplyResources(this.tbFile, "tbFile");
             this.tbFile.Name = "tbFile";
             this.tbFile.ReadOnly = true;
-            this.tbFile.Size = new System.Drawing.Size(171, 20);
-            this.tbFile.TabIndex = 2;
             // 
             // lblType
             // 
-            this.lblType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblType.AutoSize = true;
-            this.lblType.Location = new System.Drawing.Point(7, 58);
+            resources.ApplyResources(this.lblType, "lblType");
             this.lblType.Name = "lblType";
-            this.lblType.Size = new System.Drawing.Size(46, 13);
-            this.lblType.TabIndex = 1;
-            this.lblType.Text = "File type";
             // 
             // lblFile
             // 
-            this.lblFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblFile.AutoSize = true;
-            this.lblFile.Location = new System.Drawing.Point(6, 32);
+            resources.ApplyResources(this.lblFile, "lblFile");
             this.lblFile.Name = "lblFile";
-            this.lblFile.Size = new System.Drawing.Size(52, 13);
-            this.lblFile.TabIndex = 0;
-            this.lblFile.Text = "File name";
             // 
             // tabControl1
             // 
+            resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Controls.Add(this.tpXML);
             this.tabControl1.Controls.Add(this.tpDXF);
             this.tabControl1.Controls.Add(this.tpREB);
-            this.tabControl1.Location = new System.Drawing.Point(19, 81);
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(345, 162);
-            this.tabControl1.TabIndex = 9;
             // 
             // tpXML
             // 
+            resources.ApplyResources(this.tpXML, "tpXML");
             this.tpXML.Controls.Add(this.btnReadXml);
-            this.tpXML.Location = new System.Drawing.Point(4, 22);
             this.tpXML.Name = "tpXML";
-            this.tpXML.Padding = new System.Windows.Forms.Padding(3);
-            this.tpXML.Size = new System.Drawing.Size(337, 136);
-            this.tpXML.TabIndex = 0;
-            this.tpXML.Text = "TIN(LandXML,CityGML)";
             this.tpXML.UseVisualStyleBackColor = true;
             // 
             // btnReadXml
             // 
-            this.btnReadXml.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnReadXml.AutoSize = true;
-            this.btnReadXml.Location = new System.Drawing.Point(6, 6);
+            resources.ApplyResources(this.btnReadXml, "btnReadXml");
             this.btnReadXml.Name = "btnReadXml";
-            this.btnReadXml.Size = new System.Drawing.Size(329, 23);
-            this.btnReadXml.TabIndex = 0;
-            this.btnReadXml.Text = "Read TIN file";
             this.btnReadXml.UseVisualStyleBackColor = true;
             this.btnReadXml.Click += new System.EventHandler(this.btnReadXml_Click);
             // 
             // tpDXF
             // 
+            resources.ApplyResources(this.tpDXF, "tpDXF");
+            this.tpDXF.Controls.Add(this.label4);
             this.tpDXF.Controls.Add(this.rbFaces);
             this.tpDXF.Controls.Add(this.rbIndPoly);
             this.tpDXF.Controls.Add(this.btnReadDXF);
             this.tpDXF.Controls.Add(this.lbLayer);
             this.tpDXF.Controls.Add(this.btnProcess);
-            this.tpDXF.Location = new System.Drawing.Point(4, 22);
             this.tpDXF.Name = "tpDXF";
-            this.tpDXF.Padding = new System.Windows.Forms.Padding(3);
-            this.tpDXF.Size = new System.Drawing.Size(337, 136);
-            this.tpDXF.TabIndex = 1;
-            this.tpDXF.Text = "DXF";
             this.tpDXF.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.Name = "label4";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // rbFaces
             // 
-            this.rbFaces.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.rbFaces.AutoSize = true;
-            this.rbFaces.Location = new System.Drawing.Point(163, 84);
+            resources.ApplyResources(this.rbFaces, "rbFaces");
             this.rbFaces.Name = "rbFaces";
-            this.rbFaces.Size = new System.Drawing.Size(85, 17);
-            this.rbFaces.TabIndex = 4;
-            this.rbFaces.Text = "radioButton2";
             this.rbFaces.UseVisualStyleBackColor = true;
             // 
             // rbIndPoly
             // 
-            this.rbIndPoly.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.rbIndPoly.AutoSize = true;
+            resources.ApplyResources(this.rbIndPoly, "rbIndPoly");
             this.rbIndPoly.Checked = true;
-            this.rbIndPoly.Location = new System.Drawing.Point(6, 84);
             this.rbIndPoly.Name = "rbIndPoly";
-            this.rbIndPoly.Size = new System.Drawing.Size(85, 17);
-            this.rbIndPoly.TabIndex = 3;
             this.rbIndPoly.TabStop = true;
-            this.rbIndPoly.Text = "radioButton1";
             this.rbIndPoly.UseVisualStyleBackColor = true;
             // 
             // btnReadDXF
             // 
-            this.btnReadDXF.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnReadDXF.Location = new System.Drawing.Point(6, 6);
+            resources.ApplyResources(this.btnReadDXF, "btnReadDXF");
             this.btnReadDXF.Name = "btnReadDXF";
-            this.btnReadDXF.Size = new System.Drawing.Size(325, 23);
-            this.btnReadDXF.TabIndex = 0;
-            this.btnReadDXF.Text = "Read";
             this.btnReadDXF.UseVisualStyleBackColor = true;
             this.btnReadDXF.Click += new System.EventHandler(this.btnReadDXF_Click);
             // 
             // lbLayer
             // 
-            this.lbLayer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.lbLayer, "lbLayer");
             this.lbLayer.FormattingEnabled = true;
-            this.lbLayer.Location = new System.Drawing.Point(6, 35);
             this.lbLayer.Name = "lbLayer";
-            this.lbLayer.Size = new System.Drawing.Size(325, 43);
-            this.lbLayer.TabIndex = 1;
             this.lbLayer.SelectedIndexChanged += new System.EventHandler(this.lbLayer_SelectedIndexChanged);
             // 
             // btnProcess
             // 
-            this.btnProcess.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnProcess.Location = new System.Drawing.Point(6, 107);
+            resources.ApplyResources(this.btnProcess, "btnProcess");
             this.btnProcess.Name = "btnProcess";
-            this.btnProcess.Size = new System.Drawing.Size(325, 23);
-            this.btnProcess.TabIndex = 2;
-            this.btnProcess.Text = "Process";
             this.btnProcess.UseVisualStyleBackColor = true;
             this.btnProcess.Click += new System.EventHandler(this.btnProcess_Click);
             // 
             // tpREB
             // 
+            resources.ApplyResources(this.tpREB, "tpREB");
             this.tpREB.Controls.Add(this.lblHorizon);
             this.tpREB.Controls.Add(this.btnProcessReb);
             this.tpREB.Controls.Add(this.lbHorizon);
             this.tpREB.Controls.Add(this.btnReadReb);
-            this.tpREB.Location = new System.Drawing.Point(4, 22);
             this.tpREB.Name = "tpREB";
-            this.tpREB.Size = new System.Drawing.Size(337, 136);
-            this.tpREB.TabIndex = 2;
-            this.tpREB.Text = "REB(DA45,DA49,DA58)";
             this.tpREB.UseVisualStyleBackColor = true;
             // 
             // lblHorizon
             // 
-            this.lblHorizon.AutoSize = true;
-            this.lblHorizon.Location = new System.Drawing.Point(5, 33);
+            resources.ApplyResources(this.lblHorizon, "lblHorizon");
             this.lblHorizon.Name = "lblHorizon";
-            this.lblHorizon.Size = new System.Drawing.Size(35, 13);
-            this.lblHorizon.TabIndex = 4;
-            this.lblHorizon.Text = "label1";
             // 
             // btnProcessReb
             // 
-            this.btnProcessReb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnProcessReb.Location = new System.Drawing.Point(6, 110);
+            resources.ApplyResources(this.btnProcessReb, "btnProcessReb");
             this.btnProcessReb.Name = "btnProcessReb";
-            this.btnProcessReb.Size = new System.Drawing.Size(325, 23);
-            this.btnProcessReb.TabIndex = 3;
-            this.btnProcessReb.Text = "Process";
             this.btnProcessReb.UseVisualStyleBackColor = true;
             this.btnProcessReb.Click += new System.EventHandler(this.btnProcessReb_Click);
             // 
             // lbHorizon
             // 
-            this.lbHorizon.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.lbHorizon, "lbHorizon");
             this.lbHorizon.FormattingEnabled = true;
-            this.lbHorizon.Location = new System.Drawing.Point(115, 33);
             this.lbHorizon.Name = "lbHorizon";
-            this.lbHorizon.Size = new System.Drawing.Size(216, 56);
-            this.lbHorizon.TabIndex = 2;
             this.lbHorizon.SelectedIndexChanged += new System.EventHandler(this.lbHorizon_SelectedIndexChanged);
             // 
             // btnReadReb
             // 
-            this.btnReadReb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnReadReb.Location = new System.Drawing.Point(4, 4);
+            resources.ApplyResources(this.btnReadReb, "btnReadReb");
             this.btnReadReb.Name = "btnReadReb";
-            this.btnReadReb.Size = new System.Drawing.Size(330, 23);
-            this.btnReadReb.TabIndex = 0;
-            this.btnReadReb.Text = "Read";
             this.btnReadReb.UseVisualStyleBackColor = true;
             this.btnReadReb.Click += new System.EventHandler(this.btnReadReb_Click);
             // 
             // gpVersion
             // 
-            this.gpVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.gpVersion, "gpVersion");
+            this.gpVersion.Controls.Add(this.chkXML);
             this.gpVersion.Controls.Add(this.chkGeo);
             this.gpVersion.Controls.Add(this.rb4);
             this.gpVersion.Controls.Add(this.rb2);
-            this.gpVersion.Location = new System.Drawing.Point(379, 41);
             this.gpVersion.Name = "gpVersion";
-            this.gpVersion.Size = new System.Drawing.Size(338, 48);
-            this.gpVersion.TabIndex = 10;
             this.gpVersion.TabStop = false;
-            this.gpVersion.Text = "IFC Version";
+            // 
+            // chkXML
+            // 
+            resources.ApplyResources(this.chkXML, "chkXML");
+            this.chkXML.Name = "chkXML";
+            this.chkXML.UseVisualStyleBackColor = true;
             // 
             // chkGeo
             // 
-            this.chkGeo.AutoSize = true;
-            this.chkGeo.Location = new System.Drawing.Point(123, 19);
+            resources.ApplyResources(this.chkGeo, "chkGeo");
             this.chkGeo.Name = "chkGeo";
-            this.chkGeo.Size = new System.Drawing.Size(131, 17);
-            this.chkGeo.TabIndex = 2;
-            this.chkGeo.Text = "IfcGeographicElement";
             this.chkGeo.UseVisualStyleBackColor = true;
             // 
             // rb4
             // 
-            this.rb4.AutoSize = true;
+            resources.ApplyResources(this.rb4, "rb4");
             this.rb4.Checked = true;
-            this.rb4.Location = new System.Drawing.Point(56, 20);
             this.rb4.Name = "rb4";
-            this.rb4.Size = new System.Drawing.Size(61, 17);
-            this.rb4.TabIndex = 1;
             this.rb4.TabStop = true;
-            this.rb4.Text = "4 add 1";
             this.rb4.UseVisualStyleBackColor = true;
+            this.rb4.CheckedChanged += new System.EventHandler(this.rb4_CheckedChanged);
             // 
             // rb2
             // 
-            this.rb2.AutoSize = true;
-            this.rb2.Location = new System.Drawing.Point(7, 20);
+            resources.ApplyResources(this.rb2, "rb2");
             this.rb2.Name = "rb2";
-            this.rb2.Size = new System.Drawing.Size(42, 17);
-            this.rb2.TabIndex = 0;
-            this.rb2.Text = "2x3";
             this.rb2.UseVisualStyleBackColor = true;
+            this.rb2.CheckedChanged += new System.EventHandler(this.rb2_CheckedChanged);
             // 
             // gpType
             // 
-            this.gpType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.gpType, "gpType");
             this.gpType.Controls.Add(this.lblUnit);
             this.gpType.Controls.Add(this.tbDist);
             this.gpType.Controls.Add(this.lblDist);
             this.gpType.Controls.Add(this.rbTFS);
             this.gpType.Controls.Add(this.rbSSM);
             this.gpType.Controls.Add(this.rbGCS);
-            this.gpType.Location = new System.Drawing.Point(379, 115);
             this.gpType.Name = "gpType";
-            this.gpType.Size = new System.Drawing.Size(360, 94);
-            this.gpType.TabIndex = 11;
             this.gpType.TabStop = false;
-            this.gpType.Text = "Shape";
             // 
             // lblUnit
             // 
-            this.lblUnit.AutoSize = true;
-            this.lblUnit.Location = new System.Drawing.Point(297, 26);
+            resources.ApplyResources(this.lblUnit, "lblUnit");
             this.lblUnit.Name = "lblUnit";
-            this.lblUnit.Size = new System.Drawing.Size(15, 13);
-            this.lblUnit.TabIndex = 6;
-            this.lblUnit.Text = "m";
             // 
             // tbDist
             // 
-            this.tbDist.Location = new System.Drawing.Point(226, 19);
+            resources.ApplyResources(this.tbDist, "tbDist");
             this.tbDist.Name = "tbDist";
-            this.tbDist.Size = new System.Drawing.Size(65, 20);
-            this.tbDist.TabIndex = 5;
-            this.tbDist.Text = "1";
-            this.tbDist.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // lblDist
             // 
-            this.lblDist.AutoSize = true;
-            this.lblDist.Location = new System.Drawing.Point(151, 24);
+            resources.ApplyResources(this.lblDist, "lblDist");
             this.lblDist.Name = "lblDist";
-            this.lblDist.Size = new System.Drawing.Size(69, 13);
-            this.lblDist.TabIndex = 4;
-            this.lblDist.Text = "with distance";
             // 
             // rbTFS
             // 
-            this.rbTFS.AutoSize = true;
-            this.rbTFS.Location = new System.Drawing.Point(7, 68);
+            resources.ApplyResources(this.rbTFS, "rbTFS");
             this.rbTFS.Name = "rbTFS";
-            this.rbTFS.Size = new System.Drawing.Size(124, 17);
-            this.rbTFS.TabIndex = 2;
             this.rbTFS.TabStop = true;
-            this.rbTFS.Text = "TriangulatedFaceSet";
             this.rbTFS.UseVisualStyleBackColor = true;
             // 
             // rbSSM
             // 
-            this.rbSSM.AutoSize = true;
-            this.rbSSM.Location = new System.Drawing.Point(7, 44);
+            resources.ApplyResources(this.rbSSM, "rbSSM");
             this.rbSSM.Name = "rbSSM";
-            this.rbSSM.Size = new System.Drawing.Size(144, 17);
-            this.rbSSM.TabIndex = 1;
             this.rbSSM.TabStop = true;
-            this.rbSSM.Text = "ShellBasedSurfaceModel";
             this.rbSSM.UseVisualStyleBackColor = true;
             // 
             // rbGCS
             // 
-            this.rbGCS.AutoSize = true;
+            resources.ApplyResources(this.rbGCS, "rbGCS");
             this.rbGCS.Checked = true;
-            this.rbGCS.Location = new System.Drawing.Point(7, 20);
             this.rbGCS.Name = "rbGCS";
-            this.rbGCS.Size = new System.Drawing.Size(117, 17);
-            this.rbGCS.TabIndex = 0;
             this.rbGCS.TabStop = true;
-            this.rbGCS.Text = "GeometricCurveSet";
             this.rbGCS.UseVisualStyleBackColor = true;
             // 
             // lblName
             // 
-            this.lblName.AutoSize = true;
-            this.lblName.Location = new System.Drawing.Point(383, 238);
+            resources.ApplyResources(this.lblName, "lblName");
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(69, 13);
-            this.lblName.TabIndex = 12;
-            this.lblName.Text = "Project name";
             // 
             // tbName
             // 
-            this.tbName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbName.Location = new System.Drawing.Point(479, 234);
+            resources.ApplyResources(this.tbName, "tbName");
             this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(173, 20);
-            this.tbName.TabIndex = 13;
-            this.tbName.Text = "Terrain";
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(642, 359);
+            resources.ApplyResources(this.btnStart, "btnStart");
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(75, 23);
-            this.btnStart.TabIndex = 14;
-            this.btnStart.Text = "Start";
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // btnSettings
             // 
-            this.btnSettings.Location = new System.Drawing.Point(380, 359);
+            resources.ApplyResources(this.btnSettings, "btnSettings");
             this.btnSettings.Name = "btnSettings";
-            this.btnSettings.Size = new System.Drawing.Size(129, 23);
-            this.btnSettings.TabIndex = 15;
-            this.btnSettings.Text = "User Settings";
             this.btnSettings.UseVisualStyleBackColor = true;
             this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
@@ -524,30 +380,21 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(386, 304);
+            resources.ApplyResources(this.btnSave, "btnSave");
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 16;
-            this.btnSave.Text = "Choose";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(393, 288);
+            resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(116, 13);
-            this.label3.TabIndex = 17;
-            this.label3.Text = "Target IFC-file directory";
             // 
             // tbTarDir
             // 
-            this.tbTarDir.Location = new System.Drawing.Point(467, 307);
+            resources.ApplyResources(this.tbTarDir, "tbTarDir");
             this.tbTarDir.Name = "tbTarDir";
             this.tbTarDir.ReadOnly = true;
-            this.tbTarDir.Size = new System.Drawing.Size(224, 20);
-            this.tbTarDir.TabIndex = 18;
             // 
             // backgroundWorkerIFC
             // 
@@ -557,26 +404,19 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
+            resources.ApplyResources(this.pictureBox1, "pictureBox1");
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(164, 45);
-            this.pictureBox1.TabIndex = 19;
             this.pictureBox1.TabStop = false;
             // 
             // progressBarIFC
             // 
-            this.progressBarIFC.Location = new System.Drawing.Point(533, 359);
+            resources.ApplyResources(this.progressBarIFC, "progressBarIFC");
             this.progressBarIFC.Name = "progressBarIFC";
-            this.progressBarIFC.Size = new System.Drawing.Size(100, 23);
-            this.progressBarIFC.TabIndex = 20;
-            this.progressBarIFC.Visible = false;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(753, 395);
             this.Controls.Add(this.progressBarIFC);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.tbTarDir);
@@ -592,9 +432,7 @@
             this.Controls.Add(this.gpFile);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "IFCTerrain GUI";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.gpFile.ResumeLayout(false);
             this.gpFile.PerformLayout();
@@ -662,5 +500,7 @@
         private System.ComponentModel.BackgroundWorker backgroundWorkerIFC;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ProgressBar progressBarIFC;
+        private System.Windows.Forms.CheckBox chkXML;
+        private System.Windows.Forms.Label label4;
     }
 }

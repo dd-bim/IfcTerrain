@@ -5,7 +5,7 @@ using System.Xml;
 using System.Xml.Linq;
 using BimGisCad.Collections;
 using BimGisCad.Representation.Geometry.Elementary;
-using Serilog;
+//using Serilog;
 
 namespace IFCTerrain.Model.Read
 {
@@ -18,24 +18,11 @@ namespace IFCTerrain.Model.Read
         /// <returns>  </returns>
         public static Result ReadTIN(bool is3d, string fileName, double minDist, string logFilePath, string verbosityLevel)
         {
-            Serilog.Log.Logger = new LoggerConfiguration()
-                               .WriteTo.File(logFilePath)
-                               .CreateLogger();
-            switch (verbosityLevel)
-            {
-                case "Debug":
-                    Serilog.Log.Logger = new LoggerConfiguration()
-                               .MinimumLevel.Debug()
-                               .WriteTo.File(logFilePath)
-                               .CreateLogger();
-                    break;
-                case "Error":
-                    Serilog.Log.Logger = new LoggerConfiguration()
-                               .MinimumLevel.Error()
-                               .WriteTo.File(logFilePath)
-                               .CreateLogger();
-                    break;
-            }
+            //Serilog.Log.Logger = new LoggerConfiguration()
+            //                   .MinimumLevel.Debug()
+            //                   .WriteTo.File(logFilePath)
+            //                   .CreateLogger();
+           
             
             var result = new Result();
             try
@@ -84,26 +71,26 @@ namespace IFCTerrain.Model.Read
                                     if(!tin.Points.Any() || !tin.FaceEdges.Any())
                                     {
                                         result.Error = string.Format(Properties.Resources.errNoTINData, Path.GetFileName(fileName));
-                                        Log.Error("No TIN-data found");
+                                        //Log.Error("No TIN-data found");
                                         return result;
                                     }
                                     result.Mesh = tin;
-                                    Log.Information("Reading GML-data successful");
-                                    Log.Information(tin.Points.Count + " points, " + tin.FixedEdges.Count + " lines and " + tin.FaceEdges.Count +" faces read");
+                                    //Log.Information("Reading GML-data successful");
+                                    //Log.Information(tin.Points.Count + " points, " + tin.FixedEdges.Count + " lines and " + tin.FaceEdges.Count +" faces read");
                                     return result;
                                 }
                             }
                         }
                     }
                     result.Error = string.Format(Properties.Resources.errNoTIN, Path.GetFileName(fileName));
-                    Log.Error("No TIN-data found");
+                    //Log.Error("No TIN-data found");
                     return result;
                 }
             }
             catch
             {
                 result.Error = string.Format(Properties.Resources.errFileNotReadable, Path.GetFileName(fileName));
-                Log.Error("File not readable");
+                //Log.Error("File not readable");
                 return result;
             }
         } //End ReadTIN

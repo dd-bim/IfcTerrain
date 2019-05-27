@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BimGisCad.Collections;
 using BimGisCad.Representation.Geometry.Elementary;
-using Serilog;
+//using Serilog;
 
 namespace IFCTerrain.Model.Read
 {
@@ -141,24 +141,11 @@ namespace IFCTerrain.Model.Read
 
         public static Result ConvertReb(bool is3D, RebDaData rebData, int horizon, double minDist, string logFilePath, string verbosityLevel)
         {
-            Serilog.Log.Logger = new LoggerConfiguration()
-                               .WriteTo.File(logFilePath)
-                               .CreateLogger();
-            switch (verbosityLevel)
-            {
-                case "Debug":
-                    Serilog.Log.Logger = new LoggerConfiguration()
-                               .MinimumLevel.Debug()
-                               .WriteTo.File(logFilePath)
-                               .CreateLogger();
-                    break;
-                case "Error":
-                    Serilog.Log.Logger = new LoggerConfiguration()
-                               .MinimumLevel.Error()
-                               .WriteTo.File(logFilePath)
-                               .CreateLogger();
-                    break;
-            }
+            //Serilog.Log.Logger = new LoggerConfiguration()
+            //                   .MinimumLevel.Debug()
+            //                   .WriteTo.File(logFilePath)
+            //                   .CreateLogger();
+            
             var mesh = new Mesh(is3D, minDist);
             var result = new Result();
             var pmap = new Dictionary<long, int>();
@@ -194,8 +181,8 @@ namespace IFCTerrain.Model.Read
                 }
             }
             result.Mesh = mesh;
-            Log.Information("Reading RebDa-data successful");
-            Log.Information(mesh.Points.Count + " points, " + mesh.FixedEdges.Count + " lines and " + mesh.FaceEdges.Count + " faces read");
+            //Log.Information("Reading RebDa-data successful");
+            //Log.Information(mesh.Points.Count + " points, " + mesh.FixedEdges.Count + " lines and " + mesh.FaceEdges.Count + " faces read");
             return result;
         }
 
