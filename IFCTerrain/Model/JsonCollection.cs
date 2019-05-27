@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace IFCTerrain.Model
 {
-    class JsonCollection
+    public class JsonCollection
     {
-
+        public List<JsonSettings> JsonSettings { get; set; }
     }
 }

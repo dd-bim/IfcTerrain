@@ -9,7 +9,7 @@ using System.Xml.Linq;
 using BimGisCad.Representation.Geometry.Elementary;
 using static IFCTerrain.Model.Common;
 using BimGisCad.Collections;
-using Serilog;
+//using Serilog;
 
 namespace IFCTerrain.Model.Read
 {
@@ -26,24 +26,11 @@ namespace IFCTerrain.Model.Read
         {
             var result = new Result();
 
-            Serilog.Log.Logger = new LoggerConfiguration()
-                               .WriteTo.File(logFilePath)
-                               .CreateLogger();
-            switch (verbosityLevel)
-            {
-                case "Debug":
-                    Serilog.Log.Logger = new LoggerConfiguration()
-                               .MinimumLevel.Debug()
-                               .WriteTo.File(logFilePath)
-                               .CreateLogger();
-                    break;
-                case "Error":
-                    Serilog.Log.Logger = new LoggerConfiguration()
-                               .MinimumLevel.Error()
-                               .WriteTo.File(logFilePath)
-                               .CreateLogger();
-                    break;
-            }
+            //Serilog.Log.Logger = new LoggerConfiguration()
+            //                   .MinimumLevel.Debug()
+            //                   .WriteTo.File(logFilePath)
+            //                   .CreateLogger();
+           
 
             try
             {
@@ -115,11 +102,11 @@ namespace IFCTerrain.Model.Read
                             if(!mesh.Points.Any() || !mesh.FaceEdges.Any())
                             {
                                 result.Error = string.Format(Properties.Resources.errNoTINData, Path.GetFileName(fileName));
-                                Log.Error("No TIN-data found");
+                                //Log.Error("No TIN-data found");
                                 return result;
                             }
-                            Log.Information("Reading LandXML-Data successful");
-                            Log.Information(mesh.Points.Count + " points, " + mesh.FixedEdges.Count + " lines and " + mesh.FaceEdges.Count + " faces read");
+                            //Log.Information("Reading LandXML-Data successful");
+                            //Log.Information(mesh.Points.Count + " points, " + mesh.FixedEdges.Count + " lines and " + mesh.FaceEdges.Count + " faces read");
 
                             result.Mesh = mesh;
                             return result;
@@ -132,11 +119,11 @@ namespace IFCTerrain.Model.Read
             catch
             {
                 result.Error = string.Format(Properties.Resources.errFileNotReadable, Path.GetFileName(fileName));
-                Log.Error("File not readable");
+                //Log.Error("File not readable");
                 return result;
             }
             result.Error = string.Format(Properties.Resources.errNoTIN, Path.GetFileName(fileName));
-            Log.Error("No TIN-data found");
+            //Log.Error("No TIN-data found");
             return result;
         } //End ReadTIN
     }

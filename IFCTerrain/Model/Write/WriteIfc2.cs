@@ -18,7 +18,7 @@ using Xbim.Ifc2x3.ProductExtension;
 using Xbim.Ifc2x3.RepresentationResource;
 using Xbim.Ifc2x3.TopologyResource;
 using Xbim.IO;
-using Serilog;
+//using Serilog;
 
 namespace IFCTerrain.Model.Write
 {
@@ -225,7 +225,7 @@ namespace IFCTerrain.Model.Write
 
             if (mesh.MaxFaceCorners < 3)
             {
-                Log.Error("Creation of IfcShellBasedSurfaceModel unsuccessful. Mesh has no Faces");
+                //Log.Error("Creation of IfcShellBasedSurfaceModel unsuccessful. Mesh has no Faces");
                 throw new Exception("Mesh has no Faces");
             }
             using(var txn = model.BeginTransaction("Create Mesh"))

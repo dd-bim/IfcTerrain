@@ -8,7 +8,7 @@ using BimGisCad.Collections;
 using BimGisCad.Representation.Geometry.Elementary;
 using IxMilia.Dxf;
 using IxMilia.Dxf.Entities;
-using Serilog;
+//using Serilog;
 
 namespace IFCTerrain.Model.Read
 {
@@ -56,26 +56,11 @@ namespace IFCTerrain.Model.Read
             }
             var pp = new Mesh(is3d, minDist);
 
-            Serilog.Log.Logger = new LoggerConfiguration()
-                               .WriteTo.File(logFilePath)
-                               .CreateLogger();
-            switch (verbosityLevel)
-            {
-                case "Debug":
-                    Serilog.Log.Logger = new LoggerConfiguration()
-                               .MinimumLevel.Debug()
-                               .WriteTo.File(logFilePath)
-                               .CreateLogger();
-                    break;
-                case "Error":
-                    Serilog.Log.Logger = new LoggerConfiguration()
-                               .MinimumLevel.Error()
-                               .WriteTo.File(logFilePath)
-                               .CreateLogger();
-                    break;
-            }
-
-
+            //Serilog.Log.Logger = new LoggerConfiguration()
+            //                   .MinimumLevel.Debug()
+            //                   .WriteTo.File(logFilePath)
+            //                   .CreateLogger();
+           
             foreach (var entity in dxfFile.Entities)
             {
                 if(entity.Layer == layer)
@@ -112,12 +97,12 @@ namespace IFCTerrain.Model.Read
             if(!pp.Points.Any() || !pp.FixedEdges.Any())
             {
                 result.Error = Properties.Resources.errNoLineData;
-                Log.Error("Error. No line data found");
+                //Log.Error("Error. No line data found");
                 return result;
             }
             result.Mesh = pp;
-            Log.Information("Reading DXF-data successful");
-            Log.Information(pp.Points.Count + " points, " + pp.FixedEdges.Count + " lines and " + pp.FaceEdges.Count + " faces read");
+            //Log.Information("Reading DXF-data successful");
+            //Log.Information(pp.Points.Count + " points, " + pp.FixedEdges.Count + " lines and " + pp.FaceEdges.Count + " faces read");
             return result;
         }
 
@@ -131,24 +116,11 @@ namespace IFCTerrain.Model.Read
             }
             var tin = new Mesh(is3d, minDist);
 
-            Serilog.Log.Logger = new LoggerConfiguration()
-                               .WriteTo.File(logFilePath)
-                               .CreateLogger();
-            switch (verbosityLevel)
-            {
-                case "Debug":
-                    Serilog.Log.Logger = new LoggerConfiguration()
-                               .MinimumLevel.Debug()
-                               .WriteTo.File(logFilePath)
-                               .CreateLogger();
-                    break;
-                case "Error":
-                    Serilog.Log.Logger = new LoggerConfiguration()
-                               .MinimumLevel.Error()
-                               .WriteTo.File(logFilePath)
-                               .CreateLogger();
-                    break;
-            }
+            //Serilog.Log.Logger = new LoggerConfiguration()
+            //                   .MinimumLevel.Debug()
+            //                   .WriteTo.File(logFilePath)
+            //                   .CreateLogger();
+            
 
             foreach (var entity in dxfFile.Entities)
             {
@@ -170,12 +142,12 @@ namespace IFCTerrain.Model.Read
             if(!tin.Points.Any() || !tin.FaceEdges.Any())
             {
                 result.Error = Properties.Resources.errNoLineData;
-                Log.Error("Error. No line data found");
+                //Log.Error("Error. No line data found");
                 return result;
             }
             result.Mesh = tin;
-            Log.Information("Reading DXF-data successful");
-            Log.Information(tin.Points.Count + " Points, " + tin.FixedEdges.Count + " Lines and " + tin.FaceEdges.Count + " Faces read");
+            //Log.Information("Reading DXF-data successful");
+            //Log.Information(tin.Points.Count + " Points, " + tin.FixedEdges.Count + " Lines and " + tin.FaceEdges.Count + " Faces read");
             return result;
         }
 

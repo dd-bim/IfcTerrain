@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "IFCTerrainBatch": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Users\\possner\\Desktop\\Test\\TerrainTest.json"
+    }
+  }
+}

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserSettings));
             this.label1 = new System.Windows.Forms.Label();
             this.tbOrg = new System.Windows.Forms.TextBox();
             this.tbGiv = new System.Windows.Forms.TextBox();
@@ -43,108 +44,75 @@
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 36);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(97, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Organisation Name";
             // 
             // tbOrg
             // 
-            this.tbOrg.Location = new System.Drawing.Point(115, 33);
+            resources.ApplyResources(this.tbOrg, "tbOrg");
             this.tbOrg.Name = "tbOrg";
-            this.tbOrg.Size = new System.Drawing.Size(149, 20);
-            this.tbOrg.TabIndex = 1;
             this.tbOrg.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // tbGiv
             // 
-            this.tbGiv.Location = new System.Drawing.Point(115, 90);
+            resources.ApplyResources(this.tbGiv, "tbGiv");
             this.tbGiv.Name = "tbGiv";
-            this.tbGiv.Size = new System.Drawing.Size(149, 20);
-            this.tbGiv.TabIndex = 2;
             this.tbGiv.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 93);
+            resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(66, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Given Name";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 149);
+            resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(67, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Family Name";
             // 
             // tbFam
             // 
-            this.tbFam.Location = new System.Drawing.Point(115, 149);
+            resources.ApplyResources(this.tbFam, "tbFam");
             this.tbFam.Name = "tbFam";
-            this.tbFam.Size = new System.Drawing.Size(149, 20);
-            this.tbFam.TabIndex = 5;
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 224);
+            resources.ApplyResources(this.label4, "label4");
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(63, 13);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Path Logfile";
             // 
             // tbLog
             // 
-            this.tbLog.Location = new System.Drawing.Point(115, 268);
+            resources.ApplyResources(this.tbLog, "tbLog");
             this.tbLog.Name = "tbLog";
             this.tbLog.ReadOnly = true;
-            this.tbLog.Size = new System.Drawing.Size(149, 20);
-            this.tbLog.TabIndex = 7;
             // 
             // btLogSet
             // 
-            this.btLogSet.Location = new System.Drawing.Point(12, 266);
+            resources.ApplyResources(this.btLogSet, "btLogSet");
             this.btLogSet.Name = "btLogSet";
-            this.btLogSet.Size = new System.Drawing.Size(75, 23);
-            this.btLogSet.TabIndex = 8;
-            this.btLogSet.Text = "Set";
             this.btLogSet.UseVisualStyleBackColor = true;
             this.btLogSet.Click += new System.EventHandler(this.btLog_Click);
             // 
             // cbLog
             // 
+            resources.ApplyResources(this.cbLog, "cbLog");
             this.cbLog.FormattingEnabled = true;
             this.cbLog.Items.AddRange(new object[] {
-            "Information",
-            "Error",
-            "Debug"});
-            this.cbLog.Location = new System.Drawing.Point(115, 307);
+            resources.GetString("cbLog.Items"),
+            resources.GetString("cbLog.Items1"),
+            resources.GetString("cbLog.Items2")});
             this.cbLog.Name = "cbLog";
-            this.cbLog.Size = new System.Drawing.Size(149, 21);
-            this.cbLog.TabIndex = 9;
             // 
             // btSet
             // 
-            this.btSet.Location = new System.Drawing.Point(189, 378);
+            resources.ApplyResources(this.btSet, "btSet");
             this.btSet.Name = "btSet";
-            this.btSet.Size = new System.Drawing.Size(75, 23);
-            this.btSet.TabIndex = 10;
-            this.btSet.Text = "Accept";
             this.btSet.UseVisualStyleBackColor = true;
             this.btSet.Click += new System.EventHandler(this.btSet_Click);
             // 
             // UserSettings
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(281, 413);
             this.Controls.Add(this.btSet);
             this.Controls.Add(this.cbLog);
             this.Controls.Add(this.btLogSet);
@@ -157,7 +125,6 @@
             this.Controls.Add(this.tbOrg);
             this.Controls.Add(this.label1);
             this.Name = "UserSettings";
-            this.Text = "UserSettings";
             this.ResumeLayout(false);
             this.PerformLayout();
 
