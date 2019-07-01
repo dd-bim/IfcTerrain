@@ -8,7 +8,9 @@ using BimGisCad.Collections;
 using BimGisCad.Representation.Geometry.Elementary;
 using IxMilia.Dxf;
 using IxMilia.Dxf.Entities;
-//using Serilog;
+using NLog;
+using NLog.Config;
+using NLog.Targets;
 
 namespace IFCTerrain.Model.Read
 {
@@ -60,7 +62,8 @@ namespace IFCTerrain.Model.Read
             //                   .MinimumLevel.Debug()
             //                   .WriteTo.File(logFilePath)
             //                   .CreateLogger();
-           
+            var logger = LogManager.GetCurrentClassLogger();
+
             foreach (var entity in dxfFile.Entities)
             {
                 if(entity.Layer == layer)
@@ -97,12 +100,12 @@ namespace IFCTerrain.Model.Read
             if(!pp.Points.Any() || !pp.FixedEdges.Any())
             {
                 result.Error = Properties.Resources.errNoLineData;
-                //Log.Error("Error. No line data found");
+                logger.Error("Error. No line data found");
                 return result;
             }
             result.Mesh = pp;
-            //Log.Information("Reading DXF-data successful");
-            //Log.Information(pp.Points.Count + " points, " + pp.FixedEdges.Count + " lines and " + pp.FaceEdges.Count + " faces read");
+            logger.Info("Reading DXF-data successful");
+            logger.Info(pp.Points.Count + " points, " + pp.FixedEdges.Count + " lines and " + pp.FaceEdges.Count + " faces read");
             return result;
         }
 
@@ -120,7 +123,7 @@ namespace IFCTerrain.Model.Read
             //                   .MinimumLevel.Debug()
             //                   .WriteTo.File(logFilePath)
             //                   .CreateLogger();
-            
+            var logger = LogManager.GetCurrentClassLogger();
 
             foreach (var entity in dxfFile.Entities)
             {
@@ -142,12 +145,12 @@ namespace IFCTerrain.Model.Read
             if(!tin.Points.Any() || !tin.FaceEdges.Any())
             {
                 result.Error = Properties.Resources.errNoLineData;
-                //Log.Error("Error. No line data found");
+                logger.Error("Error. No line data found");
                 return result;
             }
             result.Mesh = tin;
-            //Log.Information("Reading DXF-data successful");
-            //Log.Information(tin.Points.Count + " Points, " + tin.FixedEdges.Count + " Lines and " + tin.FaceEdges.Count + " Faces read");
+            logger.Info("Reading DXF-data successful");
+            logger.Info(tin.Points.Count + " Points, " + tin.FixedEdges.Count + " Lines and " + tin.FaceEdges.Count + " Faces read");
             return result;
         }
 

@@ -124,14 +124,14 @@
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;lbLayer.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tpXML.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;lblName.ZOrder" xml:space="preserve">
-    <value>8</value>
+  <data name="btnProcess.Size" type="System.Drawing.Size, System.Drawing">
+    <value>325, 23</value>
   </data>
   <data name="btnReadReb.Text" xml:space="preserve">
     <value>Read</value>
@@ -149,6 +149,9 @@
   <data name="&gt;&gt;tpREB.Parent" xml:space="preserve">
     <value>tabControl1</value>
   </data>
+  <data name="&gt;&gt;btnSettings.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
   <data name="&gt;&gt;lblLayHor.Name" xml:space="preserve">
     <value>lblLayHor</value>
   </data>
@@ -160,9 +163,6 @@
   </data>
   <data name="tbType.Location" type="System.Drawing.Point, System.Drawing">
     <value>119, 55</value>
-  </data>
-  <data name="&gt;&gt;tbFile.Parent" xml:space="preserve">
-    <value>gpFile</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="rbFaces.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
@@ -177,8 +177,8 @@
   <data name="tpREB.Size" type="System.Drawing.Size, System.Drawing">
     <value>337, 220</value>
   </data>
-  <data name="&gt;&gt;rbIndPoly.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="rb2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="lblFile.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -225,8 +225,14 @@
   <data name="rb2.Size" type="System.Drawing.Size, System.Drawing">
     <value>42, 17</value>
   </data>
+  <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>164, 45</value>
+  </data>
   <data name="&gt;&gt;btnReadXml.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="&gt;&gt;rb4.Parent" xml:space="preserve">
+    <value>gpVersion</value>
   </data>
   <data name="&gt;&gt;tbDist.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -240,14 +246,11 @@
   <data name="&gt;&gt;lblUnit.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="rbIndPoly.Text" xml:space="preserve">
-    <value>Read Points / Lines</value>
-  </data>
   <data name="btnProcessReb.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 194</value>
   </data>
-  <data name="&gt;&gt;tbName.ZOrder" xml:space="preserve">
-    <value>7</value>
+  <data name="&gt;&gt;rbIndPoly.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="tbLayHor.Location" type="System.Drawing.Point, System.Drawing">
     <value>119, 81</value>
@@ -261,9 +264,6 @@
   <data name="&gt;&gt;label4.Parent" xml:space="preserve">
     <value>tpDXF</value>
   </data>
-  <data name="&gt;&gt;label1.Name" xml:space="preserve">
-    <value>label1</value>
-  </data>
   <data name="rb4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -276,17 +276,14 @@
   <data name="btnReadXml.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="rbSSM.Size" type="System.Drawing.Size, System.Drawing">
     <value>144, 17</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
     <value>Export Settings</value>
   </data>
-  <data name="&gt;&gt;tpXML.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="rbIndPoly.Text" xml:space="preserve">
+    <value>Read Points / Lines</value>
   </data>
   <data name="&gt;&gt;btnProcess.Name" xml:space="preserve">
     <value>btnProcess</value>
@@ -296,6 +293,9 @@
   </data>
   <data name="&gt;&gt;chkGeo.Parent" xml:space="preserve">
     <value>gpVersion</value>
+  </data>
+  <data name="&gt;&gt;tbLayHor.Parent" xml:space="preserve">
+    <value>gpFile</value>
   </data>
   <data name="&gt;&gt;rb2.Type" xml:space="preserve">
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -351,6 +351,9 @@
   <data name="&gt;&gt;gpType.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
+  <data name="&gt;&gt;btnReadXml.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;backgroundWorkerDXF.Name" xml:space="preserve">
     <value>backgroundWorkerDXF</value>
   </data>
@@ -363,8 +366,8 @@
   <data name="&gt;&gt;tpDXF.Name" xml:space="preserve">
     <value>tpDXF</value>
   </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 13</value>
+  <data name="&gt;&gt;btnProcessReb.Name" xml:space="preserve">
+    <value>btnProcessReb</value>
   </data>
   <data name="tpDXF.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -450,20 +453,20 @@
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="label1.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
   <data name="&gt;&gt;lblFile.Name" xml:space="preserve">
     <value>lblFile</value>
   </data>
   <data name="&gt;&gt;lblDist.Name" xml:space="preserve">
     <value>lblDist</value>
   </data>
-  <data name="&gt;&gt;chkGeo.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
   <data name="rbGCS.Text" xml:space="preserve">
     <value>GeometricCurveSet</value>
+  </data>
+  <data name="rbFaces.Location" type="System.Drawing.Point, System.Drawing">
+    <value>163, 168</value>
+  </data>
+  <data name="&gt;&gt;chkXML.Parent" xml:space="preserve">
+    <value>gpVersion</value>
   </data>
   <data name="&gt;&gt;tpREB.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -522,8 +525,8 @@
   <data name="rbGCS.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="rb2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="&gt;&gt;tbFile.Name" xml:space="preserve">
+    <value>tbFile</value>
   </data>
   <data name="&gt;&gt;btnSave.ZOrder" xml:space="preserve">
     <value>4</value>
@@ -536,6 +539,9 @@
   </data>
   <data name="&gt;&gt;btnSave.Name" xml:space="preserve">
     <value>btnSave</value>
+  </data>
+  <data name="&gt;&gt;tbFile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="btnProcess.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -596,6 +602,9 @@
   </data>
   <data name="&gt;&gt;btnReadDXF.Name" xml:space="preserve">
     <value>btnReadDXF</value>
+  </data>
+  <data name="&gt;&gt;tpXML.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="btnReadDXF.Size" type="System.Drawing.Size, System.Drawing">
     <value>325, 23</value>
@@ -660,11 +669,14 @@
   <data name="&gt;&gt;lblFile.Parent" xml:space="preserve">
     <value>gpFile</value>
   </data>
-  <data name="rbTFS.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 68</value>
+  <data name="lblHorizon.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
   </data>
   <data name="&gt;&gt;rbTFS.ZOrder" xml:space="preserve">
     <value>3</value>
+  </data>
+  <data name="tpREB.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
   <data name="&gt;&gt;lblUnit.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -696,14 +708,8 @@
   <data name="rbGCS.Size" type="System.Drawing.Size, System.Drawing">
     <value>117, 17</value>
   </data>
-  <data name="&gt;&gt;lblHorizon.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="rb4.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
-  </data>
-  <data name="btnProcess.Text" xml:space="preserve">
-    <value>Process</value>
   </data>
   <data name="&gt;&gt;rb4.ZOrder" xml:space="preserve">
     <value>2</value>
@@ -726,11 +732,8 @@
   <data name="&gt;&gt;tbType.Parent" xml:space="preserve">
     <value>gpFile</value>
   </data>
-  <data name="lbHorizon.Location" type="System.Drawing.Point, System.Drawing">
-    <value>115, 33</value>
-  </data>
-  <data name="&gt;&gt;btnProcessReb.Name" xml:space="preserve">
-    <value>btnProcessReb</value>
+  <data name="btnReadXml.Text" xml:space="preserve">
+    <value>Read TIN file</value>
   </data>
   <data name="&gt;&gt;backgroundWorkerDXF.Type" xml:space="preserve">
     <value>System.ComponentModel.BackgroundWorker, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -801,9 +804,6 @@
         AAAAAAAAAAAAAAAAAAAAAAAA
 </value>
   </data>
-  <data name="&gt;&gt;gpVersion.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="rb2.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 20</value>
   </data>
@@ -831,6 +831,9 @@
   <data name="&gt;&gt;lblType.Parent" xml:space="preserve">
     <value>gpFile</value>
   </data>
+  <data name="&gt;&gt;chkGeo.Name" xml:space="preserve">
+    <value>chkGeo</value>
+  </data>
   <data name="lblType.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 58</value>
   </data>
@@ -851,9 +854,6 @@
   </data>
   <data name="gpType.Location" type="System.Drawing.Point, System.Drawing">
     <value>379, 115</value>
-  </data>
-  <data name="lblLayHor.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="btnReadDXF.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -879,6 +879,9 @@
   <data name="&gt;&gt;pictureBox1.Name" xml:space="preserve">
     <value>pictureBox1</value>
   </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="tbDist.Size" type="System.Drawing.Size, System.Drawing">
     <value>65, 20</value>
   </data>
@@ -887,9 +890,6 @@
   </data>
   <data name="&gt;&gt;lblHorizon.Name" xml:space="preserve">
     <value>lblHorizon</value>
-  </data>
-  <data name="lblDist.Size" type="System.Drawing.Size, System.Drawing">
-    <value>69, 13</value>
   </data>
   <data name="lblName.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -927,8 +927,8 @@
   <data name="&gt;&gt;btnProcess.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tbFile.Name" xml:space="preserve">
-    <value>tbFile</value>
+  <data name="&gt;&gt;tpXML.Parent" xml:space="preserve">
+    <value>tabControl1</value>
   </data>
   <data name="lbHorizon.Size" type="System.Drawing.Size, System.Drawing">
     <value>216, 134</value>
@@ -938,9 +938,6 @@
   </data>
   <data name="btnSave.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
-  </data>
-  <data name="&gt;&gt;label4.Name" xml:space="preserve">
-    <value>label4</value>
   </data>
   <data name="&gt;&gt;btnReadReb.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -956,9 +953,6 @@
   </data>
   <data name="btnReadDXF.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 6</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>IFCTerrain GUI</value>
   </data>
   <data name="tbLayHor.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -986,6 +980,9 @@
   </data>
   <data name="gpFile.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
+  </data>
+  <data name="&gt;&gt;tpDXF.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="progressBarIFC.Size" type="System.Drawing.Size, System.Drawing">
     <value>100, 23</value>
@@ -1020,6 +1017,9 @@
   <data name="rb4.Text" xml:space="preserve">
     <value>4 add 1</value>
   </data>
+  <data name="&gt;&gt;rb2.Name" xml:space="preserve">
+    <value>rb2</value>
+  </data>
   <data name="&gt;&gt;rbSSM.Parent" xml:space="preserve">
     <value>gpType</value>
   </data>
@@ -1053,6 +1053,9 @@
   <data name="&gt;&gt;backgroundWorkerREB.Type" xml:space="preserve">
     <value>System.ComponentModel.BackgroundWorker, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>78, 13</value>
+  </data>
   <data name="&gt;&gt;tbLayHor.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -1065,11 +1068,11 @@
   <data name="&gt;&gt;tbTarDir.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;progressBarIFC.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
   <data name="btnReadXml.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 6</value>
+  </data>
+  <data name="btnProcess.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
   <data name="gpVersion.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -1098,26 +1101,23 @@
   <data name="tbLayHor.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
-  <data name="&gt;&gt;tbFile.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
   </data>
-  <data name="tpREB.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="btnProcess.Text" xml:space="preserve">
+    <value>Process</value>
   </data>
   <data name="tpXML.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
-  <data name="rbFaces.Location" type="System.Drawing.Point, System.Drawing">
-    <value>163, 168</value>
+  <data name="&gt;&gt;lbLayer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="tpREB.Text" xml:space="preserve">
     <value>REB(DA45,DA49,DA58)</value>
   </data>
   <data name="&gt;&gt;rbFaces.ZOrder" xml:space="preserve">
     <value>1</value>
-  </data>
-  <data name="&gt;&gt;tbType.ZOrder" xml:space="preserve">
-    <value>2</value>
   </data>
   <data name="lbLayer.Location" type="System.Drawing.Point, System.Drawing">
     <value>92, 35</value>
@@ -1134,32 +1134,35 @@
   <data name="&gt;&gt;tabControl1.ZOrder" xml:space="preserve">
     <value>11</value>
   </data>
-  <data name="lblHorizon.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+  <data name="&gt;&gt;lblHorizon.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="lblName.Location" type="System.Drawing.Point, System.Drawing">
     <value>383, 238</value>
   </data>
-  <data name="&gt;&gt;chkXML.Parent" xml:space="preserve">
-    <value>gpVersion</value>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="rbIndPoly.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
-  <data name="&gt;&gt;tbDist.Parent" xml:space="preserve">
-    <value>gpType</value>
-  </data>
   <data name="&gt;&gt;lbLayer.Name" xml:space="preserve">
     <value>lbLayer</value>
   </data>
-  <data name="tbDist.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
-    <value>Right</value>
+  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 38</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
   <data name="gpFile.Text" xml:space="preserve">
     <value>Current Terrain</value>
   </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>6, 13</value>
+  </data>
+  <data name="lbHorizon.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
   <data name="&gt;&gt;rbGCS.ZOrder" xml:space="preserve">
     <value>5</value>
@@ -1188,17 +1191,14 @@
   <data name="&gt;&gt;tbTarDir.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="btnProcess.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 191</value>
-  </data>
   <data name="tbType.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
   <data name="&gt;&gt;progressBarIFC.Name" xml:space="preserve">
     <value>progressBarIFC</value>
   </data>
-  <data name="&gt;&gt;rb2.Name" xml:space="preserve">
-    <value>rb2</value>
+  <data name="lblLayHor.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="tpDXF.Text" xml:space="preserve">
     <value>DXF</value>
@@ -1212,8 +1212,8 @@
   <data name="&gt;&gt;btnProcess.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
-  <data name="&gt;&gt;label1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;tbName.ZOrder" xml:space="preserve">
+    <value>7</value>
   </data>
   <data name="lblType.Text" xml:space="preserve">
     <value>File type</value>
@@ -1224,9 +1224,6 @@
   <data name="chkGeo.Location" type="System.Drawing.Point, System.Drawing">
     <value>78, 43</value>
   </data>
-  <data name="tbName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>479, 234</value>
-  </data>
   <data name="chkGeo.Size" type="System.Drawing.Size, System.Drawing">
     <value>131, 17</value>
   </data>
@@ -1236,14 +1233,14 @@
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>753, 501</value>
   </data>
-  <data name="pictureBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 45</value>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
   </data>
   <data name="btnSettings.Text" xml:space="preserve">
     <value>User Settings</value>
   </data>
-  <data name="&gt;&gt;tpDXF.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;chkGeo.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="pictureBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 12</value>
@@ -1260,14 +1257,17 @@
   <data name="lblType.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="&gt;&gt;btnSettings.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>IFCTerrain GUI</value>
   </data>
   <data name="gpType.Text" xml:space="preserve">
     <value>Shape</value>
   </data>
   <data name="rbSSM.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
+  </data>
+  <data name="btnProcessReb.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
   </data>
   <data name="&gt;&gt;btnReadXml.Parent" xml:space="preserve">
     <value>tpXML</value>
@@ -1278,8 +1278,8 @@
   <data name="&gt;&gt;rbGCS.Type" xml:space="preserve">
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tbLayHor.Parent" xml:space="preserve">
-    <value>gpFile</value>
+  <data name="tbDist.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Right</value>
   </data>
   <data name="btnReadReb.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 4</value>
@@ -1299,8 +1299,8 @@
   <data name="lbHorizon.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 38</value>
+  <data name="tbName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>479, 234</value>
   </data>
   <data name="btnSave.Location" type="System.Drawing.Point, System.Drawing">
     <value>386, 304</value>
@@ -1432,8 +1432,8 @@
   <data name="lblHorizon.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="btnProcessReb.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+  <data name="&gt;&gt;tbFile.Parent" xml:space="preserve">
+    <value>gpFile</value>
   </data>
   <data name="tpREB.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
@@ -1444,20 +1444,20 @@
   <data name="&gt;&gt;btnSave.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="rbTFS.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 68</value>
   </data>
   <data name="lblType.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
-  <data name="&gt;&gt;rb4.Parent" xml:space="preserve">
-    <value>gpVersion</value>
+  <data name="&gt;&gt;progressBarIFC.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
-  <data name="&gt;&gt;btnReadXml.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;tbDist.Parent" xml:space="preserve">
+    <value>gpType</value>
   </data>
-  <data name="btnProcess.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="btnProcess.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 191</value>
   </data>
   <data name="&gt;&gt;lblType.Name" xml:space="preserve">
     <value>lblType</value>
@@ -1468,14 +1468,14 @@
   <data name="lblLayHor.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
-  <data name="btnProcess.Size" type="System.Drawing.Size, System.Drawing">
-    <value>325, 23</value>
+  <data name="&gt;&gt;gpVersion.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;chkGeo.Name" xml:space="preserve">
-    <value>chkGeo</value>
+  <data name="&gt;&gt;lblName.ZOrder" xml:space="preserve">
+    <value>8</value>
   </data>
-  <data name="btnReadXml.Text" xml:space="preserve">
-    <value>Read TIN file</value>
+  <data name="&gt;&gt;tbType.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="&gt;&gt;gpVersion.ZOrder" xml:space="preserve">
     <value>10</value>
@@ -1483,14 +1483,14 @@
   <data name="lblName.Size" type="System.Drawing.Size, System.Drawing">
     <value>69, 13</value>
   </data>
-  <data name="lbHorizon.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="lblDist.Size" type="System.Drawing.Size, System.Drawing">
+    <value>69, 13</value>
   </data>
   <data name="&gt;&gt;gpFile.ZOrder" xml:space="preserve">
     <value>12</value>
   </data>
-  <data name="&gt;&gt;tpXML.Parent" xml:space="preserve">
-    <value>tabControl1</value>
+  <data name="lbHorizon.Location" type="System.Drawing.Point, System.Drawing">
+    <value>115, 33</value>
   </data>
   <data name="gpType.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -1499,7 +1499,7 @@
     <value>Process</value>
   </data>
   <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>en</value>
+    <value>de-DE</value>
   </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

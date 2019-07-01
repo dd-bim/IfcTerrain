@@ -26,5 +26,6 @@ namespace IFCTerrain.Model
         public bool geoElement { get; set; }
         public string logFilePath { get; set; }
         public string verbosityLevel { get; set; }
+        public int gridSize { get; set; }
     }
 }

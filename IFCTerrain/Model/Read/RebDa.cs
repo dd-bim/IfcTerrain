@@ -6,7 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using BimGisCad.Collections;
 using BimGisCad.Representation.Geometry.Elementary;
-//using Serilog;
+using NLog;
+using NLog.Config;
+using NLog.Targets;
 
 namespace IFCTerrain.Model.Read
 {
@@ -145,7 +147,8 @@ namespace IFCTerrain.Model.Read
             //                   .MinimumLevel.Debug()
             //                   .WriteTo.File(logFilePath)
             //                   .CreateLogger();
-            
+            var logger = LogManager.GetCurrentClassLogger();
+
             var mesh = new Mesh(is3D, minDist);
             var result = new Result();
             var pmap = new Dictionary<long, int>();
@@ -181,8 +184,8 @@ namespace IFCTerrain.Model.Read
                 }
             }
             result.Mesh = mesh;
-            //Log.Information("Reading RebDa-data successful");
-            //Log.Information(mesh.Points.Count + " points, " + mesh.FixedEdges.Count + " lines and " + mesh.FaceEdges.Count + " faces read");
+            logger.Info("Reading RebDa-data successful");
+            logger.Info(mesh.Points.Count + " points, " + mesh.FixedEdges.Count + " lines and " + mesh.FaceEdges.Count + " faces read");
             return result;
         }
 

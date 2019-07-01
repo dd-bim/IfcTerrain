@@ -147,6 +147,7 @@
     <Compile Include="Model\Common.cs" />
     <Compile Include="Model\Read\CityGml.cs" />
     <Compile Include="Model\Read\DXF.cs" />
+    <Compile Include="Model\Read\ElevationGrid.cs" />
     <Compile Include="Model\Read\ReadInput.cs" />
     <Compile Include="Model\Read\LandXml.cs" />
     <Compile Include="Model\Read\RebDa.cs" />
