@@ -55,6 +55,18 @@ namespace IFCTerrainGUI
         {
 
         }
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void lblType_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
         #endregion
 
         #region Read XML/GML
@@ -264,6 +276,18 @@ namespace IFCTerrainGUI
 
         #endregion
 
+
+    //    if(double.TryParse(this.tbX.Text.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out double x)
+    //                    && double.TryParse(this.tbY.Text.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out double y))
+    //                {
+    //                    double z = 0.0;
+    //                    if(!this.chkZ.Checked && !double.TryParse(this.tbZ.Text.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out z))
+    //                    { z = 0.0; }
+
+    //sitePlacement.Location = Vector3.Create(x, y, z);
+    //                }
+
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             SaveFileDialog sfd = new SaveFileDialog();
@@ -300,6 +324,15 @@ namespace IFCTerrainGUI
             else if (rbSSM.Checked)
             {
                 this.jSettings.surfaceType = "SBSM";
+            }
+
+            this.jSettings.customOrigin = false;
+            if(rbCoCus.Checked)
+            {
+                this.jSettings.customOrigin = true;
+                this.jSettings.xOrigin = Convert.ToDouble(tbCoX.Text);
+                this.jSettings.yOrigin = Convert.ToDouble(tbCoY.Text);
+                this.jSettings.zOrigin = Convert.ToDouble(tbCoZ.Text);
             }
 
             string path = Path.GetDirectoryName(this.jSettings.destFileName);
@@ -414,10 +447,7 @@ namespace IFCTerrainGUI
             progressBarIFC.Value = e.ProgressPercentage;
         }
 
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void rb2_CheckedChanged(object sender, EventArgs e)
         {
@@ -432,6 +462,56 @@ namespace IFCTerrainGUI
             if (rb4.Checked)
             {
                 chkGeo.Visible = true;
+            }
+        }
+
+        private void btnReadGrid_Click(object sender, EventArgs e)
+        {
+            var ofd = new OpenFileDialog
+            {
+                Filter = "Textfile *.txt|*.txt|XYZ *.xyz|*.xyz"
+            };
+            ofd.FilterIndex = Properties.Settings.Default.readTinFilterIndex;
+            ofd.InitialDirectory = Properties.Settings.Default.initialDirectory;
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                Properties.Settings.Default.readTinFilterIndex = ofd.FilterIndex;
+                Properties.Settings.Default.initialDirectory = Path.GetDirectoryName(ofd.FileName);
+                
+                this.jSettings.fileType = "XYZ";
+                tbType.Text = "XYZ";
+                this.jSettings.fileName = ofd.FileName;
+                tbFile.Text = ofd.FileName;
+                int gridSize = Convert.ToInt32(tbGsSet.Text);
+                this.jSettings.gridSize = gridSize;
+                tbGridSize.Text = gridSize.ToString();
+            }
+        }
+
+        
+
+        private void btnGridSize_Click(object sender, EventArgs e)
+        {
+            int gridSize = Convert.ToInt32(tbGsSet.Text);
+            this.jSettings.gridSize = gridSize;
+            tbGridSize.Text = gridSize.ToString();
+        }
+
+        
+
+        private void rbCoCus_CheckedChanged(object sender, EventArgs e)
+        {
+            if(rbCoCus.Checked)
+            {
+                tbCoX.ReadOnly = false;
+                tbCoY.ReadOnly = false;
+                tbCoZ.ReadOnly = false;
+            }
+            else
+            {
+                tbCoX.ReadOnly = true;
+                tbCoY.ReadOnly = true;
+                tbCoZ.ReadOnly = true;
             }
         }
     }

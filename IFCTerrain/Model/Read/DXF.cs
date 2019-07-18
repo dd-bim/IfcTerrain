@@ -138,7 +138,14 @@ namespace IFCTerrain.Model.Read
                         int i1 = tin.AddPoint(p1);
                         int i2 = tin.AddPoint(p2);
                         int i3 = tin.AddPoint(p3);
-                        tin.AddFace(new[] { i1, i2, i3 });
+                        try
+                        {
+                            tin.AddFace(new[] { i1, i2, i3 });
+                        }
+                        catch
+                        {
+                            logger.Error("Redundant Face in Mesh found! Ignored during processings");
+                        }
                     }
                 }
             }

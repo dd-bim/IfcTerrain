@@ -130,9 +130,6 @@
   <data name="label2.Text" xml:space="preserve">
     <value>Exporteinstellungen</value>
   </data>
-  <data name="gpFile.Text" xml:space="preserve">
-    <value>Aktuelles Geländemodell</value>
-  </data>
   <data name="lblLayHor.Size" type="System.Drawing.Size, System.Drawing">
     <value>83, 13</value>
   </data>
@@ -151,8 +148,17 @@
   <data name="lblFile.Text" xml:space="preserve">
     <value>Dateiname</value>
   </data>
+  <data name="gpFile.Text" xml:space="preserve">
+    <value>Aktuelles Geländemodell</value>
+  </data>
+  <data name="btnReadXml.Size" type="System.Drawing.Size, System.Drawing">
+    <value>342, 23</value>
+  </data>
   <data name="btnReadXml.Text" xml:space="preserve">
     <value>Lese TIN-Datei</value>
+  </data>
+  <data name="tpXML.Size" type="System.Drawing.Size, System.Drawing">
+    <value>350, 202</value>
   </data>
   <data name="rbFaces.Size" type="System.Drawing.Size, System.Drawing">
     <value>89, 17</value>
@@ -166,11 +172,23 @@
   <data name="rbIndPoly.Text" xml:space="preserve">
     <value>Lese Punkte / Linien</value>
   </data>
+  <data name="btnReadDXF.Size" type="System.Drawing.Size, System.Drawing">
+    <value>338, 23</value>
+  </data>
   <data name="btnReadDXF.Text" xml:space="preserve">
     <value>Lese DXF-Datei</value>
   </data>
+  <data name="lbLayer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>252, 95</value>
+  </data>
+  <data name="btnProcess.Size" type="System.Drawing.Size, System.Drawing">
+    <value>338, 23</value>
+  </data>
   <data name="btnProcess.Text" xml:space="preserve">
     <value>Verarbeite</value>
+  </data>
+  <data name="tpDXF.Size" type="System.Drawing.Size, System.Drawing">
+    <value>350, 202</value>
   </data>
   <data name="lblHorizon.Size" type="System.Drawing.Size, System.Drawing">
     <value>46, 13</value>
@@ -178,11 +196,66 @@
   <data name="lblHorizon.Text" xml:space="preserve">
     <value>Horizont</value>
   </data>
+  <data name="btnProcessReb.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 176</value>
+  </data>
+  <data name="btnProcessReb.Size" type="System.Drawing.Size, System.Drawing">
+    <value>338, 23</value>
+  </data>
   <data name="btnProcessReb.Text" xml:space="preserve">
     <value>Verarbeite</value>
   </data>
+  <data name="lbHorizon.Size" type="System.Drawing.Size, System.Drawing">
+    <value>229, 108</value>
+  </data>
+  <data name="btnReadReb.Size" type="System.Drawing.Size, System.Drawing">
+    <value>343, 23</value>
+  </data>
   <data name="btnReadReb.Text" xml:space="preserve">
     <value>Lese REB-Datei</value>
+  </data>
+  <data name="tpREB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>350, 202</value>
+  </data>
+  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>142, 62</value>
+  </data>
+  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 62</value>
+  </data>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>76, 13</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>Rasterabstand</value>
+  </data>
+  <data name="btnGridSize.Location" type="System.Drawing.Point, System.Drawing">
+    <value>82, 85</value>
+  </data>
+  <data name="btnGridSize.Text" xml:space="preserve">
+    <value>Akzeptieren</value>
+  </data>
+  <data name="tbGsSet.Location" type="System.Drawing.Point, System.Drawing">
+    <value>97, 59</value>
+  </data>
+  <data name="btnReadGrid.Text" xml:space="preserve">
+    <value>Lese Höhenraster</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="tabPage1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="tabPage1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>350, 202</value>
+  </data>
+  <data name="tabPage1.Text" xml:space="preserve">
+    <value>Raster (XYZ)</value>
+  </data>
+  <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 81</value>
+  </data>
+  <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>358, 246</value>
   </data>
   <data name="lblDist.Size" type="System.Drawing.Size, System.Drawing">
     <value>62, 13</value>

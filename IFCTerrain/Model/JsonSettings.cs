@@ -27,5 +27,9 @@ namespace IFCTerrain.Model
         public string logFilePath { get; set; }
         public string verbosityLevel { get; set; }
         public int gridSize { get; set; }
+        public double xOrigin { get; set; }
+        public double yOrigin { get; set; }
+        public double zOrigin { get; set; }
+        public bool customOrigin { get; set; }
     }
 }

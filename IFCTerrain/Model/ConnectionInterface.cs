@@ -15,6 +15,7 @@ using System.Windows.Forms;
 using NLog;
 using NLog.Targets;
 using NLog.Config;
+using BimGisCad.Representation.Geometry.Elementary;
 
 namespace IFCTerrain.Model
 {
@@ -91,6 +92,11 @@ namespace IFCTerrain.Model
             var writeInput = new WriteInput();
             
             writeInput.Placement = Axis2Placement3D.Standard;
+            if(jSettings.customOrigin)
+            {
+                writeInput.Placement.Location = Vector3.Create(jSettings.xOrigin, jSettings.yOrigin, jSettings.zOrigin);
+            }
+            
             // Placement verschieben?
 
             writeInput.SurfaceType = SurfaceType.TFS;
