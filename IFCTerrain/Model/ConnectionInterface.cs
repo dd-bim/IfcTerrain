@@ -15,6 +15,7 @@ using System.Windows.Forms;
 using NLog;
 using NLog.Targets;
 using NLog.Config;
+using BimGisCad.Representation.Geometry.Elementary;
 
 namespace IFCTerrain.Model
 {
@@ -29,28 +30,9 @@ namespace IFCTerrain.Model
 
         public void mapProcess(JsonSettings jSettings, double? breakDist = null, double? refLatitude = null, double? refLongitude = null, double? refElevation = null)
         {
-            //BinaryWriter bw = new BinaryWriter(File.Create(jSettings.logFilePath));
-            //bw.Dispose();
-
             
-            //create configuration object
-            var config = new LoggingConfiguration();
-            //create target
-            string tp = Path.GetTempPath();
-            //MessageBox.Show(tp);
-            var fileTarget = new FileTarget("target1")
-            {
-                FileName = Path.GetFullPath(Path.Combine(tp, @"${shortdate}_IFCTerrain.log")),
-                Layout = "${longdate} ${level} ${message}  ${exception}"
-            };
-            config.AddTarget(fileTarget);
-            //define rules
-            config.AddRuleForAllLevels(fileTarget);
-            //activate the configuration
-            LogManager.Configuration = config;
-
-            Logger logger = LogManager.GetLogger("Example");
-
+            var logger = LogManager.GetCurrentClassLogger();
+            logger.Info("----------------------------------------------");
             //
             //Read
             //
@@ -63,11 +45,11 @@ namespace IFCTerrain.Model
             switch (jSettings.fileType)
             {
                 case "LandXML":
-                    result = LandXml.ReadTIN(Properties.Settings.Default.is3D, jSettings.fileName, Properties.Settings.Default.minDistance, jSettings.logFilePath, jSettings.verbosityLevel);
+                    result = LandXml.ReadTIN(jSettings.is3D, jSettings.fileName, jSettings.minDist, jSettings.logFilePath, jSettings.verbosityLevel);
                     break;
 
                 case "CityGML":
-                    result = CityGml.ReadTIN(Properties.Settings.Default.is3D, jSettings.fileName, Properties.Settings.Default.minDistance, jSettings.logFilePath, jSettings.verbosityLevel);
+                    result = CityGml.ReadTIN(jSettings.is3D, jSettings.fileName, jSettings.minDist, jSettings.logFilePath, jSettings.verbosityLevel);
                     break;
 
                 case "DXF":
@@ -75,23 +57,33 @@ namespace IFCTerrain.Model
 
                     if (jSettings.isTin)
                     {
-                        result = DXF.ReadDXFTin(Properties.Settings.Default.is3D, this.dxfFile, jSettings.layer, Properties.Settings.Default.minDistance, jSettings.logFilePath, jSettings.verbosityLevel);
+                        result = DXF.ReadDXFTin(jSettings.is3D, this.dxfFile, jSettings.layer, jSettings.minDist, jSettings.logFilePath, jSettings.verbosityLevel);
                     }
                     else
                     {
-                        result = DXF.ReadDXFIndPoly(Properties.Settings.Default.is3D, this.dxfFile, jSettings.layer, Properties.Settings.Default.minDistance, jSettings.logFilePath, jSettings.verbosityLevel);
+                        result = DXF.ReadDXFIndPoly(jSettings.is3D, this.dxfFile, jSettings.layer, jSettings.minDist, jSettings.logFilePath, jSettings.verbosityLevel);
                     }
                     break;
 
                 case "REB":
                     this.rebData = RebDa.ReadREB(fileNames);
 
-                    result = RebDa.ConvertReb(Properties.Settings.Default.is3D, this.rebData, jSettings.horizon, Properties.Settings.Default.minDistance, jSettings.logFilePath, jSettings.verbosityLevel);
+                    result = RebDa.ConvertReb(jSettings.is3D, this.rebData, jSettings.horizon, jSettings.minDist, jSettings.logFilePath, jSettings.verbosityLevel);
+                    break;
+                case "XYZ":
+                    result = ElevationGrid.ReadGrid(jSettings.is3D, jSettings.fileName, jSettings.minDist, jSettings.gridSize);
                     break;
             }
             this.Mesh = result.Mesh;
 
-            logger.Debug("Mesh created with: " + this.Mesh.Points.Count + " Points; " + this.Mesh.FixedEdges + " Lines; " + this.Mesh.FaceEdges + " Faces");
+            try
+            {
+                logger.Debug("Mesh created with: " + this.Mesh.Points.Count + " Points; " + this.Mesh.FixedEdges + " Lines; " + this.Mesh.FaceEdges + " Faces");
+            }
+            catch
+            {
+                logger.Debug("No Faces or Points found");
+            }
 
             //
             //Write
@@ -100,6 +92,19 @@ namespace IFCTerrain.Model
             var writeInput = new WriteInput();
             
             writeInput.Placement = Axis2Placement3D.Standard;
+            if(jSettings.customOrigin)
+            {
+                writeInput.Placement.Location = Vector3.Create(jSettings.xOrigin, jSettings.yOrigin, jSettings.zOrigin);
+            }
+            else
+            {
+                double midX = (this.Mesh.MaxX + this.Mesh.MinX) / 2;
+                double midY = (this.Mesh.MaxY + this.Mesh.MinY) / 2;
+                double midZ = (this.Mesh.MaxZ + this.Mesh.MinZ) / 2;
+
+                writeInput.Placement.Location = Vector3.Create(midX, midY, midZ);
+            }
+            
             // Placement verschieben?
 
             writeInput.SurfaceType = SurfaceType.TFS;
@@ -160,6 +165,7 @@ namespace IFCTerrain.Model
                 WriteIfc4.WriteFile(model, jSettings.destFileName, writeInput.FileType == FileType.XML);
                 logger.Info("IFC file writen: " + jSettings.destFileName);
             }
+            logger.Info("----------------------------------------------");
         }
     }
 }

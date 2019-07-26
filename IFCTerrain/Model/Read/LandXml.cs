@@ -9,7 +9,9 @@ using System.Xml.Linq;
 using BimGisCad.Representation.Geometry.Elementary;
 using static IFCTerrain.Model.Common;
 using BimGisCad.Collections;
-//using Serilog;
+using NLog;
+using NLog.Config;
+using NLog.Targets;
 
 namespace IFCTerrain.Model.Read
 {
@@ -30,7 +32,7 @@ namespace IFCTerrain.Model.Read
             //                   .MinimumLevel.Debug()
             //                   .WriteTo.File(logFilePath)
             //                   .CreateLogger();
-           
+            var logger = LogManager.GetCurrentClassLogger();
 
             try
             {
@@ -102,11 +104,11 @@ namespace IFCTerrain.Model.Read
                             if(!mesh.Points.Any() || !mesh.FaceEdges.Any())
                             {
                                 result.Error = string.Format(Properties.Resources.errNoTINData, Path.GetFileName(fileName));
-                                //Log.Error("No TIN-data found");
+                                logger.Error("No TIN-data found");
                                 return result;
                             }
-                            //Log.Information("Reading LandXML-Data successful");
-                            //Log.Information(mesh.Points.Count + " points, " + mesh.FixedEdges.Count + " lines and " + mesh.FaceEdges.Count + " faces read");
+                            logger.Info("Reading LandXML-Data successful");
+                            logger.Info(mesh.Points.Count + " points, " + mesh.FixedEdges.Count + " lines and " + mesh.FaceEdges.Count + " faces read");
 
                             result.Mesh = mesh;
                             return result;
@@ -119,11 +121,11 @@ namespace IFCTerrain.Model.Read
             catch
             {
                 result.Error = string.Format(Properties.Resources.errFileNotReadable, Path.GetFileName(fileName));
-                //Log.Error("File not readable");
+                logger.Error("File not readable");
                 return result;
             }
             result.Error = string.Format(Properties.Resources.errNoTIN, Path.GetFileName(fileName));
-            //Log.Error("No TIN-data found");
+            logger.Error("No TIN-data found");
             return result;
         } //End ReadTIN
     }

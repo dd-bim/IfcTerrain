@@ -32,6 +32,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.gpFile = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tbGridSize = new System.Windows.Forms.TextBox();
             this.tbLayHor = new System.Windows.Forms.TextBox();
             this.lblLayHor = new System.Windows.Forms.Label();
             this.tbType = new System.Windows.Forms.TextBox();
@@ -53,6 +55,12 @@
             this.btnProcessReb = new System.Windows.Forms.Button();
             this.lbHorizon = new System.Windows.Forms.ListBox();
             this.btnReadReb = new System.Windows.Forms.Button();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btnGridSize = new System.Windows.Forms.Button();
+            this.tbGsSet = new System.Windows.Forms.TextBox();
+            this.btnReadGrid = new System.Windows.Forms.Button();
             this.gpVersion = new System.Windows.Forms.GroupBox();
             this.chkXML = new System.Windows.Forms.CheckBox();
             this.chkGeo = new System.Windows.Forms.CheckBox();
@@ -77,14 +85,25 @@
             this.backgroundWorkerIFC = new System.ComponentModel.BackgroundWorker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.progressBarIFC = new System.Windows.Forms.ProgressBar();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tbCoZ = new System.Windows.Forms.TextBox();
+            this.tbCoY = new System.Windows.Forms.TextBox();
+            this.tbCoX = new System.Windows.Forms.TextBox();
+            this.rbCoCus = new System.Windows.Forms.RadioButton();
+            this.rbCoDef = new System.Windows.Forms.RadioButton();
             this.gpFile.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpXML.SuspendLayout();
             this.tpDXF.SuspendLayout();
             this.tpREB.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.gpVersion.SuspendLayout();
             this.gpType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -101,15 +120,28 @@
             // 
             // gpFile
             // 
-            resources.ApplyResources(this.gpFile, "gpFile");
+            this.gpFile.Controls.Add(this.label5);
+            this.gpFile.Controls.Add(this.tbGridSize);
             this.gpFile.Controls.Add(this.tbLayHor);
             this.gpFile.Controls.Add(this.lblLayHor);
             this.gpFile.Controls.Add(this.tbType);
             this.gpFile.Controls.Add(this.tbFile);
             this.gpFile.Controls.Add(this.lblType);
             this.gpFile.Controls.Add(this.lblFile);
+            resources.ApplyResources(this.gpFile, "gpFile");
             this.gpFile.Name = "gpFile";
             this.gpFile.TabStop = false;
+            // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.Name = "label5";
+            // 
+            // tbGridSize
+            // 
+            resources.ApplyResources(this.tbGridSize, "tbGridSize");
+            this.tbGridSize.Name = "tbGridSize";
+            this.tbGridSize.ReadOnly = true;
             // 
             // tbLayHor
             // 
@@ -138,6 +170,7 @@
             // 
             resources.ApplyResources(this.lblType, "lblType");
             this.lblType.Name = "lblType";
+            this.lblType.Click += new System.EventHandler(this.lblType_Click);
             // 
             // lblFile
             // 
@@ -146,18 +179,19 @@
             // 
             // tabControl1
             // 
-            resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Controls.Add(this.tpXML);
             this.tabControl1.Controls.Add(this.tpDXF);
             this.tabControl1.Controls.Add(this.tpREB);
+            this.tabControl1.Controls.Add(this.tabPage1);
+            resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             // 
             // tpXML
             // 
-            resources.ApplyResources(this.tpXML, "tpXML");
             this.tpXML.Controls.Add(this.btnReadXml);
+            resources.ApplyResources(this.tpXML, "tpXML");
             this.tpXML.Name = "tpXML";
             this.tpXML.UseVisualStyleBackColor = true;
             // 
@@ -170,13 +204,13 @@
             // 
             // tpDXF
             // 
-            resources.ApplyResources(this.tpDXF, "tpDXF");
             this.tpDXF.Controls.Add(this.label4);
             this.tpDXF.Controls.Add(this.rbFaces);
             this.tpDXF.Controls.Add(this.rbIndPoly);
             this.tpDXF.Controls.Add(this.btnReadDXF);
             this.tpDXF.Controls.Add(this.lbLayer);
             this.tpDXF.Controls.Add(this.btnProcess);
+            resources.ApplyResources(this.tpDXF, "tpDXF");
             this.tpDXF.Name = "tpDXF";
             this.tpDXF.UseVisualStyleBackColor = true;
             // 
@@ -223,11 +257,11 @@
             // 
             // tpREB
             // 
-            resources.ApplyResources(this.tpREB, "tpREB");
             this.tpREB.Controls.Add(this.lblHorizon);
             this.tpREB.Controls.Add(this.btnProcessReb);
             this.tpREB.Controls.Add(this.lbHorizon);
             this.tpREB.Controls.Add(this.btnReadReb);
+            resources.ApplyResources(this.tpREB, "tpREB");
             this.tpREB.Name = "tpREB";
             this.tpREB.UseVisualStyleBackColor = true;
             // 
@@ -256,6 +290,46 @@
             this.btnReadReb.Name = "btnReadReb";
             this.btnReadReb.UseVisualStyleBackColor = true;
             this.btnReadReb.Click += new System.EventHandler(this.btnReadReb_Click);
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.label7);
+            this.tabPage1.Controls.Add(this.label6);
+            this.tabPage1.Controls.Add(this.btnGridSize);
+            this.tabPage1.Controls.Add(this.tbGsSet);
+            this.tabPage1.Controls.Add(this.btnReadGrid);
+            resources.ApplyResources(this.tabPage1, "tabPage1");
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.Name = "label7";
+            // 
+            // label6
+            // 
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.Name = "label6";
+            // 
+            // btnGridSize
+            // 
+            resources.ApplyResources(this.btnGridSize, "btnGridSize");
+            this.btnGridSize.Name = "btnGridSize";
+            this.btnGridSize.UseVisualStyleBackColor = true;
+            this.btnGridSize.Click += new System.EventHandler(this.btnGridSize_Click);
+            // 
+            // tbGsSet
+            // 
+            resources.ApplyResources(this.tbGsSet, "tbGsSet");
+            this.tbGsSet.Name = "tbGsSet";
+            // 
+            // btnReadGrid
+            // 
+            resources.ApplyResources(this.btnReadGrid, "btnReadGrid");
+            this.btnReadGrid.Name = "btnReadGrid";
+            this.btnReadGrid.UseVisualStyleBackColor = true;
+            this.btnReadGrid.Click += new System.EventHandler(this.btnReadGrid_Click);
             // 
             // gpVersion
             // 
@@ -413,10 +487,75 @@
             resources.ApplyResources(this.progressBarIFC, "progressBarIFC");
             this.progressBarIFC.Name = "progressBarIFC";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.tbCoZ);
+            this.groupBox1.Controls.Add(this.tbCoY);
+            this.groupBox1.Controls.Add(this.tbCoX);
+            this.groupBox1.Controls.Add(this.rbCoCus);
+            this.groupBox1.Controls.Add(this.rbCoDef);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
+            // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
+            // 
+            // label8
+            // 
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.Name = "label8";
+            this.label8.Click += new System.EventHandler(this.label8_Click);
+            // 
+            // tbCoZ
+            // 
+            resources.ApplyResources(this.tbCoZ, "tbCoZ");
+            this.tbCoZ.Name = "tbCoZ";
+            this.tbCoZ.ReadOnly = true;
+            // 
+            // tbCoY
+            // 
+            resources.ApplyResources(this.tbCoY, "tbCoY");
+            this.tbCoY.Name = "tbCoY";
+            this.tbCoY.ReadOnly = true;
+            // 
+            // tbCoX
+            // 
+            resources.ApplyResources(this.tbCoX, "tbCoX");
+            this.tbCoX.Name = "tbCoX";
+            this.tbCoX.ReadOnly = true;
+            // 
+            // rbCoCus
+            // 
+            resources.ApplyResources(this.rbCoCus, "rbCoCus");
+            this.rbCoCus.Name = "rbCoCus";
+            this.rbCoCus.UseVisualStyleBackColor = true;
+            this.rbCoCus.CheckedChanged += new System.EventHandler(this.rbCoCus_CheckedChanged);
+            // 
+            // rbCoDef
+            // 
+            resources.ApplyResources(this.rbCoDef, "rbCoDef");
+            this.rbCoDef.Checked = true;
+            this.rbCoDef.Name = "rbCoDef";
+            this.rbCoDef.TabStop = true;
+            this.rbCoDef.UseVisualStyleBackColor = true;
+            this.rbCoDef.CheckedChanged += new System.EventHandler(this.rbCoDef_CheckedChanged);
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.progressBarIFC);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.tbTarDir);
@@ -443,11 +582,15 @@
             this.tpDXF.PerformLayout();
             this.tpREB.ResumeLayout(false);
             this.tpREB.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.gpVersion.ResumeLayout(false);
             this.gpVersion.PerformLayout();
             this.gpType.ResumeLayout(false);
             this.gpType.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -502,5 +645,22 @@
         private System.Windows.Forms.ProgressBar progressBarIFC;
         private System.Windows.Forms.CheckBox chkXML;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Button btnReadGrid;
+        private System.Windows.Forms.TextBox tbGridSize;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btnGridSize;
+        private System.Windows.Forms.TextBox tbGsSet;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox tbCoZ;
+        private System.Windows.Forms.TextBox tbCoY;
+        private System.Windows.Forms.TextBox tbCoX;
+        private System.Windows.Forms.RadioButton rbCoCus;
+        private System.Windows.Forms.RadioButton rbCoDef;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
     }
 }

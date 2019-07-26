@@ -259,7 +259,7 @@
             // 
             this.tbY.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbY.Location = new System.Drawing.Point(177, 42);
+            this.tbY.Location = new System.Drawing.Point(177, 43);
             this.tbY.Name = "tbY";
             this.tbY.Size = new System.Drawing.Size(165, 20);
             this.tbY.TabIndex = 8;
