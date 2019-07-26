@@ -514,5 +514,21 @@ namespace IFCTerrainGUI
                 tbCoZ.ReadOnly = true;
             }
         }
+
+        private void rbCoDef_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbCoCus.Checked)
+            {
+                tbCoX.ReadOnly = false;
+                tbCoY.ReadOnly = false;
+                tbCoZ.ReadOnly = false;
+            }
+            else
+            {
+                tbCoX.ReadOnly = true;
+                tbCoY.ReadOnly = true;
+                tbCoZ.ReadOnly = true;
+            }
+        }
     }
 }

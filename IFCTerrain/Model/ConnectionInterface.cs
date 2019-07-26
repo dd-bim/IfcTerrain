@@ -96,6 +96,14 @@ namespace IFCTerrain.Model
             {
                 writeInput.Placement.Location = Vector3.Create(jSettings.xOrigin, jSettings.yOrigin, jSettings.zOrigin);
             }
+            else
+            {
+                double midX = (this.Mesh.MaxX + this.Mesh.MinX) / 2;
+                double midY = (this.Mesh.MaxY + this.Mesh.MinY) / 2;
+                double midZ = (this.Mesh.MaxZ + this.Mesh.MinZ) / 2;
+
+                writeInput.Placement.Location = Vector3.Create(midX, midY, midZ);
+            }
             
             // Placement verschieben?
 

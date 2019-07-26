@@ -22,7 +22,7 @@ namespace IFCTerrain.Model.Read
             List<double> xList = new List<double>();
             List<double> yList = new List<double>();
             List<double> zList = new List<double>();
-            MessageBox.Show(fileName);
+            //MessageBox.Show(fileName);
 
             System.IO.StreamReader file = new System.IO.StreamReader(fileName);
 
@@ -44,7 +44,7 @@ namespace IFCTerrain.Model.Read
                 }
                 counter++;
             }
-            MessageBox.Show(counter.ToString());
+            //MessageBox.Show(counter.ToString());
 
             double xMin = xList.Min();
             double xMax = xList.Max();

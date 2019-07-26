@@ -86,14 +86,14 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.progressBarIFC = new System.Windows.Forms.ProgressBar();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rbCoDef = new System.Windows.Forms.RadioButton();
-            this.rbCoCus = new System.Windows.Forms.RadioButton();
-            this.tbCoX = new System.Windows.Forms.TextBox();
-            this.tbCoY = new System.Windows.Forms.TextBox();
-            this.tbCoZ = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tbCoZ = new System.Windows.Forms.TextBox();
+            this.tbCoY = new System.Windows.Forms.TextBox();
+            this.tbCoX = new System.Windows.Forms.TextBox();
+            this.rbCoCus = new System.Windows.Forms.RadioButton();
+            this.rbCoDef = new System.Windows.Forms.RadioButton();
             this.gpFile.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpXML.SuspendLayout();
@@ -501,13 +501,39 @@
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
-            // rbCoDef
+            // label10
             // 
-            resources.ApplyResources(this.rbCoDef, "rbCoDef");
-            this.rbCoDef.Checked = true;
-            this.rbCoDef.Name = "rbCoDef";
-            this.rbCoDef.TabStop = true;
-            this.rbCoDef.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
+            // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
+            // 
+            // label8
+            // 
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.Name = "label8";
+            this.label8.Click += new System.EventHandler(this.label8_Click);
+            // 
+            // tbCoZ
+            // 
+            resources.ApplyResources(this.tbCoZ, "tbCoZ");
+            this.tbCoZ.Name = "tbCoZ";
+            this.tbCoZ.ReadOnly = true;
+            // 
+            // tbCoY
+            // 
+            resources.ApplyResources(this.tbCoY, "tbCoY");
+            this.tbCoY.Name = "tbCoY";
+            this.tbCoY.ReadOnly = true;
+            // 
+            // tbCoX
+            // 
+            resources.ApplyResources(this.tbCoX, "tbCoX");
+            this.tbCoX.Name = "tbCoX";
+            this.tbCoX.ReadOnly = true;
             // 
             // rbCoCus
             // 
@@ -516,39 +542,14 @@
             this.rbCoCus.UseVisualStyleBackColor = true;
             this.rbCoCus.CheckedChanged += new System.EventHandler(this.rbCoCus_CheckedChanged);
             // 
-            // tbCoX
+            // rbCoDef
             // 
-            resources.ApplyResources(this.tbCoX, "tbCoX");
-            this.tbCoX.Name = "tbCoX";
-            this.tbCoX.ReadOnly = true;
-            // 
-            // tbCoY
-            // 
-            resources.ApplyResources(this.tbCoY, "tbCoY");
-            this.tbCoY.Name = "tbCoY";
-            this.tbCoY.ReadOnly = true;
-            // 
-            // tbCoZ
-            // 
-            resources.ApplyResources(this.tbCoZ, "tbCoZ");
-            this.tbCoZ.Name = "tbCoZ";
-            this.tbCoZ.ReadOnly = true;
-            // 
-            // label8
-            // 
-            resources.ApplyResources(this.label8, "label8");
-            this.label8.Name = "label8";
-            this.label8.Click += new System.EventHandler(this.label8_Click);
-            // 
-            // label9
-            // 
-            resources.ApplyResources(this.label9, "label9");
-            this.label9.Name = "label9";
-            // 
-            // label10
-            // 
-            resources.ApplyResources(this.label10, "label10");
-            this.label10.Name = "label10";
+            resources.ApplyResources(this.rbCoDef, "rbCoDef");
+            this.rbCoDef.Checked = true;
+            this.rbCoDef.Name = "rbCoDef";
+            this.rbCoDef.TabStop = true;
+            this.rbCoDef.UseVisualStyleBackColor = true;
+            this.rbCoDef.CheckedChanged += new System.EventHandler(this.rbCoDef_CheckedChanged);
             // 
             // Form1
             // 
