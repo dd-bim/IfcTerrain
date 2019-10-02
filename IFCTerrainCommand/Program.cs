@@ -22,14 +22,11 @@ namespace IFCTerrainCommand
             double? refLongitude = 0.0;
             double? refElevation = 0.0;
             
-
             var conn = new ConnectionInterface();
             foreach (JsonSettings jSettings in jColl.JsonSettings)
             {
                 conn.mapProcess(jSettings, breakDist, refLatitude, refLongitude, refElevation);
             }
-
         }
-        
     }
 }

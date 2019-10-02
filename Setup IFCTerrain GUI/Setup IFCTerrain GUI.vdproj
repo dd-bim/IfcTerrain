@@ -111,6 +111,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_1799B388CD5945B38198DA1BBD539074"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_193F8050A9F01E8B04CC3BA2C47F399B"
         "OwnerKey" = "8:_F901EAA7C52645A6ABFC09A6745B11F0"
         "MsmSig" = "8:_UNDEFINED"
@@ -1054,12 +1060,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F043EA4466FE8AC9234314DA7DA7751E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_F901EAA7C52645A6ABFC09A6745B11F0"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -1885,6 +1885,12 @@
         "OwnerKey" = "8:_838AC3CD7328B4FDADE7A1987986DD4E"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_F043EA4466FE8AC9234314DA7DA7751E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -2474,6 +2480,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1799B388CD5945B38198DA1BBD539074"
+            {
+            "SourcePath" = "8:..\\IFCTerrainGUI\\app.config"
+            "TargetName" = "8:app.config"
+            "Tag" = "8:"
+            "Folder" = "8:_D315BC0784A842EB8B7AF3CE3372006B"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_193F8050A9F01E8B04CC3BA2C47F399B"
@@ -6459,7 +6485,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Setup IFCTerrain GUI"
         "ProductCode" = "8:{F96B0CCE-3398-4D49-ABEE-79CEDA745EF1}"
-        "PackageCode" = "8:{1D96D277-671B-48CD-9537-56F177594B4F}"
+        "PackageCode" = "8:{95E3FC7B-D3C1-4306-B4AD-4F1BE08754C2}"
         "UpgradeCode" = "8:{E74E7DCF-28B4-457F-8C3E-DD0AA340B818}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
