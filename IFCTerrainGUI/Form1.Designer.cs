@@ -76,7 +76,6 @@
             this.lblName = new System.Windows.Forms.Label();
             this.tbName = new System.Windows.Forms.TextBox();
             this.btnStart = new System.Windows.Forms.Button();
-            this.btnSettings = new System.Windows.Forms.Button();
             this.backgroundWorkerDXF = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorkerREB = new System.ComponentModel.BackgroundWorker();
             this.btnSave = new System.Windows.Forms.Button();
@@ -84,7 +83,6 @@
             this.tbTarDir = new System.Windows.Forms.TextBox();
             this.backgroundWorkerIFC = new System.ComponentModel.BackgroundWorker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.progressBarIFC = new System.Windows.Forms.ProgressBar();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -94,6 +92,8 @@
             this.tbCoX = new System.Windows.Forms.TextBox();
             this.rbCoCus = new System.Windows.Forms.RadioButton();
             this.rbCoDef = new System.Windows.Forms.RadioButton();
+            this.btnSettings = new System.Windows.Forms.Button();
+            this.btn_docu = new System.Windows.Forms.Button();
             this.gpFile.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpXML.SuspendLayout();
@@ -435,13 +435,6 @@
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
-            // btnSettings
-            // 
-            resources.ApplyResources(this.btnSettings, "btnSettings");
-            this.btnSettings.Name = "btnSettings";
-            this.btnSettings.UseVisualStyleBackColor = true;
-            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
-            // 
             // backgroundWorkerDXF
             // 
             this.backgroundWorkerDXF.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerDXF_DoWork_1);
@@ -481,11 +474,6 @@
             resources.ApplyResources(this.pictureBox1, "pictureBox1");
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.TabStop = false;
-            // 
-            // progressBarIFC
-            // 
-            resources.ApplyResources(this.progressBarIFC, "progressBarIFC");
-            this.progressBarIFC.Name = "progressBarIFC";
             // 
             // groupBox1
             // 
@@ -551,12 +539,26 @@
             this.rbCoDef.UseVisualStyleBackColor = true;
             this.rbCoDef.CheckedChanged += new System.EventHandler(this.rbCoDef_CheckedChanged);
             // 
+            // btnSettings
+            // 
+            resources.ApplyResources(this.btnSettings, "btnSettings");
+            this.btnSettings.Name = "btnSettings";
+            this.btnSettings.UseVisualStyleBackColor = true;
+            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+            // 
+            // btn_docu
+            // 
+            resources.ApplyResources(this.btn_docu, "btn_docu");
+            this.btn_docu.Name = "btn_docu";
+            this.btn_docu.UseVisualStyleBackColor = true;
+            this.btn_docu.Click += new System.EventHandler(this.btn_docu_Click);
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btn_docu);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.progressBarIFC);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.tbTarDir);
             this.Controls.Add(this.label3);
@@ -634,7 +636,6 @@
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.TextBox tbName;
         private System.Windows.Forms.Button btnStart;
-        private System.Windows.Forms.Button btnSettings;
         private System.ComponentModel.BackgroundWorker backgroundWorkerDXF;
         private System.ComponentModel.BackgroundWorker backgroundWorkerREB;
         private System.Windows.Forms.Button btnSave;
@@ -642,7 +643,6 @@
         private System.Windows.Forms.TextBox tbTarDir;
         private System.ComponentModel.BackgroundWorker backgroundWorkerIFC;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.ProgressBar progressBarIFC;
         private System.Windows.Forms.CheckBox chkXML;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TabPage tabPage1;
@@ -662,5 +662,7 @@
         private System.Windows.Forms.RadioButton rbCoDef;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button btnSettings;
+        private System.Windows.Forms.Button btn_docu;
     }
 }

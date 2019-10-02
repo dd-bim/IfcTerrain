@@ -70,7 +70,7 @@ namespace IFCTerrain.Model
 
                     result = RebDa.ConvertReb(jSettings.is3D, this.rebData, jSettings.horizon, jSettings.minDist, jSettings.logFilePath, jSettings.verbosityLevel);
                     break;
-                case "XYZ":
+                case "Grid":
                     result = ElevationGrid.ReadGrid(jSettings.is3D, jSettings.fileName, jSettings.minDist, jSettings.gridSize);
                     break;
             }

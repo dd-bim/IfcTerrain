@@ -20,12 +20,14 @@ namespace IFCTerrainGUI
 {
     public partial class Form1 : Form
     {
-        public Mesh Mesh { get; private set; } = null;
-        public ReadInput Input { get; private set; } = new ReadInput();
+        //private Mesh Mesh { get; set; } = null;
+        //private ReadInput Input { get;  set; } = new ReadInput();
         private DxfFile dxfFile = null;
         private RebDaData rebData = null;
-        private JsonSettings jSettings { get; set; } = new JsonSettings();
+        public JsonSettings jSettings { get; set; } = new JsonSettings();
+        
         private string[] fileNames = new string[1];
+        
         
         //Action<string> logText;
         ProgressBar progressBar;
@@ -109,26 +111,26 @@ namespace IFCTerrainGUI
 
         #endregion
 
-        private void setData()
-        {
-            if (this.Mesh != null)
-            {
-                this.tbFile.Text = Path.GetFileName(this.Input.FileNames[0]);
-                this.tbType.Text = this.Input.InputType.ToString();
-                //this.tbExtent.Text = string.Format("dX = {0:f3}   dY = {1:f3}   dZ = {2:f3}",
-                //    this.Mesh.MaxX - this.Mesh.MinX,
-                //    this.Mesh.MaxY - this.Mesh.MinY,
-                //    this.Mesh.MaxZ - this.Mesh.MinZ);
-                //this.tbCount.Text = string.Format(Properties.Resources.msgCount, this.Mesh.Points.Count, this.Mesh.FixedEdges.Count, this.Mesh.FaceEdges.Count);
-            }
-            else
-            {
-                this.tbFile.Text = "";
-                this.tbType.Text = "";
-                this.tbLayHor.Text = "";
-                //this.tbCount.Text = "";
-            }
-        }
+        //private void setData()
+        //{
+        //    if (this.Mesh != null)
+        //    {
+        //        this.tbFile.Text = Path.GetFileName(this.Input.FileNames[0]);
+        //        this.tbType.Text = this.Input.InputType.ToString();
+        //        //this.tbExtent.Text = string.Format("dX = {0:f3}   dY = {1:f3}   dZ = {2:f3}",
+        //        //    this.Mesh.MaxX - this.Mesh.MinX,
+        //        //    this.Mesh.MaxY - this.Mesh.MinY,
+        //        //    this.Mesh.MaxZ - this.Mesh.MinZ);
+        //        //this.tbCount.Text = string.Format(Properties.Resources.msgCount, this.Mesh.Points.Count, this.Mesh.FixedEdges.Count, this.Mesh.FaceEdges.Count);
+        //    }
+        //    else
+        //    {
+        //        this.tbFile.Text = "";
+        //        this.tbType.Text = "";
+        //        this.tbLayHor.Text = "";
+        //        //this.tbCount.Text = "";
+        //    }
+        //}
 
         #region Read DXF
 
@@ -338,59 +340,47 @@ namespace IFCTerrainGUI
             string path = Path.GetDirectoryName(this.jSettings.destFileName);
 
             //Werte aus UserSettings übernehmen bzw. Standardwerte
-            if (System.Configuration.ConfigurationManager.AppSettings["LogFilePath"] == null)
-            {
-                this.jSettings.logFilePath = path + @"\log.txt";            }
-            else
-            {
-                this.jSettings.logFilePath = System.Configuration.ConfigurationManager.AppSettings["LogFilePath"];
-            }
+            //if (System.Configuration.ConfigurationManager.AppSettings["LogFilePath"] == null)
+            //{
+            //    this.jSettings.logFilePath = path + @"\log.txt";            }
+            //else
+            //{
+            //    this.jSettings.logFilePath = System.Configuration.ConfigurationManager.AppSettings["LogFilePath"];
+            //}
             
-            if (System.Configuration.ConfigurationManager.AppSettings["VerbosityLevel"] == null)
-            {
-                this.jSettings.verbosityLevel = "Information";
-            }
-            else
-            {
-                switch (System.Configuration.ConfigurationManager.AppSettings["VerbosityLevel"])
-                {
-                    case "Error":
-                        this.jSettings.verbosityLevel = "Error";
-                        break;
-                    case "Debug":
-                        this.jSettings.verbosityLevel = "Debug";
-                        break;
-                    default:
-                        this.jSettings.verbosityLevel = "Information";
-                        break;
-                }       
-            }
+            //if (System.Configuration.ConfigurationManager.AppSettings["VerbosityLevel"] == null)
+            //{
+            //    this.jSettings.verbosityLevel = "Information";
+            //}
+            //else
+            //{
+            //    switch (System.Configuration.ConfigurationManager.AppSettings["VerbosityLevel"])
+            //    {
+            //        case "Error":
+            //            this.jSettings.verbosityLevel = "Error";
+            //            break;
+            //        case "Debug":
+            //            this.jSettings.verbosityLevel = "Debug";
+            //            break;
+            //        default:
+            //            this.jSettings.verbosityLevel = "Information";
+            //            break;
+            //    }       
+            //}
 
-            if (System.Configuration.ConfigurationManager.AppSettings["Organisation"] == null)
+            if (jSettings.editorsOrganisationName == null)
             {
                 this.jSettings.editorsOrganisationName = "Organisation";
             }
-            else
-            {
-                this.jSettings.editorsOrganisationName = System.Configuration.ConfigurationManager.AppSettings["Organisation"];
-            }
 
-            if (System.Configuration.ConfigurationManager.AppSettings["GivenName"] == null)
+            if (jSettings.editorsGivenName == null)
             {
                 this.jSettings.editorsGivenName = "GivenName";
             }
-            else
-            {
-                this.jSettings.editorsGivenName = System.Configuration.ConfigurationManager.AppSettings["GivenName"];
-            }
 
-            if (System.Configuration.ConfigurationManager.AppSettings["FamilyName"] == null)
+            if (jSettings.editorsFamilyName == null)
             {
                 this.jSettings.editorsFamilyName = "FamilyName";
-            }
-            else
-            {
-                this.jSettings.editorsFamilyName = System.Configuration.ConfigurationManager.AppSettings["FamilyName"];
             }
 
             
@@ -406,7 +396,7 @@ namespace IFCTerrainGUI
             }
             
             MessageBox.Show("Transformation gestartet");
-            progressBarIFC.Visible = true;
+            //progressBarIFC.Visible = true;
             this.Enabled = false;
             this.backgroundWorkerIFC.RunWorkerAsync();
         }
@@ -438,13 +428,13 @@ namespace IFCTerrainGUI
 
         private void btnSettings_Click(object sender, EventArgs e)
         {
-            UserSettings settingsForm = new UserSettings();
+            UserSettings settingsForm = new UserSettings(this);
             settingsForm.Show();
         }
 
         private void backgroundWorkerIFC_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            progressBarIFC.Value = e.ProgressPercentage;
+            //progressBarIFC.Value = e.ProgressPercentage;
         }
 
         
@@ -528,6 +518,21 @@ namespace IFCTerrainGUI
                 tbCoX.ReadOnly = true;
                 tbCoY.ReadOnly = true;
                 tbCoZ.ReadOnly = true;
+            }
+        }
+
+        private void btn_docu_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string mainDirec = Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetParent(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)).FullName).FullName).FullName).FullName;
+                string docuPath = Path.Combine(mainDirec, "Documentation.html");
+                System.Diagnostics.Process.Start(docuPath);
+                //System.Diagnostics.Process.Start(@"Documentation.html");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Dokumentation konnte nicht geöffnet werden:" + ex);
             }
         }
     }

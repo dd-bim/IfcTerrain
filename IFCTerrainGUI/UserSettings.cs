@@ -9,13 +9,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
 using System.IO;
+using IFCTerrain.Model;
 
 namespace IFCTerrainGUI
 {
     public partial class UserSettings : Form
     {
-        public UserSettings()
+        private Form1 mainForm;
+        public UserSettings(Form1 form)
         {
+            this.mainForm = form;
             InitializeComponent();
         }
 
@@ -29,79 +32,15 @@ namespace IFCTerrainGUI
 
         }
 
-        private void btLog_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "Text File | *.txt";
-            if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                tbLog.Text = sfd.FileName;
-            }
-        }
+        
 
         private void btSet_Click(object sender, EventArgs e)
         {
             
-            var configFile = System.Configuration.ConfigurationManager.OpenExeConfiguration(System.Configuration.ConfigurationUserLevel.None);
-            var settings = configFile.AppSettings.Settings;
 
-            string path = tbLog.Text;
-            var key = "LogFilePath";
-            if (settings[key] == null)
-            {
-                settings.Add(key, path);
-            }
-            else
-            {
-                settings[key].Value = path;
-            }
-
-            string orgKey = "Organisation";
-            string orgValue = tbOrg.Text;
-            if (settings[orgKey] == null)
-            {
-                settings.Add(orgKey, orgValue);
-            }
-            else
-            {
-                settings[orgKey].Value = orgValue;
-            }
-
-            string givKey = "GivenName";
-            string givValue = tbGiv.Text;
-            if (settings[givKey] == null)
-            {
-                settings.Add(givKey, givValue);
-            }
-            else
-            {
-                settings[givKey].Value = givValue;
-            }
-
-            string famKey = "FamilyName";
-            string famValue = tbFam.Text;
-            if (settings[famKey] == null)
-            {
-                settings.Add(famKey, famValue);
-            }
-            else
-            {
-                settings[famKey].Value = famValue;
-            }
-
-            string verKey = "VerbosityLevel";
-            string verValue = cbLog.Text;
-            if (settings[verKey] == null)
-            {
-                settings.Add(verKey, verValue);
-            }
-            else
-            {
-                settings[verKey].Value = verValue;
-            }
-
-            configFile.Save(System.Configuration.ConfigurationSaveMode.Modified);
-            System.Configuration.ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
+            mainForm.jSettings.editorsFamilyName = tbFam.Text;
+            mainForm.jSettings.editorsGivenName = tbGiv.Text;
+            mainForm.jSettings.editorsOrganisationName = tbOrg.Text;
 
             this.Close();
         }

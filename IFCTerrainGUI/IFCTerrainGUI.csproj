@@ -48,7 +48,30 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BimGisCad, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <HintPath>..\packages\BimGisCad.1.0.0\lib\netstandard2.0\BimGisCad.dll</HintPath>
+    </Reference>
     <Reference Include="IxMilia.Dxf, Version=0.7.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\IxMilia.Dxf.0.7.2\lib\net45\IxMilia.Dxf.dll</HintPath>
     </Reference>
@@ -124,10 +147,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\bimgiscadlib-master\bimgiscadlib-master\BimGisCad\BimGisCad.csproj">
-      <Project>{6a5c39ed-1d4d-4e31-9b37-3c477dfacbed}</Project>
-      <Name>BimGisCad</Name>
-    </ProjectReference>
     <ProjectReference Include="..\IFCTerrain\IFCTerrain.csproj">
       <Project>{570cb18e-557b-467f-80a3-f53577e59644}</Project>
       <Name>IFCTerrain</Name>
