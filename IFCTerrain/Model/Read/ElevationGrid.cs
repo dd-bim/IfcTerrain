@@ -11,7 +11,7 @@ namespace IFCTerrain.Model.Read
 {
     class ElevationGrid
     {
-        public static Result ReadGrid(bool is3d, string fileName, double minDist, int size)
+        public static Result ReadGrid(bool is3d, string fileName, double minDist, int size, bool bBox, double bbNorth, double bbEast, double bbSouth, double bbWest)
         {
             var result = new Result();
             var mesh = new BimGisCad.Collections.Mesh(is3d, minDist);
@@ -22,14 +22,11 @@ namespace IFCTerrain.Model.Read
             List<double> xList = new List<double>();
             List<double> yList = new List<double>();
             List<double> zList = new List<double>();
-            //MessageBox.Show(fileName);
 
             System.IO.StreamReader file = new System.IO.StreamReader(fileName);
 
             while ((line = file.ReadLine()) != null)
             {
-
-
                 string[] str = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 if (str.Length > 2
                        && double.TryParse(str[0], NumberStyles.Float, CultureInfo.InvariantCulture, out double x)
@@ -39,12 +36,9 @@ namespace IFCTerrain.Model.Read
                     xList.Add(x);
                     yList.Add(y);
                     zList.Add(z);
-                    //Point3 p = Point3.Create(x, y, z);
-                    //mesh.AddPoint(p);
                 }
                 counter++;
             }
-            //MessageBox.Show(counter.ToString());
 
             double xMin = xList.Min();
             double xMax = xList.Max();
@@ -59,7 +53,6 @@ namespace IFCTerrain.Model.Read
 
             #region Fill Grid
 
-
             //Size of the grid
             int xCount = xExtent / size;
             int yCount = yExtent / size;
@@ -70,7 +63,7 @@ namespace IFCTerrain.Model.Read
             {
                 grid.Add(new Dictionary<int, Point3>());
             }
-
+            
             System.IO.StreamReader file2 = new System.IO.StreamReader(fileName);
 
             while ((line = file2.ReadLine()) != null)
@@ -81,11 +74,26 @@ namespace IFCTerrain.Model.Read
                        && double.TryParse(str[1], NumberStyles.Float, CultureInfo.InvariantCulture, out double y)
                        && double.TryParse(str[2], NumberStyles.Float, CultureInfo.InvariantCulture, out double z))
                 {
-                    Point3 p = Point3.Create(x, y, z);
-                    int xGrid = (int)(x - xMin);
-                    int yGrid = (int)(y - yMin);
+                    if(bBox)
+                    {
+                        if (y >= bbSouth && y <= bbNorth && x >= bbWest && x <= bbEast)
+                        {
+                            Point3 p = Point3.Create(x, y, z);
+                            int xGrid = (int)(x - xMin);
+                            int yGrid = (int)(y - yMin);
 
-                    grid[yGrid].Add(xGrid, p);
+                            grid[yGrid].Add(xGrid, p);
+                        }
+                    }
+                    else
+                    {
+                        Point3 p = Point3.Create(x, y, z);
+                        int xGrid = (int)(x - xMin);
+                        int yGrid = (int)(y - yMin);
+
+                        grid[yGrid].Add(xGrid, p);
+                    }
+                    
                 }
             }
             file2.Close();
@@ -120,6 +128,14 @@ namespace IFCTerrain.Model.Read
                             mesh.AddFace(new[] { cp, tr, br });
                         }
 
+                        //Triangle on left Edge of Terrain
+                        if (grid[row].ContainsKey(column - 1) is false && grid[row + 1].ContainsKey(column) && grid[row + 1].ContainsKey(column - 1))
+                        {
+                            Point3 tp = grid[row + 1][column];
+                            Point3 tl = grid[row + 1][column - 1];
+
+                            mesh.AddFace(new[] { cp, tl, tp });
+                        }
                     }
                 }
             }
@@ -127,8 +143,6 @@ namespace IFCTerrain.Model.Read
 
             result.Mesh = mesh;
             return result;
-
-
         }
     }
 }

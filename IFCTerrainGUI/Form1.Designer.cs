@@ -56,6 +56,15 @@
             this.lbHorizon = new System.Windows.Forms.ListBox();
             this.btnReadReb = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.tb_bbSouth = new System.Windows.Forms.TextBox();
+            this.tb_bbWest = new System.Windows.Forms.TextBox();
+            this.tb_bbEast = new System.Windows.Forms.TextBox();
+            this.tb_bbNorth = new System.Windows.Forms.TextBox();
+            this.cb_BBox = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.btnGridSize = new System.Windows.Forms.Button();
@@ -120,6 +129,7 @@
             // 
             // gpFile
             // 
+            resources.ApplyResources(this.gpFile, "gpFile");
             this.gpFile.Controls.Add(this.label5);
             this.gpFile.Controls.Add(this.tbGridSize);
             this.gpFile.Controls.Add(this.tbLayHor);
@@ -128,7 +138,6 @@
             this.gpFile.Controls.Add(this.tbFile);
             this.gpFile.Controls.Add(this.lblType);
             this.gpFile.Controls.Add(this.lblFile);
-            resources.ApplyResources(this.gpFile, "gpFile");
             this.gpFile.Name = "gpFile";
             this.gpFile.TabStop = false;
             // 
@@ -179,19 +188,19 @@
             // 
             // tabControl1
             // 
+            resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Controls.Add(this.tpXML);
             this.tabControl1.Controls.Add(this.tpDXF);
             this.tabControl1.Controls.Add(this.tpREB);
             this.tabControl1.Controls.Add(this.tabPage1);
-            resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             // 
             // tpXML
             // 
-            this.tpXML.Controls.Add(this.btnReadXml);
             resources.ApplyResources(this.tpXML, "tpXML");
+            this.tpXML.Controls.Add(this.btnReadXml);
             this.tpXML.Name = "tpXML";
             this.tpXML.UseVisualStyleBackColor = true;
             // 
@@ -204,13 +213,13 @@
             // 
             // tpDXF
             // 
+            resources.ApplyResources(this.tpDXF, "tpDXF");
             this.tpDXF.Controls.Add(this.label4);
             this.tpDXF.Controls.Add(this.rbFaces);
             this.tpDXF.Controls.Add(this.rbIndPoly);
             this.tpDXF.Controls.Add(this.btnReadDXF);
             this.tpDXF.Controls.Add(this.lbLayer);
             this.tpDXF.Controls.Add(this.btnProcess);
-            resources.ApplyResources(this.tpDXF, "tpDXF");
             this.tpDXF.Name = "tpDXF";
             this.tpDXF.UseVisualStyleBackColor = true;
             // 
@@ -257,11 +266,11 @@
             // 
             // tpREB
             // 
+            resources.ApplyResources(this.tpREB, "tpREB");
             this.tpREB.Controls.Add(this.lblHorizon);
             this.tpREB.Controls.Add(this.btnProcessReb);
             this.tpREB.Controls.Add(this.lbHorizon);
             this.tpREB.Controls.Add(this.btnReadReb);
-            resources.ApplyResources(this.tpREB, "tpREB");
             this.tpREB.Name = "tpREB";
             this.tpREB.UseVisualStyleBackColor = true;
             // 
@@ -293,14 +302,71 @@
             // 
             // tabPage1
             // 
+            resources.ApplyResources(this.tabPage1, "tabPage1");
+            this.tabPage1.Controls.Add(this.label14);
+            this.tabPage1.Controls.Add(this.label13);
+            this.tabPage1.Controls.Add(this.label12);
+            this.tabPage1.Controls.Add(this.label11);
+            this.tabPage1.Controls.Add(this.tb_bbSouth);
+            this.tabPage1.Controls.Add(this.tb_bbWest);
+            this.tabPage1.Controls.Add(this.tb_bbEast);
+            this.tabPage1.Controls.Add(this.tb_bbNorth);
+            this.tabPage1.Controls.Add(this.cb_BBox);
             this.tabPage1.Controls.Add(this.label7);
             this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Controls.Add(this.btnGridSize);
             this.tabPage1.Controls.Add(this.tbGsSet);
             this.tabPage1.Controls.Add(this.btnReadGrid);
-            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label14
+            // 
+            resources.ApplyResources(this.label14, "label14");
+            this.label14.Name = "label14";
+            // 
+            // label13
+            // 
+            resources.ApplyResources(this.label13, "label13");
+            this.label13.Name = "label13";
+            // 
+            // label12
+            // 
+            resources.ApplyResources(this.label12, "label12");
+            this.label12.Name = "label12";
+            this.label12.Click += new System.EventHandler(this.label12_Click);
+            // 
+            // label11
+            // 
+            resources.ApplyResources(this.label11, "label11");
+            this.label11.Name = "label11";
+            // 
+            // tb_bbSouth
+            // 
+            resources.ApplyResources(this.tb_bbSouth, "tb_bbSouth");
+            this.tb_bbSouth.Name = "tb_bbSouth";
+            // 
+            // tb_bbWest
+            // 
+            resources.ApplyResources(this.tb_bbWest, "tb_bbWest");
+            this.tb_bbWest.Name = "tb_bbWest";
+            // 
+            // tb_bbEast
+            // 
+            resources.ApplyResources(this.tb_bbEast, "tb_bbEast");
+            this.tb_bbEast.Name = "tb_bbEast";
+            // 
+            // tb_bbNorth
+            // 
+            resources.ApplyResources(this.tb_bbNorth, "tb_bbNorth");
+            this.tb_bbNorth.Name = "tb_bbNorth";
+            // 
+            // cb_BBox
+            // 
+            resources.ApplyResources(this.cb_BBox, "cb_BBox");
+            this.cb_BBox.Name = "cb_BBox";
+            this.cb_BBox.UseVisualStyleBackColor = true;
+            this.cb_BBox.CheckedChanged += new System.EventHandler(this.cb_BBox_CheckedChanged);
             // 
             // label7
             // 
@@ -311,6 +377,7 @@
             // 
             resources.ApplyResources(this.label6, "label6");
             this.label6.Name = "label6";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // btnGridSize
             // 
@@ -477,6 +544,7 @@
             // 
             // groupBox1
             // 
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.label8);
@@ -485,7 +553,6 @@
             this.groupBox1.Controls.Add(this.tbCoX);
             this.groupBox1.Controls.Add(this.rbCoCus);
             this.groupBox1.Controls.Add(this.rbCoDef);
-            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
@@ -664,5 +731,14 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button btnSettings;
         private System.Windows.Forms.Button btn_docu;
+        private System.Windows.Forms.CheckBox cb_BBox;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox tb_bbSouth;
+        private System.Windows.Forms.TextBox tb_bbWest;
+        private System.Windows.Forms.TextBox tb_bbEast;
+        private System.Windows.Forms.TextBox tb_bbNorth;
+        private System.Windows.Forms.Label label14;
     }
 }

@@ -124,6 +124,9 @@
     <EmbeddedResource Include="Form1.de-DE.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form1.de.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.en.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

@@ -71,7 +71,7 @@ namespace IFCTerrain.Model
                     result = RebDa.ConvertReb(jSettings.is3D, this.rebData, jSettings.horizon, jSettings.minDist, jSettings.logFilePath, jSettings.verbosityLevel);
                     break;
                 case "Grid":
-                    result = ElevationGrid.ReadGrid(jSettings.is3D, jSettings.fileName, jSettings.minDist, jSettings.gridSize);
+                    result = ElevationGrid.ReadGrid(jSettings.is3D, jSettings.fileName, jSettings.minDist, jSettings.gridSize, jSettings.bBox, jSettings.bbNorth, jSettings.bbEast, jSettings.bbSouth, jSettings.bbWest);
                     break;
             }
             this.Mesh = result.Mesh;
@@ -88,6 +88,11 @@ namespace IFCTerrain.Model
             //
             //Write
             //
+
+            if(jSettings.projectName is null)
+            {
+                jSettings.projectName = "Name of project";
+            }
 
             var writeInput = new WriteInput();
             
@@ -115,14 +120,14 @@ namespace IFCTerrain.Model
 
             writeInput.FileType = FileType.Step;
             if (jSettings.outFileType == "XML")
-            {
-                writeInput.FileType = FileType.XML;
-            }
+            { writeInput.FileType = FileType.XML; }
 
             logger.Debug("Writing IFC with:");
             logger.Debug("IFC Version: " + jSettings.outIFCType);
             logger.Debug("Surfacetype: " + jSettings.surfaceType);
             logger.Debug("Filetype: " + jSettings.fileType);
+
+            
 
             if (jSettings.outIFCType == "IFC2x3")
             {

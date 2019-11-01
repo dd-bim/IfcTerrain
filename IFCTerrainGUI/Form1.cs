@@ -468,8 +468,8 @@ namespace IFCTerrainGUI
                 Properties.Settings.Default.readTinFilterIndex = ofd.FilterIndex;
                 Properties.Settings.Default.initialDirectory = Path.GetDirectoryName(ofd.FileName);
                 
-                this.jSettings.fileType = "XYZ";
-                tbType.Text = "XYZ";
+                this.jSettings.fileType = "Grid";
+                tbType.Text = "Grid";
                 this.jSettings.fileName = ofd.FileName;
                 tbFile.Text = ofd.FileName;
                 int gridSize = Convert.ToInt32(tbGsSet.Text);
@@ -483,7 +483,25 @@ namespace IFCTerrainGUI
         private void btnGridSize_Click(object sender, EventArgs e)
         {
             int gridSize = Convert.ToInt32(tbGsSet.Text);
+            
             this.jSettings.gridSize = gridSize;
+            this.jSettings.bBox = cb_BBox.Checked;
+            if(cb_BBox.Checked)
+            {
+                this.jSettings.bbNorth = Convert.ToDouble(tb_bbNorth.Text);
+                this.jSettings.bbEast = Convert.ToDouble(tb_bbEast.Text);
+                this.jSettings.bbWest = Convert.ToDouble(tb_bbWest.Text);
+                this.jSettings.bbSouth = Convert.ToDouble(tb_bbSouth.Text);
+            }
+            else
+            {
+                this.jSettings.bbNorth = 0.0;
+                this.jSettings.bbEast = 0.0;
+                this.jSettings.bbWest = 0.0;
+                this.jSettings.bbSouth = 0.0;
+            }
+            
+
             tbGridSize.Text = gridSize.ToString();
         }
 
@@ -533,6 +551,34 @@ namespace IFCTerrainGUI
             catch(Exception ex)
             {
                 MessageBox.Show("Dokumentation konnte nicht geöffnet werden:" + ex);
+            }
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cb_BBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if(cb_BBox.Checked)
+            {
+                tb_bbNorth.Enabled = true;
+                tb_bbEast.Enabled = true;
+                tb_bbWest.Enabled = true;
+                tb_bbSouth.Enabled = true;
+            }
+            else
+            {
+                tb_bbNorth.Enabled = false;
+                tb_bbEast.Enabled = false;
+                tb_bbWest.Enabled = false;
+                tb_bbSouth.Enabled = false;
             }
         }
     }

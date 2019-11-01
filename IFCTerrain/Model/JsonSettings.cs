@@ -31,5 +31,10 @@ namespace IFCTerrain.Model
         public double yOrigin { get; set; }
         public double zOrigin { get; set; }
         public bool customOrigin { get; set; }
+        public bool bBox { get; set; }
+        public double bbNorth { get; set; }
+        public double bbEast { get; set; }
+        public double bbSouth { get; set; }
+        public double bbWest { get; set; }
     }
 }
