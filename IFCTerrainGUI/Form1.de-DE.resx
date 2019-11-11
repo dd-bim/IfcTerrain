@@ -130,6 +130,15 @@
   <data name="label2.Text" xml:space="preserve">
     <value>Exporteinstellungen</value>
   </data>
+  <data name="gpFile.Text" xml:space="preserve">
+    <value>Aktuelles Geländemodell</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>93, 13</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Rasterabstand [m]</value>
+  </data>
   <data name="lblLayHor.Size" type="System.Drawing.Size, System.Drawing">
     <value>83, 13</value>
   </data>
@@ -148,8 +157,14 @@
   <data name="lblFile.Text" xml:space="preserve">
     <value>Dateiname</value>
   </data>
-  <data name="gpFile.Text" xml:space="preserve">
-    <value>Aktuelles Geländemodell</value>
+  <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 81</value>
+  </data>
+  <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>358, 246</value>
+  </data>
+  <data name="tpXML.Size" type="System.Drawing.Size, System.Drawing">
+    <value>350, 202</value>
   </data>
   <data name="btnReadXml.Size" type="System.Drawing.Size, System.Drawing">
     <value>342, 23</value>
@@ -157,7 +172,7 @@
   <data name="btnReadXml.Text" xml:space="preserve">
     <value>Lese TIN-Datei</value>
   </data>
-  <data name="tpXML.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tpDXF.Size" type="System.Drawing.Size, System.Drawing">
     <value>350, 202</value>
   </data>
   <data name="rbFaces.Size" type="System.Drawing.Size, System.Drawing">
@@ -187,7 +202,7 @@
   <data name="btnProcess.Text" xml:space="preserve">
     <value>Verarbeite</value>
   </data>
-  <data name="tpDXF.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tpREB.Size" type="System.Drawing.Size, System.Drawing">
     <value>350, 202</value>
   </data>
   <data name="lblHorizon.Size" type="System.Drawing.Size, System.Drawing">
@@ -214,33 +229,6 @@
   <data name="btnReadReb.Text" xml:space="preserve">
     <value>Lese REB-Datei</value>
   </data>
-  <data name="tpREB.Size" type="System.Drawing.Size, System.Drawing">
-    <value>350, 202</value>
-  </data>
-  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
-    <value>142, 62</value>
-  </data>
-  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 62</value>
-  </data>
-  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>76, 13</value>
-  </data>
-  <data name="label6.Text" xml:space="preserve">
-    <value>Rasterabstand</value>
-  </data>
-  <data name="btnGridSize.Location" type="System.Drawing.Point, System.Drawing">
-    <value>82, 85</value>
-  </data>
-  <data name="btnGridSize.Text" xml:space="preserve">
-    <value>Akzeptieren</value>
-  </data>
-  <data name="tbGsSet.Location" type="System.Drawing.Point, System.Drawing">
-    <value>97, 59</value>
-  </data>
-  <data name="btnReadGrid.Text" xml:space="preserve">
-    <value>Lese Höhenraster</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="tabPage1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
@@ -251,11 +239,50 @@
   <data name="tabPage1.Text" xml:space="preserve">
     <value>Raster (XYZ)</value>
   </data>
-  <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 81</value>
+  <data name="label14.Size" type="System.Drawing.Size, System.Drawing">
+    <value>26, 13</value>
   </data>
-  <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>358, 246</value>
+  <data name="label14.Text" xml:space="preserve">
+    <value>Süd</value>
+  </data>
+  <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 13</value>
+  </data>
+  <data name="label12.Text" xml:space="preserve">
+    <value>Ost</value>
+  </data>
+  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>30, 13</value>
+  </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>Nord</value>
+  </data>
+  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>130, 42</value>
+  </data>
+  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 42</value>
+  </data>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>76, 13</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>Rasterabstand</value>
+  </data>
+  <data name="btnGridSize.Location" type="System.Drawing.Point, System.Drawing">
+    <value>109, 173</value>
+  </data>
+  <data name="btnGridSize.Size" type="System.Drawing.Size, System.Drawing">
+    <value>79, 23</value>
+  </data>
+  <data name="btnGridSize.Text" xml:space="preserve">
+    <value>Übernehmen</value>
+  </data>
+  <data name="tbGsSet.Location" type="System.Drawing.Point, System.Drawing">
+    <value>85, 39</value>
+  </data>
+  <data name="btnReadGrid.Text" xml:space="preserve">
+    <value>Lese Höhenraster</value>
   </data>
   <data name="lblDist.Size" type="System.Drawing.Size, System.Drawing">
     <value>62, 13</value>
@@ -268,9 +295,6 @@
   </data>
   <data name="lblName.Text" xml:space="preserve">
     <value>Projektname</value>
-  </data>
-  <data name="btnSettings.Text" xml:space="preserve">
-    <value>Nutzereinstellungen</value>
   </data>
   <data name="btnSave.Text" xml:space="preserve">
     <value>Wähle</value>
@@ -401,6 +425,27 @@
         RUiLxcXFpcnAQYNO79u3D3t//vneNhWZbldRpCORkLDzGZ5qJKgoff89+oD9+vU7qTj3msVisfw/oFVn
         v+LLL/sAAAAASUVORK5CYII=
 </value>
+  </data>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Koordinatenursprung</value>
+  </data>
+  <data name="rbCoCus.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 17</value>
+  </data>
+  <data name="rbCoCus.Text" xml:space="preserve">
+    <value>Benutzerdefiniert</value>
+  </data>
+  <data name="rbCoDef.Size" type="System.Drawing.Size, System.Drawing">
+    <value>132, 17</value>
+  </data>
+  <data name="rbCoDef.Text" xml:space="preserve">
+    <value>Standard (Projektmitte)</value>
+  </data>
+  <data name="btnSettings.Text" xml:space="preserve">
+    <value>Nutzereinstellungen</value>
+  </data>
+  <data name="btn_docu.Text" xml:space="preserve">
+    <value>Dokumentation</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
