@@ -70,7 +70,7 @@ http://docs.buildingsmartalliance.org/MVD_SPARKIE/schema/ifcgeometricmodelresour
 
 
 
-![IfcTerrain Main Window](pic/IfcTerrainMainForm.png)
+![IfcTerrain Main Window](pic/IfcTerrainMainForm.PNG)
 
 
 
@@ -92,7 +92,7 @@ In tool is able to import the following data types containing terrain informatio
 
 
 
-![DXF import](pic/DXFimport.png)
+![DXF import](pic/DXFimport.PNG)
 
 
 
@@ -102,7 +102,7 @@ In tool is able to import the following data types containing terrain informatio
 
 
 
-![REB import](pic/REBimport.png)
+![REB import](pic/REBimport.PNG)
 
 
 
@@ -112,7 +112,7 @@ In tool is able to import the following data types containing terrain informatio
 
 
 
-![Grid import](pic/Gridimport.png)
+![Grid import](pic/Gridimport.PNG)
 
 
 ### Export settings
@@ -134,7 +134,7 @@ Within the IFCVersion box, the user can decide:
 - if a regular IFC file in STEP format or IFCXML in XML format (Export IFC Checkbox checked) shall be generated
 
 
-![IfcVersion](pic/IfcVersion.png)
+![IfcVersion](pic/IfcVersion.PNG)
 
 
 #### Export shape and model
@@ -144,7 +144,7 @@ Within the "Shape" box, the user can decide between the different possibilities 
 
 Additionaly the user has the choice to define a minimum distance between points that is allowed in the final mesh of the terrain model. For beginner users this input should be left at its standard value of 1 meter.
 
-![Shape](pic/Shape.png)
+![Shape](pic/Shape.PNG)
 
 
 #### Coordinate Origin
@@ -156,7 +156,7 @@ The "custom" option allows the user to define the project coordinate origin to a
 
 
 
-![Shape](pic/CoordinateOrigin.png)
+![Shape](pic/CoordinateOrigin.PNG)
 
 
 
@@ -168,7 +168,7 @@ As an alternative to the graphical user interface, it is possible to use the IFC
 
 Below are an example for such a json file and a table containing descriptions for every possible attribute.
 
-![JsonSettings](pic/JsonSettings.png)
+![JsonSettings](pic/JsonSettings.PNG)
 
 
 
