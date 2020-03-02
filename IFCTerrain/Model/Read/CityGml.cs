@@ -15,7 +15,7 @@ namespace IFCTerrain.Model.Read
     public static class CityGml
     {
         /// <summary>
-        ///  Liest das erste TIN aus einer LandXML Datei
+        ///  Liest das erste TIN aus einer GML Datei
         /// </summary>
         /// <param name="fileName">  </param>
         /// <returns>  </returns>
