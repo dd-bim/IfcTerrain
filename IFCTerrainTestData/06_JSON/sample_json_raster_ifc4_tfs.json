@@ -1,0 +1,29 @@
+{"JsonSettings":
+    [
+      {
+        "is3D": true,
+        "minDis": 1.0,
+        "fileName": "IFCTerrainTestData\\04_Raster_XYZ\\ElevationGrid.txt",
+        "fileType": "Grid",
+        "layer": null,
+        "horizon": 0,
+        "isTIN": false,
+        "projectName": null,
+        "editorsFamilyName": "Schroeder",
+        "editorsGivenName": "Marcus",
+        "editorsOrganisationName": "HTW Dresden",
+        "destFileName": "IFCTerrainTestData\\07_Export\\json_raster_ifc4_tfs.ifc",
+        "outIFCType": "IFC4",
+        "outFileType": "Step",
+        "surfaceType": "TFS",
+        "geoElement": true,
+        "logFilePath": "IFCTerrainTestData\\08_log_data\\json_raster_ifc4_tfs.txt",
+        "verbosityLevel": "Debug",
+        "gridSize": 1,
+        "xOrigin": 0.0,
+        "yOrigin": 0.0,
+        "zOrigin": 0.0,
+        "customOrigin": true
+      }
+    ]
+}

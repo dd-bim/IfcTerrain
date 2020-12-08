@@ -30,7 +30,7 @@ namespace IFCTerrainGUI
         
         
         //Action<string> logText;
-        ProgressBar progressBar;
+        //ProgressBar progressBar;
 
         #region Empty Labels
         public Form1()

@@ -236,3 +236,12 @@ Furthermore Revit is currently unable to display IfcTriangulatedFaceSet entities
 ### Solibri
 
 Solibri generally imports almost all IFC information correctly, but is currently unable to display IfcGeometricCurveSet entities.
+
+## testing software for developer
+
+The windows-batch programm is a executiv testing software. It reads from the "sample_data folder" the config data ("sample_data/06_Json) and is exporting the results of the test data to the export folder. This folder will be opened automaticly. It creates test IFC-data for:
+- LandXML
+- CityGML
+- ~~DXF~~
+- Raster
+- REB

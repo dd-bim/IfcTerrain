@@ -1,0 +1,29 @@
+{"JsonSettings":
+    [
+      {
+        "is3D":true,
+        "minDis": 1.0,
+        "fileName": "IFCTerrainTestData\\02_CityGML\\tin-example.gml",
+        "fileType": "CityGML",
+        "layer": null,
+        "horizon": 0,
+        "isTIN": false,
+        "projectName": "CityGML Example",
+        "editorsFamilyName": "Schroeder",
+        "editorsGivenName": "Marcus",
+        "editorsOrganisationName": "HTW Dresden",
+        "destFileName": "IFCTerrainTestData\\07_Export\\json_citygml_ifc4_tfs.ifc",
+        "outIFCType": "IFC4",
+        "outFileType": "Step",
+        "surfaceType": "TFS",
+        "geoElement": false,
+        "logFilePath": null,
+        "verbosityLevel": null,
+        "gridSize": 0,
+        "xOrigin": 0.0,
+        "yOrigin": 0.0,
+        "zOrigin": 0.0,
+        "customOrigin": true
+      }
+    ]
+}
