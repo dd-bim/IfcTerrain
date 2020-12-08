@@ -17,7 +17,7 @@
         "outFileType":"Step",
         "surfaceType":"GCS",
         "geoElement": true,
-        "logFilePath":"IFCTerrainTestData\\07_Export\\text.txt",
+        "logFilePath":"IFCTerrainTestData\\08_log_data\\dxf.txt",
         "verbosityLevel":null,
         "gridSize": 0,
         "xOrigin": 0,

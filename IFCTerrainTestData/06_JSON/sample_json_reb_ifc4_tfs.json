@@ -17,7 +17,7 @@
         "outFileType": "Step",
         "surfaceType": "TFS",
         "geoElement": false,
-        "logFilePath": null,
+        "logFilePath": "IFCTerrainTestData\\08_log_data\\json_reb_ifc4_tfs.txt",
         "verbosityLevel": null,
         "gridSize": 0,
         "xOrigin": 0.0,

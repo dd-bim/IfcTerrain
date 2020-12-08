@@ -31,6 +31,8 @@ echo ========================04_RASTER_XYZ=============================
 echo Testdatei fuer Rasterdaten wird erzeugt:
 start "" IFCTerrainCommand\bin\x64\Debug\IFCTerrainCommand.exe "IFCTerrainTestData\06_JSON\sample_json_raster_ifc4_tfs.json"
 echo Raster (TriangulatedFaceSet): IFC4 erzeugt
+start "" IFCTerrainCommand\bin\x64\Debug\IFCTerrainCommand.exe "IFCTerrainTestData\06_JSON\sample_json_raster_ifc4_gcs.json"
+echo Raster (GeometricCurveSet): IFC4 erzeugt
 start "" IFCTerrainCommand\bin\x64\Debug\IFCTerrainCommand.exe "IFCTerrainTestData\06_JSON\sample_json_raster_ifc2x3_tfs.json"
 echo Raster (TriangulatedFaceSet): IFC2x3 erzeugt
 echo ==================================================================
