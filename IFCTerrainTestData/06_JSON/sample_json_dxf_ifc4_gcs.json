@@ -1,0 +1,29 @@
+{"JsonSettings":
+    [
+      {
+        "is3D":true,
+        "minDis":1.0,
+        "fileName":"IFCTerrainTestData\\03_DXF\\BadMuskau2017MT3.dxf",
+        "fileType":"DXF",
+        "layer":"HTW_PUNKTE_GELAENDE",
+        "horizon":0,
+        "isTIN": false,
+        "projectName":"DGM Bad Muskau",
+        "editorsFamilyName":"Schroeder",
+        "editorsGivenName":"Marcus",
+        "editorsOrganisationName":"HTW Dresden",
+        "destFileName":"IFCTerrainTestData\\07_Export\\dxf.ifc",
+        "outIFCType":"IFC4",
+        "outFileType":"Step",
+        "surfaceType":"GCS",
+        "geoElement": true,
+        "logFilePath":"IFCTerrainTestData\\07_Export\\text.txt",
+        "verbosityLevel":null,
+        "gridSize": 0,
+        "xOrigin": 0,
+        "yOrigin": 0,
+        "zOrigin": 0,
+        "customOrigin": true
+      }
+    ]
+}
