@@ -16,7 +16,7 @@
         "outIFCType": "IFC4",
         "outFileType": "Step",
         "surfaceType": "GCS",
-        "geoElement": true,
+        "geoElement": false,
         "logFilePath": "IFCTerrainTestData\\08_log_data\\json_raster_ifc4_gcs.txt",
         "verbosityLevel": "Debug",
         "gridSize": 1,

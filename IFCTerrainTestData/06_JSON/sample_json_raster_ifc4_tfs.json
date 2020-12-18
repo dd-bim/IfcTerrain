@@ -2,7 +2,7 @@
     [
       {
         "is3D": true,
-        "minDis": 1.0,
+        "minDist": 1.0,
         "fileName": "IFCTerrainTestData\\04_Raster_XYZ\\ElevationGrid.txt",
         "fileType": "Grid",
         "layer": null,

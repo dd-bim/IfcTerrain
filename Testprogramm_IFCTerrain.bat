@@ -22,9 +22,9 @@ echo CityGML (TriangulatedFaceSet): IFC4 erzeugt
 echo ==================================================================
 echo.
 echo ========================03_DXF====================================
-echo Testdatei fuer DXF wird NICHT erzeugt!
-start "" IFCTerrainCommand\bin\x64\Debug\IFCTerrainCommand.exe "IFCTerrainTestData\06_JSON\sample_json_dxf_ifc4_gcs.json"
-rem echo DXF (GCS): IFC4 erzeugt
+echo Testdatei fuer DXF wird erzeugt:
+start "" IFCTerrainCommand\bin\x64\Debug\IFCTerrainCommand.exe "IFCTerrainTestData\06_JSON\sample_json_dxf_ifc4_sbsm.json"
+echo DXF (SBSM): IFC4 erzeugt
 echo ==================================================================
 echo.
 echo ========================04_RASTER_XYZ=============================

@@ -2,7 +2,7 @@
     [
       {
         "is3D":true,
-        "minDis": 1.0,
+        "minDist": 1.0,
         "fileName": "IFCTerrainTestData\\05_REB\\002.reb",
         "fileType": "REB",
         "layer": null,

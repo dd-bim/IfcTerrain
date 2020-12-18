@@ -2,7 +2,7 @@
     [
       {
         "is3D":true,
-        "minDis": 1.0,
+        "minDist": 1.0,
         "fileName": "IFCTerrainTestData\\02_CityGML\\tin-example.gml",
         "fileType": "CityGML",
         "layer": null,
