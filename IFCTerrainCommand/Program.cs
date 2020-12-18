@@ -15,6 +15,7 @@ namespace IFCTerrainCommand
             string jPath = args[0];
             string jText = System.IO.File.ReadAllText(jPath);
 
+            
             JsonCollection jColl = JsonConvert.DeserializeObject<JsonCollection>(jText);
 
             double? breakDist = 0.0;

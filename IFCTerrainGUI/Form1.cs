@@ -278,16 +278,105 @@ namespace IFCTerrainGUI
 
         #endregion
 
+        #region Read OUT
+        //GEOgraf OUT files are processed here
+        private string layer_out = null;
+        private void btnReadOut_Click(object sender, EventArgs e)
+        {
+            
+            var ofd = new OpenFileDialog
+            {
+                Filter = "OUT Files *.out|*.out;"
+            };
+            ofd.InitialDirectory = Properties.Settings.Default.initialDirectory;
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                this.jSettings.fileType = "OUT";
+                tbType.Text = "OUT";
+                this.jSettings.fileName = ofd.FileName;
+                tbFile.Text = ofd.FileName;
+            }
 
-    //    if(double.TryParse(this.tbX.Text.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out double x)
-    //                    && double.TryParse(this.tbY.Text.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out double y))
-    //                {
-    //                    double z = 0.0;
-    //                    if(!this.chkZ.Checked && !double.TryParse(this.tbZ.Text.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out z))
-    //                    { z = 0.0; }
+        }
 
-    //sitePlacement.Location = Vector3.Create(x, y, z);
-    //                }
+
+        private void btnProcessOut_Click(object sender, EventArgs e)
+        {
+
+            if (tbOutLayer.Text != "")
+            {
+                //MessageBox.Show("Textfeld ist nicht leer");
+                string input_text_out = tbOutLayer.Text;
+
+                string[] input_layer_out = input_text_out.Split(new[] { ',', '/', ';' }, StringSplitOptions.RemoveEmptyEntries);
+                for (int z = 0; z < input_layer_out.Length; z++)
+                {
+                    try
+                    {
+                        double input_int = Convert.ToInt32(input_layer_out[z]);
+                        layer_out += input_int + "; ";
+                    }
+                    catch
+                    {
+                        //MessageBox.Show("Eingabe ist ungültig. Nur Zahlen! Trennung über; ',' ';' '/' ");
+                        input_layer_out[z] = null;
+                    }
+                }
+                tbLayHor.Text = layer_out;
+                this.jSettings.layer = layer_out;
+                return;
+            }
+            else
+            {
+                tbLayHor.Text = "All Pointtypes will be used.";
+                return;
+            }
+
+        }
+            
+                
+
+            
+        
+
+        
+
+
+
+        
+        
+    private void backgroundWorkerOUT_DoWork(object sender, DoWorkEventArgs e)
+        {
+            e.Result = Out.ReadFile((string)e.Argument) ? (string)e.Argument : "";
+            
+        }
+
+        private void backgroundWorkerOUT_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            
+            
+            this.Enabled = true;
+        }
+
+
+
+
+
+
+
+
+
+        #endregion
+
+        //    if(double.TryParse(this.tbX.Text.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out double x)
+        //                    && double.TryParse(this.tbY.Text.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out double y))
+        //                {
+        //                    double z = 0.0;
+        //                    if(!this.chkZ.Checked && !double.TryParse(this.tbZ.Text.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out z))
+        //                    { z = 0.0; }
+
+        //sitePlacement.Location = Vector3.Create(x, y, z);
+        //                }
 
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -336,6 +425,12 @@ namespace IFCTerrainGUI
                 this.jSettings.yOrigin = Convert.ToDouble(tbCoY.Text);
                 this.jSettings.zOrigin = Convert.ToDouble(tbCoZ.Text);
             }
+
+            if (rb_dgm.Checked)
+            {
+                this.jSettings.isTin = this.rb_dgm.Checked;
+            }
+
 
             string path = Path.GetDirectoryName(this.jSettings.destFileName);
 
@@ -580,6 +675,46 @@ namespace IFCTerrainGUI
                 tb_bbWest.Enabled = false;
                 tb_bbSouth.Enabled = false;
             }
+        }
+
+        private void tpOUT_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label15_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label15_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -91,7 +91,6 @@ namespace IFCTerrain.Model.Read
                                         {
                                             mesh.AddFace(new[] { p1, p2, p3 });
                                         }
-
                                     }
                                     break;
                                 default:
@@ -109,7 +108,6 @@ namespace IFCTerrain.Model.Read
                             }
                             logger.Info("Reading LandXML-Data successful");
                             logger.Info(mesh.Points.Count + " points, " + mesh.FixedEdges.Count + " lines and " + mesh.FaceEdges.Count + " faces read");
-
                             result.Mesh = mesh;
                             return result;
                         }

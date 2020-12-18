@@ -53,15 +53,15 @@ namespace IFCTerrain.Model
                     break;
 
                 case "DXF":
-                    DXF.ReadFile(jSettings.fileName, out this.dxfFile);
+                    DXF.ReadFile(jSettings.fileName, out dxfFile);
 
                     if (jSettings.isTin)
                     {
-                        result = DXF.ReadDXFTin(jSettings.is3D, this.dxfFile, jSettings.layer, jSettings.minDist, jSettings.logFilePath, jSettings.verbosityLevel);
+                        result = DXF.ReadDXFTin(jSettings.is3D, dxfFile, jSettings.layer, jSettings.minDist, jSettings.logFilePath, jSettings.verbosityLevel);
                     }
                     else
                     {
-                        result = DXF.ReadDXFIndPoly(jSettings.is3D, this.dxfFile, jSettings.layer, jSettings.minDist, jSettings.logFilePath, jSettings.verbosityLevel);
+                        result = DXF.ReadDXFIndPoly(jSettings.is3D, dxfFile, jSettings.layer, jSettings.minDist, jSettings.logFilePath, jSettings.verbosityLevel);
                     }
                     break;
 
@@ -72,6 +72,16 @@ namespace IFCTerrain.Model
                     break;
                 case "Grid":
                     result = ElevationGrid.ReadGrid(jSettings.is3D, jSettings.fileName, jSettings.minDist, jSettings.gridSize, jSettings.bBox, jSettings.bbNorth, jSettings.bbEast, jSettings.bbSouth, jSettings.bbWest);
+                    break;
+                case "OUT":
+                    if (jSettings.isTin)
+                    {
+                        result = Out.ReadOUTTin(jSettings.is3D, jSettings.fileName, jSettings.layer, jSettings.minDist, jSettings.logFilePath);
+                    }
+                    else
+                    {
+                        result = Out.ReadOUT_Points_Lines(jSettings.is3D, jSettings.fileName, jSettings.layer, jSettings.minDist, jSettings.logFilePath);
+                    }
                     break;
             }
             this.Mesh = result.Mesh;

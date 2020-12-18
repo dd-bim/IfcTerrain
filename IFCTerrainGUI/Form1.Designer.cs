@@ -1,4 +1,6 @@
-﻿namespace IFCTerrainGUI
+﻿using System.ComponentModel;
+
+namespace IFCTerrainGUI
 {
     partial class Form1
     {
@@ -70,6 +72,13 @@
             this.btnGridSize = new System.Windows.Forms.Button();
             this.tbGsSet = new System.Windows.Forms.TextBox();
             this.btnReadGrid = new System.Windows.Forms.Button();
+            this.tpOUT = new System.Windows.Forms.TabPage();
+            this.tbOutLayer = new System.Windows.Forms.TextBox();
+            this.rb_dgm = new System.Windows.Forms.RadioButton();
+            this.rb_p_ln = new System.Windows.Forms.RadioButton();
+            this.btnProcessOut = new System.Windows.Forms.Button();
+            this.lbOUT = new System.Windows.Forms.Label();
+            this.btnReadOUT = new System.Windows.Forms.Button();
             this.gpVersion = new System.Windows.Forms.GroupBox();
             this.chkXML = new System.Windows.Forms.CheckBox();
             this.chkGeo = new System.Windows.Forms.CheckBox();
@@ -87,6 +96,7 @@
             this.btnStart = new System.Windows.Forms.Button();
             this.backgroundWorkerDXF = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorkerREB = new System.ComponentModel.BackgroundWorker();
+            this.backgroundWorkerOUT = new System.ComponentModel.BackgroundWorker();
             this.btnSave = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.tbTarDir = new System.Windows.Forms.TextBox();
@@ -109,6 +119,7 @@
             this.tpDXF.SuspendLayout();
             this.tpREB.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tpOUT.SuspendLayout();
             this.gpVersion.SuspendLayout();
             this.gpType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -129,7 +140,6 @@
             // 
             // gpFile
             // 
-            resources.ApplyResources(this.gpFile, "gpFile");
             this.gpFile.Controls.Add(this.label5);
             this.gpFile.Controls.Add(this.tbGridSize);
             this.gpFile.Controls.Add(this.tbLayHor);
@@ -138,6 +148,7 @@
             this.gpFile.Controls.Add(this.tbFile);
             this.gpFile.Controls.Add(this.lblType);
             this.gpFile.Controls.Add(this.lblFile);
+            resources.ApplyResources(this.gpFile, "gpFile");
             this.gpFile.Name = "gpFile";
             this.gpFile.TabStop = false;
             // 
@@ -188,19 +199,20 @@
             // 
             // tabControl1
             // 
-            resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Controls.Add(this.tpXML);
             this.tabControl1.Controls.Add(this.tpDXF);
             this.tabControl1.Controls.Add(this.tpREB);
             this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tpOUT);
+            resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             // 
             // tpXML
             // 
-            resources.ApplyResources(this.tpXML, "tpXML");
             this.tpXML.Controls.Add(this.btnReadXml);
+            resources.ApplyResources(this.tpXML, "tpXML");
             this.tpXML.Name = "tpXML";
             this.tpXML.UseVisualStyleBackColor = true;
             // 
@@ -213,13 +225,13 @@
             // 
             // tpDXF
             // 
-            resources.ApplyResources(this.tpDXF, "tpDXF");
             this.tpDXF.Controls.Add(this.label4);
             this.tpDXF.Controls.Add(this.rbFaces);
             this.tpDXF.Controls.Add(this.rbIndPoly);
             this.tpDXF.Controls.Add(this.btnReadDXF);
             this.tpDXF.Controls.Add(this.lbLayer);
             this.tpDXF.Controls.Add(this.btnProcess);
+            resources.ApplyResources(this.tpDXF, "tpDXF");
             this.tpDXF.Name = "tpDXF";
             this.tpDXF.UseVisualStyleBackColor = true;
             // 
@@ -266,11 +278,11 @@
             // 
             // tpREB
             // 
-            resources.ApplyResources(this.tpREB, "tpREB");
             this.tpREB.Controls.Add(this.lblHorizon);
             this.tpREB.Controls.Add(this.btnProcessReb);
             this.tpREB.Controls.Add(this.lbHorizon);
             this.tpREB.Controls.Add(this.btnReadReb);
+            resources.ApplyResources(this.tpREB, "tpREB");
             this.tpREB.Name = "tpREB";
             this.tpREB.UseVisualStyleBackColor = true;
             // 
@@ -302,7 +314,6 @@
             // 
             // tabPage1
             // 
-            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Controls.Add(this.label14);
             this.tabPage1.Controls.Add(this.label13);
             this.tabPage1.Controls.Add(this.label12);
@@ -317,6 +328,7 @@
             this.tabPage1.Controls.Add(this.btnGridSize);
             this.tabPage1.Controls.Add(this.tbGsSet);
             this.tabPage1.Controls.Add(this.btnReadGrid);
+            resources.ApplyResources(this.tabPage1, "tabPage1");
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
@@ -397,6 +409,60 @@
             this.btnReadGrid.Name = "btnReadGrid";
             this.btnReadGrid.UseVisualStyleBackColor = true;
             this.btnReadGrid.Click += new System.EventHandler(this.btnReadGrid_Click);
+            // 
+            // tpOUT
+            // 
+            this.tpOUT.Controls.Add(this.tbOutLayer);
+            this.tpOUT.Controls.Add(this.rb_dgm);
+            this.tpOUT.Controls.Add(this.rb_p_ln);
+            this.tpOUT.Controls.Add(this.btnProcessOut);
+            this.tpOUT.Controls.Add(this.lbOUT);
+            this.tpOUT.Controls.Add(this.btnReadOUT);
+            resources.ApplyResources(this.tpOUT, "tpOUT");
+            this.tpOUT.Name = "tpOUT";
+            this.tpOUT.UseVisualStyleBackColor = true;
+            this.tpOUT.Click += new System.EventHandler(this.tpOUT_Click);
+            // 
+            // tbOutLayer
+            // 
+            resources.ApplyResources(this.tbOutLayer, "tbOutLayer");
+            this.tbOutLayer.Name = "tbOutLayer";
+            this.tbOutLayer.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
+            // 
+            // rb_dgm
+            // 
+            resources.ApplyResources(this.rb_dgm, "rb_dgm");
+            this.rb_dgm.Name = "rb_dgm";
+            this.rb_dgm.UseVisualStyleBackColor = true;
+            this.rb_dgm.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
+            // 
+            // rb_p_ln
+            // 
+            resources.ApplyResources(this.rb_p_ln, "rb_p_ln");
+            this.rb_p_ln.Checked = true;
+            this.rb_p_ln.Name = "rb_p_ln";
+            this.rb_p_ln.TabStop = true;
+            this.rb_p_ln.UseVisualStyleBackColor = true;
+            // 
+            // btnProcessOut
+            // 
+            resources.ApplyResources(this.btnProcessOut, "btnProcessOut");
+            this.btnProcessOut.Name = "btnProcessOut";
+            this.btnProcessOut.UseVisualStyleBackColor = true;
+            this.btnProcessOut.Click += new System.EventHandler(this.btnProcessOut_Click);
+            // 
+            // lbOUT
+            // 
+            resources.ApplyResources(this.lbOUT, "lbOUT");
+            this.lbOUT.Name = "lbOUT";
+            this.lbOUT.Click += new System.EventHandler(this.label15_Click_1);
+            // 
+            // btnReadOUT
+            // 
+            resources.ApplyResources(this.btnReadOUT, "btnReadOUT");
+            this.btnReadOUT.Name = "btnReadOUT";
+            this.btnReadOUT.UseVisualStyleBackColor = true;
+            this.btnReadOUT.Click += new System.EventHandler(this.btnReadOut_Click);
             // 
             // gpVersion
             // 
@@ -512,6 +578,11 @@
             this.backgroundWorkerREB.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerREB_DoWork);
             this.backgroundWorkerREB.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerREB_RunWorkerCompleted);
             // 
+            // backgroundWorkerOUT
+            // 
+            this.backgroundWorkerOUT.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerOUT_DoWork);
+            this.backgroundWorkerOUT.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerOUT_RunWorkerCompleted);
+            // 
             // btnSave
             // 
             resources.ApplyResources(this.btnSave, "btnSave");
@@ -544,7 +615,6 @@
             // 
             // groupBox1
             // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.label8);
@@ -553,6 +623,7 @@
             this.groupBox1.Controls.Add(this.tbCoX);
             this.groupBox1.Controls.Add(this.rbCoCus);
             this.groupBox1.Controls.Add(this.rbCoDef);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
@@ -653,6 +724,8 @@
             this.tpREB.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.tpOUT.ResumeLayout(false);
+            this.tpOUT.PerformLayout();
             this.gpVersion.ResumeLayout(false);
             this.gpVersion.PerformLayout();
             this.gpType.ResumeLayout(false);
@@ -705,6 +778,7 @@
         private System.Windows.Forms.Button btnStart;
         private System.ComponentModel.BackgroundWorker backgroundWorkerDXF;
         private System.ComponentModel.BackgroundWorker backgroundWorkerREB;
+        private BackgroundWorker backgroundWorkerOUT;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tbTarDir;
@@ -740,5 +814,12 @@
         private System.Windows.Forms.TextBox tb_bbEast;
         private System.Windows.Forms.TextBox tb_bbNorth;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TabPage tpOUT;
+        private System.Windows.Forms.Button btnReadOUT;
+        private System.Windows.Forms.Label lbOUT;
+        private System.Windows.Forms.RadioButton rb_dgm;
+        private System.Windows.Forms.RadioButton rb_p_ln;
+        private System.Windows.Forms.Button btnProcessOut;
+        private System.Windows.Forms.TextBox tbOutLayer;
     }
 }

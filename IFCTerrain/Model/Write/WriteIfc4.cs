@@ -71,8 +71,8 @@ namespace IFCTerrain.Model.Write
                 EditorsGivenName = editorsGivenName,
                 EditorsOrganisationName = editorsOrganisationName
             };
-
-            var model = IfcStore.Create(credentials, IfcSchemaVersion.Ifc4, XbimStoreType.EsentDatabase);
+            
+            var model = IfcStore.Create(credentials, XbimSchemaVersion.Ifc4, XbimStoreType.EsentDatabase);
 
             //Begin a transaction as all changes to a model are ACID
             using(var txn = model.BeginTransaction("Initialise Model"))
@@ -469,9 +469,9 @@ namespace IFCTerrain.Model.Write
         public static void WriteFile(IfcStore model, string fileName, bool asXML = false)
         {
             if(asXML)
-            { model.SaveAs(fileName, IfcStorageType.IfcXml); }
+            { model.SaveAs(fileName, StorageType.IfcXml); }
             else
-            { model.SaveAs(fileName, IfcStorageType.Ifc); }
+            { model.SaveAs(fileName, StorageType.Ifc); }
         }
     }
 }
