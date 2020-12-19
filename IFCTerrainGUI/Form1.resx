@@ -122,6 +122,9 @@
     <value>True</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
     <value>16, 60</value>
   </data>
@@ -906,6 +909,96 @@
   <data name="&gt;&gt;tabPage1.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <data name="chkIgnHeight.Location" type="System.Drawing.Point, System.Drawing">
+    <value>186, 121</value>
+  </data>
+  <data name="chkIgnHeight.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>Yes</value>
+  </data>
+  <data name="chkIgnHeight.Size" type="System.Drawing.Size, System.Drawing">
+    <value>104, 24</value>
+  </data>
+  <data name="chkIgnHeight.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="chkIgnHeight.Text" xml:space="preserve">
+    <value>:height</value>
+  </data>
+  <data name="&gt;&gt;chkIgnHeight.Name" xml:space="preserve">
+    <value>chkIgnHeight</value>
+  </data>
+  <data name="&gt;&gt;chkIgnHeight.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkIgnHeight.Parent" xml:space="preserve">
+    <value>tpOUT</value>
+  </data>
+  <data name="&gt;&gt;chkIgnHeight.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="chkIgnPos.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkIgnPos.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="chkIgnPos.Location" type="System.Drawing.Point, System.Drawing">
+    <value>225, 103</value>
+  </data>
+  <data name="chkIgnPos.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>Yes</value>
+  </data>
+  <data name="chkIgnPos.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 17</value>
+  </data>
+  <data name="chkIgnPos.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
+  </data>
+  <data name="chkIgnPos.Text" xml:space="preserve">
+    <value>:position</value>
+  </data>
+  <data name="&gt;&gt;chkIgnPos.Name" xml:space="preserve">
+    <value>chkIgnPos</value>
+  </data>
+  <data name="&gt;&gt;chkIgnPos.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkIgnPos.Parent" xml:space="preserve">
+    <value>tpOUT</value>
+  </data>
+  <data name="&gt;&gt;chkIgnPos.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="label15.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label15.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 104</value>
+  </data>
+  <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
+    <value>202, 13</value>
+  </data>
+  <data name="label15.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="label15.Text" xml:space="preserve">
+    <value>Ignore status invalid / constructed points:</value>
+  </data>
+  <data name="&gt;&gt;label15.Name" xml:space="preserve">
+    <value>label15</value>
+  </data>
+  <data name="&gt;&gt;label15.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label15.Parent" xml:space="preserve">
+    <value>tpOUT</value>
+  </data>
+  <data name="&gt;&gt;label15.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <data name="tbOutLayer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
@@ -916,7 +1009,7 @@
     <value>True</value>
   </data>
   <data name="tbOutLayer.Size" type="System.Drawing.Size, System.Drawing">
-    <value>325, 91</value>
+    <value>325, 47</value>
   </data>
   <data name="tbOutLayer.TabIndex" type="System.Int32, mscorlib">
     <value>14</value>
@@ -931,7 +1024,7 @@
     <value>tpOUT</value>
   </data>
   <data name="&gt;&gt;tbOutLayer.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>3</value>
   </data>
   <data name="rb_dgm.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -943,16 +1036,16 @@
     <value>NoControl</value>
   </data>
   <data name="rb_dgm.Location" type="System.Drawing.Point, System.Drawing">
-    <value>230, 151</value>
+    <value>248, 151</value>
   </data>
   <data name="rb_dgm.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 17</value>
+    <value>83, 17</value>
   </data>
   <data name="rb_dgm.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
   </data>
   <data name="rb_dgm.Text" xml:space="preserve">
-    <value>Read only DGM</value>
+    <value>Read Faces</value>
   </data>
   <data name="&gt;&gt;rb_dgm.Name" xml:space="preserve">
     <value>rb_dgm</value>
@@ -964,7 +1057,7 @@
     <value>tpOUT</value>
   </data>
   <data name="&gt;&gt;rb_dgm.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>4</value>
   </data>
   <data name="rb_p_ln.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -997,7 +1090,7 @@
     <value>tpOUT</value>
   </data>
   <data name="&gt;&gt;rb_p_ln.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>5</value>
   </data>
   <data name="btnProcessOut.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
@@ -1027,7 +1120,7 @@
     <value>tpOUT</value>
   </data>
   <data name="&gt;&gt;btnProcessOut.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>6</value>
   </data>
   <data name="lbOUT.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1057,7 +1150,7 @@
     <value>tpOUT</value>
   </data>
   <data name="&gt;&gt;lbOUT.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>7</value>
   </data>
   <data name="btnReadOUT.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -1087,7 +1180,7 @@
     <value>tpOUT</value>
   </data>
   <data name="&gt;&gt;btnReadOUT.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>8</value>
   </data>
   <data name="tpOUT.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 40</value>
@@ -1856,6 +1949,9 @@
   </data>
   <data name="&gt;&gt;rb2.ZOrder" xml:space="preserve">
     <value>3</value>
+  </data>
+  <data name="gpVersion.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
   </data>
   <data name="gpVersion.Location" type="System.Drawing.Point, System.Drawing">
     <value>379, 41</value>

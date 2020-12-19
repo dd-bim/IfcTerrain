@@ -324,13 +324,34 @@ namespace IFCTerrainGUI
                 }
                 tbLayHor.Text = layer_out;
                 this.jSettings.layer = layer_out;
-                return;
+                
             }
             else
             {
                 tbLayHor.Text = "All Pointtypes will be used.";
-                return;
             }
+
+            if (chkIgnPos.Checked)
+            {
+                this.jSettings.ignPos = true;
+            }
+            else
+            {
+                this.jSettings.ignPos = false;
+            }
+            
+            if (chkIgnHeight.Checked)
+            {
+                this.jSettings.ignHeight = true;
+            }
+            else
+            {
+                this.jSettings.ignHeight = false;
+            }
+
+
+
+            return;
 
         }
             
@@ -713,6 +734,31 @@ namespace IFCTerrainGUI
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void gpFile_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label15_Click_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label16_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label17_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
 
         }

@@ -76,11 +76,11 @@ namespace IFCTerrain.Model
                 case "OUT":
                     if (jSettings.isTin)
                     {
-                        result = Out.ReadOUTTin(jSettings.is3D, jSettings.fileName, jSettings.layer, jSettings.minDist, jSettings.logFilePath);
+                        result = Out.ReadOUTTin(jSettings.is3D, jSettings.fileName, jSettings.layer, jSettings.minDist, jSettings.logFilePath, jSettings.ignPos, jSettings.ignHeight);
                     }
                     else
                     {
-                        result = Out.ReadOUT_Points_Lines(jSettings.is3D, jSettings.fileName, jSettings.layer, jSettings.minDist, jSettings.logFilePath);
+                        result = Out.ReadOUT_Points_Lines(jSettings.is3D, jSettings.fileName, jSettings.layer, jSettings.minDist, jSettings.logFilePath, jSettings.ignPos, jSettings.ignHeight);
                     }
                     break;
             }
