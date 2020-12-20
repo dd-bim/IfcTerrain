@@ -194,9 +194,11 @@ Below are an example for such a json file and a table containing descriptions fo
 |is3D|true; false|Describes wether the generated terrain model should be 3-dimensional or not|
 |minDist|Double|Sets the minimum distance between nodes in the terrain model|
 |fileName|valid filepath-string|Path and filename of the input file|
-|fileType|LandXML; CityGML; DXF; REB; Grid [string]|Fileformat of the input file|
-|layer|String|Name of the layer that contains terrain information in an input DXF file|
+|fileType|LandXML; CityGML; DXF; REB; Grid; OUT [string]|Fileformat of the input file|
+|layer|String|Name of the layer that contains terrain information in an input DXF file or OUT file|
 |horizon|Integer|Number of the horizon that contains terrain information in an input REB file|
+|ignPos|true; false|Decides whether the status code for the location position should be ignored (=true). Only for file format: Geograf Out!|
+|ignHeight|true; false|Decides whether the status code for the height position should be ignored (=true). Only for file format: Geograf Out!|
 |isTin|true; false|Describes wether an input DXF file contains tin information (faces) or not|
 |projectName|String|The project name in the output IFC file|
 |editorsFamilyName|String|The editors family name in the output IFC file|
@@ -239,9 +241,10 @@ Solibri generally imports almost all IFC information correctly, but is currently
 
 ## testing software for developer
 
-The windows-batch programm is a executiv testing software. It reads from the "sample_data folder" the config data ("sample_data/06_Json) and is exporting the results of the test data to the export folder. This folder will be opened automaticly. It creates test IFC-data for:
-- LandXML
+The windows-batch programm is a executiv testing software. It reads from the "sample_data folder" the config data ("IFCTerrainTestData/99_JSON") and is exporting the results of the test data to the export folder ("IFCTerrainTestData/00_Export"). This folder will be opened automaticly. It creates test IFC-data for:
+- ~~LandXML~~
 - CityGML
-- ~~DXF~~
+- DXF
 - Raster
 - REB
+- Geograf OUT
