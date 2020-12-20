@@ -1,0 +1,29 @@
+{"JsonSettings":
+    [
+      {
+        "is3D": true,
+        "minDist": 1.0,
+        "fileName": "IFCTerrainTestData\\01_LandXML\\DGM_LandXML.xml",
+        "fileType": "LandXML",
+        "layer": null,
+        "horizon": 0,
+        "isTIN": false,
+        "projectName": "Testprojekt",
+        "editorsFamilyName": "Schroeder",
+        "editorsGivenName": "Marcus",
+        "editorsOrganisationName": "HTW Dresden",
+        "destFileName": "IFCTerrainTestData\\00_Export\\01_LandXML_ifc4_tfs.ifc",
+        "outIFCType": "IFC4",
+        "outFileType": "Step",
+        "surfaceType": "TFS",
+        "geoElement": false,
+        "logFilePath": "IFCTerrainTestData\\00_Export\\99_log_files\\01_LandXML_ifc4_tfs.txt",
+        "verbosityLevel": "Debug",
+        "gridSize": 1,
+        "xOrigin": 0.0,
+        "yOrigin": 0.0,
+        "zOrigin": 0.0,
+        "customOrigin": true
+      }
+    ]
+}

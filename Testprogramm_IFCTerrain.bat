@@ -9,10 +9,8 @@ echo ==================================================================
 echo.
 echo ========================01_LAND_XML===============================
 echo Testdatei fuer Land XML wird NICHT erzeugt!
-rem start "" IFCTerrainCommand\bin\x64\Debug\IFCTerrainCommand.exe "IFCTerrainTestData\99_JSON\sample_json_landxml_ifc4_tfs.json"
-rem echo LandXML (TriangulatedFaceSet): IFC4 erzeugt
-rem start "" IFCTerrainCommand\bin\x64\Debug\IFCTerrainCommand.exe "IFCTerrainTestData\99_JSON\sample_json_landxml_ifc4_sbsm.json"
-rem echo LandXML (ShellBasesSurfaceModel): IFC4 erzeugt
+start "" IFCTerrainCommand\bin\x64\Debug\IFCTerrainCommand.exe "IFCTerrainTestData\99_JSON\01_landxml_ifc4_gcs.json"
+echo LandXML (TriangulatedFaceSet): IFC4 erzeugt
 echo ==================================================================
 echo.
 echo ========================02_CityGML================================
@@ -48,9 +46,11 @@ echo REB (TriangulatedFaceSet): IFC4 erzeugt
 echo ==================================================================
 echo.
 echo ==================================================================
-echo Die Ergebnisse (6 Dateien) sind im Ordner: 
+echo Die Ergebnisse (7 Dateien - ueberpruefen!) sind im Ordner: 
 echo 'IFCTerrainTestData/07_Export' zu finden.
 start explorer "%CD%\IFCTerrainTestData\00_Export"
+echo ==================================================================
+echo Hinweis: nicht ausgefuehrte Porzesse werden nachfolgend geschlossen!
 echo ==================================================================
 pause
 rem der nachfolgende Kommand schließt die IFCTerrainCommand.exe, sodass nicht ausführbare Prozesse nicht weiter im Hintergrund ausgeführt werden!
