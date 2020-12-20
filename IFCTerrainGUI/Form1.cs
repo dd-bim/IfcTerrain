@@ -280,7 +280,7 @@ namespace IFCTerrainGUI
 
         #region Read OUT
         //GEOgraf OUT files are processed here
-        private string layer_out = null;
+        
         private void btnReadOut_Click(object sender, EventArgs e)
         {
             
@@ -302,7 +302,7 @@ namespace IFCTerrainGUI
 
         private void btnProcessOut_Click(object sender, EventArgs e)
         {
-
+            string layer_out = null; 
             if (tbOutLayer.Text != "")
             {
                 //MessageBox.Show("Textfeld ist nicht leer");
@@ -318,12 +318,12 @@ namespace IFCTerrainGUI
                     }
                     catch
                     {
-                        //MessageBox.Show("Eingabe ist ungültig. Nur Zahlen! Trennung über; ',' ';' '/' ");
                         input_layer_out[z] = null;
                     }
                 }
                 tbLayHor.Text = layer_out;
                 this.jSettings.layer = layer_out;
+                tbOutLayer.Clear();
                 
             }
             else

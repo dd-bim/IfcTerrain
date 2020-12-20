@@ -220,7 +220,6 @@ namespace IFCTerrain.Model.Read
                             OPoint p2 = outData.Points[pnr_le];
                             var ple = poly.AddPoint(Point3.Create(p2.x, p2.y, p2.z));
 
-
                             try
                             {
                                 poly.FixEdge(pla, ple); //Hinzufügen eines Faces
