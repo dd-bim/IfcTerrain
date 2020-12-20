@@ -263,3 +263,4 @@ __pycache__/
 *.ifcxml
 *.RVT
 *.nwc
+/IFCTerrainTestData/99_JSON/debug.json
