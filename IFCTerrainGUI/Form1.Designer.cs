@@ -74,6 +74,7 @@ namespace IFCTerrainGUI
             this.btnReadGrid = new System.Windows.Forms.Button();
             this.tpOUT = new System.Windows.Forms.TabPage();
             this.chkIgnHeight = new System.Windows.Forms.CheckBox();
+            this.chkIgnPos = new System.Windows.Forms.CheckBox();
             this.label15 = new System.Windows.Forms.Label();
             this.tbOutLayer = new System.Windows.Forms.TextBox();
             this.rb_dgm = new System.Windows.Forms.RadioButton();
@@ -115,7 +116,6 @@ namespace IFCTerrainGUI
             this.rbCoDef = new System.Windows.Forms.RadioButton();
             this.btnSettings = new System.Windows.Forms.Button();
             this.btn_docu = new System.Windows.Forms.Button();
-            this.chkIgnPos = new System.Windows.Forms.CheckBox();
             this.gpFile.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpXML.SuspendLayout();
@@ -437,6 +437,12 @@ namespace IFCTerrainGUI
             this.chkIgnHeight.UseVisualStyleBackColor = true;
             this.chkIgnHeight.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
+            // chkIgnPos
+            // 
+            resources.ApplyResources(this.chkIgnPos, "chkIgnPos");
+            this.chkIgnPos.Name = "chkIgnPos";
+            this.chkIgnPos.UseVisualStyleBackColor = true;
+            // 
             // label15
             // 
             resources.ApplyResources(this.label15, "label15");
@@ -710,12 +716,6 @@ namespace IFCTerrainGUI
             this.btn_docu.Name = "btn_docu";
             this.btn_docu.UseVisualStyleBackColor = true;
             this.btn_docu.Click += new System.EventHandler(this.btn_docu_Click);
-            // 
-            // chkIgnPos
-            // 
-            resources.ApplyResources(this.chkIgnPos, "chkIgnPos");
-            this.chkIgnPos.Name = "chkIgnPos";
-            this.chkIgnPos.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 

@@ -15,6 +15,7 @@ using BimGisCad.Collections;
 using IxMilia.Dxf;
 using Newtonsoft.Json;
 using System.Xml;
+using System.Globalization;
 
 namespace IFCTerrainGUI
 {
@@ -296,9 +297,7 @@ namespace IFCTerrainGUI
                 this.jSettings.fileName = ofd.FileName;
                 tbFile.Text = ofd.FileName;
             }
-
         }
-
 
         private void btnProcessOut_Click(object sender, EventArgs e)
         {
@@ -328,7 +327,16 @@ namespace IFCTerrainGUI
             }
             else
             {
-                tbLayHor.Text = "All Pointtypes will be used.";
+                CultureInfo deDE = new CultureInfo("de-DE");
+                if (CultureInfo.CurrentCulture.Equals(deDE))
+                {
+                    tbLayHor.Text = "Alle Punktarten werden verarbeitet.";
+                }
+                else
+                {
+                    tbLayHor.Text = "All Pointtypes will be used.";
+                }
+                
             }
 
             if (chkIgnPos.Checked)

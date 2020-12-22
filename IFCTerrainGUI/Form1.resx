@@ -910,13 +910,13 @@
     <value>3</value>
   </data>
   <data name="chkIgnHeight.Location" type="System.Drawing.Point, System.Drawing">
-    <value>186, 121</value>
+    <value>167, 121</value>
   </data>
   <data name="chkIgnHeight.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>Yes</value>
   </data>
   <data name="chkIgnHeight.Size" type="System.Drawing.Size, System.Drawing">
-    <value>104, 24</value>
+    <value>92, 24</value>
   </data>
   <data name="chkIgnHeight.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -936,20 +936,17 @@
   <data name="&gt;&gt;chkIgnHeight.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="chkIgnPos.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="chkIgnPos.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="chkIgnPos.Location" type="System.Drawing.Point, System.Drawing">
-    <value>225, 103</value>
+    <value>167, 107</value>
   </data>
   <data name="chkIgnPos.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>Yes</value>
   </data>
   <data name="chkIgnPos.Size" type="System.Drawing.Size, System.Drawing">
-    <value>65, 17</value>
+    <value>92, 17</value>
   </data>
   <data name="chkIgnPos.TabIndex" type="System.Int32, mscorlib">
     <value>18</value>
@@ -976,16 +973,17 @@
     <value>NoControl</value>
   </data>
   <data name="label15.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 104</value>
+    <value>7, 108</value>
   </data>
   <data name="label15.Size" type="System.Drawing.Size, System.Drawing">
-    <value>202, 13</value>
+    <value>139, 26</value>
   </data>
   <data name="label15.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
   </data>
   <data name="label15.Text" xml:space="preserve">
-    <value>Ignore status invalid / constructed points:</value>
+    <value>Ignore status "invalid"
+(e.g. for constructed points):</value>
   </data>
   <data name="&gt;&gt;label15.Name" xml:space="preserve">
     <value>label15</value>
@@ -1132,13 +1130,13 @@
     <value>7, 38</value>
   </data>
   <data name="lbOUT.Size" type="System.Drawing.Size, System.Drawing">
-    <value>166, 13</value>
+    <value>193, 13</value>
   </data>
   <data name="lbOUT.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
   <data name="lbOUT.Text" xml:space="preserve">
-    <value>Geograf Pointtypes (e.g.: 100, ...):</value>
+    <value>GEOgraf Pointtypes (e.g.: 100; 200; ...):</value>
   </data>
   <data name="&gt;&gt;lbOUT.Name" xml:space="preserve">
     <value>lbOUT</value>
@@ -1168,7 +1166,7 @@
     <value>1</value>
   </data>
   <data name="btnReadOUT.Text" xml:space="preserve">
-    <value>Read</value>
+    <value>Read "GEOgraf OUT"</value>
   </data>
   <data name="&gt;&gt;btnReadOUT.Name" xml:space="preserve">
     <value>btnReadOUT</value>
@@ -1246,7 +1244,7 @@
     <value>0</value>
   </data>
   <data name="btnReadXml.Text" xml:space="preserve">
-    <value>Read TIN file</value>
+    <value>Read "TIN file"</value>
   </data>
   <data name="&gt;&gt;btnReadXml.Name" xml:space="preserve">
     <value>btnReadXml</value>
@@ -1360,7 +1358,7 @@
     <value>0</value>
   </data>
   <data name="btnReadDXF.Text" xml:space="preserve">
-    <value>Read</value>
+    <value>Read "DXF"</value>
   </data>
   <data name="&gt;&gt;btnReadDXF.Name" xml:space="preserve">
     <value>btnReadDXF</value>
@@ -1516,7 +1514,7 @@
     <value>0</value>
   </data>
   <data name="btnReadReb.Text" xml:space="preserve">
-    <value>Read</value>
+    <value>Read "REB"</value>
   </data>
   <data name="&gt;&gt;btnReadReb.Name" xml:space="preserve">
     <value>btnReadReb</value>
@@ -1885,7 +1883,7 @@
     <value>0</value>
   </data>
   <data name="btnReadGrid.Text" xml:space="preserve">
-    <value>Read Elevation Grid</value>
+    <value>Read "Elevation Grid"</value>
   </data>
   <data name="&gt;&gt;btnReadGrid.Name" xml:space="preserve">
     <value>btnReadGrid</value>

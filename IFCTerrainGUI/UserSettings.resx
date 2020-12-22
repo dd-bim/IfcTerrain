@@ -263,6 +263,9 @@
   <data name="&gt;&gt;tbFam.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="btSet.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
   <data name="btSet.Location" type="System.Drawing.Point, System.Drawing">
     <value>194, 204</value>
   </data>

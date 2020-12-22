@@ -170,7 +170,7 @@
     <value>342, 23</value>
   </data>
   <data name="btnReadXml.Text" xml:space="preserve">
-    <value>Lese TIN-Datei</value>
+    <value>Lese "TIN-Datei"</value>
   </data>
   <data name="tpDXF.Size" type="System.Drawing.Size, System.Drawing">
     <value>350, 202</value>
@@ -191,7 +191,7 @@
     <value>338, 23</value>
   </data>
   <data name="btnReadDXF.Text" xml:space="preserve">
-    <value>Lese DXF-Datei</value>
+    <value>Lese "DXF-Datei"</value>
   </data>
   <data name="lbLayer.Size" type="System.Drawing.Size, System.Drawing">
     <value>252, 95</value>
@@ -227,7 +227,7 @@
     <value>343, 23</value>
   </data>
   <data name="btnReadReb.Text" xml:space="preserve">
-    <value>Lese REB-Datei</value>
+    <value>Lese "REB-Datei"</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="tabPage1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
@@ -282,7 +282,7 @@
     <value>85, 39</value>
   </data>
   <data name="btnReadGrid.Text" xml:space="preserve">
-    <value>Lese Höhenraster</value>
+    <value>Lese "Höhenraster"</value>
   </data>
   <data name="lblDist.Size" type="System.Drawing.Size, System.Drawing">
     <value>62, 13</value>
@@ -488,5 +488,30 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         AAAAAAAAAAAAAAAAAAAAAAAA
 </value>
+  </data>
+  <data name="btnProcessOut.Text" xml:space="preserve">
+    <value>Anwenden</value>
+  </data>
+  <data name="btnReadOUT.Text" xml:space="preserve">
+    <value>Lese "OUT-Datei"</value>
+  </data>
+  <data name="chkIgnHeight.Text" xml:space="preserve">
+    <value>:Höhe</value>
+  </data>
+  <data name="chkIgnPos.Text" xml:space="preserve">
+    <value>:Position</value>
+  </data>
+  <data name="label15.Text" xml:space="preserve">
+    <value>Ignoriere "ungültig" Status 
+(z.B. für konstruierte Punkte):</value>
+  </data>
+  <data name="lbOUT.Text" xml:space="preserve">
+    <value>GEOgraf Punktarten (z.B.: 100; 200; ...):</value>
+  </data>
+  <data name="rb_dgm.Text" xml:space="preserve">
+    <value>Lese Flächen</value>
+  </data>
+  <data name="rb_p_ln.Text" xml:space="preserve">
+    <value>Lese Punkte / Linien</value>
   </data>
 </root>
