@@ -362,18 +362,6 @@ namespace IFCTerrainGUI
             return;
 
         }
-            
-                
-
-            
-        
-
-        
-
-
-
-        
-        
     private void backgroundWorkerOUT_DoWork(object sender, DoWorkEventArgs e)
         {
             e.Result = Out.ReadFile((string)e.Argument) ? (string)e.Argument : "";
@@ -386,15 +374,6 @@ namespace IFCTerrainGUI
             
             this.Enabled = true;
         }
-
-
-
-
-
-
-
-
-
         #endregion
 
         //    if(double.TryParse(this.tbX.Text.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out double x)
@@ -568,6 +547,7 @@ namespace IFCTerrainGUI
             if (rb2.Checked)
             {
                 chkGeo.Visible = false;
+                rbTFS.Visible = false;
             }
         }
 
@@ -576,6 +556,7 @@ namespace IFCTerrainGUI
             if (rb4.Checked)
             {
                 chkGeo.Visible = true;
+                rbTFS.Visible = true;
             }
         }
 

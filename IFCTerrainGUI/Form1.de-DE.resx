@@ -155,7 +155,7 @@
     <value>58, 13</value>
   </data>
   <data name="lblFile.Text" xml:space="preserve">
-    <value>Dateiname</value>
+    <value>Dateipfad</value>
   </data>
   <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">
     <value>15, 81</value>
