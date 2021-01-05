@@ -36,8 +36,10 @@ namespace IFCTerrain.Model
         public double bbEast { get; set; }
         public double bbSouth { get; set; }
         public double bbWest { get; set; }
-        public bool ignPos { get; set; }        //ignoriert Punkte mit Lagestatus 0 --> (ungültig)
-        public bool ignHeight { get; set; }     //ignoriert Punkte mit Höhenstatus 0 --> (ungültig)
 
+        //Added Masterthesis - Schroeder
+        public bool ignPos { get; set; }            //ignoriert Punkte mit Lagestatus 0 --> (ungültig)
+        public bool ignHeight { get; set; }         //ignoriert Punkte mit Höhenstatus 0 --> (ungültig)
+        public string BreakLineLayer { get; set; }  //Layer für Bruchkanten
     }
 }

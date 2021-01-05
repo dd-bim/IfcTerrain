@@ -34,6 +34,8 @@ namespace IFCTerrainGUI
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.gpFile = new System.Windows.Forms.GroupBox();
+            this.lbGuiBk = new System.Windows.Forms.Label();
+            this.tbLayerBk = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.tbGridSize = new System.Windows.Forms.TextBox();
             this.tbLayHor = new System.Windows.Forms.TextBox();
@@ -44,13 +46,25 @@ namespace IFCTerrainGUI
             this.lblFile = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpXML = new System.Windows.Forms.TabPage();
+            this.lbBkSelection = new System.Windows.Forms.Label();
+            this.rbBkTin_false = new System.Windows.Forms.RadioButton();
+            this.rbBkTin_true = new System.Windows.Forms.RadioButton();
             this.btnReadXml = new System.Windows.Forms.Button();
             this.tpDXF = new System.Windows.Forms.TabPage();
+            this.gpBox_Bk = new System.Windows.Forms.GroupBox();
+            this.lbDxfBk = new System.Windows.Forms.ListBox();
+            this.rbDxfBk_false = new System.Windows.Forms.RadioButton();
+            this.label19 = new System.Windows.Forms.Label();
+            this.rbDxfBk_true = new System.Windows.Forms.RadioButton();
+            this.lbDxfSurr = new System.Windows.Forms.ListBox();
+            this.lb_Dxf_Sur = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.lb_Dxf_Layer = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.rbFaces = new System.Windows.Forms.RadioButton();
             this.rbIndPoly = new System.Windows.Forms.RadioButton();
             this.btnReadDXF = new System.Windows.Forms.Button();
-            this.lbLayer = new System.Windows.Forms.ListBox();
+            this.lbLayer2 = new System.Windows.Forms.ListBox();
             this.btnProcess = new System.Windows.Forms.Button();
             this.tpREB = new System.Windows.Forms.TabPage();
             this.lblHorizon = new System.Windows.Forms.Label();
@@ -73,6 +87,11 @@ namespace IFCTerrainGUI
             this.tbGsSet = new System.Windows.Forms.TextBox();
             this.btnReadGrid = new System.Windows.Forms.Button();
             this.tpOUT = new System.Windows.Forms.TabPage();
+            this.gpOutBk = new System.Windows.Forms.GroupBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.tbOutBk = new System.Windows.Forms.TextBox();
+            this.rbOutBk_false = new System.Windows.Forms.RadioButton();
+            this.rbOutBk_true = new System.Windows.Forms.RadioButton();
             this.chkIgnHeight = new System.Windows.Forms.CheckBox();
             this.chkIgnPos = new System.Windows.Forms.CheckBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -114,19 +133,28 @@ namespace IFCTerrainGUI
             this.tbCoX = new System.Windows.Forms.TextBox();
             this.rbCoCus = new System.Windows.Forms.RadioButton();
             this.rbCoDef = new System.Windows.Forms.RadioButton();
-            this.btnSettings = new System.Windows.Forms.Button();
-            this.btn_docu = new System.Windows.Forms.Button();
+            this.gpUserSettings = new System.Windows.Forms.GroupBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.lbOrgName = new System.Windows.Forms.Label();
+            this.tbOrg = new System.Windows.Forms.TextBox();
+            this.tbGiv = new System.Windows.Forms.TextBox();
+            this.tbFam = new System.Windows.Forms.TextBox();
+            this.lklb_Doc = new System.Windows.Forms.LinkLabel();
             this.gpFile.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpXML.SuspendLayout();
             this.tpDXF.SuspendLayout();
+            this.gpBox_Bk.SuspendLayout();
             this.tpREB.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tpOUT.SuspendLayout();
+            this.gpOutBk.SuspendLayout();
             this.gpVersion.SuspendLayout();
             this.gpType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.gpUserSettings.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -143,6 +171,8 @@ namespace IFCTerrainGUI
             // 
             // gpFile
             // 
+            this.gpFile.Controls.Add(this.lbGuiBk);
+            this.gpFile.Controls.Add(this.tbLayerBk);
             this.gpFile.Controls.Add(this.label5);
             this.gpFile.Controls.Add(this.tbGridSize);
             this.gpFile.Controls.Add(this.tbLayHor);
@@ -155,6 +185,17 @@ namespace IFCTerrainGUI
             this.gpFile.Name = "gpFile";
             this.gpFile.TabStop = false;
             this.gpFile.Enter += new System.EventHandler(this.gpFile_Enter);
+            // 
+            // lbGuiBk
+            // 
+            resources.ApplyResources(this.lbGuiBk, "lbGuiBk");
+            this.lbGuiBk.Name = "lbGuiBk";
+            // 
+            // tbLayerBk
+            // 
+            resources.ApplyResources(this.tbLayerBk, "tbLayerBk");
+            this.tbLayerBk.Name = "tbLayerBk";
+            this.tbLayerBk.ReadOnly = true;
             // 
             // label5
             // 
@@ -203,22 +244,45 @@ namespace IFCTerrainGUI
             // 
             // tabControl1
             // 
+            resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Controls.Add(this.tpXML);
             this.tabControl1.Controls.Add(this.tpDXF);
             this.tabControl1.Controls.Add(this.tpREB);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tpOUT);
-            resources.ApplyResources(this.tabControl1, "tabControl1");
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             // 
             // tpXML
             // 
+            this.tpXML.Controls.Add(this.lbBkSelection);
+            this.tpXML.Controls.Add(this.rbBkTin_false);
+            this.tpXML.Controls.Add(this.rbBkTin_true);
             this.tpXML.Controls.Add(this.btnReadXml);
             resources.ApplyResources(this.tpXML, "tpXML");
             this.tpXML.Name = "tpXML";
             this.tpXML.UseVisualStyleBackColor = true;
+            // 
+            // lbBkSelection
+            // 
+            resources.ApplyResources(this.lbBkSelection, "lbBkSelection");
+            this.lbBkSelection.Name = "lbBkSelection";
+            this.lbBkSelection.Click += new System.EventHandler(this.lbBkSelection_Click);
+            // 
+            // rbBkTin_false
+            // 
+            resources.ApplyResources(this.rbBkTin_false, "rbBkTin_false");
+            this.rbBkTin_false.Checked = true;
+            this.rbBkTin_false.Name = "rbBkTin_false";
+            this.rbBkTin_false.TabStop = true;
+            this.rbBkTin_false.UseVisualStyleBackColor = true;
+            // 
+            // rbBkTin_true
+            // 
+            resources.ApplyResources(this.rbBkTin_true, "rbBkTin_true");
+            this.rbBkTin_true.Name = "rbBkTin_true";
+            this.rbBkTin_true.UseVisualStyleBackColor = true;
             // 
             // btnReadXml
             // 
@@ -229,15 +293,79 @@ namespace IFCTerrainGUI
             // 
             // tpDXF
             // 
+            this.tpDXF.Controls.Add(this.gpBox_Bk);
+            this.tpDXF.Controls.Add(this.lbDxfSurr);
+            this.tpDXF.Controls.Add(this.lb_Dxf_Sur);
+            this.tpDXF.Controls.Add(this.label18);
+            this.tpDXF.Controls.Add(this.lb_Dxf_Layer);
             this.tpDXF.Controls.Add(this.label4);
             this.tpDXF.Controls.Add(this.rbFaces);
             this.tpDXF.Controls.Add(this.rbIndPoly);
             this.tpDXF.Controls.Add(this.btnReadDXF);
-            this.tpDXF.Controls.Add(this.lbLayer);
+            this.tpDXF.Controls.Add(this.lbLayer2);
             this.tpDXF.Controls.Add(this.btnProcess);
             resources.ApplyResources(this.tpDXF, "tpDXF");
             this.tpDXF.Name = "tpDXF";
             this.tpDXF.UseVisualStyleBackColor = true;
+            // 
+            // gpBox_Bk
+            // 
+            this.gpBox_Bk.Controls.Add(this.lbDxfBk);
+            this.gpBox_Bk.Controls.Add(this.rbDxfBk_false);
+            this.gpBox_Bk.Controls.Add(this.label19);
+            this.gpBox_Bk.Controls.Add(this.rbDxfBk_true);
+            resources.ApplyResources(this.gpBox_Bk, "gpBox_Bk");
+            this.gpBox_Bk.Name = "gpBox_Bk";
+            this.gpBox_Bk.TabStop = false;
+            // 
+            // lbDxfBk
+            // 
+            this.lbDxfBk.FormattingEnabled = true;
+            resources.ApplyResources(this.lbDxfBk, "lbDxfBk");
+            this.lbDxfBk.Name = "lbDxfBk";
+            this.lbDxfBk.SelectedIndexChanged += new System.EventHandler(this.lbDxfBk_SelectedIndexChanged);
+            // 
+            // rbDxfBk_false
+            // 
+            resources.ApplyResources(this.rbDxfBk_false, "rbDxfBk_false");
+            this.rbDxfBk_false.Name = "rbDxfBk_false";
+            this.rbDxfBk_false.UseVisualStyleBackColor = true;
+            this.rbDxfBk_false.CheckedChanged += new System.EventHandler(this.rbDxfBk_false_CheckedChanged);
+            // 
+            // label19
+            // 
+            resources.ApplyResources(this.label19, "label19");
+            this.label19.Name = "label19";
+            this.label19.Click += new System.EventHandler(this.label19_Click);
+            // 
+            // rbDxfBk_true
+            // 
+            resources.ApplyResources(this.rbDxfBk_true, "rbDxfBk_true");
+            this.rbDxfBk_true.Name = "rbDxfBk_true";
+            this.rbDxfBk_true.UseVisualStyleBackColor = true;
+            this.rbDxfBk_true.CheckedChanged += new System.EventHandler(this.rbDxfBk_true_CheckedChanged);
+            // 
+            // lbDxfSurr
+            // 
+            resources.ApplyResources(this.lbDxfSurr, "lbDxfSurr");
+            this.lbDxfSurr.FormattingEnabled = true;
+            this.lbDxfSurr.Name = "lbDxfSurr";
+            // 
+            // lb_Dxf_Sur
+            // 
+            resources.ApplyResources(this.lb_Dxf_Sur, "lb_Dxf_Sur");
+            this.lb_Dxf_Sur.Name = "lb_Dxf_Sur";
+            // 
+            // label18
+            // 
+            resources.ApplyResources(this.label18, "label18");
+            this.label18.Name = "label18";
+            // 
+            // lb_Dxf_Layer
+            // 
+            resources.ApplyResources(this.lb_Dxf_Layer, "lb_Dxf_Layer");
+            this.lb_Dxf_Layer.Name = "lb_Dxf_Layer";
+            this.lb_Dxf_Layer.Click += new System.EventHandler(this.lb_Dxf_Layer_Click);
             // 
             // label4
             // 
@@ -250,14 +378,14 @@ namespace IFCTerrainGUI
             resources.ApplyResources(this.rbFaces, "rbFaces");
             this.rbFaces.Name = "rbFaces";
             this.rbFaces.UseVisualStyleBackColor = true;
+            this.rbFaces.CheckedChanged += new System.EventHandler(this.rbFaces_CheckedChanged);
             // 
             // rbIndPoly
             // 
             resources.ApplyResources(this.rbIndPoly, "rbIndPoly");
-            this.rbIndPoly.Checked = true;
             this.rbIndPoly.Name = "rbIndPoly";
-            this.rbIndPoly.TabStop = true;
             this.rbIndPoly.UseVisualStyleBackColor = true;
+            this.rbIndPoly.CheckedChanged += new System.EventHandler(this.rbIndPoly_CheckedChanged);
             // 
             // btnReadDXF
             // 
@@ -266,12 +394,12 @@ namespace IFCTerrainGUI
             this.btnReadDXF.UseVisualStyleBackColor = true;
             this.btnReadDXF.Click += new System.EventHandler(this.btnReadDXF_Click);
             // 
-            // lbLayer
+            // lbLayer2
             // 
-            resources.ApplyResources(this.lbLayer, "lbLayer");
-            this.lbLayer.FormattingEnabled = true;
-            this.lbLayer.Name = "lbLayer";
-            this.lbLayer.SelectedIndexChanged += new System.EventHandler(this.lbLayer_SelectedIndexChanged);
+            this.lbLayer2.FormattingEnabled = true;
+            resources.ApplyResources(this.lbLayer2, "lbLayer2");
+            this.lbLayer2.Name = "lbLayer2";
+            this.lbLayer2.SelectedIndexChanged += new System.EventHandler(this.lbLayer_SelectedIndexChanged);
             // 
             // btnProcess
             // 
@@ -416,6 +544,7 @@ namespace IFCTerrainGUI
             // 
             // tpOUT
             // 
+            this.tpOUT.Controls.Add(this.gpOutBk);
             this.tpOUT.Controls.Add(this.chkIgnHeight);
             this.tpOUT.Controls.Add(this.chkIgnPos);
             this.tpOUT.Controls.Add(this.label15);
@@ -429,6 +558,43 @@ namespace IFCTerrainGUI
             this.tpOUT.Name = "tpOUT";
             this.tpOUT.UseVisualStyleBackColor = true;
             this.tpOUT.Click += new System.EventHandler(this.tpOUT_Click);
+            // 
+            // gpOutBk
+            // 
+            this.gpOutBk.Controls.Add(this.label20);
+            this.gpOutBk.Controls.Add(this.tbOutBk);
+            this.gpOutBk.Controls.Add(this.rbOutBk_false);
+            this.gpOutBk.Controls.Add(this.rbOutBk_true);
+            resources.ApplyResources(this.gpOutBk, "gpOutBk");
+            this.gpOutBk.Name = "gpOutBk";
+            this.gpOutBk.TabStop = false;
+            // 
+            // label20
+            // 
+            resources.ApplyResources(this.label20, "label20");
+            this.label20.Name = "label20";
+            // 
+            // tbOutBk
+            // 
+            resources.ApplyResources(this.tbOutBk, "tbOutBk");
+            this.tbOutBk.Name = "tbOutBk";
+            this.tbOutBk.TextChanged += new System.EventHandler(this.tbOutBk_TextChanged);
+            // 
+            // rbOutBk_false
+            // 
+            resources.ApplyResources(this.rbOutBk_false, "rbOutBk_false");
+            this.rbOutBk_false.Name = "rbOutBk_false";
+            this.rbOutBk_false.TabStop = true;
+            this.rbOutBk_false.UseVisualStyleBackColor = true;
+            this.rbOutBk_false.CheckedChanged += new System.EventHandler(this.rbOutBk_false_CheckedChanged);
+            // 
+            // rbOutBk_true
+            // 
+            resources.ApplyResources(this.rbOutBk_true, "rbOutBk_true");
+            this.rbOutBk_true.Name = "rbOutBk_true";
+            this.rbOutBk_true.TabStop = true;
+            this.rbOutBk_true.UseVisualStyleBackColor = true;
+            this.rbOutBk_true.CheckedChanged += new System.EventHandler(this.rbOutBk_true_CheckedChanged);
             // 
             // chkIgnHeight
             // 
@@ -465,10 +631,9 @@ namespace IFCTerrainGUI
             // rb_p_ln
             // 
             resources.ApplyResources(this.rb_p_ln, "rb_p_ln");
-            this.rb_p_ln.Checked = true;
             this.rb_p_ln.Name = "rb_p_ln";
-            this.rb_p_ln.TabStop = true;
             this.rb_p_ln.UseVisualStyleBackColor = true;
+            this.rb_p_ln.CheckedChanged += new System.EventHandler(this.rb_p_ln_CheckedChanged);
             // 
             // btnProcessOut
             // 
@@ -492,11 +657,11 @@ namespace IFCTerrainGUI
             // 
             // gpVersion
             // 
-            resources.ApplyResources(this.gpVersion, "gpVersion");
             this.gpVersion.Controls.Add(this.chkXML);
             this.gpVersion.Controls.Add(this.chkGeo);
             this.gpVersion.Controls.Add(this.rb4);
             this.gpVersion.Controls.Add(this.rb2);
+            resources.ApplyResources(this.gpVersion, "gpVersion");
             this.gpVersion.Name = "gpVersion";
             this.gpVersion.TabStop = false;
             // 
@@ -530,13 +695,13 @@ namespace IFCTerrainGUI
             // 
             // gpType
             // 
-            resources.ApplyResources(this.gpType, "gpType");
             this.gpType.Controls.Add(this.lblUnit);
             this.gpType.Controls.Add(this.tbDist);
             this.gpType.Controls.Add(this.lblDist);
             this.gpType.Controls.Add(this.rbTFS);
             this.gpType.Controls.Add(this.rbSSM);
             this.gpType.Controls.Add(this.rbGCS);
+            resources.ApplyResources(this.gpType, "gpType");
             this.gpType.Name = "gpType";
             this.gpType.TabStop = false;
             // 
@@ -596,8 +761,8 @@ namespace IFCTerrainGUI
             // 
             // backgroundWorkerDXF
             // 
-            this.backgroundWorkerDXF.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerDXF_DoWork_1);
-            this.backgroundWorkerDXF.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerDXF_RunWorkerCompleted_1);
+            this.backgroundWorkerDXF.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerDXF_DoWork);
+            this.backgroundWorkerDXF.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerDXF_RunWorkerCompleted);
             // 
             // backgroundWorkerREB
             // 
@@ -620,6 +785,7 @@ namespace IFCTerrainGUI
             // 
             resources.ApplyResources(this.label3, "label3");
             this.label3.Name = "label3";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // tbTarDir
             // 
@@ -703,31 +869,68 @@ namespace IFCTerrainGUI
             this.rbCoDef.UseVisualStyleBackColor = true;
             this.rbCoDef.CheckedChanged += new System.EventHandler(this.rbCoDef_CheckedChanged);
             // 
-            // btnSettings
+            // gpUserSettings
             // 
-            resources.ApplyResources(this.btnSettings, "btnSettings");
-            this.btnSettings.Name = "btnSettings";
-            this.btnSettings.UseVisualStyleBackColor = true;
-            this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
+            this.gpUserSettings.Controls.Add(this.label17);
+            this.gpUserSettings.Controls.Add(this.label16);
+            this.gpUserSettings.Controls.Add(this.lbOrgName);
+            this.gpUserSettings.Controls.Add(this.tbOrg);
+            this.gpUserSettings.Controls.Add(this.tbGiv);
+            this.gpUserSettings.Controls.Add(this.tbFam);
+            resources.ApplyResources(this.gpUserSettings, "gpUserSettings");
+            this.gpUserSettings.Name = "gpUserSettings";
+            this.gpUserSettings.TabStop = false;
             // 
-            // btn_docu
+            // label17
             // 
-            resources.ApplyResources(this.btn_docu, "btn_docu");
-            this.btn_docu.Name = "btn_docu";
-            this.btn_docu.UseVisualStyleBackColor = true;
-            this.btn_docu.Click += new System.EventHandler(this.btn_docu_Click);
+            resources.ApplyResources(this.label17, "label17");
+            this.label17.Name = "label17";
+            this.label17.Click += new System.EventHandler(this.label17_Click_1);
+            // 
+            // label16
+            // 
+            resources.ApplyResources(this.label16, "label16");
+            this.label16.Name = "label16";
+            // 
+            // lbOrgName
+            // 
+            resources.ApplyResources(this.lbOrgName, "lbOrgName");
+            this.lbOrgName.Name = "lbOrgName";
+            // 
+            // tbOrg
+            // 
+            resources.ApplyResources(this.tbOrg, "tbOrg");
+            this.tbOrg.Name = "tbOrg";
+            // 
+            // tbGiv
+            // 
+            resources.ApplyResources(this.tbGiv, "tbGiv");
+            this.tbGiv.Name = "tbGiv";
+            // 
+            // tbFam
+            // 
+            resources.ApplyResources(this.tbFam, "tbFam");
+            this.tbFam.Name = "tbFam";
+            // 
+            // lklb_Doc
+            // 
+            resources.ApplyResources(this.lklb_Doc, "lklb_Doc");
+            this.lklb_Doc.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(102)))));
+            this.lklb_Doc.Name = "lklb_Doc";
+            this.lklb_Doc.TabStop = true;
+            this.lklb_Doc.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lklb_Doc_LinkClicked);
             // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.btn_docu);
+            this.Controls.Add(this.lklb_Doc);
+            this.Controls.Add(this.gpUserSettings);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.tbTarDir);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.btnSettings);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.tbName);
             this.Controls.Add(this.lblName);
@@ -746,12 +949,16 @@ namespace IFCTerrainGUI
             this.tpXML.PerformLayout();
             this.tpDXF.ResumeLayout(false);
             this.tpDXF.PerformLayout();
+            this.gpBox_Bk.ResumeLayout(false);
+            this.gpBox_Bk.PerformLayout();
             this.tpREB.ResumeLayout(false);
             this.tpREB.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tpOUT.ResumeLayout(false);
             this.tpOUT.PerformLayout();
+            this.gpOutBk.ResumeLayout(false);
+            this.gpOutBk.PerformLayout();
             this.gpVersion.ResumeLayout(false);
             this.gpVersion.PerformLayout();
             this.gpType.ResumeLayout(false);
@@ -759,6 +966,8 @@ namespace IFCTerrainGUI
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.gpUserSettings.ResumeLayout(false);
+            this.gpUserSettings.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -781,7 +990,7 @@ namespace IFCTerrainGUI
         private System.Windows.Forms.RadioButton rbFaces;
         private System.Windows.Forms.RadioButton rbIndPoly;
         private System.Windows.Forms.Button btnReadDXF;
-        private System.Windows.Forms.ListBox lbLayer;
+        private System.Windows.Forms.ListBox lbLayer2;
         private System.Windows.Forms.Button btnProcess;
         private System.Windows.Forms.TabPage tpREB;
         private System.Windows.Forms.Label lblHorizon;
@@ -829,8 +1038,6 @@ namespace IFCTerrainGUI
         private System.Windows.Forms.RadioButton rbCoDef;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button btnSettings;
-        private System.Windows.Forms.Button btn_docu;
         private System.Windows.Forms.CheckBox cb_BBox;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
@@ -850,5 +1057,32 @@ namespace IFCTerrainGUI
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.CheckBox chkIgnHeight;
         private System.Windows.Forms.CheckBox chkIgnPos;
+        private System.Windows.Forms.GroupBox gpUserSettings;
+        private System.Windows.Forms.TextBox tbOrg;
+        private System.Windows.Forms.TextBox tbGiv;
+        private System.Windows.Forms.TextBox tbFam;
+        private System.Windows.Forms.Label lbOrgName;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label lbBkSelection;
+        private System.Windows.Forms.RadioButton rbBkTin_false;
+        private System.Windows.Forms.RadioButton rbBkTin_true;
+        private System.Windows.Forms.LinkLabel lklb_Doc;
+        private System.Windows.Forms.Label lb_Dxf_Layer;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label lb_Dxf_Sur;
+        private System.Windows.Forms.ListBox lbDxfSurr;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.ListBox lbDxfBk;
+        private System.Windows.Forms.RadioButton rbDxfBk_false;
+        private System.Windows.Forms.RadioButton rbDxfBk_true;
+        private System.Windows.Forms.GroupBox gpBox_Bk;
+        private System.Windows.Forms.Label lbGuiBk;
+        private System.Windows.Forms.TextBox tbLayerBk;
+        private System.Windows.Forms.GroupBox gpOutBk;
+        private System.Windows.Forms.RadioButton rbOutBk_false;
+        private System.Windows.Forms.RadioButton rbOutBk_true;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox tbOutBk;
     }
 }
