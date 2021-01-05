@@ -107,6 +107,21 @@ namespace IFCTerrainGUI
                 //this.Enabled = false;
                 //this.progressBar.Show();
                 //this.backgroundWorkerXML.RunWorkerAsync();
+
+                if(tbType.Text == "CityGML")
+                {
+                    rbBkTin_true.Enabled = false;
+                    rbBkTin_true.Checked = false;
+                    rbBkTin_false.Enabled = false;
+                    rbBkTin_false.Checked = false;
+                }
+
+                if (tbType.Text == "LandXML")
+                {
+                    rbBkTin_true.Enabled = true;
+                    rbBkTin_false.Enabled = true;
+                    rbBkTin_false.Checked = true;
+                }
             }
         }
 
@@ -154,21 +169,41 @@ namespace IFCTerrainGUI
                 //this.logText(string.Format(Properties.Resources.msgReadFile, "DXF", Path.GetFileName(ofd.FileName)));
                 this.Enabled = false;
                 //this.progressBar.Show();
+
+
                 this.backgroundWorkerDXF.RunWorkerAsync(ofd.FileName);
+
+
+                //Freigabe der Auswahlfelder
+                rbIndPoly.Enabled = true;
+                rbFaces.Enabled = true;
+                rbDxfBk_true.Enabled = true;
+                rbDxfBk_false.Enabled = true;
+                
+               
+               
             }
+            
+
         }
         
-        private void backgroundWorkerDXF_DoWork_1(object sender, DoWorkEventArgs e)
+        private void backgroundWorkerDXF_DoWork(object sender, DoWorkEventArgs e)
         {
             e.Result = DXF.ReadFile((string)e.Argument, out this.dxfFile) ? (string)e.Argument : "";
         }
+        private void backgroundWorkerDXF_BK_DoWork(object sender, DoWorkEventArgs e)
+        {
 
-        private void backgroundWorkerDXF_RunWorkerCompleted_1(object sender, RunWorkerCompletedEventArgs e)
+            e.Result = DXF.ReadFile((string)e.Argument, out this.dxfFile) ? (string)e.Argument : "";
+        }
+        private void backgroundWorkerDXF_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             string name = (string)e.Result;
-            this.lbLayer.SuspendLayout();
-            this.lbLayer.Items.Clear();
-            this.btnProcess.Enabled = false;
+            this.lbLayer2.SuspendLayout();
+            this.lbDxfBk.SuspendLayout();
+            this.lbLayer2.Items.Clear();
+            this.lbDxfBk.Items.Clear();
+            //this.btnProcess.Enabled = false;
             if (string.IsNullOrEmpty(name))
             {
                 this.dxfFile = null;
@@ -179,28 +214,59 @@ namespace IFCTerrainGUI
                 //this.logText(string.Format(Properties.Resources.msgSuccessRead, "DXF", Path.GetFileName(name)));
                 foreach (var l in this.dxfFile.Layers)
                 {
-                    this.lbLayer.Items.Add(l.Name);
+                    this.lbLayer2.Items.Add(l.Name);
+                    this.lbDxfBk.Items.Add(l.Name);
                 }
             }
-            this.lbLayer.ResumeLayout();
+            this.lbLayer2.ResumeLayout();
+            this.lbDxfBk.ResumeLayout();
+            //this.progressBar.Hide();
+            this.Enabled = true;
+        }
+
+        private void backgroundWorkerDXF_BK_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            string name = (string)e.Result;
+            this.lbDxfBk.SuspendLayout();
+            this.lbDxfBk.Items.Clear();
+            if (string.IsNullOrEmpty(name))
+            {
+                this.dxfFile = null;
+                //this.logText(string.Format(Properties.Resources.errFileNotReadable, Path.GetFileName(name)));
+            }
+            else
+            {
+                //this.logText(string.Format(Properties.Resources.msgSuccessRead, "DXF", Path.GetFileName(name)));
+                foreach (var l in this.dxfFile.Layers)
+                {
+                    this.lbDxfBk.Items.Add(l.Name);
+                }
+            }
+            this.lbDxfBk.ResumeLayout();
             //this.progressBar.Hide();
             this.Enabled = true;
         }
 
         private void btnProcess_Click(object sender, EventArgs e)
         {
-            if (this.lbLayer.SelectedIndex >= 0)
+            if (this.lbLayer2.SelectedIndex >= 0)
             {
-                string layer = (string)this.lbLayer.SelectedItem;
+                string layer = (string)this.lbLayer2.SelectedItem;
                 this.jSettings.layer = layer;
                 tbLayHor.Text = layer;
                 this.jSettings.isTin = this.rbFaces.Checked;
             }
+            if(this.lbDxfBk.SelectedIndex >= 0)
+            {
+                string layer = (string)this.lbDxfBk.SelectedItem;
+                //this.jSettings.layer = layer; neu anlegen
+                tbLayerBk.Text = layer;
+            }
         }
 
         private void lbLayer_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.btnProcess.Enabled = this.lbLayer.SelectedItem is string;
+        {   
+            //this.btnProcess.Enabled = this.lbLayer2.SelectedItem is string;
         }
 
         #endregion
@@ -370,8 +436,7 @@ namespace IFCTerrainGUI
 
         private void backgroundWorkerOUT_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            
-            
+
             this.Enabled = true;
         }
         #endregion
@@ -450,7 +515,7 @@ namespace IFCTerrainGUI
             //{
             //    this.jSettings.logFilePath = System.Configuration.ConfigurationManager.AppSettings["LogFilePath"];
             //}
-            
+
             //if (System.Configuration.ConfigurationManager.AppSettings["VerbosityLevel"] == null)
             //{
             //    this.jSettings.verbosityLevel = "Information";
@@ -470,16 +535,21 @@ namespace IFCTerrainGUI
             //            break;
             //    }       
             //}
+            this.jSettings.editorsOrganisationName = this.tbOrg.Text;
 
             if (jSettings.editorsOrganisationName == null)
             {
                 this.jSettings.editorsOrganisationName = "Organisation";
             }
 
+            this.jSettings.editorsGivenName = this.tbGiv.Text;
+
             if (jSettings.editorsGivenName == null)
             {
                 this.jSettings.editorsGivenName = "GivenName";
             }
+
+            this.jSettings.editorsFamilyName = this.tbFam.Text;
 
             if (jSettings.editorsFamilyName == null)
             {
@@ -529,25 +599,19 @@ namespace IFCTerrainGUI
         }
         #endregion
 
-        private void btnSettings_Click(object sender, EventArgs e)
-        {
-            UserSettings settingsForm = new UserSettings(this);
-            settingsForm.Show();
-        }
-
         private void backgroundWorkerIFC_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             //progressBarIFC.Value = e.ProgressPercentage;
         }
 
-        
-
         private void rb2_CheckedChanged(object sender, EventArgs e)
         {
             if (rb2.Checked)
             {
-                chkGeo.Visible = false;
-                rbTFS.Visible = false;
+                chkGeo.Checked = false;
+                chkGeo.Enabled = false;
+                rbTFS.Enabled = false;
+                rbTFS.Checked = false;
             }
         }
 
@@ -555,8 +619,9 @@ namespace IFCTerrainGUI
         {
             if (rb4.Checked)
             {
-                chkGeo.Visible = true;
-                rbTFS.Visible = true;
+                chkGeo.Enabled = true;
+                rbTFS.Enabled = true;
+                rbGCS.Checked = true;
             }
         }
 
@@ -646,6 +711,7 @@ namespace IFCTerrainGUI
 
         private void btn_docu_Click(object sender, EventArgs e)
         {
+            /*
             try
             {
                 string mainDirec = Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetParent(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)).FullName).FullName).FullName).FullName;
@@ -656,7 +722,7 @@ namespace IFCTerrainGUI
             catch(Exception ex)
             {
                 MessageBox.Show("Dokumentation konnte nicht geöffnet werden:" + ex);
-            }
+            }*/
         }
 
         private void label6_Click(object sender, EventArgs e)
@@ -750,6 +816,135 @@ namespace IFCTerrainGUI
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label17_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rbFaces_CheckedChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void rbIndPoly_CheckedChanged(object sender, EventArgs e)
+        {
+            //Background Worker für Umringslayer starten
+            if (rbDxfBk_true.Checked == true)
+            {
+                if (lbLayer2.SelectedItem is string & lbDxfBk.SelectedItem is string)
+                {
+                    btnProcess.Enabled = true;
+                };
+                //Abfrage, ob Layer gewählt wurde
+                //btnProcess.Enabled = true;
+            }
+            else if (rbDxfBk_false.Checked == true)
+            {
+                btnProcess.Enabled = true;
+            }
+        }
+
+
+        private void lbBkSelection_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lklb_Doc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                string mainDirec = Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetParent(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)).FullName).FullName).FullName).FullName;
+                string docuPath = Path.Combine(mainDirec, "Documentation.html");
+                System.Diagnostics.Process.Start(docuPath);
+                //System.Diagnostics.Process.Start(@"Documentation.html");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Dokumentation konnte nicht geöffnet werden:" + ex);
+            }
+        }
+
+        private void lb_Dxf_Layer_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label19_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rbDxfBk_true_CheckedChanged(object sender, EventArgs e)
+        {
+            //Backgroundworker für Bruchkanten starten
+            backgroundWorkerDXF_BK.RunWorkerAsync(jSettings.fileName);
+
+            if (rbIndPoly.Checked == true)
+            {
+                if (lbLayer2.SelectedItem is string && lbDxfBk.SelectedItem is string)
+                {
+                    btnProcess.Enabled = true;
+                };
+            }
+            if(lbDxfBk.SelectedItem is null)
+            {
+                btnProcess.Enabled = false;
+            }
+            lbDxfBk.Enabled = true;
+            
+            //GUI Layer - Auswahl für Breakline ausblenden
+            lbGuiBk.Visible = true;
+            tbLayerBk.Visible = true;
+
+        }
+
+        private void rbDxfBk_false_CheckedChanged(object sender, EventArgs e)
+        {
+            //Backgroundworker für Bruchkanten beenden
+            if (rbIndPoly.Checked == true && lbLayer2.SelectedItem is string || rbFaces.Checked == true && lbLayer2.SelectedItem is string)
+            {
+                btnProcess.Enabled = true;
+            }
+
+            //Deaktiveren des Feldes
+            lbDxfBk.Enabled = false;
+            lbDxfBk.SuspendLayout();
+            lbDxfBk.Items.Clear();
+
+
+            //GUI Layer - Auswahl für Breakline ausblenden
+            lbGuiBk.Visible = false;
+            tbLayerBk.Visible = false;
+            //Textfeld leeren
+            tbLayerBk.Clear();
+        }
+
+
+
+
+        private void lbDxfBk_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnProcess.Enabled = lbDxfBk.SelectedItem is string;
+        }
+
+        private void rbBkTin_true_CheckedChanged(object sender, EventArgs e)
+        {
+            lbGuiBk.Visible = true;
+            tbLayerBk.Visible = true;
+        }
+
+        private void rbBkTin_false_CheckedChanged(object sender, EventArgs e)
+        {
+            lbGuiBk.Visible = false;
+            tbLayerBk.Visible = false;
         }
     }
 }

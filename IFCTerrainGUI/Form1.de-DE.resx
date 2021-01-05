@@ -514,4 +514,19 @@
   <data name="rb_p_ln.Text" xml:space="preserve">
     <value>Lese Punkte / Linien</value>
   </data>
+  <data name="btnProcessTin.Text" xml:space="preserve">
+    <value>Übernehmen</value>
+  </data>
+  <data name="lbBkSelection.Text" xml:space="preserve">
+    <value>Bruchkanten verarbeiten?</value>
+  </data>
+  <data name="lklb_Doc.Text" xml:space="preserve">
+    <value>Dokumentation</value>
+  </data>
+  <data name="rbBkTin_false.Text" xml:space="preserve">
+    <value>Nein</value>
+  </data>
+  <data name="rbBkTin_true.Text" xml:space="preserve">
+    <value>Ja</value>
+  </data>
 </root>
