@@ -417,5 +417,6 @@ namespace IFCTerrain
         private System.Windows.Forms.TextBox tbCount;
         private System.Windows.Forms.Label lblCnt;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.RadioButton rbDxfBk_true;
     }
 }

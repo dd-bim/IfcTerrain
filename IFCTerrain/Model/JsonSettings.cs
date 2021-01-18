@@ -38,8 +38,34 @@ namespace IFCTerrain.Model
         public double bbWest { get; set; }
 
         //Added Masterthesis - Schroeder
+
+        #region GEOgraf OUT
         public bool ignPos { get; set; }            //ignoriert Punkte mit Lagestatus 0 --> (ungültig)
         public bool ignHeight { get; set; }         //ignoriert Punkte mit Höhenstatus 0 --> (ungültig)
         public string BreakLineLayer { get; set; }  //Layer für Bruchkanten
+        public bool BreakLine { get; set; }         //Option, ob Bruchkante verwendet werden soll
+        #endregion
+
+        #region PostGIS
+        public string host { get; set; }
+
+        public int port { get; set; }
+
+        public string user { get; set; }
+
+        public string password { get; set; }
+
+        public string database { get; set; }
+
+        public string schema { get; set; }
+
+        public string tintable { get; set; }
+
+        public string tincolumn { get; set; }
+
+        public string postgis_breakline { get; set; }
+
+        #endregion
+
     }
 }

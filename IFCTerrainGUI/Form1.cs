@@ -30,6 +30,7 @@ namespace IFCTerrainGUI
         private string[] fileNames = new string[1];
         
         
+        
         //Action<string> logText;
         //ProgressBar progressBar;
 
@@ -179,8 +180,8 @@ namespace IFCTerrainGUI
 
 
                 //Freigabe der Auswahlfelder
-                rbIndPoly.Enabled = true;
-                rbFaces.Enabled = true;
+                //rbIndPoly.Enabled = true;
+                //rbFaces.Enabled = true;
                 rbDxfBk_true.Enabled = true;
                 rbDxfBk_false.Enabled = true;
                 
@@ -265,13 +266,16 @@ namespace IFCTerrainGUI
                 string layer = (string)this.lbDxfBk.SelectedItem;
                 jSettings.BreakLineLayer = layer;
                 tbLayerBk.Text = layer;
+                jSettings.BreakLine = rbDxfBk_true.Checked;
             }
             btnStart.Enabled = true;
         }
 
         private void lbLayer_SelectedIndexChanged(object sender, EventArgs e)
-        {   
+        {
             //this.btnProcess.Enabled = this.lbLayer2.SelectedItem is string;
+            rbIndPoly.Enabled = true;
+            rbFaces.Enabled = true;
         }
 
         #endregion
@@ -350,13 +354,12 @@ namespace IFCTerrainGUI
         }
 
         #endregion
-
+        
         #region Read OUT
         //GEOgraf OUT files are processed here
         
         private void btnReadOut_Click(object sender, EventArgs e)
         {
-            
             var ofd = new OpenFileDialog
             {
                 Filter = "OUT Files *.out|*.out;"
@@ -398,6 +401,7 @@ namespace IFCTerrainGUI
                         input_layer_out[z] = null;
                     }
                 }
+                
                 tbLayHor.Text = layer_out;
                 this.jSettings.layer = layer_out;
                 tbOutLayer.Clear();
@@ -508,20 +512,51 @@ namespace IFCTerrainGUI
             {
                 this.jSettings.minDist = Convert.ToDouble(tbDist.Text);
             }
-            this.jSettings.outIFCType = rb4.Checked ? "IFC4": "IFC2x3";
-            this.jSettings.surfaceType = "TFS";
+
+
+            //Auswahl der IFC Version und in JSON - Settings schreiben
+            if (rb2.Checked)
+            {
+                this.jSettings.outIFCType = "IFC2x3";
+            }
+            else if (rb4.Checked)
+            {
+                this.jSettings.outIFCType = "IFC4";
+            }
+            else if (rbIfc4dot3.Checked)
+            {
+                this.jSettings.outIFCType = "IFC4dot3";
+            }
+            else
+            {
+                //Fehler erzeugen, dass GUI defekt ist --> dieser Fall kann eigentlich nicht eintreten
+            }
+
+            //ersetzt durch obere Schleife
+            //this.jSettings.outIFCType = rb4.Checked ? "IFC4": "IFC2x3";
+            
+            
+
+            //XML oder STEP - FILE
             this.jSettings.outFileType = "Step";
             if (chkXML.Checked)
             {
                 this.jSettings.outFileType = "XML";
             }
-            if (rbGCS.Checked)
-            {
-                this.jSettings.surfaceType = "GCS";
-            }
-            else if (rbSSM.Checked)
+
+            // Auswahl der Shape
+            this.jSettings.surfaceType = "GCS"; //DEFAULT
+            if (rbSSM.Checked)
             {
                 this.jSettings.surfaceType = "SBSM";
+            }
+            else if (rbTFS.Checked)
+            {
+                this.jSettings.surfaceType = "TFS";
+            }
+            else if (rbIfcTIN.Checked)
+            {
+                this.jSettings.surfaceType = "TIN";
             }
 
             this.jSettings.customOrigin = false;
@@ -569,29 +604,34 @@ namespace IFCTerrainGUI
             //            break;
             //    }       
             //}
-            this.jSettings.editorsOrganisationName = this.tbOrg.Text;
+
+
+
+            #region UserSettings
+            this.jSettings.editorsOrganisationName = this.tbOrg.Text.ToString();
 
             if (jSettings.editorsOrganisationName == null)
             {
                 this.jSettings.editorsOrganisationName = "Organisation";
             }
 
-            this.jSettings.editorsGivenName = this.tbGiv.Text;
+            this.jSettings.editorsGivenName = this.tbGiv.Text.ToString();
 
             if (jSettings.editorsGivenName == null)
             {
                 this.jSettings.editorsGivenName = "GivenName";
             }
 
-            this.jSettings.editorsFamilyName = this.tbFam.Text;
+            this.jSettings.editorsFamilyName = this.tbFam.Text.ToString();
 
             if (jSettings.editorsFamilyName == null)
             {
                 this.jSettings.editorsFamilyName = "FamilyName";
             }
+            #endregion
 
-            
-            // Serialisieren von Json-Datei
+
+            #region Serialisieren von Json-Datei
             try
             {
                 string jExportText = JsonConvert.SerializeObject(this.jSettings);
@@ -607,6 +647,8 @@ namespace IFCTerrainGUI
             this.Enabled = false;
             this.backgroundWorkerIFC.RunWorkerAsync();
         }
+        #endregion
+
 
         private void backgroundWorkerIFC_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -793,21 +835,6 @@ namespace IFCTerrainGUI
 
         }
 
-        private void label15_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
             btnProcessOut.Enabled = true;
@@ -821,56 +848,6 @@ namespace IFCTerrainGUI
             lbGuiBk.Visible = false;
             tbLayerBk.Visible = false;
             tbLayerBk.Clear();
-        }
-
-        private void textBox1_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label15_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void gpFile_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label15_Click_2(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label16_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label17_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label17_Click_1(object sender, EventArgs e)
-        {
-
         }
 
         private void rbFaces_CheckedChanged(object sender, EventArgs e)
@@ -976,10 +953,10 @@ namespace IFCTerrainGUI
             lbDxfBk.SelectedItem = null;
             //lbDxfBk.Items.Clear();
 
-
             //GUI Layer - Auswahl für Breakline ausblenden
             lbGuiBk.Visible = false;
             tbLayerBk.Visible = false;
+
             //Textfeld leeren
             tbLayerBk.Clear();
         }
@@ -1022,6 +999,197 @@ namespace IFCTerrainGUI
         private void tbOutBk_TextChanged(object sender, EventArgs e)
         {
             btnProcessOut.Enabled = true;
+        }
+
+        private void rbTFS_CheckedChanged(object sender, EventArgs e)
+        {
+            
+        }
+        //DRAFT ONLY - REMOVE or UPDATE IFC 4 add 1
+        private void rbIfc4dot3_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbIfc4dot3.Checked == true)
+            {
+                rbIfcTIN.Enabled = true;
+                rbIfcTIN.Checked = true;
+
+                rbGCS.Enabled = false;
+                rbSSM.Enabled = false;
+                rbTFS.Enabled = false;
+                tbDist.Enabled = false;
+            }
+            else
+            {
+                rbIfcTIN.Enabled = false;
+                rbIfcTIN.Checked = false;
+
+                rbGCS.Checked = true;
+                rbGCS.Enabled = true;
+                rbSSM.Enabled = true;
+                rbTFS.Enabled = true;
+                tbDist.Enabled = true;
+            }
+        }
+
+        private void btnProcessPostGIS_Click(object sender, EventArgs e)
+        {
+            jSettings.fileType = "PostGIS";
+            //Ausschalten der "alten" Maske
+            gpFile.Visible = false;
+
+            //neue Maske einschalten
+            gpPostGIS.Visible = true;
+
+            //Hostname
+            if (tbHost.Text != null)
+            {
+                string hostname = tbHost.Text.ToString();
+                jSettings.host = hostname;
+                tbHost_read.Text = hostname;
+            }
+            
+            //Port
+            if(tbPostGIS_Port.Text != null)
+            {
+                string port_value = tbPostGIS_Port.Text;
+                int port = Int32.Parse(port_value);
+                jSettings.port = port;
+                tbPort.Text = port.ToString();
+            }
+            
+            //Username
+            if(tbUsername.Text != null)
+            {
+                string username = tbUsername.Text.ToString();
+                jSettings.user = username;
+            }
+            
+            //Password --> Datenschutz???
+            if(tbPassword.Text != null)
+            {
+                string password = tbPassword.Text.ToString();
+                jSettings.password = password;
+            }
+
+            //Database
+            if(tbDatabase.Text != null)
+            {
+                string database = tbDatabase.Text.ToString();
+                jSettings.database = database;
+                tbDatabase_read.Text = database;
+            }
+
+            //Schema
+            if(tbSchema.Text != null)
+            {
+                string schema = tbSchema.Text.ToString();
+                jSettings.schema = schema;
+                tbSchema_read.Text = schema;
+            }
+
+            //TIN-Table
+            if (tbTableTIN.Text != null)
+            {
+                string tintable = tbTableTIN.Text.ToString();
+                jSettings.tintable = tintable;
+                tbTINTable_read.Text = tintable;
+            }
+
+            //TIN-Column
+            if(tbTIN_Column.Text != null)
+            {
+                string tincolumn = tbTIN_Column.Text;
+                jSettings.tincolumn = tincolumn;
+                tbTINColumn_read.Text = tincolumn;
+            }
+
+            //Breakline bool
+            if(rbPostGIS_BL_true.Checked == true)
+            {
+                jSettings.BreakLine = true;
+                tbBreakline_read.Clear();
+            }
+            else
+            {
+                jSettings.BreakLine = false;
+                tbBreakline_read.Text = "No breakline";
+            }
+            
+            //Breakline
+            if (tbPostGIS_BL_Input != null)
+            {
+                string postgisbl = tbPostGIS_BL_Input.Text.ToString();
+                jSettings.postgis_breakline = postgisbl;
+                tbBreakline_read.Text = tbPostGIS_BL_Input.Text;
+            }
+
+
+
+
+            btnStart.Enabled = true;
+        }
+
+        private void rbPostGIS_BL_true_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbPostGIS_BL_true.Enabled == true)
+            {
+                tbPostGIS_BL_Input.Enabled = true;
+            }       
+        }
+
+        private void rbPostGIS_BL_false_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbPostGIS_BL_false.Enabled == true)
+            {
+                tbPostGIS_BL_Input.Enabled = false;
+            }
+        }
+
+        private void tbPostGIS_Port_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void tbTableTIN_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lb_Port_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblPostGIS_bl_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chkPostGIS_select_CheckedChanged(object sender, EventArgs e)
+        {
+            if(chkPostGIS_select.Checked == true)
+            {
+                //Input-Felder deaktivieren
+                tbSchema.Enabled = tbTableTIN.Enabled = tbTIN_Column.Enabled = false;
+                rbPostGIS_BL_true.Enabled = rbPostGIS_BL_false.Enabled = tbPostGIS_BL_Input.Enabled = false;
+                rbPostGIS_BL_false.Checked = true;
+
+                //Input-Feld für eigenen Select-Befehl aktivieren
+                tbSelect_User.Enabled = true;
+            }
+            else
+            {
+                //Input-Felder wieder aktivieren
+                tbSchema.Enabled = tbTableTIN.Enabled = tbTIN_Column.Enabled = true;
+                rbPostGIS_BL_true.Enabled = rbPostGIS_BL_false.Enabled = tbPostGIS_BL_Input.Enabled = true;
+                rbPostGIS_BL_false.Checked = true;
+
+                //Input-Feld für eigenen Select-Befehl deaktivieren
+                tbSelect_User.Enabled = false;
+            }
         }
     }
 }

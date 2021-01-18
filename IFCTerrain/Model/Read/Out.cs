@@ -1,5 +1,4 @@
-﻿//Dokumentation zu OUT-Dateien: https://vps2.hhk.de/geograf/Hilfe/GEOgraf/Anhang/Formatdokumentation/GRAFBAT_Format/GRAFBAT_Format.htm#DGM  
-
+﻿//Dokumentation zu OUT-Dateien: https://vps2.hhk.de/geograf/Hilfe/GEOgraf/Anhang/Formatdokumentation/GRAFBAT_Format/GRAFBAT_Format.htm#DGM 
 using System;
 using System.Collections.Generic;
 using System.IO;

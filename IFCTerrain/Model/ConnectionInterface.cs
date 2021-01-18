@@ -22,6 +22,10 @@ namespace IFCTerrain.Model
     public class ConnectionInterface
     {
         public Mesh Mesh { get; private set; } = null;
+
+        public Dictionary<int,Line3> Breaklines { get; private set; } = null;
+
+        public Mesh Mesh_Poly { get; private set; } = null; 
         public ReadInput Input { get; private set; } = new ReadInput();
         private DxfFile dxfFile = null;
         private RebDaData rebData = null;
@@ -33,15 +37,20 @@ namespace IFCTerrain.Model
             
             var logger = LogManager.GetCurrentClassLogger();
             logger.Info("----------------------------------------------");
+
+            #region Reader
             //
             //Read
             //
 
             var result = new Result();
 
+            
+
             string[] fileNames = new string[1];
             fileNames[0] = jSettings.fileName;
 
+            #region import data typ selection
             switch (jSettings.fileType)
             {
                 case "LandXML":
@@ -57,11 +66,11 @@ namespace IFCTerrain.Model
 
                     if (jSettings.isTin)
                     {
-                        result = DXF.ReadDXFTin(jSettings.is3D, dxfFile, jSettings.layer, jSettings.minDist, jSettings.logFilePath, jSettings.verbosityLevel);
+                        result = DXF.ReadDXFTin(jSettings.is3D, dxfFile, jSettings.layer, jSettings.BreakLineLayer, jSettings.minDist, jSettings.logFilePath, jSettings.verbosityLevel, jSettings.BreakLine);
                     }
                     else
                     {
-                        result = DXF.ReadDXFIndPoly(jSettings.is3D, dxfFile, jSettings.layer, jSettings.minDist, jSettings.logFilePath, jSettings.verbosityLevel);
+                        result = DXF.ReadDXFIndPoly(jSettings.is3D, dxfFile, jSettings.layer, jSettings.BreakLineLayer, jSettings.minDist, jSettings.logFilePath, jSettings.verbosityLevel, jSettings.BreakLine);
                     }
                     break;
 
@@ -83,9 +92,16 @@ namespace IFCTerrain.Model
                         result = Out.ReadOUT_Points_Lines(jSettings.is3D, jSettings.fileName, jSettings.layer, jSettings.minDist, jSettings.logFilePath, jSettings.ignPos, jSettings.ignHeight);
                     }
                     break;
+                case "PostGIS":
+                    result = PostGIS.ReadPostGIS_TIN(jSettings.is3D, jSettings.BreakLine, jSettings.host, jSettings.port, jSettings.user, jSettings.password, jSettings.database, jSettings.schema, jSettings.tintable, jSettings.tincolumn);
+                    break;
             }
             this.Mesh = result.Mesh;
+            this.Breaklines = result.Breaklines;
+           
+            #endregion
 
+            #region Mesh-Checker
             try
             {
                 logger.Debug("Mesh created with: " + this.Mesh.Points.Count + " Points; " + this.Mesh.FixedEdges + " Lines; " + this.Mesh.FaceEdges + " Faces");
@@ -94,18 +110,26 @@ namespace IFCTerrain.Model
             {
                 logger.Debug("No Faces or Points found");
             }
+            #endregion
 
+            #endregion
+
+            #region Writer
             //
             //Write
             //
 
-            if(jSettings.projectName is null)
+            #region project Name
+            if (jSettings.projectName is null)
             {
                 jSettings.projectName = "Name of project";
             }
-
-            var writeInput = new WriteInput();
+            #endregion
             
+            var writeInput = new WriteInput();
+
+            #region Placement
+
             writeInput.Placement = Axis2Placement3D.Standard;
             if(jSettings.customOrigin)
             {
@@ -119,15 +143,25 @@ namespace IFCTerrain.Model
 
                 writeInput.Placement.Location = Vector3.Create(midX, midY, midZ);
             }
-            
-            // Placement verschieben?
+            #endregion
 
+            #region IFC Version
             writeInput.SurfaceType = SurfaceType.TFS;
             if (jSettings.surfaceType == "GCS")
-            { writeInput.SurfaceType = SurfaceType.GCS; }
+            { 
+                writeInput.SurfaceType = SurfaceType.GCS; 
+            }
             else if (jSettings.surfaceType == "SBSM")
-            { writeInput.SurfaceType = SurfaceType.SBSM; }
+            { 
+                writeInput.SurfaceType = SurfaceType.SBSM; 
+            }
+            else if (jSettings.surfaceType == "TIN")
+            {
+                writeInput.SurfaceType = SurfaceType.TIN;
+            }
+            #endregion
 
+            #region IFC Version Filetyp
             writeInput.FileType = FileType.Step;
             if (jSettings.outFileType == "XML")
             { writeInput.FileType = FileType.XML; }
@@ -136,9 +170,9 @@ namespace IFCTerrain.Model
             logger.Debug("IFC Version: " + jSettings.outIFCType);
             logger.Debug("Surfacetype: " + jSettings.surfaceType);
             logger.Debug("Filetype: " + jSettings.fileType);
+            #endregion
 
-            
-
+            #region IFC2x3
             if (jSettings.outIFCType == "IFC2x3")
             {
                 var model = WriteIfc2.CreateSite(jSettings.projectName,
@@ -154,7 +188,10 @@ namespace IFCTerrain.Model
                 WriteIfc2.WriteFile(model, jSettings.destFileName, writeInput.FileType == FileType.XML);
                 logger.Info("IFC file writen: " + jSettings.destFileName);
             }
-            else
+            #endregion
+
+            #region IFC4
+            else if (jSettings.outIFCType == "IFC4")
             {
                 logger.Debug("Geographical Element: " + jSettings.geoElement);
                 var model = jSettings.geoElement 
@@ -180,6 +217,39 @@ namespace IFCTerrain.Model
                 WriteIfc4.WriteFile(model, jSettings.destFileName, writeInput.FileType == FileType.XML);
                 logger.Info("IFC file writen: " + jSettings.destFileName);
             }
+            #endregion
+
+            #region IFC 4dot3
+            //Draft
+
+            if (jSettings.outIFCType == "IFC4dot3")
+            {
+                var model = jSettings.geoElement
+                    ? WriteIfc4dot3.CreateSiteWithGeo(jSettings.projectName,
+                                                    jSettings.editorsFamilyName,
+                                                    jSettings.editorsGivenName,
+                                                    jSettings.editorsOrganisationName,
+                                                    "Site with Terrain",
+                                                    writeInput.Placement,
+                                                    this.Mesh,
+                                                    this.Breaklines,
+                                                    writeInput.SurfaceType,
+                                                    breakDist)
+                    : WriteIfc4dot3.CreateSite(jSettings.projectName,
+                                                    jSettings.projectName,
+                                                    jSettings.editorsFamilyName,
+                                                    jSettings.editorsGivenName,
+                                                    "Site with Terrain",
+                                                    writeInput.Placement,
+                                                    this.Mesh,
+                                                    this.Breaklines,
+                                                    writeInput.SurfaceType,
+                                                    breakDist); ;
+                WriteIfc4dot3.WriteFile(model, jSettings.destFileName, writeInput.FileType == FileType.XML);
+            }
+            #endregion
+            
+            #endregion
             logger.Info("----------------------------------------------");
         }
     }

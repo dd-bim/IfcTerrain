@@ -46,10 +46,10 @@ namespace IFCTerrain.Model.Read
                 dxfFile = null;
                 return false;
             }
-            
+
         }
 
-        public static Result ReadDXFIndPoly(bool is3d, DxfFile dxfFile, string layer, double minDist, string logFilePath, string verbosityLevel)
+        public static Result ReadDXFIndPoly(bool is3d, DxfFile dxfFile, string layer, string breaklinelayer, double minDist, string logFilePath, string verbosityLevel, bool breakline)
         {
             var result = new Result();
             if(!UnitToMeter.TryGetValue(dxfFile.Header.DefaultDrawingUnits, out double scale))
@@ -58,12 +58,14 @@ namespace IFCTerrain.Model.Read
             }
             var pp = new Mesh(is3d, minDist);
 
+            //Dictionary<Point3, Point3> breaklines = new Dictionary<Point3, Point3>();
+
             //Serilog.Log.Logger = new LoggerConfiguration()
             //                   .MinimumLevel.Debug()
             //                   .WriteTo.File(logFilePath)
             //                   .CreateLogger();
             var logger = LogManager.GetCurrentClassLogger();
-
+           
             foreach (var entity in dxfFile.Entities)
             {
                 if(entity.Layer == layer)
@@ -104,12 +106,13 @@ namespace IFCTerrain.Model.Read
                 return result;
             }
             result.Mesh = pp;
+
             logger.Info("Reading DXF-data successful");
             logger.Info(pp.Points.Count + " points, " + pp.FixedEdges.Count + " lines and " + pp.FaceEdges.Count + " faces read");
             return result;
         }
 
-        public static Result ReadDXFTin(bool is3d, DxfFile dxfFile, string layer, double minDist, string logFilePath, string verbosityLevel)
+        public static Result ReadDXFTin(bool is3d, DxfFile dxfFile, string layer, string breaklinelayer, double minDist, string logFilePath, string verbosityLevel, bool breakline)
         {
             double minDistSq = minDist * minDist;
             var result = new Result();
@@ -119,12 +122,15 @@ namespace IFCTerrain.Model.Read
             }
             var tin = new Mesh(is3d, minDist);
 
+            Dictionary<int, Line3> breaklines = new Dictionary<int, Line3>(); //Dictionary für Punkte der Bruchkanten
+
             //Serilog.Log.Logger = new LoggerConfiguration()
             //                   .MinimumLevel.Debug()
             //                   .WriteTo.File(logFilePath)
             //                   .CreateLogger();
             var logger = LogManager.GetCurrentClassLogger();
 
+            int index = 0;
             foreach (var entity in dxfFile.Entities)
             {
                 if(entity.Layer == layer && entity is Dxf3DFace face)
@@ -148,6 +154,47 @@ namespace IFCTerrain.Model.Read
                         }
                     }
                 }
+
+                if (entity.Layer == breaklinelayer && breakline == true)
+                {
+                    switch (entity.EntityType)
+                    {
+                        /*case DxfEntityType.Vertex: //Punkt
+                            var vtx = (DxfVertex)entity;
+                            pp_bl.AddPoint(Point3.Create(vtx.Location.X, vtx.Location.Y, vtx.Location.Z));
+                            break;*/
+                        case DxfEntityType.Line: //Linie
+                            var line = (DxfLine)entity;
+                            Point3 p1 = Point3.Create(line.P1.X * scale, line.P1.Y * scale, line.P1.Z * scale);
+                            Point3 p2 = Point3.Create(line.P2.X * scale, line.P2.Y * scale, line.P2.Z * scale);
+                            Vector3 v12 = Vector3.Create(p2);
+                            Direction3 d12 = Direction3.Create(v12, scale);
+                            Line3 l = Line3.Create(p1, d12);
+                            try
+                            {
+                                breaklines.Add(index, l);
+                                index++;
+                            }
+                            catch
+                            {
+                                index++;
+                            }
+                            break;
+                            /*case DxfEntityType.Polyline: //Bögen
+                                var poly = (DxfPolyline)entity;
+                                int last = -1;
+                                foreach (var v in poly.Vertices)
+                                {
+                                    int curr = pp_bl.AddPoint(Point3.Create(v.Location.X * scale, v.Location.Y * scale, v.Location.Z * scale));
+                                    if (last >= 0)
+                                    {
+                                        pp_bl.FixEdge(last, curr);
+                                    }
+                                    last = curr;
+                                }
+                            break;*/
+                    }
+                }
             }
             if(!tin.Points.Any() || !tin.FaceEdges.Any())
             {
@@ -155,7 +202,23 @@ namespace IFCTerrain.Model.Read
                 logger.Error("Error. No line data found");
                 return result;
             }
+
+
             result.Mesh = tin;
+
+
+            try
+            {
+                result.Breaklines = breaklines;
+            }
+            catch
+            {
+                logger.Error("Breaklines could not be processed.");
+            }
+
+            logger.Info(breaklines.Count + " breaklines read");
+
+
             logger.Info("Reading DXF-data successful");
             logger.Info(tin.Points.Count + " Points, " + tin.FixedEdges.Count + " Lines and " + tin.FaceEdges.Count + " Faces read");
             return result;

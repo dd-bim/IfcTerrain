@@ -49,6 +49,8 @@ namespace IFCTerrain
             this.lblHorizon.Text = Properties.Resources.lblHorizon;
             this.btnProcessReb.Enabled = false;
             this.lblCnt.Text = Properties.Resources.lblCount;
+            this.rbDxfBk_true.Checked = true;
+            
         }
 
         private void btnReadXml_Click(object sender, EventArgs e)
@@ -207,13 +209,14 @@ namespace IFCTerrain
         private void backgroundWorkerProcess_DoWork(object sender, DoWorkEventArgs e)
         {
             var lt = (LayType)e.Argument;
+            var ltb = (LayType)e.Argument;
             if(lt.IsTin)
             {
-                e.Result = DXF.ReadDXFTin(Properties.Settings.Default.is3D, this.dxfFile, lt.Layer, Properties.Settings.Default.minDistance, st, st);
+                e.Result = DXF.ReadDXFTin(Properties.Settings.Default.is3D, this.dxfFile, lt.Layer, ltb.Layer, Properties.Settings.Default.minDistance, st, st, rbDxfBk_true.Checked);
             }
             else
             {
-                e.Result = DXF.ReadDXFIndPoly(Properties.Settings.Default.is3D, this.dxfFile, lt.Layer, Properties.Settings.Default.minDistance, st, st);
+                e.Result = DXF.ReadDXFIndPoly(Properties.Settings.Default.is3D, this.dxfFile, lt.Layer, ltb.Layer, Properties.Settings.Default.minDistance, st, st, rbDxfBk_true.Checked);
             }
         }
 
