@@ -963,9 +963,9 @@ namespace IFCTerrain.Model.Write
                                     if (chX == npX && chY == npY && chZ == npZ)
                                     {
                                         //Endpunkt der Linie n
-                                        npX = bl.Value.Direction.X;// - origin.X;
-                                        npY = bl.Value.Direction.Y;// - origin.Y;
-                                        npZ = bl.Value.Direction.Z;// - origin.Z;
+                                        npX = bl.Value.Direction.X - origin.X;
+                                        npY = bl.Value.Direction.Y - origin.Y;
+                                        npZ = bl.Value.Direction.Z - origin.Z;
                                         npX = Math.Round(npX, 3);
                                         npY = Math.Round(npY, 3);
                                         npZ = Math.Round(npZ, 3);

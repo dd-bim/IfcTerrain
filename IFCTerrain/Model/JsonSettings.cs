@@ -63,7 +63,15 @@ namespace IFCTerrain.Model
 
         public string tincolumn { get; set; }
 
-        public string postgis_breakline { get; set; }
+        public string tinidcolumn { get; set; }
+
+        public int tinid { get; set; }
+
+        public string postgis_breakline_table { get; set; }
+
+        public string postgis_breakline_column { get; set; }
+
+        public string postgis_breakline_tin_id { get; set; }
 
         #endregion
 

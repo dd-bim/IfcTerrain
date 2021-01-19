@@ -705,7 +705,6 @@ namespace IFCTerrainGUI
         {
             if (rb2.Checked)
             {
-                chkGeo.Checked = false;
                 chkGeo.Enabled = false;
                 rbTFS.Enabled = false;
                 rbTFS.Checked = false;
@@ -1059,6 +1058,8 @@ namespace IFCTerrainGUI
 
         private void btnProcessPostGIS_Click(object sender, EventArgs e)
         {
+            int postgis_error = 0;
+            
             //Ausschalten der Maske-DGM einlesen
             gpFile.Visible = false;
 
@@ -1069,92 +1070,150 @@ namespace IFCTerrainGUI
 
 
             //Hostname
-            if (tbHost.Text != null)
+            if (!string.IsNullOrEmpty(tbHost.Text))
             {
                 string hostname = tbHost.Text.ToString();
                 jSettings.host = hostname;
                 tbHost_read.Text = hostname;
+                postgis_error++;
             }
             
             //Port
-            if(tbPostGIS_Port.Text != null)
+            if(!string.IsNullOrEmpty(tbPostGIS_Port.Text))
             {
                 string port_value = tbPostGIS_Port.Text;
                 int port = Int32.Parse(port_value);
                 jSettings.port = port;
                 tbPort.Text = port.ToString();
+                postgis_error++;
             }
             
             //Username
-            if(tbUsername.Text != null)
+            if(!string.IsNullOrEmpty(tbUsername.Text))
             {
                 string username = tbUsername.Text.ToString();
                 jSettings.user = username;
+                postgis_error++;
             }
             
             //Password --> Datenschutz???
-            if(tbPassword.Text != null)
+            if(!string.IsNullOrEmpty(tbPassword.Text))
             {
                 string password = tbPassword.Text.ToString();
                 jSettings.password = password;
+                postgis_error++;
             }
 
             //Database
-            if(tbDatabase.Text != null)
+            if(!string.IsNullOrEmpty(tbDatabase.Text))
             {
                 string database = tbDatabase.Text.ToString();
                 jSettings.database = database;
                 tbDatabase_read.Text = database;
+                postgis_error++;
             }
 
             //Schema
-            if(tbSchema.Text != null)
+            if(!string.IsNullOrEmpty(tbSchema.Text))
             {
                 string schema = tbSchema.Text.ToString();
                 jSettings.schema = schema;
                 tbSchema_read.Text = schema;
+                postgis_error++;
             }
-
+            
+            //Geometry
             //TIN-Table
-            if (tbTableTIN.Text != null)
+            if (!string.IsNullOrEmpty(tbTableTIN.Text))
             {
                 string tintable = tbTableTIN.Text.ToString();
                 jSettings.tintable = tintable;
                 tbTINTable_read.Text = tintable;
+                postgis_error++;
             }
 
             //TIN-Column
-            if(tbTIN_Column.Text != null)
+            if(!string.IsNullOrEmpty(tbTIN_Column.Text))
             {
                 string tincolumn = tbTIN_Column.Text;
                 jSettings.tincolumn = tincolumn;
                 tbTINColumn_read.Text = tincolumn;
+                postgis_error++;
+            }
+
+            //ID
+            //Column
+            if (!string.IsNullOrEmpty(tbTinIDColumn.Text))
+            {
+                string tinidcolumn = tbTinIDColumn.Text;
+                jSettings.tinidcolumn = tinidcolumn;
+                postgis_error++;
+            }
+
+            //Value
+            if(!string.IsNullOrEmpty(tbTinID.Text))
+            {
+                int tinid = Int32.Parse(tbTinID.Text);
+                jSettings.tinid = tinid;
+                postgis_error++;
             }
 
             //Breakline bool
             if(rbPostGIS_BL_true.Checked == true)
             {
                 jSettings.BreakLine = true;
-                tbBreakline_read.Clear();
+                postgis_error++;
+
+                tbPostGIS_BL_Input.Enabled = true;
+                tbColumnBreakline.Enabled = true;
+                tbBlTinID.Enabled = true;
+
+                //Breakline
+                if (!string.IsNullOrEmpty(tbPostGIS_BL_Input.Text))
+                {
+                    string bltable = tbPostGIS_BL_Input.Text.ToString();
+                    jSettings.postgis_breakline_table = bltable;
+                    postgis_error++;
+                }
+                if(!string.IsNullOrEmpty(tbColumnBreakline.Text))
+                {
+                    string blcolumn = tbColumnBreakline.Text.ToString();
+                    jSettings.postgis_breakline_column = blcolumn;
+                    postgis_error++;
+                }
+                if(!string.IsNullOrEmpty(tbBlTinID.Text))
+                {
+                    string bltinid = tbBlTinID.Text.ToString();
+                    jSettings.postgis_breakline_tin_id = bltinid;
+                    postgis_error++;
+                }
             }
             else
             {
                 jSettings.BreakLine = false;
-                tbBreakline_read.Text = "No breakline";
+            }
+
+            if(postgis_error != 10)
+            {
+                if (postgis_error != 14)
+                {
+                    MessageBox.Show("Error: One or more inputfields are empty!");
+                }
+                else
+                {
+                    btnStart.Enabled = true;
+                }
+            }
+            else
+            {
+                btnStart.Enabled = true;
             }
             
-            //Breakline
-            if (tbPostGIS_BL_Input != null)
-            {
-                string postgisbl = tbPostGIS_BL_Input.Text.ToString();
-                jSettings.postgis_breakline = postgisbl;
-                tbBreakline_read.Text = tbPostGIS_BL_Input.Text;
-            }
 
 
 
 
-            btnStart.Enabled = true;
+            
         }
 
         private void rbPostGIS_BL_true_CheckedChanged(object sender, EventArgs e)
@@ -1162,6 +1221,8 @@ namespace IFCTerrainGUI
             if (rbPostGIS_BL_true.Enabled == true)
             {
                 tbPostGIS_BL_Input.Enabled = true;
+                tbColumnBreakline.Enabled = true;
+                tbBlTinID.Enabled = true;
             }       
         }
 
@@ -1170,6 +1231,8 @@ namespace IFCTerrainGUI
             if (rbPostGIS_BL_false.Enabled == true)
             {
                 tbPostGIS_BL_Input.Enabled = false;
+                tbColumnBreakline.Enabled = false;
+                tbBlTinID.Enabled = false;
             }
         }
 
@@ -1196,28 +1259,14 @@ namespace IFCTerrainGUI
 
         }
 
-        private void chkPostGIS_select_CheckedChanged(object sender, EventArgs e)
+        private void tbHost_TextChanged(object sender, EventArgs e)
         {
-            if(chkPostGIS_select.Checked == true)
-            {
-                //Input-Felder deaktivieren
-                tbSchema.Enabled = tbTableTIN.Enabled = tbTIN_Column.Enabled = false;
-                rbPostGIS_BL_true.Enabled = rbPostGIS_BL_false.Enabled = tbPostGIS_BL_Input.Enabled = false;
-                rbPostGIS_BL_false.Checked = true;
 
-                //Input-Feld für eigenen Select-Befehl aktivieren
-                tbSelect_User.Enabled = true;
-            }
-            else
-            {
-                //Input-Felder wieder aktivieren
-                tbSchema.Enabled = tbTableTIN.Enabled = tbTIN_Column.Enabled = true;
-                rbPostGIS_BL_true.Enabled = rbPostGIS_BL_false.Enabled = tbPostGIS_BL_Input.Enabled = true;
-                rbPostGIS_BL_false.Checked = true;
+        }
 
-                //Input-Feld für eigenen Select-Befehl deaktivieren
-                tbSelect_User.Enabled = false;
-            }
+        private void tbPostGIS_BL_Input_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

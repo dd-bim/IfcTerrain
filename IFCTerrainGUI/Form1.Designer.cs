@@ -102,28 +102,30 @@ namespace IFCTerrainGUI
             this.lbOUT = new System.Windows.Forms.Label();
             this.btnReadOUT = new System.Windows.Forms.Button();
             this.tbPostGIS = new System.Windows.Forms.TabPage();
-            this.tbSelect_User = new System.Windows.Forms.TextBox();
-            this.chkPostGIS_select = new System.Windows.Forms.CheckBox();
+            this.gp_Geometry = new System.Windows.Forms.GroupBox();
+            this.lbTable = new System.Windows.Forms.Label();
+            this.tbTableTIN = new System.Windows.Forms.TextBox();
+            this.lbColumn_TIN = new System.Windows.Forms.Label();
+            this.tbTIN_Column = new System.Windows.Forms.TextBox();
+            this.gpTIN_ID = new System.Windows.Forms.GroupBox();
+            this.lbTinColumnID = new System.Windows.Forms.Label();
+            this.tbTinID = new System.Windows.Forms.TextBox();
+            this.lbTinID = new System.Windows.Forms.Label();
             this.gbPostGIS_Breaklines = new System.Windows.Forms.GroupBox();
             this.lblPostGIS_bl = new System.Windows.Forms.Label();
             this.rbPostGIS_BL_true = new System.Windows.Forms.RadioButton();
             this.rbPostGIS_BL_false = new System.Windows.Forms.RadioButton();
             this.lbPostGIS_BL_Input = new System.Windows.Forms.Label();
             this.tbPostGIS_BL_Input = new System.Windows.Forms.TextBox();
-            this.lbColumn_TIN = new System.Windows.Forms.Label();
-            this.tbTIN_Column = new System.Windows.Forms.TextBox();
             this.tbPostGIS_Port = new System.Windows.Forms.TextBox();
             this.lb_Port = new System.Windows.Forms.Label();
             this.btnProcessPostGIS = new System.Windows.Forms.Button();
-            this.lbTable = new System.Windows.Forms.Label();
-            this.tbTableTIN = new System.Windows.Forms.TextBox();
             this.tbSchema = new System.Windows.Forms.TextBox();
             this.tbDatabase = new System.Windows.Forms.TextBox();
             this.lbSchema = new System.Windows.Forms.Label();
             this.lbDatabase = new System.Windows.Forms.Label();
             this.tbPassword = new System.Windows.Forms.TextBox();
             this.tbUsername = new System.Windows.Forms.TextBox();
-            this.lbDataProtection = new System.Windows.Forms.Label();
             this.lbPassword = new System.Windows.Forms.Label();
             this.lbUsername = new System.Windows.Forms.Label();
             this.DB_Host = new System.Windows.Forms.Label();
@@ -185,6 +187,11 @@ namespace IFCTerrainGUI
             this.lblPort = new System.Windows.Forms.Label();
             this.tbHost_read = new System.Windows.Forms.TextBox();
             this.lblHost = new System.Windows.Forms.Label();
+            this.tbTinIDColumn = new System.Windows.Forms.TextBox();
+            this.tbColumnBreakline = new System.Windows.Forms.TextBox();
+            this.lbColumnBreakline = new System.Windows.Forms.Label();
+            this.lbBlTinID = new System.Windows.Forms.Label();
+            this.tbBlTinID = new System.Windows.Forms.TextBox();
             this.gpFile.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpXML.SuspendLayout();
@@ -195,6 +202,8 @@ namespace IFCTerrainGUI
             this.tpOUT.SuspendLayout();
             this.gpOutBk.SuspendLayout();
             this.tbPostGIS.SuspendLayout();
+            this.gp_Geometry.SuspendLayout();
+            this.gpTIN_ID.SuspendLayout();
             this.gbPostGIS_Breaklines.SuspendLayout();
             this.gpVersion.SuspendLayout();
             this.gpType.SuspendLayout();
@@ -701,23 +710,18 @@ namespace IFCTerrainGUI
             // tbPostGIS
             // 
             this.tbPostGIS.BackColor = System.Drawing.Color.White;
-            this.tbPostGIS.Controls.Add(this.tbSelect_User);
-            this.tbPostGIS.Controls.Add(this.chkPostGIS_select);
+            this.tbPostGIS.Controls.Add(this.gp_Geometry);
+            this.tbPostGIS.Controls.Add(this.gpTIN_ID);
             this.tbPostGIS.Controls.Add(this.gbPostGIS_Breaklines);
-            this.tbPostGIS.Controls.Add(this.lbColumn_TIN);
-            this.tbPostGIS.Controls.Add(this.tbTIN_Column);
             this.tbPostGIS.Controls.Add(this.tbPostGIS_Port);
             this.tbPostGIS.Controls.Add(this.lb_Port);
             this.tbPostGIS.Controls.Add(this.btnProcessPostGIS);
-            this.tbPostGIS.Controls.Add(this.lbTable);
-            this.tbPostGIS.Controls.Add(this.tbTableTIN);
             this.tbPostGIS.Controls.Add(this.tbSchema);
             this.tbPostGIS.Controls.Add(this.tbDatabase);
             this.tbPostGIS.Controls.Add(this.lbSchema);
             this.tbPostGIS.Controls.Add(this.lbDatabase);
             this.tbPostGIS.Controls.Add(this.tbPassword);
             this.tbPostGIS.Controls.Add(this.tbUsername);
-            this.tbPostGIS.Controls.Add(this.lbDataProtection);
             this.tbPostGIS.Controls.Add(this.lbPassword);
             this.tbPostGIS.Controls.Add(this.lbUsername);
             this.tbPostGIS.Controls.Add(this.DB_Host);
@@ -725,20 +729,68 @@ namespace IFCTerrainGUI
             resources.ApplyResources(this.tbPostGIS, "tbPostGIS");
             this.tbPostGIS.Name = "tbPostGIS";
             // 
-            // tbSelect_User
+            // gp_Geometry
             // 
-            resources.ApplyResources(this.tbSelect_User, "tbSelect_User");
-            this.tbSelect_User.Name = "tbSelect_User";
+            this.gp_Geometry.Controls.Add(this.lbTable);
+            this.gp_Geometry.Controls.Add(this.tbTableTIN);
+            this.gp_Geometry.Controls.Add(this.lbColumn_TIN);
+            this.gp_Geometry.Controls.Add(this.tbTIN_Column);
+            resources.ApplyResources(this.gp_Geometry, "gp_Geometry");
+            this.gp_Geometry.Name = "gp_Geometry";
+            this.gp_Geometry.TabStop = false;
             // 
-            // chkPostGIS_select
+            // lbTable
             // 
-            resources.ApplyResources(this.chkPostGIS_select, "chkPostGIS_select");
-            this.chkPostGIS_select.Name = "chkPostGIS_select";
-            this.chkPostGIS_select.UseVisualStyleBackColor = true;
-            this.chkPostGIS_select.CheckedChanged += new System.EventHandler(this.chkPostGIS_select_CheckedChanged);
+            resources.ApplyResources(this.lbTable, "lbTable");
+            this.lbTable.Name = "lbTable";
+            // 
+            // tbTableTIN
+            // 
+            resources.ApplyResources(this.tbTableTIN, "tbTableTIN");
+            this.tbTableTIN.Name = "tbTableTIN";
+            this.tbTableTIN.TextChanged += new System.EventHandler(this.tbTableTIN_TextChanged);
+            // 
+            // lbColumn_TIN
+            // 
+            resources.ApplyResources(this.lbColumn_TIN, "lbColumn_TIN");
+            this.lbColumn_TIN.Name = "lbColumn_TIN";
+            // 
+            // tbTIN_Column
+            // 
+            resources.ApplyResources(this.tbTIN_Column, "tbTIN_Column");
+            this.tbTIN_Column.Name = "tbTIN_Column";
+            // 
+            // gpTIN_ID
+            // 
+            this.gpTIN_ID.Controls.Add(this.tbTinIDColumn);
+            this.gpTIN_ID.Controls.Add(this.lbTinColumnID);
+            this.gpTIN_ID.Controls.Add(this.tbTinID);
+            this.gpTIN_ID.Controls.Add(this.lbTinID);
+            resources.ApplyResources(this.gpTIN_ID, "gpTIN_ID");
+            this.gpTIN_ID.Name = "gpTIN_ID";
+            this.gpTIN_ID.TabStop = false;
+            // 
+            // lbTinColumnID
+            // 
+            resources.ApplyResources(this.lbTinColumnID, "lbTinColumnID");
+            this.lbTinColumnID.Name = "lbTinColumnID";
+            // 
+            // tbTinID
+            // 
+            resources.ApplyResources(this.tbTinID, "tbTinID");
+            this.tbTinID.Name = "tbTinID";
+            // 
+            // lbTinID
+            // 
+            resources.ApplyResources(this.lbTinID, "lbTinID");
+            this.lbTinID.Name = "lbTinID";
             // 
             // gbPostGIS_Breaklines
             // 
+            this.gbPostGIS_Breaklines.Controls.Add(this.tbBlTinID);
+            this.gbPostGIS_Breaklines.Controls.Add(this.lbBlTinID);
+            this.gbPostGIS_Breaklines.Controls.Add(this.lbColumnBreakline);
+            this.gbPostGIS_Breaklines.Controls.Add(this.tbColumnBreakline);
             this.gbPostGIS_Breaklines.Controls.Add(this.lblPostGIS_bl);
             this.gbPostGIS_Breaklines.Controls.Add(this.rbPostGIS_BL_true);
             this.gbPostGIS_Breaklines.Controls.Add(this.rbPostGIS_BL_false);
@@ -757,16 +809,16 @@ namespace IFCTerrainGUI
             // rbPostGIS_BL_true
             // 
             resources.ApplyResources(this.rbPostGIS_BL_true, "rbPostGIS_BL_true");
+            this.rbPostGIS_BL_true.Checked = true;
             this.rbPostGIS_BL_true.Name = "rbPostGIS_BL_true";
+            this.rbPostGIS_BL_true.TabStop = true;
             this.rbPostGIS_BL_true.UseVisualStyleBackColor = true;
             this.rbPostGIS_BL_true.CheckedChanged += new System.EventHandler(this.rbPostGIS_BL_true_CheckedChanged);
             // 
             // rbPostGIS_BL_false
             // 
             resources.ApplyResources(this.rbPostGIS_BL_false, "rbPostGIS_BL_false");
-            this.rbPostGIS_BL_false.Checked = true;
             this.rbPostGIS_BL_false.Name = "rbPostGIS_BL_false";
-            this.rbPostGIS_BL_false.TabStop = true;
             this.rbPostGIS_BL_false.UseVisualStyleBackColor = true;
             this.rbPostGIS_BL_false.CheckedChanged += new System.EventHandler(this.rbPostGIS_BL_false_CheckedChanged);
             // 
@@ -779,16 +831,7 @@ namespace IFCTerrainGUI
             // 
             resources.ApplyResources(this.tbPostGIS_BL_Input, "tbPostGIS_BL_Input");
             this.tbPostGIS_BL_Input.Name = "tbPostGIS_BL_Input";
-            // 
-            // lbColumn_TIN
-            // 
-            resources.ApplyResources(this.lbColumn_TIN, "lbColumn_TIN");
-            this.lbColumn_TIN.Name = "lbColumn_TIN";
-            // 
-            // tbTIN_Column
-            // 
-            resources.ApplyResources(this.tbTIN_Column, "tbTIN_Column");
-            this.tbTIN_Column.Name = "tbTIN_Column";
+            this.tbPostGIS_BL_Input.TextChanged += new System.EventHandler(this.tbPostGIS_BL_Input_TextChanged);
             // 
             // tbPostGIS_Port
             // 
@@ -808,17 +851,6 @@ namespace IFCTerrainGUI
             this.btnProcessPostGIS.Name = "btnProcessPostGIS";
             this.btnProcessPostGIS.UseVisualStyleBackColor = true;
             this.btnProcessPostGIS.Click += new System.EventHandler(this.btnProcessPostGIS_Click);
-            // 
-            // lbTable
-            // 
-            resources.ApplyResources(this.lbTable, "lbTable");
-            this.lbTable.Name = "lbTable";
-            // 
-            // tbTableTIN
-            // 
-            resources.ApplyResources(this.tbTableTIN, "tbTableTIN");
-            this.tbTableTIN.Name = "tbTableTIN";
-            this.tbTableTIN.TextChanged += new System.EventHandler(this.tbTableTIN_TextChanged);
             // 
             // tbSchema
             // 
@@ -850,11 +882,6 @@ namespace IFCTerrainGUI
             resources.ApplyResources(this.tbUsername, "tbUsername");
             this.tbUsername.Name = "tbUsername";
             // 
-            // lbDataProtection
-            // 
-            resources.ApplyResources(this.lbDataProtection, "lbDataProtection");
-            this.lbDataProtection.Name = "lbDataProtection";
-            // 
             // lbPassword
             // 
             resources.ApplyResources(this.lbPassword, "lbPassword");
@@ -874,6 +901,7 @@ namespace IFCTerrainGUI
             // 
             resources.ApplyResources(this.tbHost, "tbHost");
             this.tbHost.Name = "tbHost";
+            this.tbHost.TextChanged += new System.EventHandler(this.tbHost_TextChanged);
             // 
             // gpVersion
             // 
@@ -1253,6 +1281,31 @@ namespace IFCTerrainGUI
             resources.ApplyResources(this.lblHost, "lblHost");
             this.lblHost.Name = "lblHost";
             // 
+            // tbTinIDColumn
+            // 
+            resources.ApplyResources(this.tbTinIDColumn, "tbTinIDColumn");
+            this.tbTinIDColumn.Name = "tbTinIDColumn";
+            // 
+            // tbColumnBreakline
+            // 
+            resources.ApplyResources(this.tbColumnBreakline, "tbColumnBreakline");
+            this.tbColumnBreakline.Name = "tbColumnBreakline";
+            // 
+            // lbColumnBreakline
+            // 
+            resources.ApplyResources(this.lbColumnBreakline, "lbColumnBreakline");
+            this.lbColumnBreakline.Name = "lbColumnBreakline";
+            // 
+            // lbBlTinID
+            // 
+            resources.ApplyResources(this.lbBlTinID, "lbBlTinID");
+            this.lbBlTinID.Name = "lbBlTinID";
+            // 
+            // tbBlTinID
+            // 
+            resources.ApplyResources(this.tbBlTinID, "tbBlTinID");
+            this.tbBlTinID.Name = "tbBlTinID";
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -1295,6 +1348,10 @@ namespace IFCTerrainGUI
             this.gpOutBk.PerformLayout();
             this.tbPostGIS.ResumeLayout(false);
             this.tbPostGIS.PerformLayout();
+            this.gp_Geometry.ResumeLayout(false);
+            this.gp_Geometry.PerformLayout();
+            this.gpTIN_ID.ResumeLayout(false);
+            this.gpTIN_ID.PerformLayout();
             this.gbPostGIS_Breaklines.ResumeLayout(false);
             this.gbPostGIS_Breaklines.PerformLayout();
             this.gpVersion.ResumeLayout(false);
@@ -1431,7 +1488,6 @@ namespace IFCTerrainGUI
         private System.Windows.Forms.TextBox tbHost;
         private System.Windows.Forms.Label lbPassword;
         private System.Windows.Forms.Label lbUsername;
-        private System.Windows.Forms.Label lbDataProtection;
         private System.Windows.Forms.TextBox tbPassword;
         private System.Windows.Forms.TextBox tbUsername;
         private System.Windows.Forms.Label lbSchema;
@@ -1458,8 +1514,6 @@ namespace IFCTerrainGUI
         private System.Windows.Forms.Label lbColumn_TIN;
         private System.Windows.Forms.TextBox tbTIN_Column;
         private System.Windows.Forms.GroupBox gbPostGIS_Breaklines;
-        private System.Windows.Forms.TextBox tbSelect_User;
-        private System.Windows.Forms.CheckBox chkPostGIS_select;
         private System.Windows.Forms.Label lblTINTable;
         private System.Windows.Forms.Label lblTINColumn;
         private System.Windows.Forms.Label lblBreakline;
@@ -1468,5 +1522,15 @@ namespace IFCTerrainGUI
         private System.Windows.Forms.TextBox tbBreakline_read;
         private System.Windows.Forms.TextBox tbTINColumn_read;
         private System.Windows.Forms.TextBox tbTINTable_read;
+        private System.Windows.Forms.TextBox tbTinID;
+        private System.Windows.Forms.Label lbTinID;
+        private System.Windows.Forms.Label lbTinColumnID;
+        private System.Windows.Forms.GroupBox gp_Geometry;
+        private System.Windows.Forms.GroupBox gpTIN_ID;
+        private System.Windows.Forms.TextBox tbTinIDColumn;
+        private System.Windows.Forms.Label lbColumnBreakline;
+        private System.Windows.Forms.TextBox tbColumnBreakline;
+        private System.Windows.Forms.TextBox tbBlTinID;
+        private System.Windows.Forms.Label lbBlTinID;
     }
 }
