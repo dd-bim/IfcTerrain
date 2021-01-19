@@ -203,22 +203,21 @@ namespace IFCTerrain.Model.Read
                 return result;
             }
 
-
+            //Result beschreiben
             result.Mesh = tin;
 
-
+            //Fehler für Bruchkanten abfangen lassen
             try
             {
                 result.Breaklines = breaklines;
+                logger.Info(breaklines.Count + " breaklines read");
             }
             catch
             {
                 logger.Error("Breaklines could not be processed.");
             }
-
-            logger.Info(breaklines.Count + " breaklines read");
-
-
+            //logging 
+            
             logger.Info("Reading DXF-data successful");
             logger.Info(tin.Points.Count + " Points, " + tin.FixedEdges.Count + " Lines and " + tin.FaceEdges.Count + " Faces read");
             return result;

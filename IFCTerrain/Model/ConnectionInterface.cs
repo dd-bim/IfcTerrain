@@ -93,7 +93,7 @@ namespace IFCTerrain.Model
                     }
                     break;
                 case "PostGIS":
-                    result = PostGIS.ReadPostGIS_TIN(jSettings.is3D, jSettings.BreakLine, jSettings.host, jSettings.port, jSettings.user, jSettings.password, jSettings.database, jSettings.schema, jSettings.tintable, jSettings.tincolumn);
+                    result = PostGIS.ReadPostGIS_TIN(jSettings.is3D, jSettings.minDist, jSettings.BreakLine, jSettings.host, jSettings.port, jSettings.user, jSettings.password, jSettings.database, jSettings.schema, jSettings.tintable, jSettings.tincolumn);
                     break;
             }
             this.Mesh = result.Mesh;

@@ -940,28 +940,29 @@ namespace IFCTerrain.Model.Write
                                 }
                                 if (index > 0 && polyclosed == false)
                                 {
-                                    var blb = Breaklines.ElementAt(i - 1); //Line 1 //Line 2
-
-                                    //P2 //P4
-                                    chX = blb.Value.Direction.X;// - origin.X; //P2 - X-Wert
-                                    chY = blb.Value.Direction.Y;// - origin.Y; //P2 - Y-Wert
-                                    chZ = blb.Value.Direction.Z;// - origin.Z; //P2 - Z-Wert
+                                    var blb = Breaklines.ElementAt(i - 1); //vorherige Linie aufrufen
+                                    
+                                    //Endpunkt der vorherigen Linie aufrufen
+                                    chX = blb.Value.Direction.X - origin.X;
+                                    chY = blb.Value.Direction.Y - origin.Y; 
+                                    chZ = blb.Value.Direction.Z - origin.Z; 
                                     chX = Math.Round(chX, 3);
                                     chY = Math.Round(chY, 3);
                                     chZ = Math.Round(chZ, 3);
 
-                                    //P3 //P5
-                                    npX = bl.Value.Position.X;// - origin.X;
-                                    npY = bl.Value.Position.Y;// - origin.Y;
-                                    npZ = bl.Value.Position.Z;// - origin.Z;
+                                    //Startpunkt der aktuellen Linie
+                                    npX = bl.Value.Position.X - origin.X;
+                                    npY = bl.Value.Position.Y - origin.Y;
+                                    npZ = bl.Value.Position.Z - origin.Z;
                                     npX = Math.Round(npX, 3);
                                     npY = Math.Round(npY, 3);
                                     npZ = Math.Round(npZ, 3);
 
-                                    
-                                    if (chX == npX && chY == npY && chZ == npZ) //P2 //P4 = P3 //P5?
+                                    //Abgleich zwischen Endpunkt "Linie (n-1)" und Startpunkt "Linie n"
+                                    //somit gehören diese Linien zusammen
+                                    if (chX == npX && chY == npY && chZ == npZ)
                                     {
-                                        //P4  //P6 hinzufügen
+                                        //Endpunkt der Linie n
                                         npX = bl.Value.Direction.X;// - origin.X;
                                         npY = bl.Value.Direction.Y;// - origin.Y;
                                         npZ = bl.Value.Direction.Z;// - origin.Z;
@@ -972,33 +973,38 @@ namespace IFCTerrain.Model.Write
                                         var endPoint = model.Instances.New<IfcCartesianPoint>();
                                         endPoint.SetXYZ(npX, npY, npZ);
 
+                                        //Abgleich, ob Startpunkt des Polygons und aktueller Endpunkt identisch sind?
                                         if (npX == startPoint.X && npY == startPoint.Y && npZ == startPoint.Z)
                                         {
+                                            //Startpunkt als Endpunkt setzten!
                                             cp.Points.Add(startPoint);
+
+                                            //Polyline schließen --> Polygon ist somit geschlossen
                                             polyclosed = true;
-                                            //Polyline schließen --> Polygon ist in diesem Fall komplett geschlossen
-                                            //i++; // --> hinzufügen?, da erfolgreich????
+
+                                            //Eigenschaft für IFC-Export???
                                         }
                                         else
                                         {
+                                            //Punkt hinzufügen
                                             cp.Points.Add(endPoint);
                                             polyclosed = false;
-                                            i++;
+                                            i++; //weiterzählen, da Linie abgeschlossen ist
                                         }
                                     }
                                     else
                                     {
                                         polyclosed = true; //Polyline schließen
-                                        i--;//herunterzählen, da hier kein Punkt hinzugefügt wurde
+                                        i--;//herunterzählen, da hier kein Punkt hinzugefügt werden konnte
                                     }
 
                                 }
-                                else if (index == 0 && polyclosed == false) //dieser Fall muss immer erfüllt werden
+                                else if (index == 0 && polyclosed == false) //erste Linie im Polygon
                                 {
                                     //Anfangspunkt (P1)
-                                    stX = bl.Value.Position.X;// - origin.X;
-                                    stY = bl.Value.Position.Y;// - origin.Y;
-                                    stZ = bl.Value.Position.Z;// - origin.Z;
+                                    stX = bl.Value.Position.X - origin.X;
+                                    stY = bl.Value.Position.Y - origin.Y;
+                                    stZ = bl.Value.Position.Z - origin.Z;
                                     stX = Math.Round(stX, 3);
                                     stY = Math.Round(stY, 3);
                                     stZ = Math.Round(stZ, 3);
@@ -1009,19 +1015,21 @@ namespace IFCTerrain.Model.Write
                                     cp.Points.Add(startPoint);
 
                                     //nächster Punkt (P2)
-                                    npX = bl.Value.Direction.X;// - origin.X;
-                                    npY = bl.Value.Direction.Y;// - origin.Y;
-                                    npZ = bl.Value.Direction.Z;// - origin.Z;
-
-
+                                    npX = bl.Value.Direction.X - origin.X;
+                                    npY = bl.Value.Direction.Y - origin.Y;
+                                    npZ = bl.Value.Direction.Z - origin.Z;
                                     npX = Math.Round(npX, 3);
                                     npY = Math.Round(npY, 3);
                                     npZ = Math.Round(npZ, 3);
+
                                     var nextPoint = model.Instances.New<IfcCartesianPoint>();
+                                    //Punkt P2 setzen
                                     nextPoint.SetXYZ(npX, npY, npZ);
-                                    //polyline.Points.Add(nextPoint);
+
+                                    //Punkt der aktuellen Polyline übergeben
                                     cp.Points.Add(nextPoint);
 
+                                    //Status auf nicht geschlossen, da eventuell ein weiterer Punkt hinzugefügt werden kann
                                     polyclosed = false;
                                     i++;
                                 }

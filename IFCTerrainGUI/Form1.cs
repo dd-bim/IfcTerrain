@@ -77,6 +77,11 @@ namespace IFCTerrainGUI
 
         private void btnReadXml_Click(object sender, EventArgs e)
         {
+            //Einschalten der Maske - DGM
+            gpFile.Visible = true;
+            //Maske - PostGIS ausschalten
+            gpPostGIS.Visible = false;
+
             var ofd = new OpenFileDialog
             {
                 Filter = "LandXML *.xml|*.xml|CityGML *.gml|*.gml"
@@ -157,6 +162,11 @@ namespace IFCTerrainGUI
 
         private void btnReadDXF_Click(object sender, EventArgs e)
         {
+            //Einschalten der Maske - DGM
+            gpFile.Visible = true;
+            //Maske - PostGIS ausschalten
+            gpPostGIS.Visible = false;
+
             var ofd = new OpenFileDialog
             {
                 Filter = "DXF Files *.dxf, *.dxb|*.dxf;*.dxb"
@@ -284,6 +294,11 @@ namespace IFCTerrainGUI
 
         private void btnReadReb_Click(object sender, EventArgs e)
         {
+            //Einschalten der Maske - DGM
+            gpFile.Visible = true;
+            //Maske - PostGIS ausschalten
+            gpPostGIS.Visible = false;
+
             var ofd = new OpenFileDialog
             {
                 Filter = "REB Dateien *.REB, *.D45, *.D49, *.D58|*.reb;*.d45;*.d49;*.d58|Alle Dateitypen|*.*"
@@ -360,6 +375,11 @@ namespace IFCTerrainGUI
         
         private void btnReadOut_Click(object sender, EventArgs e)
         {
+            //Einschalten der Maske - DGM
+            gpFile.Visible = true;
+            //Maske - PostGIS ausschalten
+            gpPostGIS.Visible = false;
+
             var ofd = new OpenFileDialog
             {
                 Filter = "OUT Files *.out|*.out;"
@@ -383,6 +403,7 @@ namespace IFCTerrainGUI
         {
             string layer_out = null;
             string layer_bk = null;
+
             if (tbOutLayer.Text != "")
             {
                 //MessageBox.Show("Textfeld ist nicht leer");
@@ -703,6 +724,11 @@ namespace IFCTerrainGUI
 
         private void btnReadGrid_Click(object sender, EventArgs e)
         {
+            //Einschalten der Maske - DGM
+            gpFile.Visible = true;
+            //Maske - PostGIS ausschalten
+            gpPostGIS.Visible = false;
+
             var ofd = new OpenFileDialog
             {
                 Filter = "Textfile *.txt|*.txt|XYZ *.xyz|*.xyz"
@@ -1033,12 +1059,14 @@ namespace IFCTerrainGUI
 
         private void btnProcessPostGIS_Click(object sender, EventArgs e)
         {
-            jSettings.fileType = "PostGIS";
-            //Ausschalten der "alten" Maske
+            //Ausschalten der Maske-DGM einlesen
             gpFile.Visible = false;
 
-            //neue Maske einschalten
+            //Maske PostGIS einschalten
             gpPostGIS.Visible = true;
+
+            jSettings.fileType = "PostGIS";
+
 
             //Hostname
             if (tbHost.Text != null)
