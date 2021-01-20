@@ -9,14 +9,14 @@ This document provides description and explains the functionality of the IFCTerr
     + [IfcShellBasedSurfaceModel](#ifcshellbasedsurfacemodel)
     + [IfcTriangulatedFaceSet](#ifctriangulatedfaceset)
     + [~~IfcTriangulatedIrregularNetwork~~](#IfcTriangulatedIrregularNetwork)
-  * [The IFCTerrain tool](#the-ifcterrain-tool)
+  * [The IFCTerrain tool](#the-ifcterrain-tool-(GUI))
     + [Import settings](#import-settings)
     + [Export settings](#export-settings)
       - [IFC Version](#ifc-version)
       - [Export shape and model](#export-shape-and-model)
       - [Coordinate Origin](#coordinate-origin)
-  * [IFCTerrainCommand - Generating IFCTerrain data using command line arguments](#ifcterraincommand - generating ifcterrain data using command line arguments)
-    + [JSON Attributes (Overview)](#JSON-Attributes-(Overview))
+  * [IFCTerrainCommand](#IFCTerrainCommand)
+    + [JSON Attributes](#JSON-Attributes)
     + [FILE-SPECIFIC-Attributes](#FILE-SPECIFIC-Attributes)
   * [Usability of generated IFC files in other software](#usability-of-generated-ifc-files-in-other-software)
     + [Revit](#revit)
@@ -73,8 +73,6 @@ Is planned, but not implemented yet.
 
 ## The IFCTerrain tool (GUI)
 
-
-
 ![IfcTerrain Main Window](pic/IfcTerrainMainForm.PNG)
 
 
@@ -87,9 +85,17 @@ In tool is able to import the following data types containing terrain informatio
 
 - **LandXML** and **CityGML** containing TIN-Data
 
-- Drawing Interchange File Format (**DXF**) containing points and lines OR faces
+  - the user has to choose between LandXML and CityGML after "Read 'TIN file'".
+  - If "LandXML" was selected, it is then possible to select whether break lines are to be processed. These must be contained in the <Breaklines> tag. 
+  - For CityGML the processing of break lines is currently not possible.
 
-	- With DXF the user has to select the layer in which the terrain information is stored and whether the terrain information consists of points and/or lines OR faces and then click process to correctly import the data
+  ![TIN import](pic/TINimport.PNG)
+
+- Drawing Interchange File Format (**DXF**) containing points and lines <u>OR</u> faces
+
+	- with DXF the user has to select the layer in which the terrain information is stored and whether the terrain information consists of points and/or lines OR faces and then click process to correctly import the data
+	- If broken lines are to be processed, this must be selected with "Yes". Then select the *layer* in which the *break lines* are stored.
+	- The settings are to be accepted via the "Process" button.
 
 ![DXF import](pic/DXFimport.PNG)
 
@@ -103,25 +109,58 @@ In tool is able to import the following data types containing terrain informatio
 
 
 - **Grid**, specifically an elevation grid consisting of points and a regular size of the grid "tiles" (simple .xyz data format)
-  - the user has to select the correct grid size used in the file
+  - the user has to select the correct grid size <u>used</u> in the file
+  - Furthermore, a bounding box can be set by ticking the field, entering the corresponding values (unit: metre) and pressing the "Set" button.
 
 ![Grid import](pic/Gridimport.PNG)
 
 - **GEOgraf** **OUT**, project exchange format 
-
-  - the user can decide which species are to be processed
+  - the user can decide which species are to be processed. If these are left blank, all types will be read.
   - the user can decide whether a status (position and height) should be ignored
   - the user can choose whether *areas* or *points & lines* are to be processed
   - the processing of break edges are available (if points & lines have been selected), here a line type containing the break lines is still to be specified
+  - the settings are to be accepted via the "Process" button
 
-  
+![OUT import](pic/OUTimport.PNG)
+
+
 
 - **PostGIS**, database connection to query a DTM
 
-  - An account is required that can send a SELECT command for an existing PostGIS database.
-  - It is also possible to query DTMs and the associated break lines.
+  - An account is required that can send a SELECT command for an existing PostGIS database. 
+    <u>Note</u>: no data such as passwords are stored! These are only required for establishing a database connection.
+  
+  - It requires (without break lines): 
+  
+    - a database, a scheme, 
+  
+    - the table & column containing the TIN,
+  
+    - the column with the TIN ID (which is in the same table as the TIN) 
+  
+    - The following SELECT command is sent to the database:
+  
+      ```sql
+      SELECT ST_AsEWKT(tincolumn) FROM schema.tintable WHERE tinidcolumn = tinid
+      ```
+  
+      
+  
+  - If break lines are to be processed, it is still necessary:
+  
+    - a table & column containing the break lines
+  
+    - For the connection between break line and TIN, a column is to be kept that contains the corresponding TIN ID
+  
+    - The following SELECT command is sent to the database: 
+  
+      ```sql
+      SELECT ST_AsEWKT(bl_table.bl_column) FROM schema.bl_table JOIN schema.tintable ON (bl_table.bl_tinid = tintable. tinidcolumn) WHERE tintable.tinidcolumn = tinid
+      ```
+  
+      
 
-
+![PostGIS Import](pic/PostGISimport.PNG)
 
 ### Export settings
 
@@ -166,7 +205,7 @@ The "custom" option allows the user to define the project coordinate origin to a
 
 
 
-## IFCTerrainCommand - Generating IFCTerrain data using command line arguments
+## IFCTerrain Command
 
 As an alternative to the graphical user interface, it is possible to use the IFCTerrainCommand.exe for generating terrain models in IFC format. For that, a *.json file is required, that contains the information that is required to run the application.
 
@@ -174,7 +213,7 @@ Below are an example for such a json file and a table containing descriptions fo
 
 ![JsonSettings](pic/JsonSettings.PNG)
 
-### JSON Attributes (Overview)
+### JSON Attributes
 
 The json attributes to convert a dtm are listed below. These are divided into: **required** and **file-specific attributes**. 
 Hint: Upper and lower case must be observed!
