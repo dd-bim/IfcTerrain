@@ -921,7 +921,8 @@ namespace IFCTerrainGUI
             try
             {
                 string mainDirec = Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetParent(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)).FullName).FullName).FullName).FullName;
-                string docuPath = Path.Combine(mainDirec, "Documentation.html");
+                string docuPath = "https://github.com/dd-bim/IfcTerrain/blob/master/README.md";
+                //string docuPath = Path.Combine(mainDirec, "Documentation.html");
                 System.Diagnostics.Process.Start(docuPath);
                 //System.Diagnostics.Process.Start(@"Documentation.html");
             }
