@@ -1,7 +1,5 @@
 # IFCTerrain Documentation
 
-
-
 This document provides description and explains the functionality of the IFCTerrain software tool. The main purpose of IFCTerrain is transforming terrain models of different data formats into IFC (Industry Foundation Classes), which is the common open data exchange format in BIM (Building Information Modeling).
 
 
@@ -17,15 +15,13 @@ This document provides description and explains the functionality of the IFCTerr
       - [IFC Version](#ifc-version)
       - [Export shape and model](#export-shape-and-model)
       - [Coordinate Origin](#coordinate-origin)
-    + [IFCTerrainCommand - Generating IFCTerrain data using command line arguments](#ifcterraincommand - generating ifcterrain data using command line arguments)
-      + [JSON Attributes (Overview)](# JSON Attributes (Overview))
-      + [FILE-SPECIFIC-Attributes](# FILE-SPECIFIC-Attributes)
+  * [IFCTerrainCommand - Generating IFCTerrain data using command line arguments](#ifcterraincommand - generating ifcterrain data using command line arguments)
+    + [JSON Attributes (Overview)](#JSON-Attributes-(Overview))
+    + [FILE-SPECIFIC-Attributes](#FILE-SPECIFIC-Attributes)
   * [Usability of generated IFC files in other software](#usability-of-generated-ifc-files-in-other-software)
     + [Revit](#revit)
     + [Solibri](#solibri)
   * [Testing software for developer](#Testing-software-for-developer)  
-
-
 
 
 
@@ -73,6 +69,8 @@ Is planned, but not implemented yet.
 
 [IfcTriangulatedIrregularNetwork - buildingSMART](https://standards.buildingsmart.org/IFC/DEV/IFC4_2/FINAL/HTML/schema/ifcgeometricmodelresource/lexical/ifctriangulatedirregularnetwork.htm)
 
+
+
 ## The IFCTerrain tool (GUI)
 
 
@@ -83,7 +81,7 @@ Is planned, but not implemented yet.
 
 ### Import settings
 
-The main window of the IfcTerrain tool is seperated in import and export settings.
+The main window of the **IfcTerrain** tool is separated in *import* and *export* *settings*.
 
 In tool is able to import the following data types containing terrain information:
 
@@ -98,14 +96,14 @@ In tool is able to import the following data types containing terrain informatio
 
 
 - **REB data** (formats DA45, DA49 or DA58)
-- similar with DXF, in the REB import the user has to select the horizon in which the terrain data is stored and then click process to correctly import the data
+  - similar with DXF, in the REB import the user has to select the horizon in which the terrain data is stored and then click process to correctly import the data
 
 ![REB import](pic/REBimport.PNG)
 
 
 
 - **Grid**, specifically an elevation grid consisting of points and a regular size of the grid "tiles" (simple .xyz data format)
-- the user has to select the correct grid size used in the file
+  - the user has to select the correct grid size used in the file
 
 ![Grid import](pic/Gridimport.PNG)
 
@@ -122,6 +120,8 @@ In tool is able to import the following data types containing terrain informatio
 
   - An account is required that can send a SELECT command for an existing PostGIS database.
   - It is also possible to query DTMs and the associated break lines.
+
+
 
 ### Export settings
 
@@ -246,11 +246,11 @@ The attributes of the respective file format are to be added.
 | tinid_column     | sting       | Specify the column that contains the *ID* of the TIN         |
 | tin_id           | integer     | Specification of a TIN ID to be read out                     |
 | breakline        | true; false | Decides whether break edges are to be processed (true). <br />If this is not the case, the following lines are not necessary! |
-| breakline_table  | string      | Specify the table that contains the geometry of the breaklines |
-| breakline_column | string      | Specify the column that contains the geometry of the breaklines |
+| breakline_table  | string      | Specify the table that contains the geometry of the break lines |
+| breakline_column | string      | Specify the column that contains the geometry of the break lines |
 | breakline_tin_id | string      | Specify the column that contains the TIN ID <br />!Not to be confused with "tin_id". |
 
-Once the input json file is ready one can use the console (cmd) to run the IFCTerrainCommand.exe with the filepath of the input json file as a command line argument. For Example:
+Once the input json file is ready one can use the console (cmd) to run the IFCTerrainCommand.exe with the file path of the input json file as a command line argument. For Example:
 
 ```powershell
 IFCTerrainCommand.exe "D:\Data\input\Sample.json"
@@ -264,11 +264,11 @@ Keep in mind that IFCTerrain generates IFC files according to the specified stan
 
 If you want to use the terrain data with correct coordinates it is important to place the "project base point" at the desired location (same as coordinate origin of IFCTerrain file) before importing the generated IfcTerrain file in Revit.
 
-Furthermore Revit is currently unable to display IfcTriangulatedFaceSet entities.
+Furthermore Revit is currently <u>unable</u> to display *IfcTriangulatedFaceSet* entities.
 
 ### Solibri
 
-Solibri generally imports almost all IFC information correctly, but is currently unable to display IfcGeometricCurveSet entities.
+Solibri generally imports almost all IFC information correctly, but is currently <u>unable</u> to display *IfcGeometricCurveSet* entities.
 
 
 
@@ -281,4 +281,4 @@ The windows-batch program is a executive testing software. It reads from the ``I
 - [x] GRID (XYZ)
 - [x] REB (DA45, DA49, DA58)
 - [x] GEOgraf (OUT)
-- [x] Database (PostGIS)
+- [ ] ~~Database (PostGIS)~~
