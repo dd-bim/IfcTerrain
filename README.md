@@ -33,15 +33,13 @@ This document provides description and explains the functionality of the IFCTerr
 
 The IFC data format provides multiple ways to store terrain information. The following subsections contain explanations for these terrain model concepts in IFC, that are supported by IFCTerrain.
 
-
-
 ### IfcGeometricCurveSet
 
 According to the entity definition, "The IfcGeometricCurveSet is used for the exchange of shape representation of a collection of (2D or 3D) points and curves only".
 
 It contains a list of elements that form the shape representation of the IfcGeometricCurveSet object. Contrary to the IfcGeometricSet from which it inherits the element list, IfcGeometricCurveSet can not have surface objects in its geometric set. It consists stricly of points and curves as stated above.
 
-[IfcGeometricCurveSet - BuildingSmart (IFC4 ADD 2)](https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/ifcgeometricmodelresource/lexical/ifcgeometriccurveset.htm)
+[IfcGeometricCurveSet - buildingSMART](https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/ifcgeometricmodelresource/lexical/ifcgeometriccurveset.htm)
 
 
 
@@ -49,9 +47,7 @@ It contains a list of elements that form the shape representation of the IfcGeom
 
 IfcShellBasedSurfaceModel represents a shape by a set of open or closed shells. The singular shells themselves have a dimensionality of 2 and shall not overlap each other. The complete IfcShellBasedSurfaceModel has a dimensionality of 3.
 
-
-
-https://standards.buildingsmart.org/IFC/DEV/IFC4_2/FINAL/HTML/schema/ifcgeometricmodelresource/lexical/ifcshellbasedsurfacemodel.htm
+[IfcShellBasedSurfaceModel - buildingSMART](https://standards.buildingsmart.org/IFC/DEV/IFC4_2/FINAL/HTML/schema/ifcgeometricmodelresource/lexical/ifcshellbasedsurfacemodel.htm)
 
 
 
@@ -67,13 +63,15 @@ From the buildingsmart IFC documentation:
 
 The type IfcTriangulatedFaceSet is only available in schema IFC4 and not in IFC2x3.
 
-http://docs.buildingsmartalliance.org/MVD_SPARKIE/schema/ifcgeometricmodelresource/lexical/ifctriangulatedfaceset.htm
+[IfcTriangulatedFaceSet - buildingSMART](http://docs.buildingsmartalliance.org/MVD_SPARKIE/schema/ifcgeometricmodelresource/lexical/ifctriangulatedfaceset.htm)
+
+
 
 ### IfcTriangulatedIrregularNetwork
 
 Is planned, but not implemented yet.
 
-
+[IfcTriangulatedIrregularNetwork - buildingSMART](https://standards.buildingsmart.org/IFC/DEV/IFC4_2/FINAL/HTML/schema/ifcgeometricmodelresource/lexical/ifctriangulatedirregularnetwork.htm)
 
 ## The IFCTerrain tool (GUI)
 
@@ -89,9 +87,9 @@ The main window of the IfcTerrain tool is seperated in import and export setting
 
 In tool is able to import the following data types containing terrain information:
 
-- LandXML and CityGML containing TIN-Data
+- **LandXML** and **CityGML** containing TIN-Data
 
-- Drawing Interchange File Format (DXF) containing points and lines OR faces
+- Drawing Interchange File Format (**DXF**) containing points and lines OR faces
 
 	- With DXF the user has to select the layer in which the terrain information is stored and whether the terrain information consists of points and/or lines OR faces and then click process to correctly import the data
 
@@ -99,22 +97,31 @@ In tool is able to import the following data types containing terrain informatio
 
 
 
-- REB data (formats DA45, DA49 or DA58)
-
-	- similar with DXF, in the REB import the user has to select the horizon in which the terrain data is stored and then click process to correctly import the data
+- **REB data** (formats DA45, DA49 or DA58)
+- similar with DXF, in the REB import the user has to select the horizon in which the terrain data is stored and then click process to correctly import the data
 
 ![REB import](pic/REBimport.PNG)
 
 
 
-- Grid, specifically an elevation grid consisting of points and a regular size of the grid "tiles" (simple .xyz data format)
-
-	- the user has to select the correct grid size used in the file
+- **Grid**, specifically an elevation grid consisting of points and a regular size of the grid "tiles" (simple .xyz data format)
+- the user has to select the correct grid size used in the file
 
 ![Grid import](pic/Gridimport.PNG)
 
-- GEOgraf OUT
-- PostGIS
+- **GEOgraf** **OUT**, project exchange format 
+
+  - the user can decide which species are to be processed
+  - the user can decide whether a status (position and height) should be ignored
+  - the user can choose whether *areas* or *points & lines* are to be processed
+  - the processing of break edges are available (if points & lines have been selected), here a line type containing the break lines is still to be specified
+
+  
+
+- **PostGIS**, database connection to query a DTM
+
+  - An account is required that can send a SELECT command for an existing PostGIS database.
+  - It is also possible to query DTMs and the associated break lines.
 
 ### Export settings
 
@@ -169,7 +176,8 @@ Below are an example for such a json file and a table containing descriptions fo
 
 ### JSON Attributes (Overview)
 
-Some JSON attributes are listed below. These are divided into: **required** and **file-specific attributes**. Hint: Upper and lower case must be observed!
+The json attributes to convert a dtm are listed below. These are divided into: **required** and **file-specific attributes**. 
+Hint: Upper and lower case must be observed!
 
 #### **REQUIRED - Attributes**
 
@@ -268,9 +276,9 @@ Solibri generally imports almost all IFC information correctly, but is currently
 
 The windows-batch program is a executive testing software. It reads from the ``IFCTerrainTestData``the config data (``IFCTerrainTestData/ 99_JSON``) and is exporting the results of the test data to the export folder (``IFCTerrainTestData/ 00_Export``). This folder will be opened automatically. It creates test IFC-data for:
 
-- LandXML
-- CityGML
-- DXF
-- Raster
-- REB
-- Geograf OUT
+- [x] TIN (LandXML, CityGML)
+- [x] CAD (DXF)
+- [x] GRID (XYZ)
+- [x] REB (DA45, DA49, DA58)
+- [x] GEOgraf (OUT)
+- [x] Database (PostGIS)
