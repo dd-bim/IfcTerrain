@@ -604,7 +604,7 @@
     <value>0</value>
   </data>
   <data name="tpXML.Text" xml:space="preserve">
-    <value>TIN(LandXML,CityGML)</value>
+    <value>TIN (LandXML,CityGML)</value>
   </data>
   <data name="&gt;&gt;tpXML.Name" xml:space="preserve">
     <value>tpXML</value>
@@ -1059,19 +1059,19 @@
     <value>10</value>
   </data>
   <data name="tpDXF.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 40</value>
+    <value>4, 22</value>
   </data>
   <data name="tpDXF.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tpDXF.Size" type="System.Drawing.Size, System.Drawing">
-    <value>337, 336</value>
+    <value>337, 354</value>
   </data>
   <data name="tpDXF.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
   <data name="tpDXF.Text" xml:space="preserve">
-    <value>DXF</value>
+    <value>CAD (DXF)</value>
   </data>
   <data name="&gt;&gt;tpDXF.Name" xml:space="preserve">
     <value>tpDXF</value>
@@ -1203,16 +1203,16 @@
     <value>3</value>
   </data>
   <data name="tpREB.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 40</value>
+    <value>4, 22</value>
   </data>
   <data name="tpREB.Size" type="System.Drawing.Size, System.Drawing">
-    <value>337, 336</value>
+    <value>337, 354</value>
   </data>
   <data name="tpREB.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="tpREB.Text" xml:space="preserve">
-    <value>REB(DA45,DA49,DA58)</value>
+    <value>REB (DA45,DA49,DA58)</value>
   </data>
   <data name="&gt;&gt;tpREB.Name" xml:space="preserve">
     <value>tpREB</value>
@@ -1251,7 +1251,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label14.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tpXYZ</value>
   </data>
   <data name="&gt;&gt;label14.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -1281,7 +1281,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label13.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tpXYZ</value>
   </data>
   <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -1311,7 +1311,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label12.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tpXYZ</value>
   </data>
   <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
     <value>2</value>
@@ -1338,7 +1338,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label11.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tpXYZ</value>
   </data>
   <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
     <value>3</value>
@@ -1362,7 +1362,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tb_bbSouth.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tpXYZ</value>
   </data>
   <data name="&gt;&gt;tb_bbSouth.ZOrder" xml:space="preserve">
     <value>4</value>
@@ -1386,7 +1386,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tb_bbWest.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tpXYZ</value>
   </data>
   <data name="&gt;&gt;tb_bbWest.ZOrder" xml:space="preserve">
     <value>5</value>
@@ -1410,7 +1410,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tb_bbEast.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tpXYZ</value>
   </data>
   <data name="&gt;&gt;tb_bbEast.ZOrder" xml:space="preserve">
     <value>6</value>
@@ -1434,7 +1434,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tb_bbNorth.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tpXYZ</value>
   </data>
   <data name="&gt;&gt;tb_bbNorth.ZOrder" xml:space="preserve">
     <value>7</value>
@@ -1461,7 +1461,7 @@
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;cb_BBox.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tpXYZ</value>
   </data>
   <data name="&gt;&gt;cb_BBox.ZOrder" xml:space="preserve">
     <value>8</value>
@@ -1488,7 +1488,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label7.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tpXYZ</value>
   </data>
   <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
     <value>9</value>
@@ -1515,7 +1515,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label6.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tpXYZ</value>
   </data>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
     <value>10</value>
@@ -1539,7 +1539,7 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;btnGridSize.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tpXYZ</value>
   </data>
   <data name="&gt;&gt;btnGridSize.ZOrder" xml:space="preserve">
     <value>11</value>
@@ -1566,7 +1566,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tbGsSet.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tpXYZ</value>
   </data>
   <data name="&gt;&gt;tbGsSet.ZOrder" xml:space="preserve">
     <value>12</value>
@@ -1590,33 +1590,33 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;btnReadGrid.Parent" xml:space="preserve">
-    <value>tabPage1</value>
+    <value>tpXYZ</value>
   </data>
   <data name="&gt;&gt;btnReadGrid.ZOrder" xml:space="preserve">
     <value>13</value>
   </data>
-  <data name="tabPage1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="tpXYZ.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 40</value>
   </data>
-  <data name="tabPage1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tpXYZ.Size" type="System.Drawing.Size, System.Drawing">
     <value>337, 336</value>
   </data>
-  <data name="tabPage1.TabIndex" type="System.Int32, mscorlib">
+  <data name="tpXYZ.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="tabPage1.Text" xml:space="preserve">
+  <data name="tpXYZ.Text" xml:space="preserve">
     <value>Grid (XYZ)</value>
   </data>
-  <data name="&gt;&gt;tabPage1.Name" xml:space="preserve">
-    <value>tabPage1</value>
+  <data name="&gt;&gt;tpXYZ.Name" xml:space="preserve">
+    <value>tpXYZ</value>
   </data>
-  <data name="&gt;&gt;tabPage1.Type" xml:space="preserve">
+  <data name="&gt;&gt;tpXYZ.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tabPage1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;tpXYZ.Parent" xml:space="preserve">
     <value>tabControl1</value>
   </data>
-  <data name="&gt;&gt;tabPage1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;tpXYZ.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
   <data name="label20.AutoSize" type="System.Boolean, mscorlib">
@@ -2189,7 +2189,7 @@
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;gp_Geometry.Parent" xml:space="preserve">
-    <value>tbPostGIS</value>
+    <value>tpPostGIS</value>
   </data>
   <data name="&gt;&gt;gp_Geometry.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -2315,7 +2315,7 @@
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;gpTIN_ID.Parent" xml:space="preserve">
-    <value>tbPostGIS</value>
+    <value>tpPostGIS</value>
   </data>
   <data name="&gt;&gt;gpTIN_ID.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -2564,7 +2564,7 @@
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;gbPostGIS_Breaklines.Parent" xml:space="preserve">
-    <value>tbPostGIS</value>
+    <value>tpPostGIS</value>
   </data>
   <data name="&gt;&gt;gbPostGIS_Breaklines.ZOrder" xml:space="preserve">
     <value>2</value>
@@ -2588,7 +2588,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tbPostGIS_Port.Parent" xml:space="preserve">
-    <value>tbPostGIS</value>
+    <value>tpPostGIS</value>
   </data>
   <data name="&gt;&gt;tbPostGIS_Port.ZOrder" xml:space="preserve">
     <value>3</value>
@@ -2615,7 +2615,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lb_Port.Parent" xml:space="preserve">
-    <value>tbPostGIS</value>
+    <value>tpPostGIS</value>
   </data>
   <data name="&gt;&gt;lb_Port.ZOrder" xml:space="preserve">
     <value>4</value>
@@ -2639,7 +2639,7 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;btnProcessPostGIS.Parent" xml:space="preserve">
-    <value>tbPostGIS</value>
+    <value>tpPostGIS</value>
   </data>
   <data name="&gt;&gt;btnProcessPostGIS.ZOrder" xml:space="preserve">
     <value>5</value>
@@ -2660,7 +2660,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tbSchema.Parent" xml:space="preserve">
-    <value>tbPostGIS</value>
+    <value>tpPostGIS</value>
   </data>
   <data name="&gt;&gt;tbSchema.ZOrder" xml:space="preserve">
     <value>6</value>
@@ -2681,7 +2681,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tbDatabase.Parent" xml:space="preserve">
-    <value>tbPostGIS</value>
+    <value>tpPostGIS</value>
   </data>
   <data name="&gt;&gt;tbDatabase.ZOrder" xml:space="preserve">
     <value>7</value>
@@ -2708,7 +2708,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbSchema.Parent" xml:space="preserve">
-    <value>tbPostGIS</value>
+    <value>tpPostGIS</value>
   </data>
   <data name="&gt;&gt;lbSchema.ZOrder" xml:space="preserve">
     <value>8</value>
@@ -2735,7 +2735,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbDatabase.Parent" xml:space="preserve">
-    <value>tbPostGIS</value>
+    <value>tpPostGIS</value>
   </data>
   <data name="&gt;&gt;lbDatabase.ZOrder" xml:space="preserve">
     <value>9</value>
@@ -2759,7 +2759,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tbPassword.Parent" xml:space="preserve">
-    <value>tbPostGIS</value>
+    <value>tpPostGIS</value>
   </data>
   <data name="&gt;&gt;tbPassword.ZOrder" xml:space="preserve">
     <value>10</value>
@@ -2780,7 +2780,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tbUsername.Parent" xml:space="preserve">
-    <value>tbPostGIS</value>
+    <value>tpPostGIS</value>
   </data>
   <data name="&gt;&gt;tbUsername.ZOrder" xml:space="preserve">
     <value>11</value>
@@ -2807,7 +2807,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbPassword.Parent" xml:space="preserve">
-    <value>tbPostGIS</value>
+    <value>tpPostGIS</value>
   </data>
   <data name="&gt;&gt;lbPassword.ZOrder" xml:space="preserve">
     <value>12</value>
@@ -2834,7 +2834,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;lbUsername.Parent" xml:space="preserve">
-    <value>tbPostGIS</value>
+    <value>tpPostGIS</value>
   </data>
   <data name="&gt;&gt;lbUsername.ZOrder" xml:space="preserve">
     <value>13</value>
@@ -2861,7 +2861,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;DB_Host.Parent" xml:space="preserve">
-    <value>tbPostGIS</value>
+    <value>tpPostGIS</value>
   </data>
   <data name="&gt;&gt;DB_Host.ZOrder" xml:space="preserve">
     <value>14</value>
@@ -2882,36 +2882,36 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tbHost.Parent" xml:space="preserve">
-    <value>tbPostGIS</value>
+    <value>tpPostGIS</value>
   </data>
   <data name="&gt;&gt;tbHost.ZOrder" xml:space="preserve">
     <value>15</value>
   </data>
-  <data name="tbPostGIS.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="tpPostGIS.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 40</value>
   </data>
-  <data name="tbPostGIS.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="tpPostGIS.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
-  <data name="tbPostGIS.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tpPostGIS.Size" type="System.Drawing.Size, System.Drawing">
     <value>337, 336</value>
   </data>
-  <data name="tbPostGIS.TabIndex" type="System.Int32, mscorlib">
+  <data name="tpPostGIS.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
-  <data name="tbPostGIS.Text" xml:space="preserve">
-    <value>PostGIS</value>
+  <data name="tpPostGIS.Text" xml:space="preserve">
+    <value>Database (PostGIS)</value>
   </data>
-  <data name="&gt;&gt;tbPostGIS.Name" xml:space="preserve">
-    <value>tbPostGIS</value>
+  <data name="&gt;&gt;tpPostGIS.Name" xml:space="preserve">
+    <value>tpPostGIS</value>
   </data>
-  <data name="&gt;&gt;tbPostGIS.Type" xml:space="preserve">
+  <data name="&gt;&gt;tpPostGIS.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tbPostGIS.Parent" xml:space="preserve">
+  <data name="&gt;&gt;tpPostGIS.Parent" xml:space="preserve">
     <value>tabControl1</value>
   </data>
-  <data name="&gt;&gt;tbPostGIS.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;tpPostGIS.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
   <data name="tabControl1.Location" type="System.Drawing.Point, System.Drawing">

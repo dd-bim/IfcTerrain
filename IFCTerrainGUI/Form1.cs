@@ -274,9 +274,9 @@ namespace IFCTerrainGUI
             if(this.lbDxfBk.SelectedIndex >= 0)
             {
                 string layer = (string)this.lbDxfBk.SelectedItem;
-                jSettings.BreakLineLayer = layer;
+                jSettings.breakline_layer = layer;
                 tbLayerBk.Text = layer;
-                jSettings.BreakLine = rbDxfBk_true.Checked;
+                jSettings.breakline = rbDxfBk_true.Checked;
             }
             btnStart.Enabled = true;
         }
@@ -460,7 +460,7 @@ namespace IFCTerrainGUI
                     }
                 }
                 tbLayerBk.Text = layer_bk;
-                jSettings.BreakLineLayer = layer_out; 
+                jSettings.breakline_layer = layer_out; 
                 tbOutBk.Clear();
             }
             
@@ -1127,7 +1127,7 @@ namespace IFCTerrainGUI
             if (!string.IsNullOrEmpty(tbTableTIN.Text))
             {
                 string tintable = tbTableTIN.Text.ToString();
-                jSettings.tintable = tintable;
+                jSettings.tin_table = tintable;
                 tbTINTable_read.Text = tintable;
                 postgis_error++;
             }
@@ -1136,7 +1136,7 @@ namespace IFCTerrainGUI
             if(!string.IsNullOrEmpty(tbTIN_Column.Text))
             {
                 string tincolumn = tbTIN_Column.Text;
-                jSettings.tincolumn = tincolumn;
+                jSettings.tin_column = tincolumn;
                 tbTINColumn_read.Text = tincolumn;
                 postgis_error++;
             }
@@ -1146,7 +1146,7 @@ namespace IFCTerrainGUI
             if (!string.IsNullOrEmpty(tbTinIDColumn.Text))
             {
                 string tinidcolumn = tbTinIDColumn.Text;
-                jSettings.tinidcolumn = tinidcolumn;
+                jSettings.tinid_column = tinidcolumn;
                 postgis_error++;
             }
 
@@ -1154,14 +1154,14 @@ namespace IFCTerrainGUI
             if(!string.IsNullOrEmpty(tbTinID.Text))
             {
                 int tinid = Int32.Parse(tbTinID.Text);
-                jSettings.tinid = tinid;
+                jSettings.tin_id = tinid;
                 postgis_error++;
             }
 
             //Breakline bool
             if(rbPostGIS_BL_true.Checked == true)
             {
-                jSettings.BreakLine = true;
+                jSettings.breakline = true;
                 postgis_error++;
 
                 tbPostGIS_BL_Input.Enabled = true;
@@ -1172,25 +1172,25 @@ namespace IFCTerrainGUI
                 if (!string.IsNullOrEmpty(tbPostGIS_BL_Input.Text))
                 {
                     string bltable = tbPostGIS_BL_Input.Text.ToString();
-                    jSettings.postgis_breakline_table = bltable;
+                    jSettings.breakline_table = bltable;
                     postgis_error++;
                 }
                 if(!string.IsNullOrEmpty(tbColumnBreakline.Text))
                 {
                     string blcolumn = tbColumnBreakline.Text.ToString();
-                    jSettings.postgis_breakline_column = blcolumn;
+                    jSettings.breakline_column = blcolumn;
                     postgis_error++;
                 }
                 if(!string.IsNullOrEmpty(tbBlTinID.Text))
                 {
                     string bltinid = tbBlTinID.Text.ToString();
-                    jSettings.postgis_breakline_tin_id = bltinid;
+                    jSettings.breakline_tin_id = bltinid;
                     postgis_error++;
                 }
             }
             else
             {
-                jSettings.BreakLine = false;
+                jSettings.breakline = false;
             }
 
             if(postgis_error != 10)

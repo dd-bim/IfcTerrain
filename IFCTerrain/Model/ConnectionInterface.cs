@@ -66,11 +66,11 @@ namespace IFCTerrain.Model
 
                     if (jSettings.isTin)
                     {
-                        result = DXF.ReadDXFTin(jSettings.is3D, dxfFile, jSettings.layer, jSettings.BreakLineLayer, jSettings.minDist, jSettings.logFilePath, jSettings.verbosityLevel, jSettings.BreakLine);
+                        result = DXF.ReadDXFTin(jSettings.is3D, dxfFile, jSettings.layer, jSettings.breakline_layer, jSettings.minDist, jSettings.logFilePath, jSettings.verbosityLevel, jSettings.breakline);
                     }
                     else
                     {
-                        result = DXF.ReadDXFIndPoly(jSettings.is3D, dxfFile, jSettings.layer, jSettings.BreakLineLayer, jSettings.minDist, jSettings.logFilePath, jSettings.verbosityLevel, jSettings.BreakLine);
+                        result = DXF.ReadDXFIndPoly(jSettings.is3D, dxfFile, jSettings.layer, jSettings.breakline_layer, jSettings.minDist, jSettings.logFilePath, jSettings.verbosityLevel, jSettings.breakline);
                     }
                     break;
 
@@ -93,7 +93,7 @@ namespace IFCTerrain.Model
                     }
                     break;
                 case "PostGIS":
-                    result = PostGIS.ReadPostGIS_TIN(jSettings.is3D, jSettings.minDist, jSettings.host, jSettings.port, jSettings.user, jSettings.password, jSettings.database, jSettings.schema, jSettings.tintable, jSettings.tincolumn, jSettings.tinidcolumn, jSettings.tinid, jSettings.BreakLine, jSettings.postgis_breakline_table, jSettings.postgis_breakline_column, jSettings.postgis_breakline_tin_id);
+                    result = PostGIS.ReadPostGIS_TIN(jSettings.is3D, jSettings.minDist, jSettings.host, jSettings.port, jSettings.user, jSettings.password, jSettings.database, jSettings.schema, jSettings.tin_table, jSettings.tin_column, jSettings.tinid_column, jSettings.tin_id, jSettings.breakline, jSettings.breakline_table, jSettings.breakline_column, jSettings.breakline_tin_id);
                     break;
             }
             this.Mesh = result.Mesh;

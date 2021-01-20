@@ -42,8 +42,8 @@ namespace IFCTerrain.Model
         #region GEOgraf OUT
         public bool ignPos { get; set; }            //ignoriert Punkte mit Lagestatus 0 --> (ungültig)
         public bool ignHeight { get; set; }         //ignoriert Punkte mit Höhenstatus 0 --> (ungültig)
-        public string BreakLineLayer { get; set; }  //Layer für Bruchkanten
-        public bool BreakLine { get; set; }         //Option, ob Bruchkante verwendet werden soll
+        public string breakline_layer { get; set; }  //Layer für Bruchkanten
+        public bool breakline { get; set; }         //Option, ob Bruchkante verwendet werden soll
         #endregion
 
         #region PostGIS
@@ -59,19 +59,19 @@ namespace IFCTerrain.Model
 
         public string schema { get; set; }
 
-        public string tintable { get; set; }
+        public string tin_table { get; set; }
 
-        public string tincolumn { get; set; }
+        public string tin_column { get; set; }
 
-        public string tinidcolumn { get; set; }
+        public string tinid_column { get; set; }
 
-        public int tinid { get; set; }
+        public int tin_id { get; set; }
 
-        public string postgis_breakline_table { get; set; }
+        public string breakline_table { get; set; }
 
-        public string postgis_breakline_column { get; set; }
+        public string breakline_column { get; set; }
 
-        public string postgis_breakline_tin_id { get; set; }
+        public string breakline_tin_id { get; set; }
 
         #endregion
 
