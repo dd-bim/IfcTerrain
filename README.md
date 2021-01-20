@@ -10,18 +10,20 @@ This document provides description and explains the functionality of the IFCTerr
     + [IfcGeometricCurveSet](#ifcgeometriccurveset)
     + [IfcShellBasedSurfaceModel](#ifcshellbasedsurfacemodel)
     + [IfcTriangulatedFaceSet](#ifctriangulatedfaceset)
+    + [~~IfcTriangulatedIrregularNetwork~~](#IfcTriangulatedIrregularNetwork)
   * [The IFCTerrain tool](#the-ifcterrain-tool)
     + [Import settings](#import-settings)
     + [Export settings](#export-settings)
       - [IFC Version](#ifc-version)
       - [Export shape and model](#export-shape-and-model)
       - [Coordinate Origin](#coordinate-origin)
-    + [Generating IFCTerrain data using command line arguments](#generating-ifcterrain-data-using-command-line-arguments)
+    + [IFCTerrainCommand - Generating IFCTerrain data using command line arguments](#ifcterraincommand - generating ifcterrain data using command line arguments)
+      + [JSON Attributes (Overview)](# JSON Attributes (Overview))
+      + [FILE-SPECIFIC-Attributes](# FILE-SPECIFIC-Attributes)
   * [Usability of generated IFC files in other software](#usability-of-generated-ifc-files-in-other-software)
     + [Revit](#revit)
     + [Solibri](#solibri)
-
-<!---<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>-->
+  * [Testing software for developer](#Testing-software-for-developer)  
 
 
 
@@ -29,31 +31,21 @@ This document provides description and explains the functionality of the IFCTerr
 
 ## Terrain models in IFC
 
-
-
-The IFC data format provides multpiple ways to store terrain information. The following subsections contain explanations for these terrain model concepts in IFC, that are supported by IFCTerrain.
+The IFC data format provides multiple ways to store terrain information. The following subsections contain explanations for these terrain model concepts in IFC, that are supported by IFCTerrain.
 
 
 
 ### IfcGeometricCurveSet
 
-
-
 According to the entity definition, "The IfcGeometricCurveSet is used for the exchange of shape representation of a collection of (2D or 3D) points and curves only".
 
 It contains a list of elements that form the shape representation of the IfcGeometricCurveSet object. Contrary to the IfcGeometricSet from which it inherits the element list, IfcGeometricCurveSet can not have surface objects in its geometric set. It consists stricly of points and curves as stated above.
 
-
-
-
-
-https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/ifcgeometricmodelresource/lexical/ifcgeometriccurveset.htm
+[IfcGeometricCurveSet - BuildingSmart (IFC4 ADD 2)](https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/ifcgeometricmodelresource/lexical/ifcgeometriccurveset.htm)
 
 
 
 ### IfcShellBasedSurfaceModel
-
-
 
 IfcShellBasedSurfaceModel represents a shape by a set of open or closed shells. The singular shells themselves have a dimensionality of 2 and shall not overlap each other. The complete IfcShellBasedSurfaceModel has a dimensionality of 3.
 
@@ -65,11 +57,7 @@ https://standards.buildingsmart.org/IFC/DEV/IFC4_2/FINAL/HTML/schema/ifcgeometri
 
 ### IfcTriangulatedFaceSet
 
-
-
-From the buildingsmart IFc documentation:
-
-
+From the buildingsmart IFC documentation:
 
 >  The IfcTriangulatedFaceSet is a tessellated face set with all faces being bound by triangles. The faces are constructed by implicit polylines defined by three Cartesian points. The coordinates of each point are provided by an index into an ordered list of Cartesian points provided by the two-dimensional list CoordIndex, where
 
@@ -81,9 +69,13 @@ The type IfcTriangulatedFaceSet is only available in schema IFC4 and not in IFC2
 
 http://docs.buildingsmartalliance.org/MVD_SPARKIE/schema/ifcgeometricmodelresource/lexical/ifctriangulatedfaceset.htm
 
+### IfcTriangulatedIrregularNetwork
+
+Is planned, but not implemented yet.
 
 
-## The IFCTerrain tool
+
+## The IFCTerrain tool (GUI)
 
 
 
@@ -93,21 +85,15 @@ http://docs.buildingsmartalliance.org/MVD_SPARKIE/schema/ifcgeometricmodelresour
 
 ### Import settings
 
-
-
 The main window of the IfcTerrain tool is seperated in import and export settings.
 
 In tool is able to import the following data types containing terrain information:
-
-
 
 - LandXML and CityGML containing TIN-Data
 
 - Drawing Interchange File Format (DXF) containing points and lines OR faces
 
-	- With DXF the user has to select the layer in which the terrain information is stored and wether the terrain information consists of points and/or lines OR faces and then click process to correctly import the data
-
-
+	- With DXF the user has to select the layer in which the terrain information is stored and whether the terrain information consists of points and/or lines OR faces and then click process to correctly import the data
 
 ![DXF import](pic/DXFimport.PNG)
 
@@ -117,8 +103,6 @@ In tool is able to import the following data types containing terrain informatio
 
 	- similar with DXF, in the REB import the user has to select the horizon in which the terrain data is stored and then click process to correctly import the data
 
-
-
 ![REB import](pic/REBimport.PNG)
 
 
@@ -127,14 +111,12 @@ In tool is able to import the following data types containing terrain informatio
 
 	- the user has to select the correct grid size used in the file
 
-
-
 ![Grid import](pic/Gridimport.PNG)
 
+- GEOgraf OUT
+- PostGIS
 
 ### Export settings
-
-
 
 Under export settings, the user can customize the IFC file that will be generated by the IFCTerrain tool.
 
@@ -142,11 +124,11 @@ Under export settings, the user can customize the IFC file that will be generate
 
 #### IFC Version
 
-Within the IFCVersion box, the user can decide:
+Within the IFC-Version box, the user can decide:
 
-- between IFCVersions "2x3" and "4 add 1"
+- between IFC-Versions "2x3" and "4 add 1"
 
-- if IfcGeographicElement entities shall be exportet (only available if IFC Version 4 add 1 is selected)
+- if IfcGeographicElement entities shall be exported (only available if IFC Version 4 add 1 is selected)
 
 - if a regular IFC file in STEP format or IFCXML in XML format (Export IFC Checkbox checked) shall be generated
 
@@ -159,7 +141,7 @@ Within the IFCVersion box, the user can decide:
 
 Within the "Shape" box, the user can decide between the different possibilities to store the terrain information in IFC (as mentioned above in the chapter "Terrain models in IFC"). Keep in mind that not every BIM software is able to represent these different models in the same way. Which model type should be exported depends on the software that the generated Ifc file shall be imported in.
 
-Additionaly the user has the choice to define a minimum distance between points that is allowed in the final mesh of the terrain model. For beginner users this input should be left at its standard value of 1 meter.
+Additionally the user has the choice to define a minimum distance between points that is allowed in the final mesh of the terrain model. For beginner users this input should be left at its standard value of 1 meter.
 
 ![Shape](pic/Shape.PNG)
 
@@ -167,7 +149,7 @@ Additionaly the user has the choice to define a minimum distance between points 
 #### Coordinate Origin
 
 
-The coordinate origin box provides the opportunity to customize the coordinate origin of the exported IFC file. Selecting "default" will place the coordinate origin in the middle of the total project area and stored in the IfcSite entity. All of the absolute input coordinates will be transformed in relation to this coordinat origin.
+The coordinate origin box provides the opportunity to customize the coordinate origin of the exported IFC file. Selecting "default" will place the coordinate origin in the middle of the total project area and stored in the IfcSite entity. All of the absolute input coordinates will be transformed in relation to this coordinate origin.
 
 The "custom" option allows the user to define the project coordinate origin to a position of his/her choice.
 
@@ -177,51 +159,92 @@ The "custom" option allows the user to define the project coordinate origin to a
 
 
 
-### Generating IFCTerrain data using command line arguments
-
-
+## IFCTerrainCommand - Generating IFCTerrain data using command line arguments
 
 As an alternative to the graphical user interface, it is possible to use the IFCTerrainCommand.exe for generating terrain models in IFC format. For that, a *.json file is required, that contains the information that is required to run the application.
 
-Below are an example for such a json file and a table containing descriptions for every possible attribute.
+Below are an example for such a json file and a table containing descriptions for every possible attribute. Some sample JSON data sets are stored in the folder: ``IFCTerrainTestData/ 99_JSON``
 
 ![JsonSettings](pic/JsonSettings.PNG)
 
+### JSON Attributes (Overview)
 
+Some JSON attributes are listed below. These are divided into: **required** and **file-specific attributes**. Hint: Upper and lower case must be observed!
+
+#### **REQUIRED - Attributes**
 
 | attribute | value range | description |
-|--------|--------|--------|
-|is3D|true; false|Describes wether the generated terrain model should be 3-dimensional or not|
-|minDist|Double|Sets the minimum distance between nodes in the terrain model|
-|fileName|valid filepath-string|Path and filename of the input file|
-|fileType|LandXML; CityGML; DXF; REB; Grid; OUT [string]|Fileformat of the input file|
-|layer|String|Name of the layer that contains terrain information in an input DXF file or OUT file|
-|horizon|Integer|Number of the horizon that contains terrain information in an input REB file|
-|ignPos|true; false|Decides whether the status code for the location position should be ignored (=true). Only for file format: Geograf Out!|
-|ignHeight|true; false|Decides whether the status code for the height position should be ignored (=true). Only for file format: Geograf Out!|
-|isTin|true; false|Describes wether an input DXF file contains tin information (faces) or not|
-|projectName|String|The project name in the output IFC file|
-|editorsFamilyName|String|The editors family name in the output IFC file|
-|editorsGivenName|String|The editors given name in the output IFC file|
-|editorsOrganisation|String|The editors organisation name in the output IFC file|
-|destFileName|valid filepath-string|Path and filename of the output file|
+|:-------|:-------|:-------|
+|fileName|valid file path string|Path and filename of the input file|
+|fileType|LandXML; CityGML; DXF; REB; Grid; OUT [string]|File format of the input file|
+|is3D|true; false|Describes whether the generated terrain model should be 3-dimensional or not|
+|minDist|double|Sets the minimum distance between nodes in the terrain model|
+|destFileName|valid file path string|Path and filename of the output file|
+|projectName|string|The project name in the output IFC file|
+|editorsFamilyName|string|The editors family name in the output IFC file|
+|editorsGivenName|string|The editors given name in the output IFC file|
+|editorsOrganisation|string|The editors organization name in the output IFC file|
 |outIFCType|IFC2x3; IFC4|Sets the IFC version of the output file|
-|outFileType|Step; XML|Sets the file fomrat of the output file|
+|outFileType|Step; XML|Sets the file format of the output file|
 |surfaceType|GCS; SBSM; TFS|Sets the terrain model type for the output IFC file: GCS=GeometricCurveSet; SBSM=ShellBasesSurfaceModel; TFS=TriangulatedFaceSet|
-|geoElement|true; false|Setting, that decides wether the output IFC file should contain an IfcGeographicElement of the terrain or not|
-|gridSize|Integer|The distance between points in the grid input file|
-|customOrigin|true; false|Describes wether the project coordinat origin should be set to the user defined position or not|
-|xOrigin|Double|The x component of the custom origin|
-|yOrigin|Double|The y component of the custom origin|
-|zOrigin|Double|The z component of the custom origin|
+|geoElement|true; false|Setting, that decides whether the output IFC file should contain an IfcGeographicElement of the terrain or not|
+|customOrigin|true; false|Describes whether the project coordinate origin should be set to the user defined position or not. If this is not the case, the following three lines are not necessary!|
+|xOrigin|double|The x component of the custom origin|
+|yOrigin|double|The y component of the custom origin|
+|zOrigin|double|The z component of the custom origin|
+|gridSize|integer|The distance between points in the *grid input file*|
 
 
+
+#### **FILE-SPECIFIC-Attributes**
+
+The attributes of the respective file format are to be added.
+
+##### Drawing Interchange File Format (DXF)
+
+| attribute | vale range  | description                                                  |
+| --------- | ----------- | ------------------------------------------------------------ |
+| layer     | string      | Name of the layer that contains terrain information in an input DXF file |
+| isTin     | true; false | Describes whether an input DXF file contains tin information (faces) or not |
+
+##### REB (DA45, DA49, DA58)
+
+| attribute | vale range | description                                             |
+| --------- | ---------- | ------------------------------------------------------- |
+| horizon   | integer    | Number of the horizon that contains terrain information |
+
+##### GRAFBAT (GEOgraf OUT)
+
+| attribute       | vale range  | description                                                  |
+| --------------- | ----------- | ------------------------------------------------------------ |
+| layer           | string      | Name of the layer that contains terrain information in an input DXF file |
+| ignPos          | true; false | Decides whether the status code for the location position should be ignored (=true). |
+| ignHeight       | true; false | Decides whether the status code for the height position should be ignored (=true). |
+| breakline       | true; false | Decides whether break edges are to be processed (true).<br />If this is not the case, the following line is not necessary! |
+| breakline_layer | string      | Name of the layer that contains the breakline. (only one layer is allowed) |
+
+##### Database (PostGIS) [DRAFT - changes may follow]
+
+| attribute        | value range | description                                                  |
+| ---------------- | ----------- | ------------------------------------------------------------ |
+| host             | string      | Link to the host database                                    |
+| port             | integer     | Specifying the port for the database connection              |
+| user             | string      | Specification of the user name for authentication with the database |
+| password         | string      | Specification of the password for authentication with the database |
+| database         | string      | Target database                                              |
+| schema           | string      | Target schema                                                |
+| tin_table        | string      | Specify the table that contains the TIN                      |
+| tin_column       | string      | Specify the column that contains the *geometry* of the TIN   |
+| tinid_column     | sting       | Specify the column that contains the *ID* of the TIN         |
+| tin_id           | integer     | Specification of a TIN ID to be read out                     |
+| breakline        | true; false | Decides whether break edges are to be processed (true). <br />If this is not the case, the following lines are not necessary! |
+| breakline_table  | string      | Specify the table that contains the geometry of the breaklines |
+| breakline_column | string      | Specify the column that contains the geometry of the breaklines |
+| breakline_tin_id | string      | Specify the column that contains the TIN ID <br />!Not to be confused with "tin_id". |
 
 Once the input json file is ready one can use the console (cmd) to run the IFCTerrainCommand.exe with the filepath of the input json file as a command line argument. For Example:
 
-
-
-```
+```powershell
 IFCTerrainCommand.exe "D:\Data\input\Sample.json"
 ```
 
@@ -239,9 +262,11 @@ Furthermore Revit is currently unable to display IfcTriangulatedFaceSet entities
 
 Solibri generally imports almost all IFC information correctly, but is currently unable to display IfcGeometricCurveSet entities.
 
-## testing software for developer
 
-The windows-batch programm is a executiv testing software. It reads from the "sample_data folder" the config data ("IFCTerrainTestData/99_JSON") and is exporting the results of the test data to the export folder ("IFCTerrainTestData/00_Export"). This folder will be opened automaticly. It creates test IFC-data for:
+
+## Testing software for developer
+
+The windows-batch program is a executive testing software. It reads from the ``IFCTerrainTestData``the config data (``IFCTerrainTestData/ 99_JSON``) and is exporting the results of the test data to the export folder (``IFCTerrainTestData/ 00_Export``). This folder will be opened automatically. It creates test IFC-data for:
 
 - LandXML
 - CityGML
