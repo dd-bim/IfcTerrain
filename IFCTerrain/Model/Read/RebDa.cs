@@ -143,11 +143,7 @@ namespace IFCTerrain.Model.Read
 
         public static Result ConvertReb(bool is3D, RebDaData rebData, int horizon, double minDist, string logFilePath, string verbosityLevel)
         {
-            //Serilog.Log.Logger = new LoggerConfiguration()
-            //                   .MinimumLevel.Debug()
-            //                   .WriteTo.File(logFilePath)
-            //                   .CreateLogger();
-            var logger = LogManager.GetCurrentClassLogger();
+            Logger logger = LogManager.GetCurrentClassLogger();
 
             var mesh = new Mesh(is3D, minDist);
             var result = new Result();

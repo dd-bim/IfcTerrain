@@ -675,17 +675,18 @@ namespace IFCTerrainGUI
 
             string path = Path.GetDirectoryName(this.jSettings.destFileName);
 
-            //Werte aus UserSettings übernehmen bzw. Standardwerte
+            //Setzen des "log-Pfads" [VERSCHIEBEN?]
             if (System.Configuration.ConfigurationManager.AppSettings["LogFilePath"] == null)
             {
                 this.jSettings.logFilePath = path;
-                NLog.GlobalDiagnosticsContext.Set("logDirectory", path);
-                Logger.Info("PFAD wurde gesetzt");
+                GlobalDiagnosticsContext.Set("logDirectory", path);
             }
             else
             {
                 this.jSettings.logFilePath = System.Configuration.ConfigurationManager.AppSettings["LogFilePath"];
             }
+
+            //ÜBERPRÜFEN, ob noch notwendig:
             /*
             if (System.Configuration.ConfigurationManager.AppSettings["VerbosityLevel"] == null)
             {

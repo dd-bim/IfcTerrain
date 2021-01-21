@@ -103,7 +103,7 @@ namespace IFCTerrain.Model
             #region Mesh-Checker
             try
             {
-                logger.Debug("Mesh created with: " + this.Mesh.Points.Count + " Points; " + this.Mesh.FixedEdges + " Lines; " + this.Mesh.FaceEdges + " Faces");
+                logger.Debug("Mesh created with: " + Mesh.Points.Count + " Points; " + Mesh.FixedEdges.Count + " Lines; " + Mesh.FaceEdges.Count + " Faces");
             }
             catch
             {

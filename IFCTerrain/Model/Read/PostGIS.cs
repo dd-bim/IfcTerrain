@@ -19,7 +19,7 @@ namespace IFCTerrain.Model.Read
 {
     public class PostGIS
     {
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger(); //initalisieren des Loggers in diesem Reader
 
         public static Result ReadPostGIS_TIN(bool is3d, double minDist, string Host, int Port, string User, string Password, string DBname, string schema, string tintable, string tincolumn, string tinidcolumn, int tinid, bool postgis_bl, string bl_column, string bl_table, string bl_tinid)
         {
@@ -27,7 +27,7 @@ namespace IFCTerrain.Model.Read
             var result = new Result();
             var tin = new Mesh(is3d, minDist);
             Dictionary<int, Line3> breaklines = new Dictionary<int, Line3>();
-            Logger.Info("A database connection is established...");
+            Logger.Info("A database connection is established.");
             try
             {
                 //prepare string for database connection
@@ -40,13 +40,16 @@ namespace IFCTerrain.Model.Read
                         Port,
                         Password
                         );
-                //
+
+                //TIN Request
                 using (var conn = new NpgsqlConnection(connString))
                 {
                     //open database connection
                     conn.Open();
                     NpgsqlConnection.GlobalTypeMapper.UseLegacyPostgis();
                     
+                    //ÜBERARBEITEN ggf. weitere Request-Möglichkeiten???
+
                     //select request for tin without breaklines via TIN ID
                     string tin_select = "SELECT " + "ST_AsEWKT("+ tincolumn +") as wkt FROM " + schema + "." + tintable + " WHERE " + tinidcolumn + " = " + tinid;
 
@@ -56,12 +59,11 @@ namespace IFCTerrain.Model.Read
                     {
                         bl_select = "SELECT ST_AsEWKT(" + bl_table + "." + bl_column + ") FROM " + schema + "." + bl_table + " JOIN " + schema + "." + tintable + " ON ("+ bl_table + "." + bl_tinid + " = " + tintable + "." + tinidcolumn +") WHERE " + tintable +"." + tinidcolumn + " = " + tinid;
                     }
-
-                    //tin abfragen
+                    //TIN abfragen
                     using (var command = new NpgsqlCommand(tin_select, conn))
                     {
-                        //NpgsqlDataReader reader = command.ExecuteReader();
                         var reader = command.ExecuteReader();
+                        Logger.Info("The following REQUEST have been sent: \n" + tin_select);
                         while (reader.Read())
                         {
                             //read column --> as WKT
@@ -139,96 +141,96 @@ namespace IFCTerrain.Model.Read
                                 if (!tin.Points.Any() || !tin.FaceEdges.Any())
                                 {
                                     result.Error = Properties.Resources.errNoLineData;
-                                    Logger.Error("Error. No line data found");
+                                    Logger.Error("No line data found");
                                     return result;
-                                }
-                                else
-                                {
-                                   
                                 }
                         }
                         conn.Close();
                     }
+                    
                     //Mesh übergeben
                     result.Mesh = tin;
-                    conn.Open();
-                    //Bruchkanten abfragen
-                    int index_poly = 0;
-                    int index = 0;
-                    using (var command = new NpgsqlCommand(bl_select, conn))
+                    if (postgis_bl == true)
                     {
-                        var reader = command.ExecuteReader();
-                        
-                        while (reader.Read())
+                        conn.Open();
+                        //Bruchkanten abfragen
+                        int index_poly = 0;
+                        int index = 0;
+                        using (var command = new NpgsqlCommand(bl_select, conn))
                         {
-                            string polyline_string = (reader.GetValue(0)).ToString();
+                            var reader = command.ExecuteReader();
+                            Logger.Info("The following REQUEST have been sent: \n" + bl_select);
 
-                            string[] poly_split = polyline_string.Split(';');
-
-                            //Gesamte Polyline 
-                            string poly_gesamt = poly_split[1];
-
-                            //Split für den Anfang des TINs
-                            char[] trim = { 'L', 'I', 'N','E','S','T','R','I','N','G','(' };
-                            poly_gesamt = poly_gesamt.TrimStart(trim);
-
-                            char[] trimEnd = { ')' };
-                            poly_gesamt = poly_gesamt.TrimEnd(trimEnd);
-
-                            //Split für jeden Punkt
-                            string[] separator = { "," };
-                            string[] polyline = poly_gesamt.Split(separator, System.StringSplitOptions.RemoveEmptyEntries);
-
-                            //Jeden Punkt in der Polyline durchlaufen
-                            int i = 0;
-                            int j = 1;
-                            do
+                            while (reader.Read())
                             {
-                                string[] point_start_values = polyline[i].Split(' ');
-                                double p1X = Convert.ToDouble(point_start_values[0], CultureInfo.InvariantCulture);
-                                double p1Y = Convert.ToDouble(point_start_values[1], CultureInfo.InvariantCulture);
-                                double p1Z = Convert.ToDouble(point_start_values[2], CultureInfo.InvariantCulture);
-                                Point3 p1 = Point3.Create(p1X * scale, p1Y * scale, p1Z * scale);
+                                string polyline_string = (reader.GetValue(0)).ToString();
 
-                                string[] point_end_values = polyline[j].Split(' ');
-                                double p2X = Convert.ToDouble(point_end_values[0], CultureInfo.InvariantCulture);
-                                double p2Y = Convert.ToDouble(point_end_values[1], CultureInfo.InvariantCulture);
-                                double p2Z = Convert.ToDouble(point_end_values[2], CultureInfo.InvariantCulture);
-                                Point3 p2 = Point3.Create(p2X * scale, p2Y * scale, p2Z * scale);
-                                Vector3 v12 = Vector3.Create(p2);
-                                Direction3 d12 = Direction3.Create(v12, scale);
-                                Line3 l = Line3.Create(p1, d12);
-                                try
+                                string[] poly_split = polyline_string.Split(';');
+
+                                //Gesamte Polyline 
+                                string poly_gesamt = poly_split[1];
+
+                                //Split für den Anfang des TINs
+                                char[] trim = { 'L', 'I', 'N', 'E', 'S', 'T', 'R', 'I', 'N', 'G', '(' };
+                                poly_gesamt = poly_gesamt.TrimStart(trim);
+
+                                char[] trimEnd = { ')' };
+                                poly_gesamt = poly_gesamt.TrimEnd(trimEnd);
+
+                                //Split für jeden Punkt
+                                string[] separator = { "," };
+                                string[] polyline = poly_gesamt.Split(separator, System.StringSplitOptions.RemoveEmptyEntries);
+
+                                //Jeden Punkt in der Polyline durchlaufen
+                                int i = 0;
+                                int j = 1;
+                                do
                                 {
-                                    breaklines.Add(index, l); //Breakline hinzufügen
-                                    index++;
-                                }
-                                catch
-                                {
-                                    index++;
-                                }
-                                i++;
-                                j++;
-                            } while (j < polyline.Length);
-                            
-                            index_poly++;
+                                    string[] point_start_values = polyline[i].Split(' ');
+                                    double p1X = Convert.ToDouble(point_start_values[0], CultureInfo.InvariantCulture);
+                                    double p1Y = Convert.ToDouble(point_start_values[1], CultureInfo.InvariantCulture);
+                                    double p1Z = Convert.ToDouble(point_start_values[2], CultureInfo.InvariantCulture);
+                                    Point3 p1 = Point3.Create(p1X * scale, p1Y * scale, p1Z * scale);
+
+                                    string[] point_end_values = polyline[j].Split(' ');
+                                    double p2X = Convert.ToDouble(point_end_values[0], CultureInfo.InvariantCulture);
+                                    double p2Y = Convert.ToDouble(point_end_values[1], CultureInfo.InvariantCulture);
+                                    double p2Z = Convert.ToDouble(point_end_values[2], CultureInfo.InvariantCulture);
+                                    Point3 p2 = Point3.Create(p2X * scale, p2Y * scale, p2Z * scale);
+                                    Vector3 v12 = Vector3.Create(p2);
+                                    Direction3 d12 = Direction3.Create(v12, scale);
+                                    Line3 l = Line3.Create(p1, d12);
+                                    try
+                                    {
+                                        breaklines.Add(index, l); //Breakline hinzufügen
+                                        index++;
+                                    }
+                                    catch
+                                    {
+                                        index++;
+                                    }
+                                    i++;
+                                    j++;
+                                } while (j < polyline.Length);
+
+                                index_poly++;
+                            }
+                            result.Breaklines = breaklines;
                         }
-                        result.Breaklines = breaklines;
+
+                        //close database connection
+                        conn.Close();
                     }
-                    
-                    //close database connection
-                    conn.Close();
                     Logger.Info("All database connections have been disconnected.");
-                    /*
-                    if (line > 0)
+                    
+                    if (result.Mesh != null)
                     {
-                        logger.Info("Reading PostGIS successful");
-                        logger.Info("Reading " + index_poly + " lines");
+                        Logger.Info("Reading PostGIS successful");
                     }
                     else
                     {
-                        logger.Error("Reading PostGIS failed");
-                    }*/
+                        Logger.Error("Reading PostGIS failed! \n" + "Error in Mesh. The requested data could not be processed.");
+                    }
                 }
             }
             catch (Exception e)

@@ -8,9 +8,9 @@ using BimGisCad.Collections;
 using BimGisCad.Representation.Geometry.Elementary;
 using IxMilia.Dxf;
 using IxMilia.Dxf.Entities;
+
+//NLog for Logging
 using NLog;
-using NLog.Config;
-using NLog.Targets;
 
 namespace IFCTerrain.Model.Read
 {
@@ -47,7 +47,6 @@ namespace IFCTerrain.Model.Read
                 dxfFile = null;
                 return false;
             }
-
         }
 
         public static Result ReadDXFIndPoly(bool is3d, DxfFile dxfFile, string layer, string breaklinelayer, double minDist, string logFilePath, string verbosityLevel, bool breakline)
@@ -59,15 +58,8 @@ namespace IFCTerrain.Model.Read
             }
             var pp = new Mesh(is3d, minDist);
 
-            //Dictionary<Point3, Point3> breaklines = new Dictionary<Point3, Point3>();
+            Logger logger = LogManager.GetCurrentClassLogger();
 
-            //Serilog.Log.Logger = new LoggerConfiguration()
-            //                   .MinimumLevel.Debug()
-            //                   .WriteTo.File(logFilePath)
-            //                   .CreateLogger();
-            var logger = LogManager.GetCurrentClassLogger();
-            Logger.Info("---DXF---");
-           
             foreach (var entity in dxfFile.Entities)
             {
                 if(entity.Layer == layer)
@@ -97,7 +89,6 @@ namespace IFCTerrain.Model.Read
                                 last = curr;
                             }
                             break;
-                   //     case DxfEntityType.
                     }
                 }
             }
@@ -126,11 +117,7 @@ namespace IFCTerrain.Model.Read
 
             Dictionary<int, Line3> breaklines = new Dictionary<int, Line3>(); //Dictionary für Punkte der Bruchkanten
 
-            //Serilog.Log.Logger = new LoggerConfiguration()
-            //                   .MinimumLevel.Debug()
-            //                   .WriteTo.File(logFilePath)
-            //                   .CreateLogger();
-            var logger = LogManager.GetCurrentClassLogger();
+            Logger logger = LogManager.GetCurrentClassLogger();
 
             int index = 0;
             foreach (var entity in dxfFile.Entities)
@@ -152,7 +139,7 @@ namespace IFCTerrain.Model.Read
                         }
                         catch
                         {
-                            logger.Error("Redundant Face in Mesh found! Ignored during processings");
+                            logger.Warn("Redundant Face in Mesh found! Ignored during processings");
                         }
                     }
                 }

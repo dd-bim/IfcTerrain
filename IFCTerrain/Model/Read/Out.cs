@@ -92,7 +92,7 @@ namespace IFCTerrain.Model.Read
         public static Result ReadOUT_Points_Lines(bool is3d, string fileName, string out_types, double minDist, string logFilePath, bool ignPos, bool ignHeight) 
         {
             var result = new Result();
-            var logger = LogManager.GetCurrentClassLogger();
+            Logger logger = LogManager.GetCurrentClassLogger();
             var poly = new Mesh(is3d, minDist);
 
             var outData = new Out();
@@ -225,13 +225,13 @@ namespace IFCTerrain.Model.Read
                             }
                             catch
                             {
-                                logger.Error("Redundant Face in Mesh found! Ignored during processings");
+                                logger.Warn("Redundant Face in Mesh found! Ignored during processings");
                             }
                            
                         }
                         catch
                         {
-                            logger.Error("");
+                            logger.Error("Lines could not be processed.");
                         }
                     }
                     #endregion
@@ -243,15 +243,17 @@ namespace IFCTerrain.Model.Read
             #endregion
 
             result.Mesh = poly;
+
             logger.Info("Reading OUT-data successful");
             logger.Info(poly.Points.Count + " Points, " + poly.FixedEdges.Count + " Lines and " + poly.FaceEdges.Count + " Faces read");
+            
             return result;
         }
         //Auslesen der OUT-Datei nur über das DGM
         public static Result ReadOUTTin(bool is3d, string fileName,string out_types, double minDist, string logFilePath, bool ignPos, bool ignHeight)
         {
             var result = new Result();
-            var logger = LogManager.GetCurrentClassLogger();
+            Logger logger = LogManager.GetCurrentClassLogger();
             var tin = new Mesh(is3d, minDist);
 
             var outData = new Out();
@@ -281,11 +283,11 @@ namespace IFCTerrain.Model.Read
                     {
                         geogversion = str[1].ToString(); //Geograf Version auslesen
                     }
-
+                    /*
                     if (str[0].ToString() == "PRJ")
                     {
-                        projekt = str[1].ToString(); //Projekt-Bezeichnung auslesen
-                    }
+                        projekt = str[1].ToString(); //Projekt-Bezeichnung auslesen --> übergeben auf Projektname?
+                    }*/
                     #endregion
 
                     #region Punkte auslesen
@@ -389,7 +391,7 @@ namespace IFCTerrain.Model.Read
                             }
                             catch
                             {
-                                logger.Error("Redundant Face in Mesh found! Ignored during processings");
+                                logger.Warn("Redundant Face in Mesh found! Ignored during processings");
                             }
 
                         }
