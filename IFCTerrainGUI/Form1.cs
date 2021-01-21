@@ -16,6 +16,7 @@ using IxMilia.Dxf;
 using Newtonsoft.Json;
 using System.Xml;
 using System.Globalization;
+using NLog;
 
 namespace IFCTerrainGUI
 {
@@ -28,11 +29,12 @@ namespace IFCTerrainGUI
         public JsonSettings jSettings { get; set; } = new JsonSettings();
         
         private string[] fileNames = new string[1];
-        
-        
-        
+
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         //Action<string> logText;
         //ProgressBar progressBar;
+        
 
         #region Empty Labels
         public Form1()
@@ -143,9 +145,10 @@ namespace IFCTerrainGUI
         {
             //Einschalten der Maske - DGM
             gpFile.Visible = true;
+
             //Maske - PostGIS ausschalten
             gpPostGIS.Visible = false;
-
+            
             var ofd = new OpenFileDialog
             {
                 Filter = "DXF Files *.dxf, *.dxb|*.dxf;*.dxb"
@@ -166,19 +169,12 @@ namespace IFCTerrainGUI
 
 
                 this.backgroundWorkerDXF.RunWorkerAsync(ofd.FileName);
-
-
                 //Freigabe der Auswahlfelder
                 //rbIndPoly.Enabled = true;
                 //rbFaces.Enabled = true;
                 rbDxfBk_true.Enabled = true;
                 rbDxfBk_false.Enabled = true;
-                
-               
-               
             }
-            
-
         }
         
         private void backgroundWorkerDXF_DoWork(object sender, DoWorkEventArgs e)
@@ -680,34 +676,37 @@ namespace IFCTerrainGUI
             string path = Path.GetDirectoryName(this.jSettings.destFileName);
 
             //Werte aus UserSettings übernehmen bzw. Standardwerte
-            //if (System.Configuration.ConfigurationManager.AppSettings["LogFilePath"] == null)
-            //{
-            //    this.jSettings.logFilePath = path + @"\log.txt";            }
-            //else
-            //{
-            //    this.jSettings.logFilePath = System.Configuration.ConfigurationManager.AppSettings["LogFilePath"];
-            //}
-
-            //if (System.Configuration.ConfigurationManager.AppSettings["VerbosityLevel"] == null)
-            //{
-            //    this.jSettings.verbosityLevel = "Information";
-            //}
-            //else
-            //{
-            //    switch (System.Configuration.ConfigurationManager.AppSettings["VerbosityLevel"])
-            //    {
-            //        case "Error":
-            //            this.jSettings.verbosityLevel = "Error";
-            //            break;
-            //        case "Debug":
-            //            this.jSettings.verbosityLevel = "Debug";
-            //            break;
-            //        default:
-            //            this.jSettings.verbosityLevel = "Information";
-            //            break;
-            //    }       
-            //}
-
+            if (System.Configuration.ConfigurationManager.AppSettings["LogFilePath"] == null)
+            {
+                this.jSettings.logFilePath = path;
+                NLog.GlobalDiagnosticsContext.Set("logDirectory", path);
+                Logger.Info("PFAD wurde gesetzt");
+            }
+            else
+            {
+                this.jSettings.logFilePath = System.Configuration.ConfigurationManager.AppSettings["LogFilePath"];
+            }
+            /*
+            if (System.Configuration.ConfigurationManager.AppSettings["VerbosityLevel"] == null)
+            {
+                this.jSettings.verbosityLevel = "Debug";
+            }
+            else
+            {
+            switch (System.Configuration.ConfigurationManager.AppSettings["VerbosityLevel"])
+            {
+                    case "Error":
+                        this.jSettings.verbosityLevel = "Error";
+                        break;
+                    case "Debug":
+                        this.jSettings.verbosityLevel = "Debug";
+                        break;
+                    default:
+                        this.jSettings.verbosityLevel = "Information";
+                        break;
+                }       
+            }
+            */
 
 
             #region UserSettings
@@ -980,6 +979,9 @@ namespace IFCTerrainGUI
 
         private void btnProcessPostGIS_Click(object sender, EventArgs e)
         {
+            //Logging
+            Logger.Info("PostGIS wird gelesen...");
+
             int postgis_error = 0;
             
             //Ausschalten der Maske-DGM einlesen

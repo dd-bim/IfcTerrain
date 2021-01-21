@@ -12,10 +12,9 @@ using BimGisCad.Collections;
 using Xbim.Ifc2x3.MeasureResource;
 using BimGisCad.Representation.Geometry;
 using System.Windows.Forms;
-using NLog;
-using NLog.Targets;
-using NLog.Config;
 using BimGisCad.Representation.Geometry.Elementary;
+//NLog for creating Log-File
+using NLog;
 
 namespace IFCTerrain.Model
 {
@@ -35,7 +34,7 @@ namespace IFCTerrain.Model
         public void mapProcess(JsonSettings jSettings, double? breakDist = null, double? refLatitude = null, double? refLongitude = null, double? refElevation = null)
         {
             
-            var logger = LogManager.GetCurrentClassLogger();
+            Logger logger = LogManager.GetCurrentClassLogger();
             logger.Info("----------------------------------------------");
 
             #region Reader

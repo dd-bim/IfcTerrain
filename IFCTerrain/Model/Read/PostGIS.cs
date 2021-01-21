@@ -6,41 +6,28 @@ using System.Text;
 using System.Threading.Tasks;
 using BimGisCad.Collections;
 using BimGisCad.Representation.Geometry.Elementary;
-using NLog;
 using System.Globalization;
-
 
 //Verwendung von Npgsql - .NET Access to PostgreSQL
 //Link: https://www.npgsql.org/
 using Npgsql;
-using NpgsqlTypes;
-using Npgsql.LegacyPostgis;
 
-//A .NET GIS solution that is fast and reliable for the .NET platform. 
-using NetTopologySuite;
-using NetTopologySuite.Geometries;
-
-
-using NetTopologySuite.IO;
-
-
-
-
-
+//NLog for logging
+using NLog;
 
 namespace IFCTerrain.Model.Read
 {
-    
     public class PostGIS
     {
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
         public static Result ReadPostGIS_TIN(bool is3d, double minDist, string Host, int Port, string User, string Password, string DBname, string schema, string tintable, string tincolumn, string tinidcolumn, int tinid, bool postgis_bl, string bl_column, string bl_table, string bl_tinid)
         {
             double scale = 1.0;
             var result = new Result();
             var tin = new Mesh(is3d, minDist);
             Dictionary<int, Line3> breaklines = new Dictionary<int, Line3>();
-
-            var logger = LogManager.GetCurrentClassLogger();
+            Logger.Info("A database connection is established...");
             try
             {
                 //prepare string for database connection
@@ -145,14 +132,14 @@ namespace IFCTerrain.Model.Read
                                     }
                                     catch
                                     {
-                                        logger.Error("Redundant Face in Mesh found! Ignored during processings");
+                                        Logger.Error("Redundant Face in Mesh found! Ignored during processings");
                                     }
                                 }
                                 // WENN HIER MEHR ALS 1 --> ERROR zu viele TINs
                                 if (!tin.Points.Any() || !tin.FaceEdges.Any())
                                 {
                                     result.Error = Properties.Resources.errNoLineData;
-                                    logger.Error("Error. No line data found");
+                                    Logger.Error("Error. No line data found");
                                     return result;
                                 }
                                 else
@@ -231,6 +218,7 @@ namespace IFCTerrain.Model.Read
                     
                     //close database connection
                     conn.Close();
+                    Logger.Info("All database connections have been disconnected.");
                     /*
                     if (line > 0)
                     {

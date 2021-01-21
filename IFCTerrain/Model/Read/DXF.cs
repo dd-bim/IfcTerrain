@@ -16,7 +16,8 @@ namespace IFCTerrain.Model.Read
 {
     public static class DXF
     {
-
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        
         public static readonly Dictionary<DxfUnits, double> UnitToMeter = new Dictionary<DxfUnits, double>()
         {
             [DxfUnits.Millimeters] = 0.001,
@@ -65,6 +66,7 @@ namespace IFCTerrain.Model.Read
             //                   .WriteTo.File(logFilePath)
             //                   .CreateLogger();
             var logger = LogManager.GetCurrentClassLogger();
+            Logger.Info("---DXF---");
            
             foreach (var entity in dxfFile.Entities)
             {

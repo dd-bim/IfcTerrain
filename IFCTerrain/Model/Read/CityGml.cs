@@ -5,10 +5,7 @@ using System.Xml;
 using System.Xml.Linq;
 using BimGisCad.Collections;
 using BimGisCad.Representation.Geometry.Elementary;
-//using Serilog;
 using NLog;
-using NLog.Config;
-using NLog.Targets;
 
 namespace IFCTerrain.Model.Read
 {

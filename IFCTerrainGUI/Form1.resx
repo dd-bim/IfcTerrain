@@ -1275,6 +1275,9 @@
   <data name="tbTableTIN.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
   </data>
+  <data name="tbTableTIN.Text" xml:space="preserve">
+    <value>tin</value>
+  </data>
   <data name="&gt;&gt;tbTableTIN.Name" xml:space="preserve">
     <value>tbTableTIN</value>
   </data>
@@ -1324,6 +1327,9 @@
   <data name="tbTIN_Column.TabIndex" type="System.Int32, mscorlib">
     <value>21</value>
   </data>
+  <data name="tbTIN_Column.Text" xml:space="preserve">
+    <value>geometry</value>
+  </data>
   <data name="&gt;&gt;tbTIN_Column.Name" xml:space="preserve">
     <value>tbTIN_Column</value>
   </data>
@@ -1368,6 +1374,9 @@
   </data>
   <data name="tbTinIDColumn.TabIndex" type="System.Int32, mscorlib">
     <value>27</value>
+  </data>
+  <data name="tbTinIDColumn.Text" xml:space="preserve">
+    <value>tin_id</value>
   </data>
   <data name="&gt;&gt;tbTinIDColumn.Name" xml:space="preserve">
     <value>tbTinIDColumn</value>
@@ -1422,6 +1431,9 @@
   </data>
   <data name="tbTinID.TabIndex" type="System.Int32, mscorlib">
     <value>26</value>
+  </data>
+  <data name="tbTinID.Text" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="&gt;&gt;tbTinID.Name" xml:space="preserve">
     <value>tbTinID</value>
@@ -1494,6 +1506,9 @@
   </data>
   <data name="tbBlTinID.TabIndex" type="System.Int32, mscorlib">
     <value>22</value>
+  </data>
+  <data name="tbBlTinID.Text" xml:space="preserve">
+    <value>tin_id</value>
   </data>
   <data name="&gt;&gt;tbBlTinID.Name" xml:space="preserve">
     <value>tbBlTinID</value>
@@ -1569,6 +1584,9 @@
   </data>
   <data name="tbColumnBreakline.TabIndex" type="System.Int32, mscorlib">
     <value>19</value>
+  </data>
+  <data name="tbColumnBreakline.Text" xml:space="preserve">
+    <value>breaklines</value>
   </data>
   <data name="&gt;&gt;tbColumnBreakline.Name" xml:space="preserve">
     <value>tbColumnBreakline</value>
@@ -1699,6 +1717,9 @@
   <data name="tbPostGIS_BL_Input.TabIndex" type="System.Int32, mscorlib">
     <value>17</value>
   </data>
+  <data name="tbPostGIS_BL_Input.Text" xml:space="preserve">
+    <value>geometry</value>
+  </data>
   <data name="&gt;&gt;tbPostGIS_BL_Input.Name" xml:space="preserve">
     <value>tbPostGIS_BL_Input</value>
   </data>
@@ -1746,6 +1767,9 @@
   </data>
   <data name="tbPostGIS_Port.TabIndex" type="System.Int32, mscorlib">
     <value>20</value>
+  </data>
+  <data name="tbPostGIS_Port.Text" xml:space="preserve">
+    <value>5432</value>
   </data>
   <data name="&gt;&gt;tbPostGIS_Port.Name" xml:space="preserve">
     <value>tbPostGIS_Port</value>
@@ -1819,6 +1843,9 @@
   <data name="tbSchema.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
   </data>
+  <data name="tbSchema.Text" xml:space="preserve">
+    <value>terraintwin</value>
+  </data>
   <data name="&gt;&gt;tbSchema.Name" xml:space="preserve">
     <value>tbSchema</value>
   </data>
@@ -1839,6 +1866,9 @@
   </data>
   <data name="tbDatabase.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
+  </data>
+  <data name="tbDatabase.Text" xml:space="preserve">
+    <value>tt</value>
   </data>
   <data name="&gt;&gt;tbDatabase.Name" xml:space="preserve">
     <value>tbDatabase</value>
@@ -1918,6 +1948,9 @@
   <data name="tbPassword.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
   </data>
+  <data name="tbPassword.Text" xml:space="preserve">
+    <value>123456</value>
+  </data>
   <data name="&gt;&gt;tbPassword.Name" xml:space="preserve">
     <value>tbPassword</value>
   </data>
@@ -1938,6 +1971,9 @@
   </data>
   <data name="tbUsername.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
+  </data>
+  <data name="tbUsername.Text" xml:space="preserve">
+    <value>marcus</value>
   </data>
   <data name="&gt;&gt;tbUsername.Name" xml:space="preserve">
     <value>tbUsername</value>
@@ -2040,6 +2076,9 @@
   </data>
   <data name="tbHost.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
+  </data>
+  <data name="tbHost.Text" xml:space="preserve">
+    <value>terrain.dd-bim.org</value>
   </data>
   <data name="&gt;&gt;tbHost.Name" xml:space="preserve">
     <value>tbHost</value>
