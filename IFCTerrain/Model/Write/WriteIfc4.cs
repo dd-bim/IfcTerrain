@@ -970,8 +970,7 @@ namespace IFCTerrain.Model.Write
                                         npY = Math.Round(npY, 3);
                                         npZ = Math.Round(npZ, 3);
 
-                                        var endPoint = model.Instances.New<IfcCartesianPoint>();
-                                        endPoint.SetXYZ(npX, npY, npZ);
+                                        
 
                                         //Abgleich, ob Startpunkt des Polygons und aktueller Endpunkt identisch sind?
                                         if (npX == startPoint.X && npY == startPoint.Y && npZ == startPoint.Z)
@@ -986,7 +985,8 @@ namespace IFCTerrain.Model.Write
                                         }
                                         else
                                         {
-                                            //Punkt hinzufügen
+                                            var endPoint = model.Instances.New<IfcCartesianPoint>();
+                                            endPoint.SetXYZ(npX, npY, npZ);
                                             cp.Points.Add(endPoint);
                                             polyclosed = false;
                                             i++; //weiterzählen, da Linie abgeschlossen ist

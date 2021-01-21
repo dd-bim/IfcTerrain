@@ -137,27 +137,6 @@ namespace IFCTerrainGUI
 
         #endregion
 
-        //private void setData()
-        //{
-        //    if (this.Mesh != null)
-        //    {
-        //        this.tbFile.Text = Path.GetFileName(this.Input.FileNames[0]);
-        //        this.tbType.Text = this.Input.InputType.ToString();
-        //        //this.tbExtent.Text = string.Format("dX = {0:f3}   dY = {1:f3}   dZ = {2:f3}",
-        //        //    this.Mesh.MaxX - this.Mesh.MinX,
-        //        //    this.Mesh.MaxY - this.Mesh.MinY,
-        //        //    this.Mesh.MaxZ - this.Mesh.MinZ);
-        //        //this.tbCount.Text = string.Format(Properties.Resources.msgCount, this.Mesh.Points.Count, this.Mesh.FixedEdges.Count, this.Mesh.FaceEdges.Count);
-        //    }
-        //    else
-        //    {
-        //        this.tbFile.Text = "";
-        //        this.tbType.Text = "";
-        //        this.tbLayHor.Text = "";
-        //        //this.tbCount.Text = "";
-        //    }
-        //}
-
         #region Read DXF
 
         private void btnReadDXF_Click(object sender, EventArgs e)
@@ -288,6 +267,94 @@ namespace IFCTerrainGUI
             rbFaces.Enabled = true;
         }
 
+        private void rbFaces_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbDxfBk_true.Checked == true)
+            {
+                if (lbLayer2.SelectedItem is string && lbDxfBk.SelectedItem is string)
+                {
+                    btnProcess.Enabled = true;
+                };
+            }
+            else if (rbDxfBk_false.Checked == true && lbLayer2.SelectedItem is string)
+            {
+                btnProcess.Enabled = true;
+            }
+        }
+
+        private void rbIndPoly_CheckedChanged(object sender, EventArgs e)
+        {
+            //Background Worker für Umringslayer starten
+            if (rbDxfBk_true.Checked == true && rbDxfBk_true.Checked)
+            {
+                if (lbLayer2.SelectedItem is string && lbDxfBk.SelectedItem is string)
+                {
+                    btnProcess.Enabled = true;
+                };
+                //Abfrage, ob Layer gewählt wurde
+                //btnProcess.Enabled = true;
+            }
+            else if (rbDxfBk_false.Checked == true && lbLayer2.SelectedItem is string)
+            {
+                btnProcess.Enabled = true;
+            }
+        }
+
+        private void rbDxfBk_true_CheckedChanged(object sender, EventArgs e)
+        {
+            //Backgroundworker für Bruchkanten starten
+
+            if (rbIndPoly.Checked == true)
+            {
+                if (lbLayer2.SelectedItem is string && lbDxfBk.SelectedItem is string)
+                {
+                    btnProcess.Enabled = true;
+                };
+            }
+            if (lbDxfBk.SelectedItem is null)
+            {
+                btnProcess.Enabled = false;
+            }
+            lbDxfBk.Enabled = true;
+
+            //GUI Layer - Auswahl für Breakline ausblenden
+            lbGuiBk.Visible = true;
+            tbLayerBk.Visible = true;
+
+        }
+        private void rbDxfBk_false_CheckedChanged(object sender, EventArgs e)
+        {
+
+            if (rbIndPoly.Checked == true && lbLayer2.SelectedItem is string || rbFaces.Checked == true && lbLayer2.SelectedItem is string)
+            {
+                btnProcess.Enabled = true;
+            }
+
+            //Deaktiveren des Feldes
+            lbDxfBk.Enabled = false;
+            //lbDxfBk.SuspendLayout();
+            lbDxfBk.SelectedItem = null;
+            //lbDxfBk.Items.Clear();
+
+            //GUI Layer - Auswahl für Breakline ausblenden
+            lbGuiBk.Visible = false;
+            tbLayerBk.Visible = false;
+
+            //Textfeld leeren
+            tbLayerBk.Clear();
+        }
+
+        private void lbDxfBk_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (rbDxfBk_true.Checked == true)
+            {
+                if (rbIndPoly.Checked == true || rbFaces.Checked == true)
+                {
+                    btnProcess.Enabled = lbDxfBk.SelectedItem is string;
+                }
+            }
+
+        }
         #endregion
 
         #region Read REB
@@ -487,7 +554,7 @@ namespace IFCTerrainGUI
             return;
 
         }
-    private void backgroundWorkerOUT_DoWork(object sender, DoWorkEventArgs e)
+        private void backgroundWorkerOUT_DoWork(object sender, DoWorkEventArgs e)
         {
             e.Result = Out.ReadFile((string)e.Argument) ? (string)e.Argument : "";
             
@@ -498,18 +565,33 @@ namespace IFCTerrainGUI
 
             this.Enabled = true;
         }
+
+
+        private void rbOutBk_true_CheckedChanged(object sender, EventArgs e)
+        {
+            tbOutBk.Enabled = lbGuiBk.Visible = tbLayerBk.Visible = true;
+            btnProcessOut.Enabled = false;
+        }
+        private void rbOutBk_false_CheckedChanged(object sender, EventArgs e)
+        {
+            tbOutBk.Enabled = false; //Eingabefeld deaktivieren
+            btnProcessOut.Enabled = true;
+            lbGuiBk.Visible = false;
+            tbLayerBk.Visible = false;
+            tbLayerBk.Clear();
+        }
+
+        private void rb_p_ln_CheckedChanged(object sender, EventArgs e)
+        {
+            rbOutBk_true.Enabled = rbOutBk_false.Enabled = true;
+            btnProcessOut.Enabled = false;
+        }
+
+        private void tbOutBk_TextChanged(object sender, EventArgs e)
+        {
+            btnProcessOut.Enabled = true;
+        }
         #endregion
-
-        //    if(double.TryParse(this.tbX.Text.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out double x)
-        //                    && double.TryParse(this.tbY.Text.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out double y))
-        //                {
-        //                    double z = 0.0;
-        //                    if(!this.chkZ.Checked && !double.TryParse(this.tbZ.Text.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out z))
-        //                    { z = 0.0; }
-
-        //sitePlacement.Location = Vector3.Create(x, y, z);
-        //                }
-
 
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -721,6 +803,7 @@ namespace IFCTerrainGUI
             }
         }
 
+        #region GRID XYZ
         private void btnReadGrid_Click(object sender, EventArgs e)
         {
             //Einschalten der Maske - DGM
@@ -749,8 +832,6 @@ namespace IFCTerrainGUI
             }
             btnStart.Enabled = true;
         }
-
-        
 
         private void btnGridSize_Click(object sender, EventArgs e)
         {
@@ -811,32 +892,6 @@ namespace IFCTerrainGUI
             }
         }
 
-        private void btn_docu_Click(object sender, EventArgs e)
-        {
-            /*
-            try
-            {
-                string mainDirec = Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetParent(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)).FullName).FullName).FullName).FullName;
-                string docuPath = Path.Combine(mainDirec, "Documentation.html");
-                System.Diagnostics.Process.Start(docuPath);
-                //System.Diagnostics.Process.Start(@"Documentation.html");
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show("Dokumentation konnte nicht geöffnet werden:" + ex);
-            }*/
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label12_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void cb_BBox_CheckedChanged(object sender, EventArgs e)
         {
             if(cb_BBox.Checked)
@@ -855,11 +910,6 @@ namespace IFCTerrainGUI
             }
         }
 
-        private void tpOUT_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
             btnProcessOut.Enabled = true;
@@ -875,55 +925,17 @@ namespace IFCTerrainGUI
             tbLayerBk.Clear();
         }
 
-        private void rbFaces_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbDxfBk_true.Checked == true)
-            {
-                if (lbLayer2.SelectedItem is string && lbDxfBk.SelectedItem is string)
-                {
-                    btnProcess.Enabled = true;
-                };
-                //Abfrage, ob Layer gewählt wurde
-                //btnProcess.Enabled = true;
-            }
-            else if (rbDxfBk_false.Checked == true && lbLayer2.SelectedItem is string)
-            {
-                btnProcess.Enabled = true;
-            }
-        }
+        #endregion
 
-        private void rbIndPoly_CheckedChanged(object sender, EventArgs e)
-        {
-            //Background Worker für Umringslayer starten
-            if (rbDxfBk_true.Checked == true && rbDxfBk_true.Checked)
-            {
-                if (lbLayer2.SelectedItem is string && lbDxfBk.SelectedItem is string)
-                {
-                    btnProcess.Enabled = true;
-                };
-                //Abfrage, ob Layer gewählt wurde
-                //btnProcess.Enabled = true;
-            }
-            else if (rbDxfBk_false.Checked == true && lbLayer2.SelectedItem is string)
-            {
-                btnProcess.Enabled = true;
-            }
-        }
-
-
-        private void lbBkSelection_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        //Link to documentation (README)
         private void lklb_Doc_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             try
             {
                 string mainDirec = Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetParent(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)).FullName).FullName).FullName).FullName;
-                string docuPath = "https://github.com/dd-bim/IfcTerrain/blob/master/README.md";
-                //string docuPath = Path.Combine(mainDirec, "Documentation.html");
+                string docuPath = "https://github.com/dd-bim/IfcTerrain/blob/master/README.md"; //direct Link to GITHUB - Repro so it should be accessable for "all"
                 System.Diagnostics.Process.Start(docuPath);
+
                 //System.Diagnostics.Process.Start(@"Documentation.html");
             }
             catch (Exception ex)
@@ -932,106 +944,13 @@ namespace IFCTerrainGUI
             }
         }
 
-        private void lb_Dxf_Layer_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label19_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void rbDxfBk_true_CheckedChanged(object sender, EventArgs e)
-        {
-            //Backgroundworker für Bruchkanten starten
-
-            if (rbIndPoly.Checked == true)
-            {
-                if (lbLayer2.SelectedItem is string && lbDxfBk.SelectedItem is string)
-                {
-                    btnProcess.Enabled = true;
-                };
-            }
-            if(lbDxfBk.SelectedItem is null)
-            {
-                btnProcess.Enabled = false;
-            }
-            lbDxfBk.Enabled = true;
-            
-            //GUI Layer - Auswahl für Breakline ausblenden
-            lbGuiBk.Visible = true;
-            tbLayerBk.Visible = true;
-
-        }
-
-        private void rbDxfBk_false_CheckedChanged(object sender, EventArgs e)
-        {
-
-            if (rbIndPoly.Checked == true && lbLayer2.SelectedItem is string || rbFaces.Checked == true && lbLayer2.SelectedItem is string)
-            {
-                btnProcess.Enabled = true;
-            }
-
-            //Deaktiveren des Feldes
-            lbDxfBk.Enabled = false;
-            //lbDxfBk.SuspendLayout();
-            lbDxfBk.SelectedItem = null;
-            //lbDxfBk.Items.Clear();
-
-            //GUI Layer - Auswahl für Breakline ausblenden
-            lbGuiBk.Visible = false;
-            tbLayerBk.Visible = false;
-
-            //Textfeld leeren
-            tbLayerBk.Clear();
-        }
-
-
-
-
-        private void lbDxfBk_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if(rbDxfBk_true.Checked == true)
-            {
-                if (rbIndPoly.Checked == true || rbFaces.Checked == true)
-                {
-                    btnProcess.Enabled = lbDxfBk.SelectedItem is string;
-                }
-            }
-            
-        }
-
-        private void rbOutBk_true_CheckedChanged(object sender, EventArgs e)
-        {
-            tbOutBk.Enabled = lbGuiBk.Visible = tbLayerBk.Visible = true;
-            btnProcessOut.Enabled = false;
-        }
-        private void rbOutBk_false_CheckedChanged(object sender, EventArgs e)
-        {
-            tbOutBk.Enabled = false; //Eingabefeld deaktivieren
-            btnProcessOut.Enabled = true;
-            lbGuiBk.Visible = false;
-            tbLayerBk.Visible = false;
-            tbLayerBk.Clear();
-        }
-
-        private void rb_p_ln_CheckedChanged(object sender, EventArgs e)
-        {
-            rbOutBk_true.Enabled = rbOutBk_false.Enabled = true;
-            btnProcessOut.Enabled = false;
-        }
-
-        private void tbOutBk_TextChanged(object sender, EventArgs e)
-        {
-            btnProcessOut.Enabled = true;
-        }
 
         private void rbTFS_CheckedChanged(object sender, EventArgs e)
         {
             
         }
-        //DRAFT ONLY - REMOVE or UPDATE IFC 4 add 1
+
+        //DRAFT ONLY - REMOVE or UPDATE IFC 4.3
         private void rbIfc4dot3_CheckedChanged(object sender, EventArgs e)
         {
             if (rbIfc4dot3.Checked == true)
@@ -1056,6 +975,8 @@ namespace IFCTerrainGUI
                 tbDist.Enabled = true;
             }
         }
+
+        #region PostGIS
 
         private void btnProcessPostGIS_Click(object sender, EventArgs e)
         {
@@ -1209,12 +1130,6 @@ namespace IFCTerrainGUI
             {
                 btnStart.Enabled = true;
             }
-            
-
-
-
-
-            
         }
 
         private void rbPostGIS_BL_true_CheckedChanged(object sender, EventArgs e)
@@ -1244,30 +1159,6 @@ namespace IFCTerrainGUI
                 e.Handled = true;
             }
         }
-
-        private void tbTableTIN_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lb_Port_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblPostGIS_bl_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tbHost_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tbPostGIS_BL_Input_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+        #endregion
     }
 }

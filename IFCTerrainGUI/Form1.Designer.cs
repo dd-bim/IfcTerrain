@@ -324,7 +324,6 @@ namespace IFCTerrainGUI
             // 
             resources.ApplyResources(this.lbBkSelection, "lbBkSelection");
             this.lbBkSelection.Name = "lbBkSelection";
-            this.lbBkSelection.Click += new System.EventHandler(this.lbBkSelection_Click);
             // 
             // rbBkTin_false
             // 
@@ -392,7 +391,6 @@ namespace IFCTerrainGUI
             // 
             resources.ApplyResources(this.label19, "label19");
             this.label19.Name = "label19";
-            this.label19.Click += new System.EventHandler(this.label19_Click);
             // 
             // rbDxfBk_true
             // 
@@ -421,7 +419,6 @@ namespace IFCTerrainGUI
             // 
             resources.ApplyResources(this.lb_Dxf_Layer, "lb_Dxf_Layer");
             this.lb_Dxf_Layer.Name = "lb_Dxf_Layer";
-            this.lb_Dxf_Layer.Click += new System.EventHandler(this.lb_Dxf_Layer_Click);
             // 
             // label4
             // 
@@ -455,6 +452,7 @@ namespace IFCTerrainGUI
             this.lbLayer2.FormattingEnabled = true;
             resources.ApplyResources(this.lbLayer2, "lbLayer2");
             this.lbLayer2.Name = "lbLayer2";
+            this.lbLayer2.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.lbLayer2.SelectedIndexChanged += new System.EventHandler(this.lbLayer_SelectedIndexChanged);
             // 
             // btnProcess
@@ -534,7 +532,6 @@ namespace IFCTerrainGUI
             // 
             resources.ApplyResources(this.label12, "label12");
             this.label12.Name = "label12";
-            this.label12.Click += new System.EventHandler(this.label12_Click);
             // 
             // label11
             // 
@@ -577,7 +574,6 @@ namespace IFCTerrainGUI
             // 
             resources.ApplyResources(this.label6, "label6");
             this.label6.Name = "label6";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // btnGridSize
             // 
@@ -613,7 +609,6 @@ namespace IFCTerrainGUI
             resources.ApplyResources(this.tpOUT, "tpOUT");
             this.tpOUT.Name = "tpOUT";
             this.tpOUT.UseVisualStyleBackColor = true;
-            this.tpOUT.Click += new System.EventHandler(this.tpOUT_Click);
             // 
             // gpOutBk
             // 
@@ -748,7 +743,6 @@ namespace IFCTerrainGUI
             // 
             resources.ApplyResources(this.tbTableTIN, "tbTableTIN");
             this.tbTableTIN.Name = "tbTableTIN";
-            this.tbTableTIN.TextChanged += new System.EventHandler(this.tbTableTIN_TextChanged);
             // 
             // lbColumn_TIN
             // 
@@ -829,7 +823,6 @@ namespace IFCTerrainGUI
             // 
             resources.ApplyResources(this.lblPostGIS_bl, "lblPostGIS_bl");
             this.lblPostGIS_bl.Name = "lblPostGIS_bl";
-            this.lblPostGIS_bl.Click += new System.EventHandler(this.lblPostGIS_bl_Click);
             // 
             // rbPostGIS_BL_true
             // 
@@ -856,7 +849,6 @@ namespace IFCTerrainGUI
             // 
             resources.ApplyResources(this.tbPostGIS_BL_Input, "tbPostGIS_BL_Input");
             this.tbPostGIS_BL_Input.Name = "tbPostGIS_BL_Input";
-            this.tbPostGIS_BL_Input.TextChanged += new System.EventHandler(this.tbPostGIS_BL_Input_TextChanged);
             // 
             // tbPostGIS_Port
             // 
@@ -868,7 +860,6 @@ namespace IFCTerrainGUI
             // 
             resources.ApplyResources(this.lb_Port, "lb_Port");
             this.lb_Port.Name = "lb_Port";
-            this.lb_Port.Click += new System.EventHandler(this.lb_Port_Click);
             // 
             // btnProcessPostGIS
             // 
@@ -926,7 +917,6 @@ namespace IFCTerrainGUI
             // 
             resources.ApplyResources(this.tbHost, "tbHost");
             this.tbHost.Name = "tbHost";
-            this.tbHost.TextChanged += new System.EventHandler(this.tbHost_TextChanged);
             // 
             // gpVersion
             // 
@@ -1466,9 +1456,6 @@ namespace IFCTerrainGUI
         private System.Windows.Forms.RadioButton rbBkTin_true;
         private System.Windows.Forms.LinkLabel lklb_Doc;
         private System.Windows.Forms.Label lb_Dxf_Layer;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label lb_Dxf_Sur;
-        private System.Windows.Forms.ListBox lbDxfSurr;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.ListBox lbDxfBk;
         private System.Windows.Forms.RadioButton rbDxfBk_false;
@@ -1532,5 +1519,8 @@ namespace IFCTerrainGUI
         private System.Windows.Forms.TextBox tbColumnBreakline;
         private System.Windows.Forms.TextBox tbBlTinID;
         private System.Windows.Forms.Label lbBlTinID;
+        private System.Windows.Forms.ListBox lbDxfSurr;
+        private System.Windows.Forms.Label lb_Dxf_Sur;
+        private System.Windows.Forms.Label label18;
     }
 }
