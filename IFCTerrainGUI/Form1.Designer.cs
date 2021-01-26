@@ -196,6 +196,8 @@ namespace IFCTerrainGUI
             this.lblPort = new System.Windows.Forms.Label();
             this.tbHost_read = new System.Windows.Forms.TextBox();
             this.lblHost = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.gpLogging = new System.Windows.Forms.GroupBox();
             this.gpFile.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpXML.SuspendLayout();
@@ -1184,6 +1186,7 @@ namespace IFCTerrainGUI
             // 
             // gpUserSettings
             // 
+            this.gpUserSettings.Controls.Add(this.groupBox2);
             this.gpUserSettings.Controls.Add(this.label17);
             this.gpUserSettings.Controls.Add(this.label16);
             this.gpUserSettings.Controls.Add(this.lbOrgName);
@@ -1329,10 +1332,23 @@ namespace IFCTerrainGUI
             resources.ApplyResources(this.lblHost, "lblHost");
             this.lblHost.Name = "lblHost";
             // 
+            // groupBox2
+            // 
+            resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.TabStop = false;
+            // 
+            // gpLogging
+            // 
+            resources.ApplyResources(this.gpLogging, "gpLogging");
+            this.gpLogging.Name = "gpLogging";
+            this.gpLogging.TabStop = false;
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.gpLogging);
             this.Controls.Add(this.gpPostGIS);
             this.Controls.Add(this.lklb_Doc);
             this.Controls.Add(this.gpUserSettings);
@@ -1561,5 +1577,7 @@ namespace IFCTerrainGUI
         private System.Windows.Forms.RadioButton rbHorizon_all;
         private System.Windows.Forms.TextBox tbHorizon;
         private System.Windows.Forms.Label lbPointtypes;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox gpLogging;
     }
 }
