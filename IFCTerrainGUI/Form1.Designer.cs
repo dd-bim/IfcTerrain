@@ -199,9 +199,9 @@ namespace IFCTerrainGUI
             this.tbHost_read = new System.Windows.Forms.TextBox();
             this.lblHost = new System.Windows.Forms.Label();
             this.gpLogging = new System.Windows.Forms.GroupBox();
+            this.liveLog = new System.Windows.Forms.TextBox();
             this.ttChoose = new System.Windows.Forms.ToolTip(this.components);
             this.ttStart = new System.Windows.Forms.ToolTip(this.components);
-            this.liveLog = new System.Windows.Forms.TextBox();
             this.gpFile.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpXML.SuspendLayout();
@@ -1352,6 +1352,13 @@ namespace IFCTerrainGUI
             this.gpLogging.Name = "gpLogging";
             this.gpLogging.TabStop = false;
             // 
+            // liveLog
+            // 
+            this.liveLog.AcceptsTab = true;
+            resources.ApplyResources(this.liveLog, "liveLog");
+            this.liveLog.Name = "liveLog";
+            this.liveLog.ReadOnly = true;
+            // 
             // ttChoose
             // 
             this.ttChoose.ToolTipTitle = "Hinweis";
@@ -1359,13 +1366,6 @@ namespace IFCTerrainGUI
             // ttStart
             // 
             this.ttStart.ToolTipTitle = "Hinweis";
-            // 
-            // liveLog
-            // 
-            this.liveLog.AcceptsTab = true;
-            resources.ApplyResources(this.liveLog, "liveLog");
-            this.liveLog.Name = "liveLog";
-            this.liveLog.ReadOnly = true;
             // 
             // Form1
             // 

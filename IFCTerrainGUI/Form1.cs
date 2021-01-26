@@ -32,20 +32,45 @@ namespace IFCTerrainGUI
 
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
-        //Action<string> logText;
-        //ProgressBar progressBar;
-        
-        
-        #region Empty Labels
+        //Method to write a line in liveLog - Textbox
+        public static void new_livelog(TextBox name,string level,string input_ENG, string input_GER)
+        {
+            string lvl = null;
+            if (level.Equals("info"))
+            {
+                lvl = "[INFO] ";
+            }
+            else if (level.Equals("warn"))
+            {
+                lvl = "[WARN] ";
+            }
+            else if (level.Equals("error"))
+            {
+                lvl = "[ERROR] ";
+            }
+            string newtext = lvl + input_ENG;
+            CultureInfo deDE = new CultureInfo("de-DE");
+            if (CultureInfo.CurrentCulture.Equals(deDE))
+            {
+                newtext = lvl + input_GER;
+            }
+            name.Text += Environment.NewLine + newtext;
+            name.SelectionStart = name.TextLength;
+            name.ScrollToCaret();
+        }
+
         public Form1()
         {
             InitializeComponent();
-            
-            //live logging
-            liveLog.SelectionStart = liveLog.Text.Length;
-            liveLog.ScrollToCaret();
+            liveLog.Text = "Weclome to IFC Terrain!";
+            CultureInfo deDE = new CultureInfo("de-DE");
+            if (CultureInfo.CurrentCulture.Equals(deDE))
+            {
+                liveLog.Text = "Willkommen zu IFC Terrain!";
+            }
         }
 
+        #region empty labels
         private void tabPage1_Click(object sender, EventArgs e)
         {
 
@@ -53,7 +78,7 @@ namespace IFCTerrainGUI
 
         private void label1_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -138,6 +163,8 @@ namespace IFCTerrainGUI
                     rbBkTin_false.Checked = true;
                 }
                 btnStart.Enabled = true;
+                //new live log line
+                new_livelog(liveLog, "info", tbType.Text + "was read.", tbType.Text + " wurde gelesen.");
             }
         }
 
@@ -178,6 +205,8 @@ namespace IFCTerrainGUI
                 //rbFaces.Enabled = true;
                 rbDxfBk_true.Enabled = true;
                 rbDxfBk_false.Enabled = true;
+
+                new_livelog(liveLog, "info", "DXF file is read...", "DXF-Datei wird gelesen...");
             }
         }
         
@@ -215,6 +244,8 @@ namespace IFCTerrainGUI
             this.lbLayer2.ResumeLayout();
             this.lbDxfBk.ResumeLayout();
             this.Enabled = true;
+
+            new_livelog(liveLog, "info", "DXF file was read.", "DXF-Datei wurde gelesen.");
         }
 
         private void backgroundWorkerDXF_BK_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -655,6 +686,8 @@ namespace IFCTerrainGUI
         #region Start
         private void btnStart_Click(object sender, EventArgs e)
         {
+            new_livelog(liveLog, "info", "Transformation started...", "Transformation gestartet...");
+
             this.jSettings.geoElement = chkGeo.Checked;
             //Ignore Z-Value Checkbox einbauen?
             this.jSettings.is3D = true;
@@ -809,17 +842,6 @@ namespace IFCTerrainGUI
                 System.Diagnostics.Debug.Write(ex.Message.ToString() + Environment.NewLine);
             }
 
-            //MessageBox.Show("Transformation gestartet");
-            string newtext = "Transformation started...";
-            CultureInfo deDE = new CultureInfo("de-DE");
-            if (CultureInfo.CurrentCulture.Equals(deDE))
-            {
-                newtext = "Transformation gestartet...";
-            }
-            liveLog.Text += Environment.NewLine + newtext;
-            liveLog.SelectionStart = liveLog.TextLength;
-            liveLog.ScrollToCaret();
-
             //progressBarIFC.Visible = true;
             this.Enabled = false;
             this.backgroundWorkerIFC.RunWorkerAsync();
@@ -847,13 +869,7 @@ namespace IFCTerrainGUI
         private void backgroundWorkerIFC_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             //MessageBox.Show("IFC Datei erfolgreich erstellt");
-            string newtext = "IFC Datei erfolgreich erstellt!";
-            liveLog.Text += Environment.NewLine + newtext;
-            liveLog.SelectionStart = liveLog.TextLength;
-            liveLog.ScrollToCaret();
-
-
-
+            new_livelog(liveLog,"info","IFC file successfully created.", "IFC Datei erfolgreich erstellt.");
             this.Enabled = true;
         }
         #endregion
@@ -1025,6 +1041,7 @@ namespace IFCTerrainGUI
             catch (Exception ex)
             {
                 MessageBox.Show("Dokumentation konnte nicht geöffnet werden:" + ex);
+                new_livelog(liveLog, "error", "Documentation couldn't be opened.", "Dokumentation konnte nicht geöffnet werden!");
             }
         }
 
@@ -1206,7 +1223,7 @@ namespace IFCTerrainGUI
             {
                 if (postgis_error != 14)
                 {
-                    MessageBox.Show("Error: One or more inputfields are empty!");
+                    new_livelog(liveLog, "error", "One or more inputfields are empty!", "Ein oder mehere Eingabefelder sind leer!");
                 }
                 else
                 {
