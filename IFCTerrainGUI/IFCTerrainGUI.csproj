@@ -254,9 +254,6 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="NLog.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="packages.config" />
     <Resource Include="Properties\IFCTerrain.rtf" />
     <None Include="Properties\Settings.settings">

@@ -18,6 +18,7 @@ This document provides description and explains the functionality of the IFCTerr
   * [IFCTerrainCommand](#IFCTerrainCommand)
     + [JSON Attributes](#JSON-Attributes)
     + [FILE-SPECIFIC-Attributes](#FILE-SPECIFIC-Attributes)
+  * [Logging](#logging)
   * [Usability of generated IFC files in other software](#usability-of-generated-ifc-files-in-other-software)
     + [Revit](#revit)
     + [Solibri](#solibri)
@@ -264,15 +265,16 @@ The attributes of the respective file format are to be added.
 
 | attribute       | vale range  | description                                                  |
 | --------------- | ----------- | ------------------------------------------------------------ |
-| readFaces       | true; false | Decides whether the processing should be done via Points & Lines (=false) or Faces (=true). |
-| readHorizion    | true; false | Decides whether the TIN is to be read out via horizon (=true) or via point types (=false). |
-| layer           | integer     | Designation of the point types or horizons. Separation via: "/" ";" "," permissible |
+| isTin           | true; false | Decides whether the processing should be done via Points & Lines (=false) or Faces (=true). |
+| layer           | string      | Designation of the point types. Separation via: "/" ";" "," permissible |
+| onlyHorizon     | true; false | Decides whether all horizons (=false) or only selected ones (=true) are to be used. If filtering is to be used, the entry must be made via "horizonFilter". |
+| horizonFilter   | string      | Input only if "onlyHorizon" is true. Designation of specific horizons. Separation via: "/" ";" "," permissible |
 | ignPos          | true; false | Decides whether the status code for the location position should be ignored (=true). |
 | ignHeight       | true; false | Decides whether the status code for the height position should be ignored (=true). |
 | breakline       | true; false | Decides whether break edges are to be processed (true).<br />If this is not the case, the following line is not necessary! |
 | breakline_layer | string      | Name of the layer that contains the breakline. (only one layer is allowed) |
 
-##### Database (PostGIS) [DRAFT - changes may follow]
+##### Database (PostGIS)
 
 | attribute        | value range | description                                                  |
 | ---------------- | ----------- | ------------------------------------------------------------ |
@@ -296,6 +298,10 @@ Once the input json file is ready one can use the console (cmd) to run the IFCTe
 ```powershell
 IFCTerrainCommand.exe "D:\Data\input\Sample.json"
 ```
+
+## Logging
+
+A log file is written for each export. This is always located at the storage location of the IFC file. If a conversion does not work as intended, the necessary information is saved here.
 
 ## Usability of generated IFC files in other software
 
@@ -321,5 +327,5 @@ The windows-batch program is a executive testing software. It reads from the ``I
 - [x] CAD (DXF)
 - [x] GRID (XYZ)
 - [x] REB (DA45, DA49, DA58)
-- [ ] ~~GEOgraf (OUT)~~
-- [ ] ~~Database (PostGIS)~~
+- [ ] ~~GEOgraf (OUT)~~ (currently not available)
+- [ ] ~~Database (PostGIS)~~ 

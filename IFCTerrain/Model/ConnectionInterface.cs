@@ -84,7 +84,7 @@ namespace IFCTerrain.Model
                 case "OUT":
                     if (jSettings.isTin)
                     {
-                        result = Out.ReadOUTTin(jSettings.is3D, jSettings.fileName, jSettings.layer, jSettings.minDist, jSettings.logFilePath, jSettings.ignPos, jSettings.ignHeight);
+                        result = Out.ReadOUTTin(jSettings.is3D, jSettings.fileName, jSettings.layer, jSettings.minDist, jSettings.logFilePath, jSettings.ignPos, jSettings.ignHeight, jSettings.onlyHorizon, jSettings.horizonFilter);
                     }
                     else
                     {

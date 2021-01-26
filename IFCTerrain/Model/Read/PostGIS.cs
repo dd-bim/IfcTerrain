@@ -33,12 +33,12 @@ namespace IFCTerrain.Model.Read
                 //prepare string for database connection
                 string connString =
                     string.Format(
-                        "Host={0};Username={1};Database={2};Port={3};Password={4};",
+                        "Host={0};Port={1};Username={2};Password={3};Database={4};",
                         Host,
-                        User,
-                        DBname,
                         Port,
-                        Password
+                        User,
+                        Password,
+                        DBname
                         );
 
                 //TIN Request
@@ -235,8 +235,8 @@ namespace IFCTerrain.Model.Read
             }
             catch (Exception e)
             {
+                //
                 Console.WriteLine(e.ToString());
-                
             }
             Console.ReadLine();
             return result;

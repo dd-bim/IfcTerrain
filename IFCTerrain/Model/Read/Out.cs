@@ -104,7 +104,6 @@ namespace IFCTerrain.Model.Read
             StreamReader file = new StreamReader(fileName);
             while ((line = file.ReadLine()) != null)
             {
-
                 if (line.StartsWith("*"))
                 {
 
@@ -250,13 +249,16 @@ namespace IFCTerrain.Model.Read
             return result;
         }
         //Auslesen der OUT-Datei nur über das DGM
-        public static Result ReadOUTTin(bool is3d, string fileName,string out_types, double minDist, string logFilePath, bool ignPos, bool ignHeight)
+        public static Result ReadOUTTin(bool is3d, string fileName,string out_types, double minDist, string logFilePath, bool ignPos, bool ignHeight, bool readHorizon, string horizonFilter)
         {
             var result = new Result();
             Logger logger = LogManager.GetCurrentClassLogger();
             var tin = new Mesh(is3d, minDist);
 
             var outData = new Out();
+
+            
+
 
             string line, geogversion, projekt;
             int counter = 1; //Counter für Anzahl der gelesenen Zeilen
@@ -275,8 +277,6 @@ namespace IFCTerrain.Model.Read
                     string[] str = line.Split(new[] { ':' }, StringSplitOptions.None);
 
                     string[] data_line = str[1].Split(new[] { ',' }, StringSplitOptions.None); // Splitter zwischen Kennung & Daten
-
-                    var OutData = new Out();
 
                     #region Sachdaten / Projektdaten auslesen
                     if (str[0].ToString() == "Typ")
@@ -351,7 +351,11 @@ namespace IFCTerrain.Model.Read
                     }
                     #endregion
 
+
+                    #endregion
+
                     #region Horizont auslesen
+                    
                     if (str[0].Contains("HNR")
                         && int.TryParse(data_line[0], NumberStyles.Integer, CultureInfo.InvariantCulture, out int hnr_nr)
                         && int.TryParse(data_line[4], NumberStyles.Integer, CultureInfo.InvariantCulture, out int is3D))
@@ -359,54 +363,127 @@ namespace IFCTerrain.Model.Read
                         string hnr_bez = data_line[3].ToString();
                         new OutHorizon(hnr_nr, hnr_bez, is3D);
                     }
-                    #endregion
+                  
 
-                    #region DGM auslesen
-                    if (str[0].Contains("DG"))
+                    if (readHorizon == true)
                     {
-                        //char[] strDG = { 'D', 'G' }; //Split für localID
-                        //string localID = str[0].Trim(strDG); //localID auslesen
-                        //int el_num = Int32.Parse(localID);
-
-                        string[] pnr_str1 = data_line[1].Split(new[] { '=' }, StringSplitOptions.None);
-                        string[] pnr_str2 = data_line[2].Split(new[] { '=' }, StringSplitOptions.None);
-                        string[] pnr_str3 = data_line[3].Split(new[] { '=' }, StringSplitOptions.None);
-
-                        int pnr_d1 = Int32.Parse(pnr_str1[1]);
-                        int pnr_d2 = Int32.Parse(pnr_str2[1]);
-                        int pnr_d3 = Int32.Parse(pnr_str3[1]);
-
-                        try
+                        #region DGM auslesen mit vorgeschriebener Punktnummer
+                        string[] horizon_string = horizonFilter.Split(new[] { ',', ';', '/' }, StringSplitOptions.RemoveEmptyEntries);
+                        int[] hor_nr = new int[horizon_string.Length - 1];
+                        int h = 0;
+                        foreach (string new_hor in horizon_string)
                         {
-                            OPoint p1 = outData.Points[pnr_d1];
-                            var p13 = Point3.Create(p1.x, p1.y, p1.z);
-                            OPoint p2 = outData.Points[pnr_d2];
-                            var p23 = Point3.Create(p2.x, p2.y, p2.z);
-                            OPoint p3 = outData.Points[pnr_d3];
-                            var p33 = Point3.Create(p3.x, p3.y, p3.z);
-
                             try
                             {
-                                tin.AddFace(new[] { p13, p23, p33 }); //Hinzufügen eines Faces
+                                hor_nr[h] = Convert.ToInt32(new_hor);
+                                h++;
                             }
                             catch
                             {
-                                logger.Warn("Redundant Face in Mesh found! Ignored during processings");
-                            }
 
+                            }
                         }
-                        catch
+                        if (str[0].Contains("DG"))
                         {
-                            logger.Error("Points in mesh are invalid.");
+                                                     
+                            int curr_hnr = Convert.ToInt32(data_line[0]);
+                            if (hor_nr.Contains(curr_hnr))
+                            {
+                                string[] pnr_str1 = data_line[1].Split(new[] { '=' }, StringSplitOptions.None);
+                                string[] pnr_str2 = data_line[2].Split(new[] { '=' }, StringSplitOptions.None);
+                                string[] pnr_str3 = data_line[3].Split(new[] { '=' }, StringSplitOptions.None);
+
+                                int pnr_d1 = Int32.Parse(pnr_str1[1]);
+                                int pnr_d2 = Int32.Parse(pnr_str2[1]);
+                                int pnr_d3 = Int32.Parse(pnr_str3[1]);
+
+                                try
+                                {
+                                    OPoint p1 = outData.Points[pnr_d1];
+                                    var p13 = Point3.Create(p1.x, p1.y, p1.z);
+                                    OPoint p2 = outData.Points[pnr_d2];
+                                    var p23 = Point3.Create(p2.x, p2.y, p2.z);
+                                    OPoint p3 = outData.Points[pnr_d3];
+                                    var p33 = Point3.Create(p3.x, p3.y, p3.z);
+
+                                    try
+                                    {
+                                        tin.AddFace(new[] { p13, p23, p33 }); //Hinzufügen eines Faces
+                                    }
+                                    catch
+                                    {
+                                        logger.Warn("Redundant Face in Mesh found! Ignored during processings");
+                                    }
+                                }
+                                catch
+                                {
+                                    logger.Error("Points in mesh are invalid.");
+                                }
+                            }
+                            else
+                            {
+                               //Logger - Warn ausgeben???
+                            }                            
                         }
+                        #endregion
+
                     }
-                    #endregion
+                    else if(readHorizon == false)
+                    {
+                        #region DGM auslesen
+                        if (str[0].Contains("DG"))
+                        {
+                            //char[] strDG = { 'D', 'G' }; //Split für localID
+                            //string localID = str[0].Trim(strDG); //localID auslesen
+                            //int el_num = Int32.Parse(localID);
+
+                            string[] pnr_str1 = data_line[1].Split(new[] { '=' }, StringSplitOptions.None);
+                            string[] pnr_str2 = data_line[2].Split(new[] { '=' }, StringSplitOptions.None);
+                            string[] pnr_str3 = data_line[3].Split(new[] { '=' }, StringSplitOptions.None);
+
+                            int pnr_d1 = Int32.Parse(pnr_str1[1]);
+                            int pnr_d2 = Int32.Parse(pnr_str2[1]);
+                            int pnr_d3 = Int32.Parse(pnr_str3[1]);
+
+                            try
+                            {
+                                OPoint p1 = outData.Points[pnr_d1];
+                                var p13 = Point3.Create(p1.x, p1.y, p1.z);
+                                OPoint p2 = outData.Points[pnr_d2];
+                                var p23 = Point3.Create(p2.x, p2.y, p2.z);
+                                OPoint p3 = outData.Points[pnr_d3];
+                                var p33 = Point3.Create(p3.x, p3.y, p3.z);
+
+                                try
+                                {
+                                    tin.AddFace(new[] { p13, p23, p33 }); //Hinzufügen eines Faces
+                                }
+                                catch
+                                {
+                                    logger.Warn("Redundant Face in Mesh found! Ignored during processings");
+                                }
+                            }
+                            catch
+                            {
+                                logger.Error("Points in mesh are invalid.");
+                            }
+                        }
+                        #endregion
+                    }
+                    else
+                    {
+                        logger.Error("No indication whether processing is to be done via horizon or point types.");
+                    }
                     counter++;
                 }
             }
             file.Close();
             #endregion
-
+            if(tin.Points.Count == 0)
+            {
+                logger.Error("ERROR! No TIN data could be read.");
+                return result;
+            }
             result.Mesh = tin;
             logger.Info("Reading OUT-data successful");
             logger.Info(tin.Points.Count + " Points, " + tin.FixedEdges.Count + " Lines and " + tin.FaceEdges.Count + " Faces read");

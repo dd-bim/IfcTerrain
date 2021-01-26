@@ -210,7 +210,6 @@ namespace IFCTerrainGUI
             }
             this.lbLayer2.ResumeLayout();
             this.lbDxfBk.ResumeLayout();
-            //this.progressBar.Hide();
             this.Enabled = true;
         }
 
@@ -233,7 +232,6 @@ namespace IFCTerrainGUI
                 }
             }
             this.lbDxfBk.ResumeLayout();
-            //this.progressBar.Hide();
             this.Enabled = true;
         }
 
@@ -465,9 +463,55 @@ namespace IFCTerrainGUI
         private void btnProcessOut_Click(object sender, EventArgs e)
         {
             string layer_out = null;
+            string horizons_input = null;
             string layer_bk = null;
 
-            if (tbOutLayer.Text != "")
+            if (rbFaces.Checked)
+            {
+                jSettings.isTin = true;
+            }
+            else
+            {
+                jSettings.isTin = false;
+            }
+
+            if (rbHorizon_all.Checked == true)
+            {
+                jSettings.onlyHorizon = false;
+            }
+            else
+            {
+                jSettings.onlyHorizon = true;
+                //Auslesen der Eingabefeldes
+                if (!string.IsNullOrEmpty(tbHorizon.Text))
+                {
+                    string input_horizons = tbHorizon.Text;
+
+                    string[] horizons_list = input_horizons.Split(new[] { ',', '/', ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    for (int z = 0; z < horizons_list.Length; z++)
+                    {
+                        try
+                        {
+                            double input_hor = Convert.ToInt32(horizons_list[z]);
+                            horizons_input += input_hor + "; ";
+                        }
+                        catch
+                        {
+                            horizons_list[z] = null;
+                        }
+                    }
+                    this.jSettings.horizonFilter = horizons_input;
+                    tbHorizon.Clear();
+                    Logger.Debug("The following horizons have been read: " + horizons_list.Length);
+                }
+                else
+                {
+                    Logger.Error("No Horizon has been entered.");
+                }
+            }
+
+            if (!string.IsNullOrEmpty(tbOutLayer.Text))
             {
                 //MessageBox.Show("Textfeld ist nicht leer");
                 string input_text_out = tbOutLayer.Text;
@@ -494,7 +538,7 @@ namespace IFCTerrainGUI
             else
             {
                 CultureInfo deDE = new CultureInfo("de-DE");
-                if (CultureInfo.CurrentCulture.Equals(deDE))
+                if (CultureInfo.CurrentCulture.Equals(deDE) && rbHorizon_all.Checked == true)
                 {
                     tbLayHor.Text = "Alle Punktarten werden verarbeitet.";
                 }
@@ -581,6 +625,10 @@ namespace IFCTerrainGUI
         {
             rbOutBk_true.Enabled = rbOutBk_false.Enabled = true;
             btnProcessOut.Enabled = false;
+
+            rbHorizion.Enabled = rbHorizion.Checked = false;
+            rbHorizon_all.Checked =rbHorizon_all.Enabled = false;
+
         }
 
         private void tbOutBk_TextChanged(object sender, EventArgs e)
@@ -920,6 +968,10 @@ namespace IFCTerrainGUI
             rbOutBk_false.Checked = false;
             tbOutBk.Enabled = false;
 
+            rbHorizon_all.Checked = rbHorizon_all.Enabled = true;
+            rbHorizion.Enabled = true;
+
+
             lbGuiBk.Visible = false;
             tbLayerBk.Visible = false;
             tbLayerBk.Clear();
@@ -1163,5 +1215,12 @@ namespace IFCTerrainGUI
             }
         }
         #endregion
+
+        //The following "functions" have been added, but not SORTED!!!
+
+        private void rbHorizion_CheckedChanged(object sender, EventArgs e)
+        {
+            tbHorizon.Enabled = true;
+        }
     }
 }

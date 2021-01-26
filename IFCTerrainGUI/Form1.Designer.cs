@@ -87,20 +87,24 @@ namespace IFCTerrainGUI
             this.tbGsSet = new System.Windows.Forms.TextBox();
             this.btnReadGrid = new System.Windows.Forms.Button();
             this.tpOUT = new System.Windows.Forms.TabPage();
+            this.lbPointtypes = new System.Windows.Forms.Label();
             this.gpOutBk = new System.Windows.Forms.GroupBox();
             this.label20 = new System.Windows.Forms.Label();
             this.tbOutBk = new System.Windows.Forms.TextBox();
             this.rbOutBk_false = new System.Windows.Forms.RadioButton();
             this.rbOutBk_true = new System.Windows.Forms.RadioButton();
-            this.chkIgnHeight = new System.Windows.Forms.CheckBox();
+            this.tbOutLayer = new System.Windows.Forms.TextBox();
             this.chkIgnPos = new System.Windows.Forms.CheckBox();
             this.label15 = new System.Windows.Forms.Label();
-            this.tbOutLayer = new System.Windows.Forms.TextBox();
             this.rb_dgm = new System.Windows.Forms.RadioButton();
             this.rb_p_ln = new System.Windows.Forms.RadioButton();
             this.btnProcessOut = new System.Windows.Forms.Button();
-            this.lbOUT = new System.Windows.Forms.Label();
             this.btnReadOUT = new System.Windows.Forms.Button();
+            this.gpOUT_Hor = new System.Windows.Forms.GroupBox();
+            this.tbHorizon = new System.Windows.Forms.TextBox();
+            this.rbHorizion = new System.Windows.Forms.RadioButton();
+            this.rbHorizon_all = new System.Windows.Forms.RadioButton();
+            this.chkIgnHeight = new System.Windows.Forms.CheckBox();
             this.tpPostGIS = new System.Windows.Forms.TabPage();
             this.gp_Geometry = new System.Windows.Forms.GroupBox();
             this.lbTable = new System.Windows.Forms.Label();
@@ -201,6 +205,7 @@ namespace IFCTerrainGUI
             this.tpXYZ.SuspendLayout();
             this.tpOUT.SuspendLayout();
             this.gpOutBk.SuspendLayout();
+            this.gpOUT_Hor.SuspendLayout();
             this.tpPostGIS.SuspendLayout();
             this.gp_Geometry.SuspendLayout();
             this.gpTIN_ID.SuspendLayout();
@@ -596,19 +601,25 @@ namespace IFCTerrainGUI
             // 
             // tpOUT
             // 
+            this.tpOUT.Controls.Add(this.lbPointtypes);
             this.tpOUT.Controls.Add(this.gpOutBk);
-            this.tpOUT.Controls.Add(this.chkIgnHeight);
+            this.tpOUT.Controls.Add(this.tbOutLayer);
             this.tpOUT.Controls.Add(this.chkIgnPos);
             this.tpOUT.Controls.Add(this.label15);
-            this.tpOUT.Controls.Add(this.tbOutLayer);
             this.tpOUT.Controls.Add(this.rb_dgm);
             this.tpOUT.Controls.Add(this.rb_p_ln);
             this.tpOUT.Controls.Add(this.btnProcessOut);
-            this.tpOUT.Controls.Add(this.lbOUT);
             this.tpOUT.Controls.Add(this.btnReadOUT);
+            this.tpOUT.Controls.Add(this.gpOUT_Hor);
+            this.tpOUT.Controls.Add(this.chkIgnHeight);
             resources.ApplyResources(this.tpOUT, "tpOUT");
             this.tpOUT.Name = "tpOUT";
             this.tpOUT.UseVisualStyleBackColor = true;
+            // 
+            // lbPointtypes
+            // 
+            resources.ApplyResources(this.lbPointtypes, "lbPointtypes");
+            this.lbPointtypes.Name = "lbPointtypes";
             // 
             // gpOutBk
             // 
@@ -647,11 +658,10 @@ namespace IFCTerrainGUI
             this.rbOutBk_true.UseVisualStyleBackColor = true;
             this.rbOutBk_true.CheckedChanged += new System.EventHandler(this.rbOutBk_true_CheckedChanged);
             // 
-            // chkIgnHeight
+            // tbOutLayer
             // 
-            resources.ApplyResources(this.chkIgnHeight, "chkIgnHeight");
-            this.chkIgnHeight.Name = "chkIgnHeight";
-            this.chkIgnHeight.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.tbOutLayer, "tbOutLayer");
+            this.tbOutLayer.Name = "tbOutLayer";
             // 
             // chkIgnPos
             // 
@@ -663,11 +673,6 @@ namespace IFCTerrainGUI
             // 
             resources.ApplyResources(this.label15, "label15");
             this.label15.Name = "label15";
-            // 
-            // tbOutLayer
-            // 
-            resources.ApplyResources(this.tbOutLayer, "tbOutLayer");
-            this.tbOutLayer.Name = "tbOutLayer";
             // 
             // rb_dgm
             // 
@@ -690,17 +695,45 @@ namespace IFCTerrainGUI
             this.btnProcessOut.UseVisualStyleBackColor = true;
             this.btnProcessOut.Click += new System.EventHandler(this.btnProcessOut_Click);
             // 
-            // lbOUT
-            // 
-            resources.ApplyResources(this.lbOUT, "lbOUT");
-            this.lbOUT.Name = "lbOUT";
-            // 
             // btnReadOUT
             // 
             resources.ApplyResources(this.btnReadOUT, "btnReadOUT");
             this.btnReadOUT.Name = "btnReadOUT";
             this.btnReadOUT.UseVisualStyleBackColor = true;
             this.btnReadOUT.Click += new System.EventHandler(this.btnReadOut_Click);
+            // 
+            // gpOUT_Hor
+            // 
+            this.gpOUT_Hor.Controls.Add(this.tbHorizon);
+            this.gpOUT_Hor.Controls.Add(this.rbHorizion);
+            this.gpOUT_Hor.Controls.Add(this.rbHorizon_all);
+            resources.ApplyResources(this.gpOUT_Hor, "gpOUT_Hor");
+            this.gpOUT_Hor.Name = "gpOUT_Hor";
+            this.gpOUT_Hor.TabStop = false;
+            // 
+            // tbHorizon
+            // 
+            resources.ApplyResources(this.tbHorizon, "tbHorizon");
+            this.tbHorizon.Name = "tbHorizon";
+            // 
+            // rbHorizion
+            // 
+            resources.ApplyResources(this.rbHorizion, "rbHorizion");
+            this.rbHorizion.Name = "rbHorizion";
+            this.rbHorizion.UseVisualStyleBackColor = true;
+            this.rbHorizion.CheckedChanged += new System.EventHandler(this.rbHorizion_CheckedChanged);
+            // 
+            // rbHorizon_all
+            // 
+            resources.ApplyResources(this.rbHorizon_all, "rbHorizon_all");
+            this.rbHorizon_all.Name = "rbHorizon_all";
+            this.rbHorizon_all.UseVisualStyleBackColor = true;
+            // 
+            // chkIgnHeight
+            // 
+            resources.ApplyResources(this.chkIgnHeight, "chkIgnHeight");
+            this.chkIgnHeight.Name = "chkIgnHeight";
+            this.chkIgnHeight.UseVisualStyleBackColor = true;
             // 
             // tpPostGIS
             // 
@@ -1336,6 +1369,8 @@ namespace IFCTerrainGUI
             this.tpOUT.PerformLayout();
             this.gpOutBk.ResumeLayout(false);
             this.gpOutBk.PerformLayout();
+            this.gpOUT_Hor.ResumeLayout(false);
+            this.gpOUT_Hor.PerformLayout();
             this.tpPostGIS.ResumeLayout(false);
             this.tpPostGIS.PerformLayout();
             this.gp_Geometry.ResumeLayout(false);
@@ -1436,7 +1471,6 @@ namespace IFCTerrainGUI
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TabPage tpOUT;
         private System.Windows.Forms.Button btnReadOUT;
-        private System.Windows.Forms.Label lbOUT;
         private System.Windows.Forms.RadioButton rb_dgm;
         private System.Windows.Forms.RadioButton rb_p_ln;
         private System.Windows.Forms.Button btnProcessOut;
@@ -1522,5 +1556,10 @@ namespace IFCTerrainGUI
         private System.Windows.Forms.ListBox lbDxfSurr;
         private System.Windows.Forms.Label lb_Dxf_Sur;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.GroupBox gpOUT_Hor;
+        private System.Windows.Forms.RadioButton rbHorizion;
+        private System.Windows.Forms.RadioButton rbHorizon_all;
+        private System.Windows.Forms.TextBox tbHorizon;
+        private System.Windows.Forms.Label lbPointtypes;
     }
 }
