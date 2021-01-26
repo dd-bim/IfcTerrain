@@ -35,11 +35,15 @@ namespace IFCTerrainGUI
         //Action<string> logText;
         //ProgressBar progressBar;
         
-
+        
         #region Empty Labels
         public Form1()
         {
             InitializeComponent();
+            
+            //live logging
+            liveLog.SelectionStart = liveLog.Text.Length;
+            liveLog.ScrollToCaret();
         }
 
         private void tabPage1_Click(object sender, EventArgs e)
@@ -728,12 +732,21 @@ namespace IFCTerrainGUI
             {
                 this.jSettings.logFilePath = path;
                 GlobalDiagnosticsContext.Set("logDirectory", path);
+                
+                string fileType = jSettings.fileType.ToString();
+                GlobalDiagnosticsContext.Set("fileType", fileType);
+
+                string ifcVersion = jSettings.outIFCType.ToString();
+                GlobalDiagnosticsContext.Set("ifcVersion", ifcVersion);
+
+                string shape = jSettings.surfaceType.ToString();
+                GlobalDiagnosticsContext.Set("shape", shape);
+
             }
             else
             {
                 this.jSettings.logFilePath = System.Configuration.ConfigurationManager.AppSettings["LogFilePath"];
             }
-
             //ÜBERPRÜFEN, ob noch notwendig:
             /*
             if (System.Configuration.ConfigurationManager.AppSettings["VerbosityLevel"] == null)
@@ -789,15 +802,24 @@ namespace IFCTerrainGUI
                 string fileType = jSettings.fileType.ToString();
                 string ifcVersion = jSettings.outIFCType.ToString();
                 string shape = jSettings.surfaceType.ToString();
-                //System.IO.File.WriteAllText(path + @"\config.json", jExportText); //neue Namen für config - Datei? -> je nach exportierten Format Bspw.: config_out_4add1_tfs.json
                 File.WriteAllText(path + @"\config_" + fileType + "_" + ifcVersion + "_" + shape + ".json", jExportText);
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.Write(ex.Message.ToString() + Environment.NewLine);
             }
-            
-            MessageBox.Show("Transformation gestartet");
+
+            //MessageBox.Show("Transformation gestartet");
+            string newtext = "Transformation started...";
+            CultureInfo deDE = new CultureInfo("de-DE");
+            if (CultureInfo.CurrentCulture.Equals(deDE))
+            {
+                newtext = "Transformation gestartet...";
+            }
+            liveLog.Text += Environment.NewLine + newtext;
+            liveLog.SelectionStart = liveLog.TextLength;
+            liveLog.ScrollToCaret();
+
             //progressBarIFC.Visible = true;
             this.Enabled = false;
             this.backgroundWorkerIFC.RunWorkerAsync();
@@ -824,7 +846,13 @@ namespace IFCTerrainGUI
 
         private void backgroundWorkerIFC_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            MessageBox.Show("IFC Datei erfolgreich erstellt");
+            //MessageBox.Show("IFC Datei erfolgreich erstellt");
+            string newtext = "IFC Datei erfolgreich erstellt!";
+            liveLog.Text += Environment.NewLine + newtext;
+            liveLog.SelectionStart = liveLog.TextLength;
+            liveLog.ScrollToCaret();
+
+
 
             this.Enabled = true;
         }

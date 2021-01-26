@@ -30,6 +30,7 @@ namespace IFCTerrainGUI
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -174,6 +175,7 @@ namespace IFCTerrainGUI
             this.rbCoCus = new System.Windows.Forms.RadioButton();
             this.rbCoDef = new System.Windows.Forms.RadioButton();
             this.gpUserSettings = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.lbOrgName = new System.Windows.Forms.Label();
@@ -196,8 +198,10 @@ namespace IFCTerrainGUI
             this.lblPort = new System.Windows.Forms.Label();
             this.tbHost_read = new System.Windows.Forms.TextBox();
             this.lblHost = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.gpLogging = new System.Windows.Forms.GroupBox();
+            this.ttChoose = new System.Windows.Forms.ToolTip(this.components);
+            this.ttStart = new System.Windows.Forms.ToolTip(this.components);
+            this.liveLog = new System.Windows.Forms.TextBox();
             this.gpFile.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpXML.SuspendLayout();
@@ -218,6 +222,7 @@ namespace IFCTerrainGUI
             this.groupBox1.SuspendLayout();
             this.gpUserSettings.SuspendLayout();
             this.gpPostGIS.SuspendLayout();
+            this.gpLogging.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -1072,6 +1077,7 @@ namespace IFCTerrainGUI
             // 
             resources.ApplyResources(this.btnStart, "btnStart");
             this.btnStart.Name = "btnStart";
+            this.ttStart.SetToolTip(this.btnStart, resources.GetString("btnStart.ToolTip"));
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
@@ -1094,6 +1100,7 @@ namespace IFCTerrainGUI
             // 
             resources.ApplyResources(this.btnSave, "btnSave");
             this.btnSave.Name = "btnSave";
+            this.ttChoose.SetToolTip(this.btnSave, resources.GetString("btnSave.ToolTip"));
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -1196,6 +1203,12 @@ namespace IFCTerrainGUI
             resources.ApplyResources(this.gpUserSettings, "gpUserSettings");
             this.gpUserSettings.Name = "gpUserSettings";
             this.gpUserSettings.TabStop = false;
+            // 
+            // groupBox2
+            // 
+            resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.TabStop = false;
             // 
             // label17
             // 
@@ -1332,17 +1345,27 @@ namespace IFCTerrainGUI
             resources.ApplyResources(this.lblHost, "lblHost");
             this.lblHost.Name = "lblHost";
             // 
-            // groupBox2
-            // 
-            resources.ApplyResources(this.groupBox2, "groupBox2");
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.TabStop = false;
-            // 
             // gpLogging
             // 
+            this.gpLogging.Controls.Add(this.liveLog);
             resources.ApplyResources(this.gpLogging, "gpLogging");
             this.gpLogging.Name = "gpLogging";
             this.gpLogging.TabStop = false;
+            // 
+            // ttChoose
+            // 
+            this.ttChoose.ToolTipTitle = "Hinweis";
+            // 
+            // ttStart
+            // 
+            this.ttStart.ToolTipTitle = "Hinweis";
+            // 
+            // liveLog
+            // 
+            this.liveLog.AcceptsTab = true;
+            resources.ApplyResources(this.liveLog, "liveLog");
+            this.liveLog.Name = "liveLog";
+            this.liveLog.ReadOnly = true;
             // 
             // Form1
             // 
@@ -1406,6 +1429,8 @@ namespace IFCTerrainGUI
             this.gpUserSettings.PerformLayout();
             this.gpPostGIS.ResumeLayout(false);
             this.gpPostGIS.PerformLayout();
+            this.gpLogging.ResumeLayout(false);
+            this.gpLogging.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1579,5 +1604,8 @@ namespace IFCTerrainGUI
         private System.Windows.Forms.Label lbPointtypes;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox gpLogging;
+        private System.Windows.Forms.ToolTip ttChoose;
+        private System.Windows.Forms.ToolTip ttStart;
+        private System.Windows.Forms.TextBox liveLog;
     }
 }
