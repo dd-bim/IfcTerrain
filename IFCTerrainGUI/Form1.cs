@@ -786,7 +786,11 @@ namespace IFCTerrainGUI
             try
             {
                 string jExportText = JsonConvert.SerializeObject(this.jSettings);
-                System.IO.File.WriteAllText(path + @"\config.json", jExportText);
+                string fileType = jSettings.fileType.ToString();
+                string ifcVersion = jSettings.outIFCType.ToString();
+                string shape = jSettings.surfaceType.ToString();
+                //System.IO.File.WriteAllText(path + @"\config.json", jExportText); //neue Namen für config - Datei? -> je nach exportierten Format Bspw.: config_out_4add1_tfs.json
+                File.WriteAllText(path + @"\config_" + fileType + "_" + ifcVersion + "_" + shape + ".json", jExportText);
             }
             catch (Exception ex)
             {
