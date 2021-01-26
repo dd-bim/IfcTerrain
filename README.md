@@ -264,7 +264,9 @@ The attributes of the respective file format are to be added.
 
 | attribute       | vale range  | description                                                  |
 | --------------- | ----------- | ------------------------------------------------------------ |
-| layer           | string      | Name of the layer that contains terrain information in an input DXF file |
+| readFaces       | true; false | Decides whether the processing should be done via Points & Lines (=false) or Faces (=true). |
+| readHorizion    | true; false | Decides whether the TIN is to be read out via horizon (=true) or via point types (=false). |
+| layer           | integer     | Designation of the point types or horizons. Separation via: "/" ";" "," permissible |
 | ignPos          | true; false | Decides whether the status code for the location position should be ignored (=true). |
 | ignHeight       | true; false | Decides whether the status code for the height position should be ignored (=true). |
 | breakline       | true; false | Decides whether break edges are to be processed (true).<br />If this is not the case, the following line is not necessary! |
@@ -319,5 +321,5 @@ The windows-batch program is a executive testing software. It reads from the ``I
 - [x] CAD (DXF)
 - [x] GRID (XYZ)
 - [x] REB (DA45, DA49, DA58)
-- [x] GEOgraf (OUT)
+- [ ] ~~GEOgraf (OUT)~~
 - [ ] ~~Database (PostGIS)~~
