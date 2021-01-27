@@ -27,7 +27,6 @@ namespace IFCTerrain.Model.Read
             var result = new Result();
             var tin = new Mesh(is3d, minDist);
             Dictionary<int, Line3> breaklines = new Dictionary<int, Line3>();
-            Logger.Info("A database connection is established.");
             try
             {
                 //prepare string for database connection
@@ -237,6 +236,7 @@ namespace IFCTerrain.Model.Read
             {
                 //
                 Console.WriteLine(e.ToString());
+                Logger.Error("Database connection failed!");
             }
             Console.ReadLine();
             return result;
