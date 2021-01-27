@@ -70,41 +70,6 @@ namespace IFCTerrainGUI
                 liveLog.Text = "Willkommen zu IFC Terrain!";
             }
         }
-
-        #region empty labels
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-        private void label8_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void lblType_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-        #endregion
-
         #region Read XML/GML
 
         private void btnReadXml_Click(object sender, EventArgs e)
@@ -288,12 +253,12 @@ namespace IFCTerrainGUI
                 tbLayerBk.Text = layer;
                 jSettings.breakline = rbDxfBk_true.Checked;
             }
+            new_livelog(liveLog, "info", "DXF settings has been set.", "DXF-Einstellungen wurden übernommen.");
             btnStart.Enabled = true;
         }
 
         private void lbLayer_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //this.btnProcess.Enabled = this.lbLayer2.SelectedItem is string;
             rbIndPoly.Enabled = true;
             rbFaces.Enabled = true;
         }
@@ -465,6 +430,7 @@ namespace IFCTerrainGUI
                 this.jSettings.horizon = horizon;
                 tbLayHor.Text = horizon.ToString();
             }
+            new_livelog(liveLog, "info", "'REB' settings has been set.", "'REB'-Einstellungen wurden übernommen.");
             btnStart.Enabled = true;
         }
 
@@ -548,6 +514,7 @@ namespace IFCTerrainGUI
                 else
                 {
                     Logger.Error("No Horizon has been entered.");
+                    new_livelog(liveLog, "error", "No Horizon has been entered.", "Es wurde kein Horizont eingegeben.");
                 }
             }
 
@@ -628,13 +595,16 @@ namespace IFCTerrainGUI
             {
                 this.jSettings.ignHeight = false;
             }
-
+            btnStart.Enabled = true;
             new_livelog(liveLog, "info", "Settings from 'GEOgraf OUT' were taken over.", "Einstellungen aus 'GEOgraf OUT' wurden übernommen.");
 
-            btnStart.Enabled = true;
-            return;
 
+            return;
         }
+        
+        
+        
+        //... kann der Backgroundworker weg???
         private void backgroundWorkerOUT_DoWork(object sender, DoWorkEventArgs e)
         {
             e.Result = Out.ReadFile((string)e.Argument) ? (string)e.Argument : "";
@@ -931,8 +901,10 @@ namespace IFCTerrainGUI
 
                 //GUI logging
                 new_livelog(liveLog, "info", "GRID file was read.", "Raster-Datei wurde gelesen.");
+
+                cb_BBox.Enabled = btnGridSize.Enabled = btnStart.Enabled = true;
             }
-            btnStart.Enabled = true;
+            
         }
 
         private void btnGridSize_Click(object sender, EventArgs e)
@@ -964,6 +936,7 @@ namespace IFCTerrainGUI
                 this.jSettings.bbEast = 0.0;
                 this.jSettings.bbWest = 0.0;
                 this.jSettings.bbSouth = 0.0;
+                local_error = false;
             }
             if(local_error == false)
             {
@@ -1246,11 +1219,13 @@ namespace IFCTerrainGUI
                 else
                 {
                     btnStart.Enabled = true;
+                    new_livelog(liveLog, "info", "PostGIS settings has been set.", "PostGIS-Einstellungen wurden übernommen.");
                 }
             }
             else
             {
                 btnStart.Enabled = true;
+                new_livelog(liveLog, "info", "PostGIS settings has been set.", "PostGIS-Einstellungen wurden übernommen.");
             }
         }
 
@@ -1288,6 +1263,17 @@ namespace IFCTerrainGUI
         private void rbHorizion_CheckedChanged(object sender, EventArgs e)
         {
             tbHorizon.Enabled = true;
+            btnProcessOut.Enabled = false;
+        }
+
+        private void rbHorizon_all_CheckedChanged(object sender, EventArgs e)
+        {
+            btnProcessOut.Enabled = true;
+        }
+
+        private void tbHorizon_TextChanged(object sender, EventArgs e)
+        {
+            btnProcessOut.Enabled = true;
         }
     }
 }

@@ -8,9 +8,7 @@ using System.Windows.Forms;
 namespace IFCTerrain
 {
     static class Program
-    {
-        //private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-        
+    {        
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -20,7 +18,6 @@ namespace IFCTerrain
             //Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new MainForm());
-            
         }
     }
 }

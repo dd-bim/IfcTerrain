@@ -200,7 +200,7 @@
     <value>338, 23</value>
   </data>
   <data name="btnProcess.Text" xml:space="preserve">
-    <value>Verarbeite</value>
+    <value>Übernehmen</value>
   </data>
   <data name="tpREB.Size" type="System.Drawing.Size, System.Drawing">
     <value>350, 202</value>
@@ -218,7 +218,7 @@
     <value>338, 23</value>
   </data>
   <data name="btnProcessReb.Text" xml:space="preserve">
-    <value>Verarbeite</value>
+    <value>Übernehmen</value>
   </data>
   <data name="lbHorizon.Size" type="System.Drawing.Size, System.Drawing">
     <value>229, 108</value>
@@ -490,7 +490,7 @@
 </value>
   </data>
   <data name="btnProcessOut.Text" xml:space="preserve">
-    <value>Anwenden</value>
+    <value>Übernehmen</value>
   </data>
   <data name="btnReadOUT.Text" xml:space="preserve">
     <value>Lese "OUT-Datei"</value>
@@ -528,5 +528,135 @@
   </data>
   <data name="rbBkTin_true.Text" xml:space="preserve">
     <value>Ja</value>
+  </data>
+  <data name="btnProcessPostGIS.Text" xml:space="preserve">
+    <value>Übernehmen </value>
+  </data>
+  <data name="chkXML.Text" xml:space="preserve">
+    <value>IFCXML exportieren</value>
+  </data>
+  <data name="gbPostGIS_Breaklines.Text" xml:space="preserve">
+    <value>Bruchkanten</value>
+  </data>
+  <data name="gpBox_Bk.Text" xml:space="preserve">
+    <value>Bruchkanten verarbeiten?</value>
+  </data>
+  <data name="gpLogging.Text" xml:space="preserve">
+    <value>Protokoll</value>
+  </data>
+  <data name="gpOutBk.Text" xml:space="preserve">
+    <value>Verarbeitung von Bruchkanten?</value>
+  </data>
+  <data name="gpOUT_Hor.Text" xml:space="preserve">
+    <value>Lesen folgender TINs ...</value>
+  </data>
+  <data name="gpTIN_ID.Text" xml:space="preserve">
+    <value>TIN ID</value>
+  </data>
+  <data name="gpUserSettings.Text" xml:space="preserve">
+    <value>Nutzereinstellungen</value>
+  </data>
+  <data name="gp_Geometry.Text" xml:space="preserve">
+    <value>TIN Geometrie</value>
+  </data>
+  <data name="label16.Text" xml:space="preserve">
+    <value>Vorname</value>
+  </data>
+  <data name="label17.Text" xml:space="preserve">
+    <value>Nachname</value>
+  </data>
+  <data name="label19.Text" xml:space="preserve">
+    <value>Layer 
+(Bruchkanten)</value>
+  </data>
+  <data name="label20.Text" xml:space="preserve">
+    <value>Linienart der Bruchkanten (Bspw.: 100; 200):</value>
+  </data>
+  <data name="lbBlTinID.Text" xml:space="preserve">
+    <value>Spalte (TIN ID)</value>
+  </data>
+  <data name="lbColumnBreakline.Text" xml:space="preserve">
+    <value>Spalte (Geometrie)</value>
+  </data>
+  <data name="lbColumn_TIN.Text" xml:space="preserve">
+    <value>Spalte</value>
+  </data>
+  <data name="lbDatabase.Text" xml:space="preserve">
+    <value>Datenbank</value>
+  </data>
+  <data name="lbGuiBk.Text" xml:space="preserve">
+    <value>Layer(Bruchkanten)</value>
+  </data>
+  <data name="lblBreakline.Text" xml:space="preserve">
+    <value>Bruchkante</value>
+  </data>
+  <data name="lblDatabase.Text" xml:space="preserve">
+    <value>Datenbank</value>
+  </data>
+  <data name="lblGrid.Text" xml:space="preserve">
+    <value>Rasterabstand [m]</value>
+  </data>
+  <data name="lblPostGIS_bl.Text" xml:space="preserve">
+    <value>Bruchkanten verarbeiten?</value>
+  </data>
+  <data name="lblTINColumn.Text" xml:space="preserve">
+    <value>Spalte</value>
+  </data>
+  <data name="lblTINTable.Text" xml:space="preserve">
+    <value>Tabelle</value>
+  </data>
+  <data name="lbOrgName.Text" xml:space="preserve">
+    <value>Organisation</value>
+  </data>
+  <data name="lbPassword.Text" xml:space="preserve">
+    <value>Passwort</value>
+  </data>
+  <data name="lbPointtypes.Text" xml:space="preserve">
+    <value>Filterung nach Punktarten (Bspw.: 20; 30):</value>
+  </data>
+  <data name="lbPostGIS_BL_Input.Text" xml:space="preserve">
+    <value>Tabelle</value>
+  </data>
+  <data name="lbTable.Text" xml:space="preserve">
+    <value>Tabelle</value>
+  </data>
+  <data name="lbTinColumnID.Text" xml:space="preserve">
+    <value>Spalte</value>
+  </data>
+  <data name="lbTinID.Text" xml:space="preserve">
+    <value>Wert</value>
+  </data>
+  <data name="lbUsername.Text" xml:space="preserve">
+    <value>Nutzer</value>
+  </data>
+  <data name="lb_Dxf_Layer.Text" xml:space="preserve">
+    <value>DXF-Layer für DGM auswählen:</value>
+  </data>
+  <data name="rbDxfBk_false.Text" xml:space="preserve">
+    <value>Nein</value>
+  </data>
+  <data name="rbDxfBk_true.Text" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="rbHorizion.Text" xml:space="preserve">
+    <value>... nur Horizont(e):</value>
+  </data>
+  <data name="rbHorizon_all.Text" xml:space="preserve">
+    <value>... alle</value>
+  </data>
+  <data name="rbOutBk_false.Text" xml:space="preserve">
+    <value>Nein</value>
+  </data>
+  <data name="rbOutBk_true.Text" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="rbPostGIS_BL_false.Text" xml:space="preserve">
+    <value>Nein</value>
+  </data>
+  <data name="rbPostGIS_BL_true.Text" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="tpPostGIS.Text" xml:space="preserve">
+    <value>Datenbank (PostGIS)</value>
   </data>
 </root>

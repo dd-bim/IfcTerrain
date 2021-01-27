@@ -229,13 +229,11 @@ namespace IFCTerrainGUI
             // 
             resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
             resources.ApplyResources(this.label2, "label2");
             this.label2.Name = "label2";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // gpFile
             // 
@@ -302,7 +300,6 @@ namespace IFCTerrainGUI
             // 
             resources.ApplyResources(this.lblType, "lblType");
             this.lblType.Name = "lblType";
-            this.lblType.Click += new System.EventHandler(this.lblType_Click);
             // 
             // lblFile
             // 
@@ -436,7 +433,6 @@ namespace IFCTerrainGUI
             // 
             resources.ApplyResources(this.label4, "label4");
             this.label4.Name = "label4";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // rbFaces
             // 
@@ -722,6 +718,7 @@ namespace IFCTerrainGUI
             // 
             resources.ApplyResources(this.tbHorizon, "tbHorizon");
             this.tbHorizon.Name = "tbHorizon";
+            this.tbHorizon.TextChanged += new System.EventHandler(this.tbHorizon_TextChanged);
             // 
             // rbHorizion
             // 
@@ -735,6 +732,7 @@ namespace IFCTerrainGUI
             resources.ApplyResources(this.rbHorizon_all, "rbHorizon_all");
             this.rbHorizon_all.Name = "rbHorizon_all";
             this.rbHorizon_all.UseVisualStyleBackColor = true;
+            this.rbHorizon_all.CheckedChanged += new System.EventHandler(this.rbHorizon_all_CheckedChanged);
             // 
             // chkIgnHeight
             // 
@@ -1155,7 +1153,6 @@ namespace IFCTerrainGUI
             // 
             resources.ApplyResources(this.label8, "label8");
             this.label8.Name = "label8";
-            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // tbCoZ
             // 
@@ -1371,8 +1368,8 @@ namespace IFCTerrainGUI
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.gpLogging);
             this.Controls.Add(this.gpPostGIS);
+            this.Controls.Add(this.gpLogging);
             this.Controls.Add(this.lklb_Doc);
             this.Controls.Add(this.gpUserSettings);
             this.Controls.Add(this.groupBox1);
@@ -1390,7 +1387,6 @@ namespace IFCTerrainGUI
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.gpFile.ResumeLayout(false);
             this.gpFile.PerformLayout();
             this.tabControl1.ResumeLayout(false);

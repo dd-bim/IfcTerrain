@@ -97,7 +97,7 @@ namespace IFCTerrain.Model.Read
 
             var outData = new Out();
 
-            string line, geogversion, projekt;
+            string line;
             int counter = 1; //Counter für Anzahl der gelesenen Zeilen
 
             #region Read File
@@ -113,18 +113,6 @@ namespace IFCTerrain.Model.Read
                     string[] str = line.Split(new[] { ':' }, StringSplitOptions.None);
 
                     string[] data_line = str[1].Split(new[] { ',' }, StringSplitOptions.None); // Splitter zwischen Kennung & Daten
-
-                    var OutData = new Out();
-
-                    if (str[0].ToString() == "Typ")
-                    {
-                        geogversion = str[1].ToString(); //Geograf Version auslesen
-                    }
-
-                    if (str[0].ToString() == "PRJ")
-                    {
-                        projekt = str[1].ToString(); //Projekt-Bezeichnung auslesen
-                    }
 
                     #region Punkte auslesen
                     //hier wird aus der OUT-Datei die Punkte ausgelesen --> Speicherung in "pointlist" 
@@ -279,10 +267,6 @@ namespace IFCTerrain.Model.Read
                     string[] data_line = str[1].Split(new[] { ',' }, StringSplitOptions.None); // Splitter zwischen Kennung & Daten
 
                     #region Sachdaten / Projektdaten auslesen
-                    if (str[0].ToString() == "Typ")
-                    {
-                        geogversion = str[1].ToString(); //Geograf Version auslesen
-                    }
                     /*
                     if (str[0].ToString() == "PRJ")
                     {
