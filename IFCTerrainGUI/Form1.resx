@@ -4670,9 +4670,6 @@
   <data name="liveLog.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="liveLog.Text" xml:space="preserve">
-    <value>Welcome to IFCTerrain!</value>
-  </data>
   <data name="&gt;&gt;liveLog.Name" xml:space="preserve">
     <value>liveLog</value>
   </data>
@@ -4695,7 +4692,7 @@
     <value>26</value>
   </data>
   <data name="gpLogging.Text" xml:space="preserve">
-    <value>Live - Logging [DRAFT Version]</value>
+    <value>Logging [DRAFT Version]</value>
   </data>
   <data name="&gt;&gt;gpLogging.Name" xml:space="preserve">
     <value>gpLogging</value>

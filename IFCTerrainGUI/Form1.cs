@@ -62,6 +62,7 @@ namespace IFCTerrainGUI
         public Form1()
         {
             InitializeComponent();
+            
             liveLog.Text = "Weclome to IFC Terrain!";
             CultureInfo deDE = new CultureInfo("de-DE");
             if (CultureInfo.CurrentCulture.Equals(deDE))
@@ -163,6 +164,7 @@ namespace IFCTerrainGUI
                     rbBkTin_false.Checked = true;
                 }
                 btnStart.Enabled = true;
+                
                 //new live log line
                 new_livelog(liveLog, "info", tbType.Text + "was read.", tbType.Text + " wurde gelesen.");
             }
@@ -387,7 +389,6 @@ namespace IFCTerrainGUI
         #endregion
 
         #region Read REB
-
         private void btnReadReb_Click(object sender, EventArgs e)
         {
             //Einschalten der Maske - DGM
@@ -401,6 +402,7 @@ namespace IFCTerrainGUI
             };
             ofd.FilterIndex = Properties.Settings.Default.readTinFilterIndex;
             ofd.InitialDirectory = Properties.Settings.Default.initialDirectory;
+
             //ofd.Multiselect = true;
             if (ofd.ShowDialog() == DialogResult.OK)
             {
@@ -416,6 +418,8 @@ namespace IFCTerrainGUI
                 this.Enabled = false;
                 //this.progressBar.Show();
                 this.backgroundWorkerREB.RunWorkerAsync(fileNames);
+
+                new_livelog(liveLog, "info", "REB file was read.", "REB-Datei wurde gelesen.");
             }
         }
 
@@ -490,9 +494,10 @@ namespace IFCTerrainGUI
 
                 //Schaltflächen aktivieren
                 tbOutLayer.Enabled = chkIgnPos.Enabled = chkIgnHeight.Enabled = rb_p_ln.Enabled = rb_dgm.Enabled = true;
-            }
 
-            
+                //GUI logging
+                new_livelog(liveLog, "info", "OUT file was read.", "OUT-Datei wurde gelesen.");
+            }
         }
 
         private void btnProcessOut_Click(object sender, EventArgs e)
@@ -624,6 +629,7 @@ namespace IFCTerrainGUI
                 this.jSettings.ignHeight = false;
             }
 
+            new_livelog(liveLog, "info", "Settings from 'GEOgraf OUT' were taken over.", "Einstellungen aus 'GEOgraf OUT' wurden übernommen.");
 
             btnStart.Enabled = true;
             return;
@@ -680,6 +686,8 @@ namespace IFCTerrainGUI
             {
                 tbTarDir.Text = sfd.FileName;
                 this.jSettings.destFileName = sfd.FileName;
+
+                new_livelog(liveLog, "info", "File path have been set.", "Dateipfad wurde gesetzt.");
             }
         }
 
@@ -710,10 +718,6 @@ namespace IFCTerrainGUI
             else if (rbIfc4dot3.Checked)
             {
                 this.jSettings.outIFCType = "IFC4dot3";
-            }
-            else
-            {
-                //Fehler erzeugen, dass GUI defekt ist --> dieser Fall kann eigentlich nicht eintreten
             }
 
             //ersetzt durch obere Schleife
@@ -840,9 +844,9 @@ namespace IFCTerrainGUI
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.Write(ex.Message.ToString() + Environment.NewLine);
+                new_livelog(liveLog, "error", "Create JSON file failed.", "JSON-Datei erzeugen ist fehlgeschlagen.");
             }
 
-            //progressBarIFC.Visible = true;
             this.Enabled = false;
             this.backgroundWorkerIFC.RunWorkerAsync();
         }
@@ -868,8 +872,7 @@ namespace IFCTerrainGUI
 
         private void backgroundWorkerIFC_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            //MessageBox.Show("IFC Datei erfolgreich erstellt");
-            new_livelog(liveLog,"info","IFC file successfully created.", "IFC Datei erfolgreich erstellt.");
+            new_livelog(liveLog,"info","IFC file successfully created.", "IFC-Datei erfolgreich erstellt.");
             this.Enabled = true;
         }
         #endregion
@@ -925,6 +928,9 @@ namespace IFCTerrainGUI
                 int gridSize = Convert.ToInt32(tbGsSet.Text);
                 this.jSettings.gridSize = gridSize;
                 tbGridSize.Text = gridSize.ToString();
+
+                //GUI logging
+                new_livelog(liveLog, "info", "GRID file was read.", "Raster-Datei wurde gelesen.");
             }
             btnStart.Enabled = true;
         }
@@ -932,15 +938,25 @@ namespace IFCTerrainGUI
         private void btnGridSize_Click(object sender, EventArgs e)
         {
             int gridSize = Convert.ToInt32(tbGsSet.Text);
-            
+            bool local_error = true;
             this.jSettings.gridSize = gridSize;
             this.jSettings.bBox = cb_BBox.Checked;
-            if(cb_BBox.Checked)
+            if (cb_BBox.Checked
+                //Fehlerhandling - Abfrage, ob eine der Textboxen leer ist
+                && !string.IsNullOrEmpty(tb_bbNorth.Text) 
+                && !string.IsNullOrEmpty(tb_bbEast.Text) 
+                && !string.IsNullOrEmpty(tb_bbWest.Text) 
+                && !string.IsNullOrEmpty(tb_bbSouth.Text))
             {
                 this.jSettings.bbNorth = Convert.ToDouble(tb_bbNorth.Text);
                 this.jSettings.bbEast = Convert.ToDouble(tb_bbEast.Text);
                 this.jSettings.bbWest = Convert.ToDouble(tb_bbWest.Text);
                 this.jSettings.bbSouth = Convert.ToDouble(tb_bbSouth.Text);
+                local_error = false;
+            }
+            else if (cb_BBox.Checked && local_error == true)
+            {
+                new_livelog(liveLog, "error", "GRID settings fail. One or more inputs incomplete (BoundingBox).", "Raster-Einstellungen fehlgeschlagen. Eine oder mehrere Eingaben unvollständig (BoundingBox).");
             }
             else
             {
@@ -949,9 +965,11 @@ namespace IFCTerrainGUI
                 this.jSettings.bbWest = 0.0;
                 this.jSettings.bbSouth = 0.0;
             }
-            
-
-            tbGridSize.Text = gridSize.ToString();
+            if(local_error == false)
+            {
+                new_livelog(liveLog, "info", "GRID settings has been set.", "Raster-Einstellungen wurden übernommen.");
+                tbGridSize.Text = gridSize.ToString();
+            }
         }
 
         
