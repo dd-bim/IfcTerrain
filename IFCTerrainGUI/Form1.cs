@@ -471,7 +471,7 @@ namespace IFCTerrainGUI
             string layer_out = null;
             string horizons_input = null;
             string layer_bk = null;
-
+            #region Punkte / Linien oder Faces?
             if (rbFaces.Checked)
             {
                 jSettings.isTin = true;
@@ -480,6 +480,10 @@ namespace IFCTerrainGUI
             {
                 jSettings.isTin = false;
             }
+
+            #endregion
+
+            #region Verarbeitung Horizont
 
             if (rbHorizon_all.Checked == true)
             {
@@ -513,11 +517,18 @@ namespace IFCTerrainGUI
                 }
                 else
                 {
-                    Logger.Error("No Horizon has been entered.");
-                    new_livelog(liveLog, "error", "No Horizon has been entered.", "Es wurde kein Horizont eingegeben.");
+                    if (rb_dgm.Checked == true)
+                    {
+                        Logger.Error("No Horizon has been entered.");
+                        new_livelog(liveLog, "error", "No Horizon has been entered.", "Es wurde kein Horizont eingegeben.");
+                    }
                 }
             }
 
+            #endregion
+
+            #region Filterung über Punktart
+            
             if (!string.IsNullOrEmpty(tbOutLayer.Text))
             {
                 //MessageBox.Show("Textfeld ist nicht leer");
@@ -556,6 +567,9 @@ namespace IFCTerrainGUI
                 
             }
 
+            #endregion
+
+            #region Bruchkanten GUI Eingabe
             if (tbOutBk.Text != "" && rbOutBk_true.Checked)
             {
                 string input_text_out = tbOutBk.Text;
@@ -574,10 +588,18 @@ namespace IFCTerrainGUI
                     }
                 }
                 tbLayerBk.Text = layer_bk;
-                jSettings.breakline_layer = layer_out; 
+                jSettings.breakline = true;
+                jSettings.breakline_layer = layer_bk; 
                 tbOutBk.Clear();
             }
-            
+            else if (rbOutBk_false.Checked)
+            {
+                jSettings.breakline = false;
+            }
+
+            #endregion
+
+            #region Statuscode 
             if (chkIgnPos.Checked)
             {
                 this.jSettings.ignPos = true;
@@ -595,7 +617,13 @@ namespace IFCTerrainGUI
             {
                 this.jSettings.ignHeight = false;
             }
+            #endregion
+            
+            
+            //Button "Start" freigeben
             btnStart.Enabled = true;
+            
+            //gui logging
             new_livelog(liveLog, "info", "Settings from 'GEOgraf OUT' were taken over.", "Einstellungen aus 'GEOgraf OUT' wurden übernommen.");
 
 
@@ -622,6 +650,7 @@ namespace IFCTerrainGUI
         {
             tbOutBk.Enabled = lbGuiBk.Visible = tbLayerBk.Visible = true;
             btnProcessOut.Enabled = false;
+            
         }
         private void rbOutBk_false_CheckedChanged(object sender, EventArgs e)
         {
@@ -646,6 +675,24 @@ namespace IFCTerrainGUI
         {
             btnProcessOut.Enabled = true;
         }
+
+        private void rbHorizion_CheckedChanged(object sender, EventArgs e)
+        {
+            tbHorizon.Enabled = true;
+            btnProcessOut.Enabled = false;
+        }
+
+        private void rbHorizon_all_CheckedChanged(object sender, EventArgs e)
+        {
+            btnProcessOut.Enabled = true;
+        }
+
+        private void tbHorizon_TextChanged(object sender, EventArgs e)
+        {
+            btnProcessOut.Enabled = true;
+        }
+
+
         #endregion
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -656,8 +703,16 @@ namespace IFCTerrainGUI
             {
                 tbTarDir.Text = sfd.FileName;
                 this.jSettings.destFileName = sfd.FileName;
+                
+                //Ende des Datei-Pfades statt Anfang anzeigen!
+                tbTarDir.SelectionStart = tbTarDir.TextLength;
+                tbTarDir.ScrollToCaret();
 
                 new_livelog(liveLog, "info", "File path have been set.", "Dateipfad wurde gesetzt.");
+            }
+            else
+            {
+                new_livelog(liveLog, "warn", "File path have NOT been set.", "Dateipfad wurde nicht gesetzt.");
             }
         }
 
@@ -1036,12 +1091,6 @@ namespace IFCTerrainGUI
             }
         }
 
-
-        private void rbTFS_CheckedChanged(object sender, EventArgs e)
-        {
-            
-        }
-
         //DRAFT ONLY - REMOVE or UPDATE IFC 4.3
         private void rbIfc4dot3_CheckedChanged(object sender, EventArgs e)
         {
@@ -1260,20 +1309,5 @@ namespace IFCTerrainGUI
 
         //The following "functions" have been added, but not SORTED!!!
 
-        private void rbHorizion_CheckedChanged(object sender, EventArgs e)
-        {
-            tbHorizon.Enabled = true;
-            btnProcessOut.Enabled = false;
-        }
-
-        private void rbHorizon_all_CheckedChanged(object sender, EventArgs e)
-        {
-            btnProcessOut.Enabled = true;
-        }
-
-        private void tbHorizon_TextChanged(object sender, EventArgs e)
-        {
-            btnProcessOut.Enabled = true;
-        }
     }
 }

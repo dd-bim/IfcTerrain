@@ -84,11 +84,11 @@ namespace IFCTerrain.Model
                 case "OUT":
                     if (jSettings.isTin)
                     {
-                        result = Out.ReadOUTTin(jSettings.is3D, jSettings.fileName, jSettings.layer, jSettings.minDist, jSettings.logFilePath, jSettings.ignPos, jSettings.ignHeight, jSettings.onlyHorizon, jSettings.horizonFilter);
+                        result = Out.ReadOUTTin(jSettings.is3D, jSettings.fileName, jSettings.layer, jSettings.minDist, jSettings.ignPos, jSettings.ignHeight, jSettings.onlyHorizon, jSettings.horizonFilter, jSettings.breakline, jSettings.breakline_layer);
                     }
                     else
                     {
-                        result = Out.ReadOUT_Points_Lines(jSettings.is3D, jSettings.fileName, jSettings.layer, jSettings.minDist, jSettings.logFilePath, jSettings.ignPos, jSettings.ignHeight);
+                        result = Out.ReadOUT_Points_Lines(jSettings.is3D, jSettings.fileName, jSettings.layer, jSettings.minDist, jSettings.ignPos, jSettings.ignHeight, jSettings.breakline, jSettings.breakline_layer);
                     }
                     break;
                 case "PostGIS":

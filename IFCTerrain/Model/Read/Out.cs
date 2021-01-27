@@ -89,7 +89,7 @@ namespace IFCTerrain.Model.Read
             }
         }
 
-        public static Result ReadOUT_Points_Lines(bool is3d, string fileName, string out_types, double minDist, string logFilePath, bool ignPos, bool ignHeight) 
+        public static Result ReadOUT_Points_Lines(bool is3d, string fileName, string out_types, double minDist, bool ignPos, bool ignHeight, bool breakline, string breaklineLayer) 
         {
             var result = new Result();
             Logger logger = LogManager.GetCurrentClassLogger();
@@ -223,6 +223,25 @@ namespace IFCTerrain.Model.Read
                     }
                     #endregion
 
+
+
+                    #region Linie auslesen für Bruchkanten
+                    if (str[0].Contains("LI") && breakline == true)
+                    {
+
+
+
+
+
+
+
+
+                    }
+
+
+                    #endregion
+
+
                     counter++;
                 }
             }
@@ -236,26 +255,21 @@ namespace IFCTerrain.Model.Read
             
             return result;
         }
-        //Auslesen der OUT-Datei nur über das DGM
-        public static Result ReadOUTTin(bool is3d, string fileName,string out_types, double minDist, string logFilePath, bool ignPos, bool ignHeight, bool readHorizon, string horizonFilter)
+        
+        //Auslesen der OUT-Datei nur über das DGM (FACES)
+        public static Result ReadOUTTin(bool is3d, string fileName,string out_types, double minDist, bool ignPos, bool ignHeight, bool readHorizon, string horizonFilter, bool breakline, string breaklineLayer)
         {
             var result = new Result();
             Logger logger = LogManager.GetCurrentClassLogger();
             var tin = new Mesh(is3d, minDist);
-
             var outData = new Out();
-
-            
-
-
-            string line, geogversion, projekt;
+            string line;
             int counter = 1; //Counter für Anzahl der gelesenen Zeilen
 
             #region Read File
             StreamReader file = new StreamReader(fileName);
             while ((line = file.ReadLine()) != null)
             {
-
                 if (line.StartsWith("*"))
                 {
 
@@ -263,10 +277,9 @@ namespace IFCTerrain.Model.Read
                 else
                 {
                     string[] str = line.Split(new[] { ':' }, StringSplitOptions.None);
-
                     string[] data_line = str[1].Split(new[] { ',' }, StringSplitOptions.None); // Splitter zwischen Kennung & Daten
 
-                    #region Sachdaten / Projektdaten auslesen
+                    #region Sachdaten / Projektdaten auslesen - REMOVE???
                     /*
                     if (str[0].ToString() == "PRJ")
                     {
@@ -335,9 +348,6 @@ namespace IFCTerrain.Model.Read
                     }
                     #endregion
 
-
-                    #endregion
-
                     #region Horizont auslesen
                     
                     if (str[0].Contains("HNR")
@@ -347,7 +357,7 @@ namespace IFCTerrain.Model.Read
                         string hnr_bez = data_line[3].ToString();
                         new OutHorizon(hnr_nr, hnr_bez, is3D);
                     }
-                  
+                    #endregion
 
                     if (readHorizon == true)
                     {
@@ -458,6 +468,18 @@ namespace IFCTerrain.Model.Read
                     {
                         logger.Error("No indication whether processing is to be done via horizon or point types.");
                     }
+
+                    #region Bruchkanten-Verarbeitung
+                    if(breakline == true)
+                    {
+
+
+
+
+                    }
+                    #endregion
+                    
+                    //Eine Zeile wurde erfolgreich ausgelesen
                     counter++;
                 }
             }

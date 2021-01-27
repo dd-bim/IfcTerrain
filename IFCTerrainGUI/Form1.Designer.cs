@@ -202,6 +202,7 @@ namespace IFCTerrainGUI
             this.liveLog = new System.Windows.Forms.TextBox();
             this.ttChoose = new System.Windows.Forms.ToolTip(this.components);
             this.ttStart = new System.Windows.Forms.ToolTip(this.components);
+            this.tt = new System.Windows.Forms.ToolTip(this.components);
             this.gpFile.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpXML.SuspendLayout();
@@ -1044,7 +1045,6 @@ namespace IFCTerrainGUI
             this.rbTFS.Name = "rbTFS";
             this.rbTFS.TabStop = true;
             this.rbTFS.UseVisualStyleBackColor = true;
-            this.rbTFS.CheckedChanged += new System.EventHandler(this.rbTFS_CheckedChanged);
             // 
             // rbSSM
             // 
@@ -1358,7 +1358,8 @@ namespace IFCTerrainGUI
             // 
             // ttChoose
             // 
-            this.ttChoose.ToolTipTitle = "Hinweis";
+            this.ttChoose.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.ttChoose.ToolTipTitle = "Hint";
             // 
             // ttStart
             // 
@@ -1603,5 +1604,6 @@ namespace IFCTerrainGUI
         private System.Windows.Forms.ToolTip ttChoose;
         private System.Windows.Forms.ToolTip ttStart;
         private System.Windows.Forms.TextBox liveLog;
+        private System.Windows.Forms.ToolTip tt;
     }
 }
