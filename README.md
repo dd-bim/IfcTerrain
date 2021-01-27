@@ -301,6 +301,12 @@ IFCTerrainCommand.exe "D:\Data\input\Sample.json"
 
 ## Logging
 
+### GUI-Log
+
+The GUI shows the most important work steps. If an error (input or in the program) occurs, it is also recorded here.
+
+### Log-file
+
 A log file is written for each export. This is always located at the storage location of the IFC file. If a conversion does not work as intended, the necessary information is saved here.
 
 ## Usability of generated IFC files in other software
@@ -327,5 +333,5 @@ The windows-batch program is a executive testing software. It reads from the ``I
 - [x] CAD (DXF)
 - [x] GRID (XYZ)
 - [x] REB (DA45, DA49, DA58)
-- [ ] ~~GEOgraf (OUT)~~ (currently not available)
-- [ ] ~~Database (PostGIS)~~ 
+- [x] GEOgraf (OUT)
+- [ ] ~~Database (PostGIS)~~ (currently not available) 
