@@ -323,7 +323,7 @@ namespace IFCTerrain.Model.Read
                                     {
                                         OPoint newpoint = new OPoint(localID_int, pnr_local, ot_int, x_double, y_double, z_double); //neuen Punkt erstellen
                                         outData.Points.Add(localID_int, newpoint); //Punkt zur Punktliste hinzufügen
-                                        tin.AddPoint(Point3.Create(x_double, y_double, z_double));
+                                        //tin.AddPoint(Point3.Create(x_double, y_double, z_double));
                                     }
                                 }
                                 else if (out_types.Contains(ot_int.ToString()))
@@ -340,7 +340,7 @@ namespace IFCTerrain.Model.Read
                                     {
                                         OPoint newpoint = new OPoint(localID_int, pnr_local, ot_int, x_double, y_double, z_double); //neuen Punkt erstellen
                                         outData.Points.Add(localID_int, newpoint); //Punkt zur Punktliste hinzufügen
-                                        tin.AddPoint(Point3.Create(x_double, y_double, z_double));
+                                        //tin.AddPoint(Point3.Create(x_double, y_double, z_double));
                                     }
                                 }
                             }
@@ -402,6 +402,10 @@ namespace IFCTerrain.Model.Read
 
                                     try
                                     {
+                                        tin.AddPoint(p13);
+                                        tin.AddPoint(p23);
+                                        tin.AddPoint(p33);
+
                                         tin.AddFace(new[] { p13, p23, p33 }); //Hinzufügen eines Faces
                                     }
                                     catch
