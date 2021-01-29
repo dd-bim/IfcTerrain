@@ -459,18 +459,28 @@ namespace IFCTerrainGUI
                 tbFile.Text = ofd.FileName;
 
                 //Schaltflächen aktivieren
-                tbOutLayer.Enabled = chkIgnPos.Enabled = chkIgnHeight.Enabled = rb_p_ln.Enabled = rb_dgm.Enabled = true;
+                chkOutTypes.Enabled = chkIgnPos.Enabled = chkIgnHeight.Enabled = rb_p_ln.Enabled = rb_dgm.Enabled = true;
 
                 //GUI logging
                 new_livelog(liveLog, "info", "OUT file was read.", "OUT-Datei wurde gelesen.");
             }
         }
+        //KEYpress für Int - Only Eingabe!
+        private void tbHoirzon_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+                e.Handled = true;
+        }
+
 
         private void btnProcessOut_Click(object sender, EventArgs e)
         {
             string layer_out = null;
-            string horizons_input = null;
+            
             string layer_bk = null;
+
+            bool err = true;
+
             #region Punkte / Linien oder Faces?
             if (rbFaces.Checked)
             {
@@ -495,25 +505,14 @@ namespace IFCTerrainGUI
                 //Auslesen der Eingabefeldes
                 if (!string.IsNullOrEmpty(tbHorizon.Text))
                 {
-                    string input_horizons = tbHorizon.Text;
-
-                    string[] horizons_list = input_horizons.Split(new[] { ',', '/', ';' }, StringSplitOptions.RemoveEmptyEntries);
-
-                    for (int z = 0; z < horizons_list.Length; z++)
-                    {
-                        try
-                        {
-                            double input_hor = Convert.ToInt32(horizons_list[z]);
-                            horizons_input += input_hor + "; ";
-                        }
-                        catch
-                        {
-                            horizons_list[z] = null;
-                        }
-                    }
-                    this.jSettings.horizonFilter = horizons_input;
-                    tbHorizon.Clear();
-                    Logger.Debug("The following horizons have been read: " + horizons_list.Length);
+                    int input_horizon = Int32.Parse(tbHorizon.Text);
+                    
+                    //Jsettings setzen
+                    this.jSettings.horizonFilter = input_horizon;
+                    
+                    //tbHorizon.Clear();
+                    //Logging --> remove?
+                    Logger.Debug("The following horizon have been read: " + input_horizon);
                 }
                 else
                 {
@@ -529,7 +528,7 @@ namespace IFCTerrainGUI
 
             #region Filterung über Punktart
             
-            if (!string.IsNullOrEmpty(tbOutLayer.Text))
+            if (chkOutTypes.Checked == true && !string.IsNullOrEmpty(tbOutLayer.Text))
             {
                 //MessageBox.Show("Textfeld ist nicht leer");
                 string input_text_out = tbOutLayer.Text;
@@ -550,8 +549,14 @@ namespace IFCTerrainGUI
                 
                 tbLayHor.Text = layer_out;
                 this.jSettings.layer = layer_out;
+                this.jSettings.onlyTypes = true;
                 tbOutLayer.Clear();
-                
+                err = false;
+            }
+            else if (chkOutTypes.Checked == true && string.IsNullOrEmpty(tbOutLayer.Text))
+            {
+                err = true;
+                new_livelog(liveLog, "error", "Please enter at least one type of point or deselect filtering.", "Bitte geben Sie mindestens eine Punktart ein oder wählen Sie die Filterung ab.");
             }
             else
             {
@@ -564,7 +569,8 @@ namespace IFCTerrainGUI
                 {
                     tbLayHor.Text = "All Pointtypes will be used.";
                 }
-                
+                jSettings.onlyTypes = false;
+                err = false;
             }
 
             #endregion
@@ -618,15 +624,18 @@ namespace IFCTerrainGUI
                 this.jSettings.ignHeight = false;
             }
             #endregion
-            
-            
-            //Button "Start" freigeben
-            btnStart.Enabled = true;
-            
-            //gui logging
-            new_livelog(liveLog, "info", "Settings from 'GEOgraf OUT' were taken over.", "Einstellungen aus 'GEOgraf OUT' wurden übernommen.");
 
-
+            if (err == false)
+            {
+                //Button "Start" freigeben
+                btnStart.Enabled = true;
+                //gui logging
+                new_livelog(liveLog, "info", "Settings from 'GEOgraf OUT' were taken over.", "Einstellungen aus 'GEOgraf OUT' wurden übernommen.");
+            }
+            else
+            {
+                btnStart.Enabled = false;
+            }
             return;
         }
         
@@ -1304,6 +1313,25 @@ namespace IFCTerrainGUI
             {
                 e.Handled = true;
             }
+        }
+
+        private void lbPointtypes_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if(chkOutTypes.Checked == true)
+            {
+                tbOutLayer.Enabled = true;
+            }
+            else
+            {
+                tbOutLayer.Enabled = false;
+            }
+            
+
         }
         #endregion
 

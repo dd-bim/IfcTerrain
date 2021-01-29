@@ -88,7 +88,6 @@ namespace IFCTerrainGUI
             this.tbGsSet = new System.Windows.Forms.TextBox();
             this.btnReadGrid = new System.Windows.Forms.Button();
             this.tpOUT = new System.Windows.Forms.TabPage();
-            this.lbPointtypes = new System.Windows.Forms.Label();
             this.gpOutBk = new System.Windows.Forms.GroupBox();
             this.label20 = new System.Windows.Forms.Label();
             this.tbOutBk = new System.Windows.Forms.TextBox();
@@ -203,6 +202,8 @@ namespace IFCTerrainGUI
             this.ttChoose = new System.Windows.Forms.ToolTip(this.components);
             this.ttStart = new System.Windows.Forms.ToolTip(this.components);
             this.tt = new System.Windows.Forms.ToolTip(this.components);
+            this.gpOutPointtypes = new System.Windows.Forms.GroupBox();
+            this.chkOutTypes = new System.Windows.Forms.CheckBox();
             this.gpFile.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpXML.SuspendLayout();
@@ -224,6 +225,7 @@ namespace IFCTerrainGUI
             this.gpUserSettings.SuspendLayout();
             this.gpPostGIS.SuspendLayout();
             this.gpLogging.SuspendLayout();
+            this.gpOutPointtypes.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -605,9 +607,8 @@ namespace IFCTerrainGUI
             // 
             // tpOUT
             // 
-            this.tpOUT.Controls.Add(this.lbPointtypes);
+            this.tpOUT.Controls.Add(this.gpOutPointtypes);
             this.tpOUT.Controls.Add(this.gpOutBk);
-            this.tpOUT.Controls.Add(this.tbOutLayer);
             this.tpOUT.Controls.Add(this.chkIgnPos);
             this.tpOUT.Controls.Add(this.label15);
             this.tpOUT.Controls.Add(this.rb_dgm);
@@ -619,11 +620,6 @@ namespace IFCTerrainGUI
             resources.ApplyResources(this.tpOUT, "tpOUT");
             this.tpOUT.Name = "tpOUT";
             this.tpOUT.UseVisualStyleBackColor = true;
-            // 
-            // lbPointtypes
-            // 
-            resources.ApplyResources(this.lbPointtypes, "lbPointtypes");
-            this.lbPointtypes.Name = "lbPointtypes";
             // 
             // gpOutBk
             // 
@@ -720,6 +716,7 @@ namespace IFCTerrainGUI
             resources.ApplyResources(this.tbHorizon, "tbHorizon");
             this.tbHorizon.Name = "tbHorizon";
             this.tbHorizon.TextChanged += new System.EventHandler(this.tbHorizon_TextChanged);
+            this.tbHorizon.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbHoirzon_KeyPress);
             // 
             // rbHorizion
             // 
@@ -1365,6 +1362,21 @@ namespace IFCTerrainGUI
             // 
             this.ttStart.ToolTipTitle = "Hinweis";
             // 
+            // gpOutPointtypes
+            // 
+            this.gpOutPointtypes.Controls.Add(this.chkOutTypes);
+            this.gpOutPointtypes.Controls.Add(this.tbOutLayer);
+            resources.ApplyResources(this.gpOutPointtypes, "gpOutPointtypes");
+            this.gpOutPointtypes.Name = "gpOutPointtypes";
+            this.gpOutPointtypes.TabStop = false;
+            // 
+            // chkOutTypes
+            // 
+            resources.ApplyResources(this.chkOutTypes, "chkOutTypes");
+            this.chkOutTypes.Name = "chkOutTypes";
+            this.chkOutTypes.UseVisualStyleBackColor = true;
+            this.chkOutTypes.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -1428,6 +1440,8 @@ namespace IFCTerrainGUI
             this.gpPostGIS.PerformLayout();
             this.gpLogging.ResumeLayout(false);
             this.gpLogging.PerformLayout();
+            this.gpOutPointtypes.ResumeLayout(false);
+            this.gpOutPointtypes.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1598,12 +1612,13 @@ namespace IFCTerrainGUI
         private System.Windows.Forms.RadioButton rbHorizion;
         private System.Windows.Forms.RadioButton rbHorizon_all;
         private System.Windows.Forms.TextBox tbHorizon;
-        private System.Windows.Forms.Label lbPointtypes;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox gpLogging;
         private System.Windows.Forms.ToolTip ttChoose;
         private System.Windows.Forms.ToolTip ttStart;
         private System.Windows.Forms.TextBox liveLog;
         private System.Windows.Forms.ToolTip tt;
+        private System.Windows.Forms.GroupBox gpOutPointtypes;
+        private System.Windows.Forms.CheckBox chkOutTypes;
     }
 }

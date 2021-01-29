@@ -61,9 +61,6 @@ namespace IFCTerrain.Model.Read
         public int is3D { get; set; }
     }
 
-    
-
-
     public class Out
         {
         public Dictionary<int, OPoint> Points { get; }
@@ -256,17 +253,46 @@ namespace IFCTerrain.Model.Read
             return result;
         }
         
-        //Auslesen der OUT-Datei nur über das DGM (FACES)
-        public static Result ReadOUTTin(bool is3d, string fileName,string out_types, double minDist, bool ignPos, bool ignHeight, bool readHorizon, string horizonFilter, bool breakline, string breaklineLayer)
+        //Auslesen der OUT-Datei nur über Faces
+        public static Result ReadOUTTin(bool is3d, string fileName,bool onlyTypes, string out_types, double minDist, bool ignPos, bool ignHeight, bool readHorizon, int horizonFilter, bool breakline, string breaklineLayer)
         {
-            var result = new Result();
+            //Logger initalisieren
             Logger logger = LogManager.GetCurrentClassLogger();
-            var tin = new Mesh(is3d, minDist);
-            var outData = new Out();
-            string line;
-            int counter = 1; //Counter für Anzahl der gelesenen Zeilen
 
-            #region Read File
+            #region Variablen definieren
+            //Übergabewert an IFC-Writer
+            var result = new Result();
+            
+            //Mesh - wird an Result übergeben
+            var mesh = new Mesh(is3d, 0.000001);
+
+            //Breaklines - wird an Result übergeben
+            Dictionary<int, Line3> breaklines = new Dictionary<int, Line3>();
+
+            //Skalierung - ist später durch übergabe des CRS anzupassen
+            double scale = 1.0;
+
+            #region Horizont auslesen
+            //Variablen anlegen
+            int allowedHorizon;
+            //Abfrage, ob überhaupt notwendig
+            if(readHorizon == true)
+            {
+                allowedHorizon = horizonFilter;
+            }
+            #endregion
+
+            //Liste mit PNR, Art, X, Y, Z
+            Dictionary<int, Point3> pointlist = new Dictionary<int, Point3>();
+
+            #endregion
+
+            #region File processing
+            string line = null;
+
+            //ENTFERNEN
+            int meshcounter = 0;
+
             StreamReader file = new StreamReader(fileName);
             while ((line = file.ReadLine()) != null)
             {
@@ -276,228 +302,126 @@ namespace IFCTerrain.Model.Read
                 }
                 else
                 {
+                    //kompletter String einer Zeile
                     string[] str = line.Split(new[] { ':' }, StringSplitOptions.None);
+                    //Datensatz --> somit wird gesplittet & alles hinter : ausgelesen
                     string[] data_line = str[1].Split(new[] { ',' }, StringSplitOptions.None); // Splitter zwischen Kennung & Daten
 
-                    #region Sachdaten / Projektdaten auslesen - REMOVE???
-                    /*
-                    if (str[0].ToString() == "PRJ")
+                    //Über str[0] kann herausgefunden werden, welche Daten gerade ausgelsen werden Punkte, Linien, DGM, usw.
+                    #region Punkte auslesen mit Filterung der Punktart
+                    if (str[0].Contains("PK")) // TODO ODER-Anweisung mit Punktarten =  null
                     {
-                        projekt = str[1].ToString(); //Projekt-Bezeichnung auslesen --> übergeben auf Projektname?
-                    }*/
-                    #endregion
+                        //Punktart
+                        string[] types = data_line[1].Split(new[] { '.' }, StringSplitOptions.None);
+                        //double.TryParse(types[0], NumberStyles.Float, CultureInfo.InvariantCulture, out double pointtyp);
+                        string punktart = types[0];
 
-                    #region Punkte auslesen
-                    //hier wird aus der OUT-Datei die Punkte ausgelesen --> Speicherung in "pointlist" 
-                    if (str[0].Contains("PK"))
-                    {
-                        char[] strPK = { 'P', 'K' }; //Split für localID
-                        string localID = str[0].Trim(strPK); //localID auslesen --> Vorbereitung um TIN auszulesen
+                        //Punktnummer auslesen
+                        string PNR_string = str[0].TrimStart('P', 'K');
+                        int PNR = Int32.Parse(PNR_string);
 
-                        if (data_line.Length > 2
-                            && int.TryParse(localID, NumberStyles.Integer, CultureInfo.InvariantCulture, out int localID_int)
-                            && int.TryParse(data_line[0], NumberStyles.Integer, CultureInfo.InvariantCulture, out int pnr_local)
-                            && double.TryParse(data_line[2], NumberStyles.Float, CultureInfo.InvariantCulture, out double x_double)     //auslesen der x-Wertes (= Rechtswert)
-                            && double.TryParse(data_line[3], NumberStyles.Float, CultureInfo.InvariantCulture, out double y_double)     //auslesen der x-Wertes (= Hochwert)
-                            && double.TryParse(data_line[4], NumberStyles.Float, CultureInfo.InvariantCulture, out double z_double)     //auslesen der z-Wertes (= Höhe)
-                            && int.TryParse(data_line[6], NumberStyles.Float, CultureInfo.InvariantCulture, out int statl)              //auslesen des Lagestatus
-                            && int.TryParse(data_line[7], NumberStyles.Float, CultureInfo.InvariantCulture, out int stath))             //auslesen des Höhenstatus
+                        if (onlyTypes == true && out_types.Contains(punktart) || onlyTypes == false) // || string.IsNullOrEmpty(out_types) == true out_types.Contains(punktart)
                         {
-                            string[] art = data_line[1].Split(new[] { '.' }, StringSplitOptions.None); //Auslesen der Punktart
                             
-                            if (art.Length != 0 && int.TryParse(art[0], NumberStyles.Integer, CultureInfo.InvariantCulture, out int ot_int)) //Teilen der Punktart, sodass nur der erste Teil genutzt wird 
+
+                            //Rechtswert
+                            double.TryParse(data_line[2], NumberStyles.Float, CultureInfo.InvariantCulture, out double X);
+                            //Hochwert
+                            double.TryParse(data_line[3], NumberStyles.Float, CultureInfo.InvariantCulture, out double Y);
+                            //Höhe
+                            double.TryParse(data_line[4], NumberStyles.Float, CultureInfo.InvariantCulture, out double Z);
+
+                            //Status abfragen 
+                            //Lagestatus
+                            int.TryParse(data_line[6], NumberStyles.Float, CultureInfo.InvariantCulture, out int status_pos);
+                            //Höhenstatus
+                            int.TryParse(data_line[7], NumberStyles.Float, CultureInfo.InvariantCulture, out int status_height);
+
+                            //Überspringen, wenn Punkt Status "0" hat & dieser nicht ignoriert werden darf.
+                            if (status_pos == 0 && ignPos == false) 
                             {
-
-                                if (string.IsNullOrEmpty(out_types) == true) //Wenn keine Punktart gefiltert werden soll, dann werden alle "Punkte" ausgelesen
-                                {
-
-                                    if (statl == 0 && ignPos == false) //überprüfen, ob Lagestatus mit Code 0 (ungültig) vergeben wurden --> ist dies der Fall, so werden diese nicht ausgelesen
-                                    {
-
-                                    }
-                                    else if (stath == 0 && ignHeight == false)
-                                    {
-                                    
-                                    }
-                                    else
-                                    {
-                                        OPoint newpoint = new OPoint(localID_int, pnr_local, ot_int, x_double, y_double, z_double); //neuen Punkt erstellen
-                                        outData.Points.Add(localID_int, newpoint); //Punkt zur Punktliste hinzufügen
-                                        //tin.AddPoint(Point3.Create(x_double, y_double, z_double));
-                                    }
-                                }
-                                else if (out_types.Contains(ot_int.ToString()))
-                                {
-                                    if (statl == 0 && ignPos == false) //überprüfen, ob Lagestatus mit Code 0 (ungültig) vergeben wurden --> ist dies der Fall, so werden diese nicht ausgelesen
-                                    {
-
-                                    }
-                                    else if (stath == 0 && ignHeight == false)
-                                    {
-
-                                    }
-                                    else
-                                    {
-                                        OPoint newpoint = new OPoint(localID_int, pnr_local, ot_int, x_double, y_double, z_double); //neuen Punkt erstellen
-                                        outData.Points.Add(localID_int, newpoint); //Punkt zur Punktliste hinzufügen
-                                        //tin.AddPoint(Point3.Create(x_double, y_double, z_double));
-                                    }
-                                }
+                                logger.Warn("Point: " + PNR + " skipped because the point have not a valid position status");
                             }
+                            else if (status_height == 0 && ignHeight == false)
+                            {
+                                logger.Warn("Point: " + PNR + " skipped because the point have not a valid height status");
+                            }
+                            //wird ausgeführt, wenn Punkte entweder nicht den "verbotenen" Status haben, oder es vom Nutzer ausgewählt wurde, dass dies ignoriert werden kann
+                            else
+                            {
+                                //Punkt erstellen
+                                Point3 newPoint = Point3.Create(X*scale, Y*scale, Z*scale);
+                                //in Dictionary einfügen
+                                pointlist.Add(PNR, newPoint);
+                            }
+                        }
+                        else
+                        {
+                            logger.Warn("Point: " + PNR +"  skipped because the point number is not valid."); //ggf. Logging auf anderes verbosity Level ändern oder entfernen
                         }
                     }
                     #endregion
-
-                    #region Horizont auslesen
-                    
-                    if (str[0].Contains("HNR")
-                        && int.TryParse(data_line[0], NumberStyles.Integer, CultureInfo.InvariantCulture, out int hnr_nr)
-                        && int.TryParse(data_line[4], NumberStyles.Integer, CultureInfo.InvariantCulture, out int is3D))
+                    if (str[0].Contains("DG"))
                     {
-                        string hnr_bez = data_line[3].ToString();
-                        new OutHorizon(hnr_nr, hnr_bez, is3D);
-                    }
-                    #endregion
-
-                    if (readHorizon == true)
-                    {
-                        #region DGM auslesen mit vorgeschriebener Punktnummer
-                        string[] horizon_string = horizonFilter.Split(new[] { ',', ';', '/' }, StringSplitOptions.RemoveEmptyEntries);
-                        int[] hor_nr = new int[horizon_string.Length - 1];
-                        int h = 0;
-                        foreach (string new_hor in horizon_string)
+                        //Prüfen, ob alle Horizonte oder nur ausgwählte
+                        int.TryParse(data_line[0], NumberStyles.Float, CultureInfo.InvariantCulture, out int horizon);
+                        if (readHorizon == true && horizonFilter.Equals(horizon) || readHorizon == false)
                         {
-                            try
+                            //Punktnummer 01
+                            string[] PNR_string = data_line[1].Split('=');
+                            int PNR01 = Int32.Parse(PNR_string[1]); //Punktnummer
+                            
+                            //Punktnummer 02
+                            PNR_string = data_line[2].Split('=');
+                            int PNR02 = Int32.Parse(PNR_string[1]);
+                            
+                            //Punktnummer 03
+                            PNR_string = data_line[3].Split('=');
+                            int PNR03 = Int32.Parse(PNR_string[1]);
+                            //Versuchen Punkt hinzuzufügen & mesh zu erstellen
+
+                            //
+                            string dgmstr = str[0].Trim('D', 'G');
+                            int dgm_nr = Int32.Parse(dgmstr);
+
+                            Point3 p1 = pointlist[PNR01];
+                            Point3 p2 = pointlist[PNR02];
+                            Point3 p3 = pointlist[PNR03];
+                            
+                            mesh.AddPoint(p1);
+                            mesh.AddPoint(p2);
+                            mesh.AddPoint(p3);
+                            
+                            mesh.AddFace(new[] { p1, p2, p3 });
+                            meshcounter++;
+                            if (mesh.FaceEdges.Count == meshcounter)
                             {
-                                hor_nr[h] = Convert.ToInt32(new_hor);
-                                h++;
-                            }
-                            catch
-                            {
 
-                            }
-                        }
-                        if (str[0].Contains("DG"))
-                        {
-                                                     
-                            int curr_hnr = Convert.ToInt32(data_line[0]);
-                            if (hor_nr.Contains(curr_hnr))
-                            {
-                                string[] pnr_str1 = data_line[1].Split(new[] { '=' }, StringSplitOptions.None);
-                                string[] pnr_str2 = data_line[2].Split(new[] { '=' }, StringSplitOptions.None);
-                                string[] pnr_str3 = data_line[3].Split(new[] { '=' }, StringSplitOptions.None);
-
-                                int pnr_d1 = Int32.Parse(pnr_str1[1]);
-                                int pnr_d2 = Int32.Parse(pnr_str2[1]);
-                                int pnr_d3 = Int32.Parse(pnr_str3[1]);
-
-                                try
-                                {
-                                    OPoint p1 = outData.Points[pnr_d1];
-                                    var p13 = Point3.Create(p1.x, p1.y, p1.z);
-                                    OPoint p2 = outData.Points[pnr_d2];
-                                    var p23 = Point3.Create(p2.x, p2.y, p2.z);
-                                    OPoint p3 = outData.Points[pnr_d3];
-                                    var p33 = Point3.Create(p3.x, p3.y, p3.z);
-
-                                    try
-                                    {
-                                        tin.AddPoint(p13);
-                                        tin.AddPoint(p23);
-                                        tin.AddPoint(p33);
-
-                                        tin.AddFace(new[] { p13, p23, p33 }); //Hinzufügen eines Faces
-                                    }
-                                    catch
-                                    {
-                                        logger.Warn("Redundant Face in Mesh found! Ignored during processings");
-                                    }
-                                }
-                                catch
-                                {
-                                    logger.Error("Points in mesh are invalid.");
-                                }
                             }
                             else
                             {
-                               //Logger - Warn ausgeben???
-                            }                            
-                        }
-                        #endregion
-
-                    }
-                    else if(readHorizon == false)
-                    {
-                        #region DGM auslesen
-                        if (str[0].Contains("DG"))
-                        {
-                            //char[] strDG = { 'D', 'G' }; //Split für localID
-                            //string localID = str[0].Trim(strDG); //localID auslesen
-                            //int el_num = Int32.Parse(localID);
-
-                            string[] pnr_str1 = data_line[1].Split(new[] { '=' }, StringSplitOptions.None);
-                            string[] pnr_str2 = data_line[2].Split(new[] { '=' }, StringSplitOptions.None);
-                            string[] pnr_str3 = data_line[3].Split(new[] { '=' }, StringSplitOptions.None);
-
-                            int pnr_d1 = Int32.Parse(pnr_str1[1]);
-                            int pnr_d2 = Int32.Parse(pnr_str2[1]);
-                            int pnr_d3 = Int32.Parse(pnr_str3[1]);
-
-                            try
-                            {
-                                OPoint p1 = outData.Points[pnr_d1];
-                                var p13 = Point3.Create(p1.x, p1.y, p1.z);
-                                OPoint p2 = outData.Points[pnr_d2];
-                                var p23 = Point3.Create(p2.x, p2.y, p2.z);
-                                OPoint p3 = outData.Points[pnr_d3];
-                                var p33 = Point3.Create(p3.x, p3.y, p3.z);
-
-                                try
-                                {
-                                    tin.AddFace(new[] { p13, p23, p33 }); //Hinzufügen eines Faces
-                                }
-                                catch
-                                {
-                                    logger.Warn("Redundant Face in Mesh found! Ignored during processings");
-                                }
-                            }
-                            catch
-                            {
-                                logger.Error("Points in mesh are invalid.");
+                                logger.Error("Face (" + dgm_nr + ") skipped.");
+                                meshcounter--;
                             }
                         }
-                        #endregion
                     }
-                    else
-                    {
-                        logger.Error("No indication whether processing is to be done via horizon or point types.");
-                    }
-
-                    #region Bruchkanten-Verarbeitung
-                    if(breakline == true)
-                    {
-
-
-
-
-                    }
-                    #endregion
-                    
-                    //Eine Zeile wurde erfolgreich ausgelesen
-                    counter++;
                 }
+
+
             }
+            result.Mesh = mesh;
+            logger.Info(mesh.Points.Count + " Points and " + mesh.FaceEdges.Count + " Faces read.");
+
+            //Datei schließen --> alle Zeilen sind ausgelesen
             file.Close();
             #endregion
-            if(tin.Points.Count == 0)
-            {
-                logger.Error("ERROR! No TIN data could be read.");
-                return result;
-            }
-            result.Mesh = tin;
-            logger.Info("Reading OUT-data successful");
-            logger.Info(tin.Points.Count + " Points, " + tin.FixedEdges.Count + " Lines and " + tin.FaceEdges.Count + " Faces read");
+
+
+
             return result;
         }
+
+
+
     }
 }

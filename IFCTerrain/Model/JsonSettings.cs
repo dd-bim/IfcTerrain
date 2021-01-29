@@ -41,7 +41,10 @@ namespace IFCTerrain.Model
 
         #region GEOgraf OUT
         public bool onlyHorizon { get; set; }
-        public string horizonFilter { get; set; }
+        public int horizonFilter { get; set; }
+
+        public bool onlyTypes { get; set; }
+
         public bool ignPos { get; set; }            //ignoriert Punkte mit Lagestatus 0 --> (ungültig)
         public bool ignHeight { get; set; }         //ignoriert Punkte mit Höhenstatus 0 --> (ungültig)
         public string breakline_layer { get; set; }  //Layer für Bruchkanten

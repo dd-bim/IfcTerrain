@@ -266,7 +266,8 @@ The attributes of the respective file format are to be added.
 | attribute       | vale range  | description                                                  |
 | --------------- | ----------- | ------------------------------------------------------------ |
 | isTin           | true; false | Decides whether the processing should be done via Points & Lines (=false) or Faces (=true). |
-| layer           | string      | Designation of the point types. Separation via: "/" ";" "," permissible |
+| onlyTypes       | true; false | Decides whether all types (=false) or only selected ones (=true) are to be used. If filtering is to be used, the entry must be made via "layer". |
+| layer           | string      | Designation of the types. Separation via: "/" ";" "," permissible |
 | onlyHorizon     | true; false | Decides whether all horizons (=false) or only selected ones (=true) are to be used. If filtering is to be used, the entry must be made via "horizonFilter". |
 | horizonFilter   | string      | Input only if "onlyHorizon" is true. Designation of specific horizons. Separation via: "/" ";" "," permissible |
 | ignPos          | true; false | Decides whether the status code for the location position should be ignored (=true). |
