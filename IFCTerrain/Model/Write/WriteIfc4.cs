@@ -4,6 +4,8 @@ using System.Linq;
 using BimGisCad.Collections;
 using BimGisCad.Representation.Geometry;
 using BimGisCad.Representation.Geometry.Elementary;
+//Hinzugefügt für TIN-Funktionalitäten
+using BimGisCad.Representation.Geometry.Composed;
 
 using Xbim.Common;
 using Xbim.Common.Step21;
@@ -18,6 +20,9 @@ using Xbim.Ifc4.ProductExtension;
 using Xbim.Ifc4.RepresentationResource;
 using Xbim.Ifc4.TopologyResource;
 using Xbim.IO;
+
+//Logging 
+using NLog;
 
 //CoordIndex anlegen für "Mesh" Indexes
 using CoordIndex = System.Tuple<int, int, int>;
@@ -48,6 +53,7 @@ namespace IFCTerrain.Model.Write
     #region IFC4 Writer
     public static class WriteIfc4
     {
+        
         #region createIfcLocalPlacement
         // Nur innerhalb Transaction aufrufen!
         private static IfcLocalPlacement createLocalPlacement(IfcStore model, Axis2Placement3D placement)
@@ -514,6 +520,53 @@ namespace IFCTerrain.Model.Write
     #region IFC4dot3 Writer
     public static class WriteIfc4dot3
     {
+        #region IfcStore
+        /// <summary>
+        ///  Initialisiert ein leeres Projekt
+        /// </summary>
+        private static IfcStore createandInitModel(string projectName,
+            string editorsFamilyName,
+            string editorsGivenName,
+            string editorsOrganisationName,
+            out IfcProject project)
+        {
+            
+            //first we need to set up some credentials for ownership of data in the new model
+            var credentials = new XbimEditorCredentials
+            {
+                ApplicationDevelopersName = "HTW Dresden for DDBIM",
+                ApplicationFullName = System.Reflection.Assembly.GetExecutingAssembly().FullName,
+                ApplicationIdentifier = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name,
+                ApplicationVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(),
+                EditorsFamilyName = editorsFamilyName,
+                EditorsGivenName = editorsGivenName,
+                EditorsOrganisationName = editorsOrganisationName
+            };
+            //On model will be stored everything
+            var model = IfcStore.Create(credentials, XbimSchemaVersion.Ifc4, XbimStoreType.EsentDatabase);
+
+            //Begin a transaction as all changes to a model are ACID
+            using (var txn = model.BeginTransaction("Initialise Model"))
+            {
+                //create a project
+                project = model.Instances.New<IfcProject>();
+
+                //set the units to SI (metres)
+                project.Initialize(ProjectUnits.SIUnitsUK);
+                project.Name = projectName;
+                project.UnitsInContext.SetOrChangeSiUnit(IfcUnitEnum.LENGTHUNIT, IfcSIUnitName.METRE, null);
+
+                //now commit the changes, else they will be rolled back at the end of the scope of the using statement
+                txn.Commit();
+            }
+            return model;
+        }
+        #endregion
+
+
+
+
+
         #region createIfcLocalPlacement
         // Nur innerhalb Transaction aufrufen!
         private static IfcLocalPlacement createLocalPlacement(IfcStore model, Axis2Placement3D placement)
@@ -529,45 +582,7 @@ namespace IFCTerrain.Model.Write
         }
         #endregion
 
-        #region IfcStore
-        /// <summary>
-        ///  Initialisiert ein leeres Projekt
-        /// </summary>
-        private static IfcStore createandInitModel(string projectName,
-            string editorsFamilyName,
-            string editorsGivenName,
-            string editorsOrganisationName,
-            out IfcProject project)
-        {
-            //first we need to set up some credentials for ownership of data in the new model
-            var credentials = new XbimEditorCredentials
-            {
-                ApplicationDevelopersName = "HTW Dresden for DDBIM",
-                ApplicationFullName = System.Reflection.Assembly.GetExecutingAssembly().FullName,
-                ApplicationIdentifier = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name,
-                ApplicationVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(),
-                EditorsFamilyName = editorsFamilyName,
-                EditorsGivenName = editorsGivenName,
-                EditorsOrganisationName = editorsOrganisationName
-            };
-
-            var model = IfcStore.Create(credentials, XbimSchemaVersion.Ifc4, XbimStoreType.EsentDatabase);
-
-            //Begin a transaction as all changes to a model are ACID
-            using (var txn = model.BeginTransaction("Initialise Model"))
-            {
-                //create a project
-                project = model.Instances.New<IfcProject>();
-                //set the units to SI (metres)
-                project.Initialize(ProjectUnits.SIUnitsUK);
-                project.Name = projectName;
-                project.UnitsInContext.SetOrChangeSiUnit(IfcUnitEnum.LENGTHUNIT, IfcSIUnitName.METRE, null);
-                //now commit the changes, else they will be rolled back at the end of the scope of the using statement
-                txn.Commit();
-            }
-            return model;
-        }
-        #endregion
+        
 
         #region create SITE
         /// <summary>
@@ -617,6 +632,62 @@ namespace IFCTerrain.Model.Write
 
         #region Entwurf für Bruchkanten
         /// Achtung mesh muss zwingend aus Dreiecken Bestehen
+        /// 
+        private static IfcTriangulatedFaceSet createTriangulatedFaceSetWithTin(IfcStore model, Vector3 origin, Tin tin, IReadOnlyDictionary<int,int> pointIndex2NumberMap, IReadOnlyDictionary<int, int> triangleIndex2NumberMap,
+            out RepresentationType representationType,
+            out RepresentationIdentifier representationIdentifier)
+        {
+            //Abfrage, ob TIN nicht passt???
+            Logger logger = LogManager.GetCurrentClassLogger();
+            using (var txn = model.BeginTransaction("Create TIN"))
+            {
+                var vmap = new Dictionary<int, int>();
+                //Cartesian Point List
+                var cpl = model.Instances.New<IfcCartesianPointList3D>(c =>
+                {
+                    for (int i = 0, j = 0; i < tin.Points.Count; i++)
+                    {
+                        vmap.Add(i, j+1);
+                        var pt = tin.Points[i];
+                        var coo = c.CoordList.GetAt(j++);
+                        coo.Add(pt.X - origin.X);
+                        coo.Add(pt.Y - origin.Y);
+                        coo.Add(pt.Z - origin.Z);
+                    }
+
+                });
+                
+                var tfs = model.Instances.New<IfcTriangulatedFaceSet>(t =>
+                {
+                    //Attribute #2 - Normals
+
+                    //Attribute #3 - Closed (IfcBoolean) 
+                    t.Closed = false;
+                    
+                    //Attribute #5 - PnIndex
+                    t.Coordinates = cpl;
+
+                    //Attribute #4 - CoordIndex (maximale Länge = Anz. der Dreiecke)
+                    int pos = 0;
+                    foreach (var tri in tin.TriangleVertexPointIndizes())
+                    {
+                        var fi = t.CoordIndex.GetAt(pos++);
+                        //logger.Info(pointIndex2NumberMap[tri[0]]);
+                        fi.Add(vmap[tri[0]]);
+                        fi.Add(vmap[tri[1]]);
+                        fi.Add(vmap[tri[2]]);
+                    }
+
+                    //Attribut #5 - Number of Triangels
+                    //TODO einfach noch aus CoordIndex abfragen
+                });
+                txn.Commit();
+                representationIdentifier = RepresentationIdentifier.Body;
+                representationType = RepresentationType.Tessellation;
+                return tfs;
+            }
+            
+        }
         private static IfcTriangulatedFaceSet createTriangulatedFaceSet(IfcStore model, Vector3 origin, Mesh mesh, //Dictionary<int,Line3> Breaklines,
             out RepresentationType representationType,
             out RepresentationIdentifier representationIdentifier)
@@ -1168,7 +1239,9 @@ namespace IFCTerrain.Model.Write
             string editorsOrganisationName,
             IfcLabel siteName,
             Axis2Placement3D sitePlacement,
-            Mesh mesh,
+            Tin tin,
+            IReadOnlyDictionary<int,int> pointIndex2NumberMap,
+            IReadOnlyDictionary<int, int> triangleIndex2NumberMap,
             Dictionary<int,Line3> breaklines,
             SurfaceType surfaceType,
             double? breakDist = null,
@@ -1184,7 +1257,7 @@ namespace IFCTerrain.Model.Write
             switch (surfaceType)
             {
                 default:
-                    shape = createTriangulatedIrregularNetwork(model, sitePlacement.Location, mesh, breaklines, out representationType, out representationIdentifier);
+                    shape = createTriangulatedFaceSetWithTin(model, sitePlacement.Location, tin, pointIndex2NumberMap, triangleIndex2NumberMap, out representationType, out representationIdentifier);
                     break;
             }
             var repres = createShapeRepresentation(model, shape, representationIdentifier, representationType);

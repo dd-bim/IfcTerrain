@@ -7,6 +7,7 @@ using BimGisCad.Collections;
 
 //Hinzugefügt
 using BimGisCad.Representation.Geometry.Elementary;
+using BimGisCad.Representation.Geometry.Composed;
 
 namespace IFCTerrain.Model.Read
 {
@@ -17,5 +18,7 @@ namespace IFCTerrain.Model.Read
         
         //Hinzugefügt für Bruchkanten
         public Dictionary<int,Line3> Breaklines { get; set; } = null;
+
+        public Tin Tin { get; set; }
     }
 }
