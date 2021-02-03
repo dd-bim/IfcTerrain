@@ -50,6 +50,7 @@ namespace IFCTerrain.Model.Read.GEOgraf
             //Anlegen eines neuen Builder für TIN            
             var tinB = Tin.CreateBuilder(true);
             
+            //Übergabeklassen
             pointIndex2NumberMap = null;
             triangleIndex2NumberMap = null;
             
@@ -113,8 +114,10 @@ namespace IFCTerrain.Model.Read.GEOgraf
                         bool ea = !string.IsNullOrEmpty(values[7]);
                         bool eb = !string.IsNullOrEmpty(values[8]);
                         bool ec = !string.IsNullOrEmpty(values[9]);
+
                         //Dreieck dem TIN hinzufügen
                         tinB.AddTriangle(tn, va, vb, vc, na, nb, nc, ea, eb, ec, true);
+                        
 
                         OTriangle triangle = new OTriangle(tn, horList[hnr], pointList[va], pointList[vb], pointList[vc], na, nb, nc, ea, eb, ec);
                         triList[tn] = triangle;

@@ -93,7 +93,7 @@ namespace IFCTerrain.Model
                     {
                         //result = Out.ReadOUTTin(jSettings.is3D, jSettings.fileName,jSettings.onlyTypes, jSettings.layer, jSettings.minDist, jSettings.ignPos, jSettings.ignHeight, jSettings.onlyHorizon, jSettings.horizonFilter, jSettings.breakline, jSettings.breakline_layer); //reworking
 
-                        result = ReadOUT.ReadOutData(jSettings.fileName, out pointIndex2NumberMap, out triangleIndex2NumberMap);
+                        result = ReadOUT.ReadOutData(jSettings.fileName, out pointIndex2NumberMap, out triangleIndex2NumberMap); //pointIndex2NumberMap & triangleIndex2NumberMap ggf. entfernen
                     }
                     else
                     {
@@ -123,18 +123,21 @@ namespace IFCTerrain.Model
                     logger.Debug("No Faces or Points found!");
                 }
             }
+            /*
             else
             {
+                
                 try
                 {
-                    logger.Debug("Tin created with: " + Tin.Points.Count + " Points; " + Tin.NumTriangles + " Triangels");
+                    //Removed --> relocate in reader
+                    //logger.Debug("Tin created with: " + Tin.Points.Count + " Points; " + Tin.NumTriangles + " Triangels");
                 }
                 catch
                 {
-                    logger.Debug("No Triangels or Points found!");
+                    //logger.Debug("No Triangels or Points found!");
                 }
             }
-            
+            */
             #endregion
 
             #endregion
@@ -177,14 +180,15 @@ namespace IFCTerrain.Model
 
                     writeInput.Placement.Location = Vector3.Create(midX, midY, midZ);
                 }
+                //Vorschlag für BimGisCad.Composed (in TIN bereits vorhanden)
                 else
                 {
                     int i = 0;
                     foreach (Point3 point in Tin.Points)
                     {
                         //initalisierung durch ersten Punkt
-                        if(i > 0)
-                        { 
+                        if (i > 0)
+                        {
                             if (point.X < MinX) { MinX = point.X; }
                             if (point.X > MaxX) { MaxX = point.X; }
                             if (point.Y < MinY) { MinY = point.Y; }
@@ -258,7 +262,7 @@ namespace IFCTerrain.Model
             }
             #endregion
 
-            #region IFC4
+            #region IFC4 - MESH
             else if (jSettings.outIFCType == "IFC4")
             {
                 logger.Debug("Geographical Element: " + jSettings.geoElement);
@@ -287,37 +291,34 @@ namespace IFCTerrain.Model
             }
             #endregion
 
-            #region IFC 4dot3
-            
-            
-            //Draft
-            
-            if (jSettings.outIFCType == "IFC4dot3")
+            //DRAFT VERSION BELOW
+            #region IFC4 - TIN
+            if (jSettings.outIFCType == "IFC4TIN")
             {
                 var model = jSettings.geoElement
-                    ? WriteIfc4dot3.CreateSiteWithGeo(jSettings.projectName,
+                    ? WriteIfc4Tin.CreateSiteWithGeo(jSettings.projectName,
                                                     jSettings.editorsFamilyName,
                                                     jSettings.editorsGivenName,
                                                     jSettings.editorsOrganisationName,
-                                                    "Site with Terrain",
-                                                    writeInput.Placement,
-                                                    this.Mesh,
-                                                    this.Breaklines,
-                                                    writeInput.SurfaceType,
-                                                    breakDist)
-                    : WriteIfc4dot3.CreateSite(jSettings.projectName,
-                                                    jSettings.projectName,
-                                                    jSettings.editorsFamilyName,
-                                                    jSettings.editorsGivenName,
+                                                    //jSettings.minDist,
                                                     "Site with Terrain",
                                                     writeInput.Placement,
                                                     this.Tin,
-                                                    pointIndex2NumberMap,
-                                                    triangleIndex2NumberMap,
+                                                    this.Breaklines,
+                                                    writeInput.SurfaceType,
+                                                    breakDist)
+                    : WriteIfc4Tin.CreateSite(jSettings.projectName,
+                                                    jSettings.projectName,
+                                                    jSettings.editorsFamilyName,
+                                                    jSettings.editorsGivenName,
+                                                    //jSettings.minDist,
+                                                    "Site with Terrain",
+                                                    writeInput.Placement,
+                                                    this.Tin,
                                                     this.Breaklines,
                                                     writeInput.SurfaceType,
                                                     breakDist); ;
-                WriteIfc4dot3.WriteFile(model, jSettings.destFileName, writeInput.FileType == FileType.XML);
+                WriteIfc4Tin.WriteFile(model, jSettings.destFileName, writeInput.FileType == FileType.XML);
             }
             #endregion
             

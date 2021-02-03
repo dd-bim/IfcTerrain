@@ -358,8 +358,6 @@
     <Compile Include="Model\Common.cs" />
     <Compile Include="Model\Read\CityGml.cs" />
     <Compile Include="Model\Read\GEOgraf\OHorizon.cs" />
-    <Compile Include="Model\Read\GEOgraf\ProcessTriangles.cs" />
-    <Compile Include="Model\Read\GEOgraf\ProcessOut.cs" />
     <Compile Include="Model\Read\GEOgraf\ReadOUT.cs" />
     <Compile Include="Model\Read\GEOgraf\OTriangle.cs" />
     <Compile Include="Model\Read\GEOgraf\OLine.cs" />

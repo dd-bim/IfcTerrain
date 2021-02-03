@@ -142,7 +142,7 @@ namespace IFCTerrainGUI
             this.DB_Host = new System.Windows.Forms.Label();
             this.tbHost = new System.Windows.Forms.TextBox();
             this.gpVersion = new System.Windows.Forms.GroupBox();
-            this.rbIfc4dot3 = new System.Windows.Forms.RadioButton();
+            this.rbIfc4TIN = new System.Windows.Forms.RadioButton();
             this.chkXML = new System.Windows.Forms.CheckBox();
             this.chkGeo = new System.Windows.Forms.CheckBox();
             this.rb4 = new System.Windows.Forms.RadioButton();
@@ -204,6 +204,7 @@ namespace IFCTerrainGUI
             this.ttChoose = new System.Windows.Forms.ToolTip(this.components);
             this.ttStart = new System.Windows.Forms.ToolTip(this.components);
             this.tt = new System.Windows.Forms.ToolTip(this.components);
+            this.ttDEBUG = new System.Windows.Forms.ToolTip(this.components);
             this.gpFile.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpXML.SuspendLayout();
@@ -971,7 +972,7 @@ namespace IFCTerrainGUI
             // 
             // gpVersion
             // 
-            this.gpVersion.Controls.Add(this.rbIfc4dot3);
+            this.gpVersion.Controls.Add(this.rbIfc4TIN);
             this.gpVersion.Controls.Add(this.chkXML);
             this.gpVersion.Controls.Add(this.chkGeo);
             this.gpVersion.Controls.Add(this.rb4);
@@ -980,13 +981,14 @@ namespace IFCTerrainGUI
             this.gpVersion.Name = "gpVersion";
             this.gpVersion.TabStop = false;
             // 
-            // rbIfc4dot3
+            // rbIfc4TIN
             // 
-            resources.ApplyResources(this.rbIfc4dot3, "rbIfc4dot3");
-            this.rbIfc4dot3.Name = "rbIfc4dot3";
-            this.rbIfc4dot3.TabStop = true;
-            this.rbIfc4dot3.UseVisualStyleBackColor = true;
-            this.rbIfc4dot3.CheckedChanged += new System.EventHandler(this.rbIfc4dot3_CheckedChanged);
+            resources.ApplyResources(this.rbIfc4TIN, "rbIfc4TIN");
+            this.rbIfc4TIN.Checked = true;
+            this.rbIfc4TIN.Name = "rbIfc4TIN";
+            this.rbIfc4TIN.TabStop = true;
+            this.rbIfc4TIN.UseVisualStyleBackColor = true;
+            this.rbIfc4TIN.CheckedChanged += new System.EventHandler(this.rbIfc4TIN_CheckedChanged);
             // 
             // chkXML
             // 
@@ -1003,9 +1005,7 @@ namespace IFCTerrainGUI
             // rb4
             // 
             resources.ApplyResources(this.rb4, "rb4");
-            this.rb4.Checked = true;
             this.rb4.Name = "rb4";
-            this.rb4.TabStop = true;
             this.rb4.UseVisualStyleBackColor = true;
             this.rb4.CheckedChanged += new System.EventHandler(this.rb4_CheckedChanged);
             // 
@@ -1045,6 +1045,8 @@ namespace IFCTerrainGUI
             // 
             resources.ApplyResources(this.tbDist, "tbDist");
             this.tbDist.Name = "tbDist";
+            this.tbDist.ReadOnly = true;
+            this.ttDEBUG.SetToolTip(this.tbDist, resources.GetString("tbDist.ToolTip"));
             // 
             // lblDist
             // 
@@ -1378,6 +1380,11 @@ namespace IFCTerrainGUI
             // 
             this.ttStart.ToolTipTitle = "Hinweis";
             // 
+            // ttDEBUG
+            // 
+            this.ttDEBUG.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Warning;
+            this.ttDEBUG.ToolTipTitle = "Hinweis";
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -1555,7 +1562,7 @@ namespace IFCTerrainGUI
         private System.Windows.Forms.RadioButton rbOutBk_true;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox tbOutBk;
-        private System.Windows.Forms.RadioButton rbIfc4dot3;
+        private System.Windows.Forms.RadioButton rbIfc4TIN;
         private System.Windows.Forms.RadioButton rbIfcTIN;
         private System.Windows.Forms.TabPage tpPostGIS;
         private System.Windows.Forms.Label DB_Host;
@@ -1621,5 +1628,6 @@ namespace IFCTerrainGUI
         private System.Windows.Forms.ToolTip tt;
         private System.Windows.Forms.GroupBox gpOutPointtypes;
         private System.Windows.Forms.CheckBox chkOutTypes;
+        private System.Windows.Forms.ToolTip ttDEBUG;
     }
 }

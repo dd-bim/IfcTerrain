@@ -361,10 +361,10 @@
     <value>False</value>
   </data>
   <data name="tbLayerBk.Location" type="System.Drawing.Point, System.Drawing">
-    <value>105, 117</value>
+    <value>120, 117</value>
   </data>
   <data name="tbLayerBk.Size" type="System.Drawing.Size, System.Drawing">
-    <value>230, 20</value>
+    <value>215, 20</value>
   </data>
   <data name="tbLayerBk.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
@@ -415,10 +415,10 @@
     <value>False</value>
   </data>
   <data name="tbGridSize.Location" type="System.Drawing.Point, System.Drawing">
-    <value>105, 92</value>
+    <value>120, 92</value>
   </data>
   <data name="tbGridSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>230, 20</value>
+    <value>214, 20</value>
   </data>
   <data name="tbGridSize.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -442,10 +442,10 @@
     <value>False</value>
   </data>
   <data name="tbLayHor.Location" type="System.Drawing.Point, System.Drawing">
-    <value>105, 67</value>
+    <value>120, 67</value>
   </data>
   <data name="tbLayHor.Size" type="System.Drawing.Size, System.Drawing">
-    <value>230, 20</value>
+    <value>215, 20</value>
   </data>
   <data name="tbLayHor.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -499,10 +499,10 @@
     <value>False</value>
   </data>
   <data name="tbType.Location" type="System.Drawing.Point, System.Drawing">
-    <value>105, 43</value>
+    <value>120, 43</value>
   </data>
   <data name="tbType.Size" type="System.Drawing.Size, System.Drawing">
-    <value>230, 20</value>
+    <value>215, 20</value>
   </data>
   <data name="tbType.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -526,10 +526,10 @@
     <value>False</value>
   </data>
   <data name="tbFile.Location" type="System.Drawing.Point, System.Drawing">
-    <value>105, 17</value>
+    <value>120, 17</value>
   </data>
   <data name="tbFile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>230, 20</value>
+    <value>215, 20</value>
   </data>
   <data name="tbFile.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -4415,128 +4415,41 @@ point types (e.g.: 20; 30): </value>
   <data name="&gt;&gt;tbHost.ZOrder" xml:space="preserve">
     <value>15</value>
   </data>
-  <data name="&gt;&gt;rbIfc4dot3.Name" xml:space="preserve">
-    <value>rbIfc4dot3</value>
-  </data>
-  <data name="&gt;&gt;rbIfc4dot3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;rbIfc4dot3.Parent" xml:space="preserve">
-    <value>gpVersion</value>
-  </data>
-  <data name="&gt;&gt;rbIfc4dot3.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;chkXML.Name" xml:space="preserve">
-    <value>chkXML</value>
-  </data>
-  <data name="&gt;&gt;chkXML.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chkXML.Parent" xml:space="preserve">
-    <value>gpVersion</value>
-  </data>
-  <data name="&gt;&gt;chkXML.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;chkGeo.Name" xml:space="preserve">
-    <value>chkGeo</value>
-  </data>
-  <data name="&gt;&gt;chkGeo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chkGeo.Parent" xml:space="preserve">
-    <value>gpVersion</value>
-  </data>
-  <data name="&gt;&gt;chkGeo.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;rb4.Name" xml:space="preserve">
-    <value>rb4</value>
-  </data>
-  <data name="&gt;&gt;rb4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;rb4.Parent" xml:space="preserve">
-    <value>gpVersion</value>
-  </data>
-  <data name="&gt;&gt;rb4.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;rb2.Name" xml:space="preserve">
-    <value>rb2</value>
-  </data>
-  <data name="&gt;&gt;rb2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;rb2.Parent" xml:space="preserve">
-    <value>gpVersion</value>
-  </data>
-  <data name="&gt;&gt;rb2.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="gpVersion.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 8.25pt</value>
-  </data>
-  <data name="gpVersion.Location" type="System.Drawing.Point, System.Drawing">
-    <value>380, 65</value>
-  </data>
-  <data name="gpVersion.Size" type="System.Drawing.Size, System.Drawing">
-    <value>360, 90</value>
-  </data>
-  <data name="gpVersion.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="gpVersion.Text" xml:space="preserve">
-    <value>IFC Version</value>
-  </data>
-  <data name="&gt;&gt;gpVersion.Name" xml:space="preserve">
-    <value>gpVersion</value>
-  </data>
-  <data name="&gt;&gt;gpVersion.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;gpVersion.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;gpVersion.ZOrder" xml:space="preserve">
-    <value>13</value>
-  </data>
-  <data name="rbIfc4dot3.AutoSize" type="System.Boolean, mscorlib">
+  <data name="rbIfc4TIN.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="rbIfc4dot3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="rbIfc4TIN.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="rbIfc4dot3.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="rbIfc4TIN.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 70</value>
   </data>
-  <data name="rbIfc4dot3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>46, 17</value>
+  <data name="rbIfc4TIN.Size" type="System.Drawing.Size, System.Drawing">
+    <value>88, 17</value>
   </data>
-  <data name="rbIfc4dot3.TabIndex" type="System.Int32, mscorlib">
+  <data name="rbIfc4TIN.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
-  <data name="rbIfc4dot3.Text" xml:space="preserve">
-    <value>Test</value>
+  <data name="rbIfc4TIN.Text" xml:space="preserve">
+    <value>4 add 1 (TIN)</value>
   </data>
-  <data name="&gt;&gt;rbIfc4dot3.Name" xml:space="preserve">
-    <value>rbIfc4dot3</value>
+  <data name="&gt;&gt;rbIfc4TIN.Name" xml:space="preserve">
+    <value>rbIfc4TIN</value>
   </data>
-  <data name="&gt;&gt;rbIfc4dot3.Type" xml:space="preserve">
+  <data name="&gt;&gt;rbIfc4TIN.Type" xml:space="preserve">
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;rbIfc4dot3.Parent" xml:space="preserve">
+  <data name="&gt;&gt;rbIfc4TIN.Parent" xml:space="preserve">
     <value>gpVersion</value>
   </data>
-  <data name="&gt;&gt;rbIfc4dot3.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;rbIfc4TIN.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="chkXML.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="chkXML.Location" type="System.Drawing.Point, System.Drawing">
-    <value>78, 20</value>
+    <value>175, 21</value>
   </data>
   <data name="chkXML.Size" type="System.Drawing.Size, System.Drawing">
     <value>97, 17</value>
@@ -4563,7 +4476,7 @@ point types (e.g.: 20; 30): </value>
     <value>True</value>
   </data>
   <data name="chkGeo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>78, 44</value>
+    <value>175, 46</value>
   </data>
   <data name="chkGeo.Size" type="System.Drawing.Size, System.Drawing">
     <value>131, 17</value>
@@ -4593,13 +4506,13 @@ point types (e.g.: 20; 30): </value>
     <value>7, 45</value>
   </data>
   <data name="rb4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 17</value>
+    <value>101, 17</value>
   </data>
   <data name="rb4.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
   <data name="rb4.Text" xml:space="preserve">
-    <value>4 add 1</value>
+    <value>4 add 1 (MESH)</value>
   </data>
   <data name="&gt;&gt;rb4.Name" xml:space="preserve">
     <value>rb4</value>
@@ -4639,6 +4552,33 @@ point types (e.g.: 20; 30): </value>
   </data>
   <data name="&gt;&gt;rb2.ZOrder" xml:space="preserve">
     <value>4</value>
+  </data>
+  <data name="gpVersion.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
+  <data name="gpVersion.Location" type="System.Drawing.Point, System.Drawing">
+    <value>380, 65</value>
+  </data>
+  <data name="gpVersion.Size" type="System.Drawing.Size, System.Drawing">
+    <value>360, 90</value>
+  </data>
+  <data name="gpVersion.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="gpVersion.Text" xml:space="preserve">
+    <value>IFC Version</value>
+  </data>
+  <data name="&gt;&gt;gpVersion.Name" xml:space="preserve">
+    <value>gpVersion</value>
+  </data>
+  <data name="&gt;&gt;gpVersion.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;gpVersion.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;gpVersion.ZOrder" xml:space="preserve">
+    <value>13</value>
   </data>
   <data name="&gt;&gt;rbIfcTIN.Name" xml:space="preserve">
     <value>rbIfcTIN</value>
@@ -4758,13 +4698,13 @@ point types (e.g.: 20; 30): </value>
     <value>7, 95</value>
   </data>
   <data name="rbIfcTIN.Size" type="System.Drawing.Size, System.Drawing">
-    <value>46, 17</value>
+    <value>162, 17</value>
   </data>
   <data name="rbIfcTIN.TabIndex" type="System.Int32, mscorlib">
     <value>25</value>
   </data>
   <data name="rbIfcTIN.Text" xml:space="preserve">
-    <value>Test</value>
+    <value>TriangulatedIrregularNetwork</value>
   </data>
   <data name="&gt;&gt;rbIfcTIN.Name" xml:space="preserve">
     <value>rbIfcTIN</value>
@@ -4805,6 +4745,9 @@ point types (e.g.: 20; 30): </value>
   <data name="&gt;&gt;lblUnit.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="ttDEBUG.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>987, 17</value>
+  </metadata>
   <data name="tbDist.Location" type="System.Drawing.Point, System.Drawing">
     <value>250, 17</value>
   </data>
@@ -4819,6 +4762,9 @@ point types (e.g.: 20; 30): </value>
   </data>
   <data name="tbDist.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
     <value>Right</value>
+  </data>
+  <data name="tbDist.ToolTip" xml:space="preserve">
+    <value>Currently not available. The functionality will be added again soon.</value>
   </data>
   <data name="&gt;&gt;tbDist.Name" xml:space="preserve">
     <value>tbDist</value>
@@ -6097,10 +6043,10 @@ point types (e.g.: 20; 30): </value>
     <value>False</value>
   </data>
   <data name="tbBreakline_read.Location" type="System.Drawing.Point, System.Drawing">
-    <value>65, 132</value>
+    <value>69, 132</value>
   </data>
   <data name="tbBreakline_read.Size" type="System.Drawing.Size, System.Drawing">
-    <value>270, 20</value>
+    <value>266, 20</value>
   </data>
   <data name="tbBreakline_read.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
@@ -6145,10 +6091,10 @@ point types (e.g.: 20; 30): </value>
     <value>False</value>
   </data>
   <data name="tbTINTable_read.Location" type="System.Drawing.Point, System.Drawing">
-    <value>65, 102</value>
+    <value>69, 102</value>
   </data>
   <data name="tbTINTable_read.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 20</value>
+    <value>101, 20</value>
   </data>
   <data name="tbTINTable_read.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -6169,10 +6115,10 @@ point types (e.g.: 20; 30): </value>
     <value>False</value>
   </data>
   <data name="tbSchema_read.Location" type="System.Drawing.Point, System.Drawing">
-    <value>65, 72</value>
+    <value>69, 72</value>
   </data>
   <data name="tbSchema_read.Size" type="System.Drawing.Size, System.Drawing">
-    <value>270, 20</value>
+    <value>266, 20</value>
   </data>
   <data name="tbSchema_read.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
@@ -6193,10 +6139,10 @@ point types (e.g.: 20; 30): </value>
     <value>False</value>
   </data>
   <data name="tbDatabase_read.Location" type="System.Drawing.Point, System.Drawing">
-    <value>65, 43</value>
+    <value>69, 43</value>
   </data>
   <data name="tbDatabase_read.Size" type="System.Drawing.Size, System.Drawing">
-    <value>270, 20</value>
+    <value>266, 20</value>
   </data>
   <data name="tbDatabase_read.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -6412,10 +6358,10 @@ point types (e.g.: 20; 30): </value>
     <value>False</value>
   </data>
   <data name="tbHost_read.Location" type="System.Drawing.Point, System.Drawing">
-    <value>65, 17</value>
+    <value>69, 17</value>
   </data>
   <data name="tbHost_read.Size" type="System.Drawing.Size, System.Drawing">
-    <value>164, 20</value>
+    <value>160, 20</value>
   </data>
   <data name="tbHost_read.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -6531,6 +6477,9 @@ point types (e.g.: 20; 30): </value>
   <metadata name="tt.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <metadata name="ttDEBUG.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>987, 17</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -6628,6 +6577,12 @@ point types (e.g.: 20; 30): </value>
     <value>tt</value>
   </data>
   <data name="&gt;&gt;tt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ttDEBUG.Name" xml:space="preserve">
+    <value>ttDEBUG</value>
+  </data>
+  <data name="&gt;&gt;ttDEBUG.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">

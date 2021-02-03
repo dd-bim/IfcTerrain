@@ -460,6 +460,8 @@ namespace IFCTerrainGUI
 
                 //Schaltflächen aktivieren
                 chkOutTypes.Enabled = chkIgnPos.Enabled = chkIgnHeight.Enabled = rb_p_ln.Enabled = rb_dgm.Enabled = true;
+                //Auswahl auf Read Faces setzen
+                rb_dgm.Checked = true;
 
                 //GUI logging
                 new_livelog(liveLog, "info", "OUT file was read.", "OUT-Datei wurde gelesen.");
@@ -749,9 +751,9 @@ namespace IFCTerrainGUI
             {
                 this.jSettings.outIFCType = "IFC4";
             }
-            else if (rbIfc4dot3.Checked)
+            else if (rbIfc4TIN.Checked)
             {
-                this.jSettings.outIFCType = "IFC4dot3";
+                this.jSettings.outIFCType = "IFC4TIN";
             }
 
             //ersetzt durch obere Schleife
@@ -1101,33 +1103,6 @@ namespace IFCTerrainGUI
                 new_livelog(liveLog, "error", "Documentation couldn't be opened.", "Dokumentation konnte nicht geöffnet werden!");
             }
         }
-
-        //DRAFT ONLY - REMOVE or UPDATE IFC 4.3
-        private void rbIfc4dot3_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rbIfc4dot3.Checked == true)
-            {
-                rbIfcTIN.Enabled = true;
-                rbIfcTIN.Checked = true;
-
-                rbGCS.Enabled = false;
-                rbSSM.Enabled = false;
-                rbTFS.Enabled = false;
-                tbDist.Enabled = false;
-            }
-            else
-            {
-                rbIfcTIN.Enabled = false;
-                rbIfcTIN.Checked = false;
-
-                rbGCS.Checked = true;
-                rbGCS.Enabled = true;
-                rbSSM.Enabled = true;
-                rbTFS.Enabled = true;
-                tbDist.Enabled = true;
-            }
-        }
-
         #region PostGIS
 
         private void btnProcessPostGIS_Click(object sender, EventArgs e)
@@ -1337,6 +1312,11 @@ namespace IFCTerrainGUI
         }
 
         private void tbName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rbIfc4TIN_CheckedChanged(object sender, EventArgs e)
         {
 
         }

@@ -517,8 +517,8 @@ namespace IFCTerrain.Model.Write
     }
     #endregion
 
-    #region IFC4dot3 Writer
-    public static class WriteIfc4dot3
+    #region IFC4 Writer using TIN
+    public static class WriteIfc4Tin
     {
         #region IfcStore
         /// <summary>
@@ -563,10 +563,6 @@ namespace IFCTerrain.Model.Write
         }
         #endregion
 
-
-
-
-
         #region createIfcLocalPlacement
         // Nur innerhalb Transaction aufrufen!
         private static IfcLocalPlacement createLocalPlacement(IfcStore model, Axis2Placement3D placement)
@@ -581,8 +577,6 @@ namespace IFCTerrain.Model.Write
             return lp;
         }
         #endregion
-
-        
 
         #region create SITE
         /// <summary>
@@ -630,18 +624,116 @@ namespace IFCTerrain.Model.Write
         }
         #endregion
 
-        #region Entwurf für Bruchkanten
-        /// Achtung mesh muss zwingend aus Dreiecken Bestehen
-        /// 
-        private static IfcTriangulatedFaceSet createTriangulatedFaceSetWithTin(IfcStore model, Vector3 origin, Tin tin, IReadOnlyDictionary<int,int> pointIndex2NumberMap, IReadOnlyDictionary<int, int> triangleIndex2NumberMap,
+        #region IfcGCS using TIN [Status: DRAFT]
+        /// <summary>
+        ///  Geländemodell aus Punkten und Bruchlinien
+        /// </summary>
+        /// <param name="model">       </param>
+        /// <param name="points">     Geländepunkte </param>
+        /// <param name="breaklines"> Bruchlinien mit indizes der Punkte </param>
+        /// <returns>  </returns>
+        private static IfcGeometricCurveSet createGeometricCurveSetWithTin(IfcStore model, Vector3 origin, Tin tin,
+            double? breakDist,
             out RepresentationType representationType,
             out RepresentationIdentifier representationIdentifier)
         {
-            //Abfrage, ob TIN nicht passt???
+            //init Logger
             Logger logger = LogManager.GetCurrentClassLogger();
+
+            //begin a transaction
+            using (var txn = model.BeginTransaction("Create DTM"))
+            {
+                // CartesianPoints erzeugen //TODO: Punkte filtern, die nicht im DGM enthalten sind
+                var cps = tin.Points.Select(p => model.Instances.New<IfcCartesianPoint>(c => c.SetXYZ(p.X - origin.X, p.Y - origin.Y, p.Z - origin.Z))).ToList();
+                
+                // DTM
+                var dtm = model.Instances.New<IfcGeometricCurveSet>(g =>
+                {
+                    var edges = new HashSet<TupleIdx>();
+                    g.Elements.AddRange(cps);
+                    if (breakDist is double dist)
+                    {
+                        /* ÜBERARBEITEN - ist noch die Funktionalität aus MESH
+                        // Hilfsfunktion zum Punkte auf Kante erzeugen
+                        void addEdgePoints(Point3 start, Point3 dest)
+                        {
+                            var dir = dest - start;
+                            double len = Vector3.Norm(dir);
+                            double fac = len / dist;
+                            if (fac > 1.0)
+                            {
+                                start -= origin;
+                                dir /= len;
+                                double currLen = dist;
+                                while (currLen < len)
+                                {
+                                    var p = start + (dir * currLen);
+                                    g.Elements.Add(model.Instances.New<IfcCartesianPoint>(c => c.SetXYZ(p.X, p.Y, p.Z)));
+                                    currLen += dist;
+                                }
+                            }
+                        }
+                        /*
+                        // evtl. Bruchlinien erzeugen
+                        foreach (var edge in mesh.FixedEdges)
+                        {
+                            addEdgePoints(mesh.Points[edge.Idx1], mesh.Points[edge.Idx2]);
+                            edges.Add(edge);
+                        }
+
+                        // Kanten der Faces (falls vorhanden und ohne Doppelung)
+                        foreach (var edge in mesh.EdgeIndices.Keys)
+                        {
+                            if (!edges.Contains(TupleIdx.Flipped(edge)) && edges.Add(edge))
+                            { addEdgePoints(mesh.Points[edge.Idx1], mesh.Points[edge.Idx2]); }
+                        }
+                        */
+
+                    }
+                    else
+                    {
+                        //Read out each triangle
+                        foreach (var tri in tin.TriangleVertexPointIndizes())
+                        {
+                            //first edge
+                            g.Elements.Add(model.Instances.New<IfcPolyline>(p => p.Points.AddRange(new[] { cps[tri[0]], cps[tri[1]] })));
+                            //next edge
+                            g.Elements.Add(model.Instances.New<IfcPolyline>(p => p.Points.AddRange(new[] { cps[tri[1]], cps[tri[2]] })));
+                            //last edge
+                            g.Elements.Add(model.Instances.New<IfcPolyline>(p => p.Points.AddRange(new[] { cps[tri[2]], cps[tri[0]] })));
+                        }
+                    }
+                });
+                int numEdges = dtm.Elements.Count - cps.Count; 
+
+                logger.Debug("Processed: " + cps.Count + " points; " + numEdges + " edges (of " + numEdges / 3 + " triangels)"); //nach dem commit von txn loggen .. nur für Debugging hier stehen lassen
+
+                txn.Commit();
+                representationIdentifier = RepresentationIdentifier.SurveyPoints;
+                representationType = RepresentationType.GeometricCurveSet;
+                return dtm;
+            }
+        }
+        #endregion
+
+        #region IfcTFS using TIN [Status: completed]
+        /// Achtung mesh muss zwingend aus Dreiecken Bestehen
+        /// 
+        private static IfcTriangulatedFaceSet createTriangulatedFaceSetWithTin(IfcStore model, Vector3 origin, Tin tin,
+            //double? breakDist, //Ist dies jetzt noch relevant?
+            out RepresentationType representationType,
+            out RepresentationIdentifier representationIdentifier)
+        {
+            //TODO! Abfrage, ob TIN nicht valid ist?
+            //init logger 
+            Logger logger = LogManager.GetCurrentClassLogger();
+
+            //start transaction
             using (var txn = model.BeginTransaction("Create TIN"))
             {
+                //init empty dictionary
                 var vmap = new Dictionary<int, int>();
+                
                 //Cartesian Point List
                 var cpl = model.Instances.New<IfcCartesianPointList3D>(c =>
                 {
@@ -657,6 +749,7 @@ namespace IFCTerrain.Model.Write
 
                 });
                 
+                //TFS writ --> need cpl
                 var tfs = model.Instances.New<IfcTriangulatedFaceSet>(t =>
                 {
                     //Attribute #2 - Normals
@@ -672,69 +765,28 @@ namespace IFCTerrain.Model.Write
                     foreach (var tri in tin.TriangleVertexPointIndizes())
                     {
                         var fi = t.CoordIndex.GetAt(pos++);
-                        //logger.Info(pointIndex2NumberMap[tri[0]]);
+
                         fi.Add(vmap[tri[0]]);
                         fi.Add(vmap[tri[1]]);
                         fi.Add(vmap[tri[2]]);
                     }
 
-                    //Attribut #5 - Number of Triangels
-                    //TODO einfach noch aus CoordIndex abfragen
-                });
+                    //Attribut #5 - Number of Triangels (wird ausgelesen)
+                    //Logging number of triangles so it can compared with the result of the respective reader
+                    logger.Info("There were " + cpl.Dim + " Points; " + t.NumberOfTriangles + " Triangles processed.");
+                    });
+
+                //Create tin commit otherwise the changes will not be incorporated
                 txn.Commit();
+                
+                //
                 representationIdentifier = RepresentationIdentifier.Body;
+
+                //
                 representationType = RepresentationType.Tessellation;
                 return tfs;
             }
             
-        }
-        private static IfcTriangulatedFaceSet createTriangulatedFaceSet(IfcStore model, Vector3 origin, Mesh mesh, //Dictionary<int,Line3> Breaklines,
-            out RepresentationType representationType,
-            out RepresentationIdentifier representationIdentifier)
-        {
-            if (mesh.MaxFaceCorners != 3 || mesh.MinFaceCorners != 3)
-            { throw new Exception("Mesh is not Triangular"); }
-            using (var txn = model.BeginTransaction("Create TIN"))
-            {
-                var vmap = new Dictionary<int, int>();
-                var cpl = model.Instances.New<IfcCartesianPointList3D>(c =>
-                {
-                    for (int i = 0, j = 0; i < mesh.Points.Count; i++)
-                    {
-                        if (mesh.VertexEdges[i] < 0)
-                        { continue; }
-                        vmap.Add(i, j + 1);
-                        var pt = mesh.Points[i];
-                        var coo = c.CoordList.GetAt(j++);
-                        coo.Add(pt.X - origin.X);
-                        coo.Add(pt.Y - origin.Y);
-                        coo.Add(pt.Z - origin.Z);
-                    }
-                });
-
-                var tfs = model.Instances.New<IfcTriangulatedFaceSet>(t =>
-                {
-                    t.Closed = false; // nur bei Volumenkörpern
-                    t.Coordinates = cpl;
-                    int cnt = 0;
-                    foreach (int fe in mesh.FaceEdges)
-                    {
-                        var fi = t.CoordIndex.GetAt(cnt++);
-                        fi.Add(vmap[mesh.EdgeVertices[fe]]);
-                        fi.Add(vmap[mesh.EdgeVertices[mesh.EdgeNexts[fe]]]);
-                        fi.Add(vmap[mesh.EdgeVertices[mesh.EdgeNexts[mesh.EdgeNexts[fe]]]]);
-                    }
-                });
-
-
-
-                
-                txn.Commit();
-                representationIdentifier = RepresentationIdentifier.Body;
-                representationType = RepresentationType.Tessellation;
-
-                return tfs;
-            }
         }
         #endregion
 
@@ -929,15 +981,7 @@ namespace IFCTerrain.Model.Write
                 */
         #endregion
 
-
-        #region IfcBoundedCurve
-
-
-
-        #endregion
-
-
-        #region IfcTIN
+        #region IfcTFS + Breaklines
         private static IfcTriangulatedFaceSet createTriangulatedIrregularNetwork(IfcStore model, Vector3 origin, Mesh mesh, Dictionary<int, Line3> Breaklines,
            out RepresentationType representationType,
            out RepresentationIdentifier representationIdentifier)
@@ -1186,9 +1230,10 @@ namespace IFCTerrain.Model.Write
             string editorsFamilyName,
             string editorsGivenName,
             string editorsOrganisationName,
+            //double? minDist,
             IfcLabel siteName,
             Axis2Placement3D sitePlacement,
-            Mesh mesh,
+            Tin tin,
             Dictionary<int,Line3> breaklines,
             SurfaceType surfaceType,
             double? breakDist = null,
@@ -1203,9 +1248,12 @@ namespace IFCTerrain.Model.Write
             IfcGeometricRepresentationItem shape;
             switch (surfaceType)
             {
+                case SurfaceType.GCS:
+                    shape = createTriangulatedFaceSetWithTin(model, sitePlacement.Location, tin, out representationType, out representationIdentifier);
+                    break; 
                 default:
-                    shape = createTriangulatedIrregularNetwork(model, sitePlacement.Location, mesh, breaklines, out representationType, out representationIdentifier);
-                    break;
+                    shape = createGeometricCurveSetWithTin(model, sitePlacement.Location, tin, breakDist, out representationType, out representationIdentifier);
+                        break;
             }
             var repres = createShapeRepresentation(model, shape, representationIdentifier, representationType);
             //var terrain = createTerrain(model, "TIN", mesh.Id, null, repres);
@@ -1237,11 +1285,10 @@ namespace IFCTerrain.Model.Write
             string editorsFamilyName,
             string editorsGivenName,
             string editorsOrganisationName,
+            //double? minDist,
             IfcLabel siteName,
             Axis2Placement3D sitePlacement,
             Tin tin,
-            IReadOnlyDictionary<int,int> pointIndex2NumberMap,
-            IReadOnlyDictionary<int, int> triangleIndex2NumberMap,
             Dictionary<int,Line3> breaklines,
             SurfaceType surfaceType,
             double? breakDist = null,
@@ -1256,8 +1303,11 @@ namespace IFCTerrain.Model.Write
             IfcGeometricRepresentationItem shape;
             switch (surfaceType)
             {
+                case SurfaceType.TFS:
+                    shape = createTriangulatedFaceSetWithTin(model, sitePlacement.Location, tin, out representationType, out representationIdentifier);
+                    break;
                 default:
-                    shape = createTriangulatedFaceSetWithTin(model, sitePlacement.Location, tin, pointIndex2NumberMap, triangleIndex2NumberMap, out representationType, out representationIdentifier);
+                    shape = createGeometricCurveSetWithTin(model, sitePlacement.Location, tin, breakDist, out representationType, out representationIdentifier);
                     break;
             }
             var repres = createShapeRepresentation(model, shape, representationIdentifier, representationType);
