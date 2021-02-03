@@ -180,7 +180,7 @@ namespace IFCTerrain.Model
 
                     writeInput.Placement.Location = Vector3.Create(midX, midY, midZ);
                 }
-                //Vorschlag für BimGisCad.Composed (in TIN bereits vorhanden)
+                //Vorschlag für BimGisCad.Composed (in MESH ist dies bereits vorhanden)
                 else
                 {
                     int i = 0;

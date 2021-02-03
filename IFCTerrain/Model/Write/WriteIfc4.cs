@@ -624,7 +624,51 @@ namespace IFCTerrain.Model.Write
         }
         #endregion
 
-        #region IfcGCS using TIN [Status: DRAFT]
+        #region IfcSBSM [Status: DRAFT]
+        private static IfcShellBasedSurfaceModel createShellBasedSurfaceModelViaTin(IfcStore model, Vector3 origin, Tin tin,
+            out RepresentationType representationType,
+            out RepresentationIdentifier representationIdentifier)
+        {
+            /* Validierung -> bereits bei Reader implementieren?
+            if (mesh.MaxFaceCorners < 3)
+            { throw new Exception("Mesh has no Faces"); }
+            */
+            
+            using (var txn = model.BeginTransaction("Create Tin"))
+            {
+                var vmap = new Dictionary<int, int>();
+                var cpl = new List<IfcCartesianPoint>();
+                for (int i = 0, j = 0; i < tin.Points.Count; i++)
+                {
+                    vmap.Add(i, j);
+                    var pt = tin.Points[i];
+                    cpl.Add(model.Instances.New<IfcCartesianPoint>(c => c.SetXYZ(pt.X - origin.X, pt.Y - origin.Y, pt.Z - origin.Z)));
+                    j++;
+                }
+                
+                var sbsm = model.Instances.New<IfcShellBasedSurfaceModel>(s =>
+                    s.SbsmBoundary.Add(model.Instances.New<IfcOpenShell>(o => o.CfsFaces
+                        .AddRange(tin.TriangleVertexPointIndizes().Select(tri => model.Instances.New<IfcFace>(x => x.Bounds
+                            .Add(model.Instances.New<IfcFaceOuterBound>(b =>
+                            {
+                                b.Bound = model.Instances.New<IfcPolyLoop>(p =>
+                                {
+                                    p.Polygon.Add(cpl[vmap[tri[0]]]);
+                                    p.Polygon.Add(cpl[vmap[tri[1]]]);
+                                    p.Polygon.Add(cpl[vmap[tri[2]]]);
+                                });
+                                b.Orientation = true;
+                            }))))))));
+                txn.Commit();
+                representationIdentifier = RepresentationIdentifier.Body;
+                representationType = RepresentationType.SurfaceModel;
+
+                return sbsm;
+            }
+        }
+        #endregion
+
+        #region IfcGCS using TIN [Status: DRAFT - breakDist is missing]
         /// <summary>
         ///  Geländemodell aus Punkten und Bruchlinien
         /// </summary>
@@ -1248,6 +1292,9 @@ namespace IFCTerrain.Model.Write
             IfcGeometricRepresentationItem shape;
             switch (surfaceType)
             {
+                case SurfaceType.SBSM:
+                    shape = createShellBasedSurfaceModelViaTin(model, sitePlacement.Location, tin, out representationType, out representationIdentifier);
+                    break;
                 case SurfaceType.GCS:
                     shape = createTriangulatedFaceSetWithTin(model, sitePlacement.Location, tin, out representationType, out representationIdentifier);
                     break; 
@@ -1303,6 +1350,9 @@ namespace IFCTerrain.Model.Write
             IfcGeometricRepresentationItem shape;
             switch (surfaceType)
             {
+                case SurfaceType.SBSM:
+                    shape = createShellBasedSurfaceModelViaTin(model, sitePlacement.Location, tin, out representationType, out representationIdentifier);
+                    break;
                 case SurfaceType.TFS:
                     shape = createTriangulatedFaceSetWithTin(model, sitePlacement.Location, tin, out representationType, out representationIdentifier);
                     break;
