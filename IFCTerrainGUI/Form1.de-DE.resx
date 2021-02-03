@@ -294,7 +294,7 @@
     <value>66, 13</value>
   </data>
   <data name="lblName.Text" xml:space="preserve">
-    <value>Projektname</value>
+    <value>Projektbezeichnung</value>
   </data>
   <data name="btnSave.Text" xml:space="preserve">
     <value>Wähle</value>

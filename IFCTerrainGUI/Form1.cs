@@ -644,7 +644,7 @@ namespace IFCTerrainGUI
         //... kann der Backgroundworker weg???
         private void backgroundWorkerOUT_DoWork(object sender, DoWorkEventArgs e)
         {
-            e.Result = Out.ReadFile((string)e.Argument) ? (string)e.Argument : "";
+            //e.Result = Out.ReadFile((string)e.Argument) ? (string)e.Argument : "";
             
         }
 
@@ -733,7 +733,7 @@ namespace IFCTerrainGUI
             this.jSettings.geoElement = chkGeo.Checked;
             //Ignore Z-Value Checkbox einbauen?
             this.jSettings.is3D = true;
-            this.jSettings.minDist = 1.0;
+            this.jSettings.minDist = 1.0; 
             if (tbDist.Text != null)
             {
                 this.jSettings.minDist = Convert.ToDouble(tbDist.Text);
@@ -863,6 +863,8 @@ namespace IFCTerrainGUI
             {
                 this.jSettings.editorsFamilyName = "FamilyName";
             }
+
+            this.jSettings.projectName = tbName.Text.ToString();
             #endregion
 
 
@@ -1331,6 +1333,11 @@ namespace IFCTerrainGUI
                 tbOutLayer.Enabled = false;
             }
             
+
+        }
+
+        private void tbName_TextChanged(object sender, EventArgs e)
+        {
 
         }
         #endregion

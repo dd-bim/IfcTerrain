@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Threading.Tasks;
 using IFCTerrain.Model.Read;
+using IFCTerrain.Model.Read.GEOgraf;
 using IFCTerrain.Model.Write;
 using IxMilia.Dxf;
 using BimGisCad.Collections;
@@ -13,6 +14,7 @@ using Xbim.Ifc2x3.MeasureResource;
 using BimGisCad.Representation.Geometry;
 using System.Windows.Forms;
 using BimGisCad.Representation.Geometry.Elementary;
+using BimGisCad.Representation.Geometry.Composed;
 //NLog for creating Log-File
 using NLog;
 
@@ -22,6 +24,9 @@ namespace IFCTerrain.Model
     {
         public Mesh Mesh { get; private set; } = null;
 
+        public Tin Tin { get; private set; }
+        IReadOnlyDictionary<int, int> pointIndex2NumberMap;
+        IReadOnlyDictionary<int, int> triangleIndex2NumberMap;
         public Dictionary<int,Line3> Breaklines { get; private set; } = null;
 
         public Mesh Mesh_Poly { get; private set; } = null; 
@@ -30,6 +35,8 @@ namespace IFCTerrain.Model
         private RebDaData rebData = null;
 
         //siteplacement-argument?
+
+        
 
         public void mapProcess(JsonSettings jSettings, double? breakDist = null, double? refLatitude = null, double? refLongitude = null, double? refElevation = null)
         {
@@ -84,10 +91,13 @@ namespace IFCTerrain.Model
                 case "OUT":
                     if (jSettings.isTin)
                     {
-                        result = Out.ReadOUTTin(jSettings.is3D, jSettings.fileName,jSettings.onlyTypes, jSettings.layer, jSettings.minDist, jSettings.ignPos, jSettings.ignHeight, jSettings.onlyHorizon, jSettings.horizonFilter, jSettings.breakline, jSettings.breakline_layer); //reworking
+                        //result = Out.ReadOUTTin(jSettings.is3D, jSettings.fileName,jSettings.onlyTypes, jSettings.layer, jSettings.minDist, jSettings.ignPos, jSettings.ignHeight, jSettings.onlyHorizon, jSettings.horizonFilter, jSettings.breakline, jSettings.breakline_layer); //reworking
+
+                        result = ReadOUT.ReadOutData(jSettings.fileName, out pointIndex2NumberMap, out triangleIndex2NumberMap);
                     }
                     else
                     {
+                        
                         //result = Out.ReadOUT_Points_Lines(jSettings.is3D, jSettings.fileName, jSettings.layer, jSettings.minDist, jSettings.ignPos, jSettings.ignHeight, jSettings.breakline, jSettings.breakline_layer);
                     }
                     break;
@@ -95,20 +105,36 @@ namespace IFCTerrain.Model
                     result = PostGIS.ReadPostGIS_TIN(jSettings.is3D, jSettings.minDist, jSettings.host, jSettings.port, jSettings.user, jSettings.password, jSettings.database, jSettings.schema, jSettings.tin_table, jSettings.tin_column, jSettings.tinid_column, jSettings.tin_id, jSettings.breakline, jSettings.breakline_table, jSettings.breakline_column, jSettings.breakline_tin_id);
                     break;
             }
+            this.Tin = result.Tin;
             this.Mesh = result.Mesh;
             this.Breaklines = result.Breaklines;
            
             #endregion
 
             #region Mesh-Checker
-            try
+            if(Mesh != null)
             {
-                logger.Debug("Mesh created with: " + Mesh.Points.Count + " Points; " + Mesh.FixedEdges.Count + " Lines; " + Mesh.FaceEdges.Count + " Faces");
+                try
+                {
+                    logger.Debug("Mesh created with: " + Mesh.Points.Count + " Points; " + Mesh.FixedEdges.Count + " Lines; " + Mesh.FaceEdges.Count + " Faces");
+                }
+                catch
+                {
+                    logger.Debug("No Faces or Points found!");
+                }
             }
-            catch
+            else
             {
-                logger.Debug("No Faces or Points found");
+                try
+                {
+                    logger.Debug("Tin created with: " + Tin.Points.Count + " Points; " + Tin.NumTriangles + " Triangels");
+                }
+                catch
+                {
+                    logger.Debug("No Triangels or Points found!");
+                }
             }
+            
             #endregion
 
             #endregion
@@ -136,11 +162,54 @@ namespace IFCTerrain.Model
             }
             else
             {
-                double midX = (this.Mesh.MaxX + this.Mesh.MinX) / 2;
-                double midY = (this.Mesh.MaxY + this.Mesh.MinY) / 2;
-                double midZ = (this.Mesh.MaxZ + this.Mesh.MinZ) / 2;
+                double MinX = 0;
+                double MinY = 0;
+                double MinZ = 0;
+                double MaxX = 0;
+                double MaxY = 0;
+                double MaxZ = 0;
 
-                writeInput.Placement.Location = Vector3.Create(midX, midY, midZ);
+                if (Mesh != null)
+                {
+                    double midX = (this.Mesh.MaxX + this.Mesh.MinX) / 2;
+                    double midY = (this.Mesh.MaxY + this.Mesh.MinY) / 2;
+                    double midZ = (this.Mesh.MaxZ + this.Mesh.MinZ) / 2;
+
+                    writeInput.Placement.Location = Vector3.Create(midX, midY, midZ);
+                }
+                else
+                {
+                    int i = 0;
+                    foreach (Point3 point in Tin.Points)
+                    {
+                        //initalisierung durch ersten Punkt
+                        if(i > 0)
+                        { 
+                            if (point.X < MinX) { MinX = point.X; }
+                            if (point.X > MaxX) { MaxX = point.X; }
+                            if (point.Y < MinY) { MinY = point.Y; }
+                            if (point.Y > MaxY) { MaxY = point.Y; }
+                            if (point.Z < MinZ) { MinZ = point.Z; }
+                            if (point.Z > MaxZ) { MaxZ = point.Z; }
+                        }
+                        else
+                        {
+                            MinX = point.X;
+                            MinY = point.Y;
+                            MinZ = point.Z;
+
+                            MaxX = point.X;
+                            MaxY = point.Y;
+                            MaxZ = point.Z;
+                        }
+                        i++;
+                    }
+                    double MidX = (MaxX + MinX) / 2;
+                    double MidY = (MaxY + MinY) / 2;
+                    double MidZ = (MaxZ + MinZ) / 2;
+                    writeInput.Placement.Location = Vector3.Create(MidX, MidY, MidZ);
+                }
+
             }
             #endregion
 
@@ -219,8 +288,10 @@ namespace IFCTerrain.Model
             #endregion
 
             #region IFC 4dot3
+            
+            
             //Draft
-
+            
             if (jSettings.outIFCType == "IFC4dot3")
             {
                 var model = jSettings.geoElement
@@ -240,7 +311,9 @@ namespace IFCTerrain.Model
                                                     jSettings.editorsGivenName,
                                                     "Site with Terrain",
                                                     writeInput.Placement,
-                                                    this.Mesh,
+                                                    this.Tin,
+                                                    pointIndex2NumberMap,
+                                                    triangleIndex2NumberMap,
                                                     this.Breaklines,
                                                     writeInput.SurfaceType,
                                                     breakDist); ;

@@ -88,12 +88,14 @@ namespace IFCTerrainGUI
             this.tbGsSet = new System.Windows.Forms.TextBox();
             this.btnReadGrid = new System.Windows.Forms.Button();
             this.tpOUT = new System.Windows.Forms.TabPage();
+            this.gpOutPointtypes = new System.Windows.Forms.GroupBox();
+            this.chkOutTypes = new System.Windows.Forms.CheckBox();
+            this.tbOutLayer = new System.Windows.Forms.TextBox();
             this.gpOutBk = new System.Windows.Forms.GroupBox();
             this.label20 = new System.Windows.Forms.Label();
             this.tbOutBk = new System.Windows.Forms.TextBox();
             this.rbOutBk_false = new System.Windows.Forms.RadioButton();
             this.rbOutBk_true = new System.Windows.Forms.RadioButton();
-            this.tbOutLayer = new System.Windows.Forms.TextBox();
             this.chkIgnPos = new System.Windows.Forms.CheckBox();
             this.label15 = new System.Windows.Forms.Label();
             this.rb_dgm = new System.Windows.Forms.RadioButton();
@@ -202,8 +204,6 @@ namespace IFCTerrainGUI
             this.ttChoose = new System.Windows.Forms.ToolTip(this.components);
             this.ttStart = new System.Windows.Forms.ToolTip(this.components);
             this.tt = new System.Windows.Forms.ToolTip(this.components);
-            this.gpOutPointtypes = new System.Windows.Forms.GroupBox();
-            this.chkOutTypes = new System.Windows.Forms.CheckBox();
             this.gpFile.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpXML.SuspendLayout();
@@ -212,6 +212,7 @@ namespace IFCTerrainGUI
             this.tpREB.SuspendLayout();
             this.tpXYZ.SuspendLayout();
             this.tpOUT.SuspendLayout();
+            this.gpOutPointtypes.SuspendLayout();
             this.gpOutBk.SuspendLayout();
             this.gpOUT_Hor.SuspendLayout();
             this.tpPostGIS.SuspendLayout();
@@ -225,7 +226,6 @@ namespace IFCTerrainGUI
             this.gpUserSettings.SuspendLayout();
             this.gpPostGIS.SuspendLayout();
             this.gpLogging.SuspendLayout();
-            this.gpOutPointtypes.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -621,6 +621,26 @@ namespace IFCTerrainGUI
             this.tpOUT.Name = "tpOUT";
             this.tpOUT.UseVisualStyleBackColor = true;
             // 
+            // gpOutPointtypes
+            // 
+            this.gpOutPointtypes.Controls.Add(this.chkOutTypes);
+            this.gpOutPointtypes.Controls.Add(this.tbOutLayer);
+            resources.ApplyResources(this.gpOutPointtypes, "gpOutPointtypes");
+            this.gpOutPointtypes.Name = "gpOutPointtypes";
+            this.gpOutPointtypes.TabStop = false;
+            // 
+            // chkOutTypes
+            // 
+            resources.ApplyResources(this.chkOutTypes, "chkOutTypes");
+            this.chkOutTypes.Name = "chkOutTypes";
+            this.chkOutTypes.UseVisualStyleBackColor = true;
+            this.chkOutTypes.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // tbOutLayer
+            // 
+            resources.ApplyResources(this.tbOutLayer, "tbOutLayer");
+            this.tbOutLayer.Name = "tbOutLayer";
+            // 
             // gpOutBk
             // 
             this.gpOutBk.Controls.Add(this.label20);
@@ -657,11 +677,6 @@ namespace IFCTerrainGUI
             this.rbOutBk_true.TabStop = true;
             this.rbOutBk_true.UseVisualStyleBackColor = true;
             this.rbOutBk_true.CheckedChanged += new System.EventHandler(this.rbOutBk_true_CheckedChanged);
-            // 
-            // tbOutLayer
-            // 
-            resources.ApplyResources(this.tbOutLayer, "tbOutLayer");
-            this.tbOutLayer.Name = "tbOutLayer";
             // 
             // chkIgnPos
             // 
@@ -1067,6 +1082,7 @@ namespace IFCTerrainGUI
             // 
             resources.ApplyResources(this.tbName, "tbName");
             this.tbName.Name = "tbName";
+            this.tbName.TextChanged += new System.EventHandler(this.tbName_TextChanged);
             // 
             // btnStart
             // 
@@ -1362,21 +1378,6 @@ namespace IFCTerrainGUI
             // 
             this.ttStart.ToolTipTitle = "Hinweis";
             // 
-            // gpOutPointtypes
-            // 
-            this.gpOutPointtypes.Controls.Add(this.chkOutTypes);
-            this.gpOutPointtypes.Controls.Add(this.tbOutLayer);
-            resources.ApplyResources(this.gpOutPointtypes, "gpOutPointtypes");
-            this.gpOutPointtypes.Name = "gpOutPointtypes";
-            this.gpOutPointtypes.TabStop = false;
-            // 
-            // chkOutTypes
-            // 
-            resources.ApplyResources(this.chkOutTypes, "chkOutTypes");
-            this.chkOutTypes.Name = "chkOutTypes";
-            this.chkOutTypes.UseVisualStyleBackColor = true;
-            this.chkOutTypes.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -1415,6 +1416,8 @@ namespace IFCTerrainGUI
             this.tpXYZ.PerformLayout();
             this.tpOUT.ResumeLayout(false);
             this.tpOUT.PerformLayout();
+            this.gpOutPointtypes.ResumeLayout(false);
+            this.gpOutPointtypes.PerformLayout();
             this.gpOutBk.ResumeLayout(false);
             this.gpOutBk.PerformLayout();
             this.gpOUT_Hor.ResumeLayout(false);
@@ -1440,8 +1443,6 @@ namespace IFCTerrainGUI
             this.gpPostGIS.PerformLayout();
             this.gpLogging.ResumeLayout(false);
             this.gpLogging.PerformLayout();
-            this.gpOutPointtypes.ResumeLayout(false);
-            this.gpOutPointtypes.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
