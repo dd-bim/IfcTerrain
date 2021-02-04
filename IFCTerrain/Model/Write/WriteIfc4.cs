@@ -624,7 +624,7 @@ namespace IFCTerrain.Model.Write
         }
         #endregion
 
-        #region IfcSBSM [Status: DRAFT]
+        #region IfcSBSM [Status: DRAFT - TODO ADD LOGGING]
         private static IfcShellBasedSurfaceModel createShellBasedSurfaceModelViaTin(IfcStore model, Vector3 origin, Tin tin,
             out RepresentationType representationType,
             out RepresentationIdentifier representationIdentifier)
@@ -633,7 +633,10 @@ namespace IFCTerrain.Model.Write
             if (mesh.MaxFaceCorners < 3)
             { throw new Exception("Mesh has no Faces"); }
             */
-            
+
+            //init Logger
+            Logger logger = LogManager.GetCurrentClassLogger();
+
             using (var txn = model.BeginTransaction("Create Tin"))
             {
                 var vmap = new Dictionary<int, int>();
@@ -659,10 +662,14 @@ namespace IFCTerrain.Model.Write
                                 });
                                 b.Orientation = true;
                             }))))))));
+
+                //logger.Debug("Processed: " + );
                 txn.Commit();
                 representationIdentifier = RepresentationIdentifier.Body;
                 representationType = RepresentationType.SurfaceModel;
-
+                //TRASHLÖSUNG below:
+                long numTri = ((sbsm.Model.Instances.Count - vmap.Count)/ 3) - 10;
+                logger.Debug("Processed: " + vmap.Count + " points; " +  numTri + " triangels)");
                 return sbsm;
             }
         }
@@ -817,7 +824,7 @@ namespace IFCTerrain.Model.Write
 
                     //Attribut #5 - Number of Triangels (wird ausgelesen)
                     //Logging number of triangles so it can compared with the result of the respective reader
-                    logger.Info("There were " + cpl.Dim + " Points; " + t.NumberOfTriangles + " Triangles processed.");
+                    logger.Info("There were " + cpl.CoordList.Count + " Points; " + t.NumberOfTriangles + " Triangles processed.");
                     });
 
                 //Create tin commit otherwise the changes will not be incorporated
@@ -1286,6 +1293,8 @@ namespace IFCTerrain.Model.Write
              double? refElevation = null)
         {
             var model = createandInitModel(projectName, editorsFamilyName, editorsGivenName, editorsOrganisationName, out var project);
+            //var model = createandInitModel(projectName, editorsFamilyName, editorsGivenName, editorsOrganisationName, out var project);
+            
             var site = createSite(model, siteName, sitePlacement, refLatitude, refLongitude, refElevation);
             RepresentationType representationType;
             RepresentationIdentifier representationIdentifier;

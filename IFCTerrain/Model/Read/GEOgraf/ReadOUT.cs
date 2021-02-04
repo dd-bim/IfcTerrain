@@ -125,7 +125,8 @@ namespace IFCTerrain.Model.Read.GEOgraf
                 }
             }
             result.Tin = tinB.ToTin(out pointIndex2NumberMap, out triangleIndex2NumberMap);
-            logger.Debug("Read out with: " + result.Tin.Points.Count() + " points and " + result.Tin.NumTriangles + " triangels");
+            logger.Info("Reading GEOgraf OUT successful");
+            logger.Info(result.Tin.Points.Count() + " points; " + result.Tin.NumTriangles + " triangels processed");
             return result;
         }
     }

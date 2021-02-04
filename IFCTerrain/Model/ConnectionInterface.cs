@@ -72,6 +72,7 @@ namespace IFCTerrain.Model
 
                     if (jSettings.isTin)
                     {
+                        //neuer READER - DRAFT
                         result = DXF.ReadDXFTin(jSettings.is3D, dxfFile, jSettings.layer, jSettings.breakline_layer, jSettings.minDist, jSettings.logFilePath, jSettings.verbosityLevel, jSettings.breakline);
                     }
                     else
@@ -95,11 +96,12 @@ namespace IFCTerrain.Model
 
                         result = ReadOUT.ReadOutData(jSettings.fileName, out pointIndex2NumberMap, out triangleIndex2NumberMap); //pointIndex2NumberMap & triangleIndex2NumberMap ggf. entfernen
                     }
+                    /* ENTFERNT, da derzeit nur über FACES verarbeitet wird
                     else
                     {
                         
                         //result = Out.ReadOUT_Points_Lines(jSettings.is3D, jSettings.fileName, jSettings.layer, jSettings.minDist, jSettings.ignPos, jSettings.ignHeight, jSettings.breakline, jSettings.breakline_layer);
-                    }
+                    }*/
                     break;
                 case "PostGIS":
                     result = PostGIS.ReadPostGIS_TIN(jSettings.is3D, jSettings.minDist, jSettings.host, jSettings.port, jSettings.user, jSettings.password, jSettings.database, jSettings.schema, jSettings.tin_table, jSettings.tin_column, jSettings.tinid_column, jSettings.tin_id, jSettings.breakline, jSettings.breakline_table, jSettings.breakline_column, jSettings.breakline_tin_id);
