@@ -72,11 +72,12 @@ namespace IFCTerrain.Model
 
                     if (jSettings.isTin)
                     {
-                        //neuer READER - DRAFT
-                        result = DXF.ReadDXFTin(jSettings.is3D, dxfFile, jSettings.layer, jSettings.breakline_layer, jSettings.minDist, jSettings.logFilePath, jSettings.verbosityLevel, jSettings.breakline);
+                        //READING as TIN
+                        result = DXF.ReadDXFTin(jSettings.is3D, dxfFile, jSettings.layer, jSettings.breakline_layer, jSettings.minDist, jSettings.breakline);
                     }
                     else
                     {
+                        //READING as MESH --> have to be changed into TIN
                         result = DXF.ReadDXFIndPoly(jSettings.is3D, dxfFile, jSettings.layer, jSettings.breakline_layer, jSettings.minDist, jSettings.logFilePath, jSettings.verbosityLevel, jSettings.breakline);
                     }
                     break;
@@ -104,7 +105,7 @@ namespace IFCTerrain.Model
                     }*/
                     break;
                 case "PostGIS":
-                    result = PostGIS.ReadPostGIS_TIN(jSettings.is3D, jSettings.minDist, jSettings.host, jSettings.port, jSettings.user, jSettings.password, jSettings.database, jSettings.schema, jSettings.tin_table, jSettings.tin_column, jSettings.tinid_column, jSettings.tin_id, jSettings.breakline, jSettings.breakline_table, jSettings.breakline_column, jSettings.breakline_tin_id);
+                    result = PostGIS.ReadPostGIS(jSettings.is3D, jSettings.minDist, jSettings.host, jSettings.port, jSettings.user, jSettings.password, jSettings.database, jSettings.schema, jSettings.tin_table, jSettings.tin_column, jSettings.tinid_column, jSettings.tin_id, jSettings.breakline, jSettings.breakline_table, jSettings.breakline_column, jSettings.breakline_tin_id);
                     break;
             }
             this.Tin = result.Tin;

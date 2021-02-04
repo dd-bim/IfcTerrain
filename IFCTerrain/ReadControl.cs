@@ -212,7 +212,7 @@ namespace IFCTerrain
             var ltb = (LayType)e.Argument;
             if(lt.IsTin)
             {
-                e.Result = DXF.ReadDXFTin(Properties.Settings.Default.is3D, this.dxfFile, lt.Layer, ltb.Layer, Properties.Settings.Default.minDistance, st, st, rbDxfBk_true.Checked);
+                e.Result = DXF.ReadDXFTin(Properties.Settings.Default.is3D, this.dxfFile, lt.Layer, ltb.Layer, Properties.Settings.Default.minDistance, rbDxfBk_true.Checked);
             }
             else
             {

@@ -108,8 +108,11 @@ namespace IFCTerrain.Model.Read
             return result;
         }
 
-        public static Result ReadDXFTin(bool is3d, DxfFile dxfFile, string layer, string breaklinelayer, double minDist, string logFilePath, string verbosityLevel, bool breakline)
+        public static Result ReadDXFTin(bool is3d, DxfFile dxfFile, string layer, string breaklinelayer, double minDist, bool breakline)
         {
+            //TODO
+            //use is3d is not requiered anymore!
+            //
             double minDistSq = minDist * minDist;
             var result = new Result();
             if(!UnitToMeter.TryGetValue(dxfFile.Header.DefaultDrawingUnits, out double scale))
@@ -202,9 +205,9 @@ namespace IFCTerrain.Model.Read
                 return result;
             }
             */
-            //Result beschreiben
-            //result.Mesh = tin;
+            //TIN aus TIN-Builder erzeugen
             Tin tin = tinB.ToTin(out var pointIndex2NumberMap, out var triangleIndex2NumberMap);
+            //Result beschreiben
             result.Tin = tin;
 
             //Fehler für Bruchkanten abfangen lassen
@@ -220,10 +223,7 @@ namespace IFCTerrain.Model.Read
             //logging 
             
             logger.Info("Reading DXF-data successful");
-            //ADD NEW LOGGING LINE für TIN
             logger.Info(result.Tin.Points.Count() + " points; " + result.Tin.NumTriangles + " triangels processed");
-
-            //logger.Info(tin.Points.Count + " Points, " + tin.FixedEdges.Count + " Lines and " + tin.FaceEdges.Count + " Faces read");
             return result;
         }
     }

@@ -624,7 +624,7 @@ namespace IFCTerrain.Model.Write
         }
         #endregion
 
-        #region IfcSBSM [Status: DRAFT - TODO ADD LOGGING]
+        #region IfcSBSM [Status: Complete]
         private static IfcShellBasedSurfaceModel createShellBasedSurfaceModelViaTin(IfcStore model, Vector3 origin, Tin tin,
             out RepresentationType representationType,
             out RepresentationIdentifier representationIdentifier)
