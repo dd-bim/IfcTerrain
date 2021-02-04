@@ -4,8 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BimGisCad.Collections;
+
+//Bibliothek für MESH
+using BimGisCad.Collections; //entfernen, wenn implementiert
+
 using BimGisCad.Representation.Geometry.Elementary;
+//Bibliothek für TIN
+using BimGisCad.Representation.Geometry.Composed;
 using IxMilia.Dxf;
 using IxMilia.Dxf.Entities;
 
@@ -111,13 +116,20 @@ namespace IFCTerrain.Model.Read
             {
                 scale = 1.0;
             }
-            var tin = new Mesh(is3d, minDist);
+
+            //TIN Builder
+            var tinB = Tin.CreateBuilder(true);
 
             Dictionary<int, Line3> breaklines = new Dictionary<int, Line3>(); //Dictionary für Punkte der Bruchkanten
 
             Logger logger = LogManager.GetCurrentClassLogger();
 
             int index = 0;
+
+            #region PNR - Counter
+            int pnr = 0;
+            #endregion
+
             foreach (var entity in dxfFile.Entities)
             {
                 if(entity.Layer == layer && entity is Dxf3DFace face)
@@ -128,16 +140,15 @@ namespace IFCTerrain.Model.Read
                     var p4 = Point3.Create(face.FourthCorner.X * scale, face.FourthCorner.Y * scale, face.FourthCorner.Z * scale);
                     if(Vector3.Norm2(p4 - p3) < minDistSq)
                     {
-                        int i1 = tin.AddPoint(p1);
-                        int i2 = tin.AddPoint(p2);
-                        int i3 = tin.AddPoint(p3);
-                        try
+                        //Punkte hinzufügen & jeweils eine Punktnummer hochzählen
+                        tinB.AddPoint(pnr++, p1);
+                        tinB.AddPoint(pnr++, p2);
+                        tinB.AddPoint(pnr++, p3);
+
+                        //Schleife zum erzeugen des Dreiecks
+                        for (int i = pnr - 3; i < pnr; i++)
                         {
-                            tin.AddFace(new[] { i1, i2, i3 });
-                        }
-                        catch
-                        {
-                            logger.Warn("Redundant Face in Mesh found! Ignored during processings");
+                            tinB.AddTriangle(i++, i++, i++);
                         }
                     }
                 }
@@ -183,15 +194,18 @@ namespace IFCTerrain.Model.Read
                     }
                 }
             }
+            /* ÜBERARBEITEN mit neuer Abfrage!
             if(!tin.Points.Any() || !tin.FaceEdges.Any())
             {
                 result.Error = Properties.Resources.errNoLineData;
                 logger.Error("Error. No line data found");
                 return result;
             }
-
+            */
             //Result beschreiben
-            result.Mesh = tin;
+            //result.Mesh = tin;
+            Tin tin = tinB.ToTin(out var pointIndex2NumberMap, out var triangleIndex2NumberMap);
+            result.Tin = tin;
 
             //Fehler für Bruchkanten abfangen lassen
             try
@@ -206,9 +220,11 @@ namespace IFCTerrain.Model.Read
             //logging 
             
             logger.Info("Reading DXF-data successful");
-            logger.Info(tin.Points.Count + " Points, " + tin.FixedEdges.Count + " Lines and " + tin.FaceEdges.Count + " Faces read");
+            //ADD NEW LOGGING LINE für TIN
+            logger.Info(result.Tin.Points.Count() + " points; " + result.Tin.NumTriangles + " triangels processed");
+
+            //logger.Info(tin.Points.Count + " Points, " + tin.FixedEdges.Count + " Lines and " + tin.FaceEdges.Count + " Faces read");
             return result;
         }
-
     }
 }

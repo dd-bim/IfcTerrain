@@ -276,6 +276,16 @@ namespace IFCTerrainGUI
             {
                 btnProcess.Enabled = true;
             }
+            //TEMPORÄR -
+            if (rbFaces.Checked)
+            {
+                rb4.Checked = rb4.Enabled = false;
+            }
+            else
+            {
+                rb4.Checked = rb4.Enabled = true;
+            }
+            
         }
 
         private void rbIndPoly_CheckedChanged(object sender, EventArgs e)
@@ -294,6 +304,18 @@ namespace IFCTerrainGUI
             {
                 btnProcess.Enabled = true;
             }
+            //TEMPORÄR
+
+            if (rbIndPoly.Checked)
+            {
+                rbIfc4TIN.Checked = rbIfc4TIN.Enabled = false;
+                rb4.Checked = true;
+            }
+            else
+            {
+                rbIfc4TIN.Enabled = true;
+            }
+            
         }
 
         private void rbDxfBk_true_CheckedChanged(object sender, EventArgs e)
@@ -1094,8 +1116,6 @@ namespace IFCTerrainGUI
                 string mainDirec = Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetParent(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)).FullName).FullName).FullName).FullName;
                 string docuPath = "https://github.com/dd-bim/IfcTerrain/blob/master/README.md"; //direct Link to GITHUB - Repro so it should be accessable for "all"
                 System.Diagnostics.Process.Start(docuPath);
-
-                //System.Diagnostics.Process.Start(@"Documentation.html");
             }
             catch (Exception ex)
             {
