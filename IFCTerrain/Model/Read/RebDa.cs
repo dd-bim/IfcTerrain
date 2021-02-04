@@ -4,7 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BimGisCad.Collections;
+//using BimGisCad.Collections; removed
+using BimGisCad.Representation.Geometry.Composed;
 using BimGisCad.Representation.Geometry.Elementary;
 using NLog;
 using NLog.Config;
@@ -145,13 +146,18 @@ namespace IFCTerrain.Model.Read
         {
             Logger logger = LogManager.GetCurrentClassLogger();
 
-            var mesh = new Mesh(is3D, minDist);
+            //var mesh = new Mesh(is3D, minDist); remove
+            var tinB = Tin.CreateBuilder(true);
+
             var result = new Result();
             var pmap = new Dictionary<long, int>();
+            int points = 0;
             foreach(var kv in rebData.Points)
             {
-                pmap.Add(kv.Key, mesh.AddPoint(kv.Value));
+                pmap.Add(kv.Key, points);
+                tinB.AddPoint(points++ ,kv.Value);
             }
+            /* rework ... SOLUTION?
             if(rebData.Lines.TryGetValue(horizon, out var lines))
             {
                 foreach(var line in lines)
@@ -162,7 +168,7 @@ namespace IFCTerrain.Model.Read
                         mesh.FixEdge(v1, v2);
                     }
                 }
-            }
+            }*/
             if(rebData.Tris.TryGetValue(horizon, out var tris))
             {
                 foreach(var tri in tris)
@@ -171,17 +177,24 @@ namespace IFCTerrain.Model.Read
                         && pmap.TryGetValue(tri.P2, out int v2)
                         && pmap.TryGetValue(tri.P3, out int v3))
                     {
-                        var pos = mesh.AddFace(new[] { v1, v2, v3 });
-                        if (!pos.HasValue)
-                        {
-                            Console.WriteLine($"Missed {v1} {v2} {v3}");
-                        }
+                        tinB.AddTriangle(v1, v2, v3, true);
+                        //
+                        //var pos = mesh.AddFace(new[] { v1, v2, v3 });
+                        //if (!pos.HasValue)
+                        //{
+                            //Console.WriteLine($"Missed {v1} {v2} {v3}");
+                        //}
                     }
                 }
             }
-            result.Mesh = mesh;
+            //TIN aus TIN-Builder erzeugen
+            Tin tin = tinB.ToTin(out var pointIndex2NumberMap, out var triangleIndex2NumberMap);
+            //Result beschreiben
+            result.Tin = tin;
+
             logger.Info("Reading RebDa-data successful");
-            logger.Info(mesh.Points.Count + " points, " + mesh.FixedEdges.Count + " lines and " + mesh.FaceEdges.Count + " faces read");
+            logger.Info(result.Tin.Points.Count() + " points; " + result.Tin.NumTriangles + " triangels processed");
+            
             return result;
         }
 
