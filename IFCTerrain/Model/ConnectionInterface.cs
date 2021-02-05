@@ -324,7 +324,28 @@ namespace IFCTerrain.Model
                 WriteIfc4Tin.WriteFile(model, jSettings.destFileName, writeInput.FileType == FileType.XML);
             }
             #endregion
-            
+
+            #region IFC2x3 TIN
+            if (jSettings.outIFCType == "IFC2x3TIN")
+            {
+                var model = WriteIfc2TIN.CreateSite(jSettings.projectName,
+                                                 jSettings.editorsFamilyName,
+                                                 jSettings.editorsGivenName,
+                                                 jSettings.editorsOrganisationName,
+                                                 "Site with Terrain",
+                                                 writeInput.Placement,
+                                                 this.Tin,
+                                                 writeInput.SurfaceType,
+                                                 breakDist);
+                logger.Debug("IFC Site created");
+                WriteIfc2TIN.WriteFile(model, jSettings.destFileName, writeInput.FileType == FileType.XML);
+                logger.Info("IFC file writen: " + jSettings.destFileName);
+            }
+
+            #endregion
+
+
+
             #endregion
             logger.Info("----------------------------------------------");
         }

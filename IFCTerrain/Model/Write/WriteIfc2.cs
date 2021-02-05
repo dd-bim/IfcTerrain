@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BimGisCad.Collections;
-using BimGisCad.Representation.Geometry;
+using BimGisCad.Representation.Geometry; //remove when TIN is fully implemented
 using BimGisCad.Representation.Geometry.Elementary;
 using Xbim.Common;
 using Xbim.Common.Step21;
@@ -18,7 +18,12 @@ using Xbim.Ifc2x3.ProductExtension;
 using Xbim.Ifc2x3.RepresentationResource;
 using Xbim.Ifc2x3.TopologyResource;
 using Xbim.IO;
-//using Serilog;
+
+//Logging 
+using NLog;
+
+//Hinzugefügt für TIN-Funktionalitäten
+using BimGisCad.Representation.Geometry.Composed;
 
 namespace IFCTerrain.Model.Write
 {
@@ -347,6 +352,329 @@ namespace IFCTerrain.Model.Write
         public static void WriteFile(IfcStore model, string fileName, bool asXML = false)
         {
             if(asXML)
+            { model.SaveAs(fileName, StorageType.IfcXml); }
+            else
+            { model.SaveAs(fileName, StorageType.Ifc); }
+        }
+    }
+
+    public static class WriteIfc2TIN
+    {
+        /// <summary>
+        ///  Initialisiert ein leeres Projekt
+        /// </summary>
+        private static IfcStore createandInitModel(string projectName,
+            string editorsFamilyName,
+            string editorsGivenName,
+            string editorsOrganisationName,
+            out IfcProject project)
+        {
+            //first we need to set up some credentials for ownership of data in the new model
+            var credentials = new XbimEditorCredentials
+            {
+                ApplicationDevelopersName = "HTW Dresden for DDBIM",
+                ApplicationFullName = System.Reflection.Assembly.GetExecutingAssembly().FullName,
+                ApplicationIdentifier = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name,
+                ApplicationVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(),
+                EditorsFamilyName = editorsFamilyName,
+                EditorsGivenName = editorsGivenName,
+                EditorsOrganisationName = editorsOrganisationName
+            };
+
+            var model = IfcStore.Create(credentials, XbimSchemaVersion.Ifc2X3, XbimStoreType.EsentDatabase);
+
+            //Begin a transaction as all changes to a model are ACID
+            using (var txn = model.BeginTransaction("Initialise Model"))
+            {
+                //create a project
+                project = model.Instances.New<IfcProject>();
+                //set the units to SI (metres)
+                project.Initialize(ProjectUnits.SIUnitsUK);
+                project.Name = projectName;
+                project.UnitsInContext.SetOrChangeSiUnit(IfcUnitEnum.LENGTHUNIT, IfcSIUnitName.METRE, null);
+                //now commit the changes, else they will be rolled back at the end of the scope of the using statement
+                txn.Commit();
+            }
+            return model;
+        }
+
+        // Nur innerhalb Transaction aufrufen!
+        private static IfcLocalPlacement createLocalPlacement(IfcStore model, Axis2Placement3D placement)
+        {
+            var lp = model.Instances.New<IfcLocalPlacement>(l => l.RelativePlacement =
+                model.Instances.New<IfcAxis2Placement3D>(p =>
+                {
+                    p.Location = model.Instances.New<IfcCartesianPoint>(c => c.SetXYZ(placement.Location.X, placement.Location.Y, placement.Location.Z));
+                    p.RefDirection = model.Instances.New<IfcDirection>(d => d.SetXYZ(placement.RefDirection.X, placement.RefDirection.Y, placement.RefDirection.Z));
+                    p.Axis = model.Instances.New<IfcDirection>(a => a.SetXYZ(placement.Axis.X, placement.Axis.Y, placement.Axis.Z));
+                }));
+            return lp;
+        }
+
+        /// <summary>
+        ///  Erzeugt Site in Project
+        /// </summary>
+        /// <param name="model">           Projct </param>
+        /// <param name="name">            Bezeichnung der Site </param>
+        /// <param name="placement">       Ursprung </param>
+        /// <param name="refLatitude">     Breitengrad </param>
+        /// <param name="refLongitude">    Längengrad </param>
+        /// <param name="refElevation">    Höhe </param>
+        /// <param name="compositionType"> Bei einer Site nicht ändern </param>
+        /// <returns>  </returns>
+        private static IfcSite createSite(IfcStore model,
+             string name,
+             Axis2Placement3D placement = null,
+             double? refLatitude = null,
+             double? refLongitude = null,
+             double? refElevation = null,
+             IfcElementCompositionEnum compositionType = IfcElementCompositionEnum.ELEMENT)
+        {
+            //Serilog.Log.Logger = new LoggerConfiguration()
+            //   .MinimumLevel.Debug()
+            //   .WriteTo.File(System.Configuration.ConfigurationManager.AppSettings["LogFilePath"])
+            //   .CreateLogger();
+            using (var txn = model.BeginTransaction("Create Site"))
+            {
+                var site = model.Instances.New<IfcSite>(s =>
+                {
+                    s.Name = name;
+                    s.CompositionType = compositionType;
+                    if (refLatitude.HasValue)
+                    {
+                        s.RefLatitude = IfcCompoundPlaneAngleMeasure.FromDouble(refLatitude.Value);
+                    }
+                    if (refLongitude.HasValue)
+                    {
+                        s.RefLongitude = IfcCompoundPlaneAngleMeasure.FromDouble(refLongitude.Value);
+                    }
+                    s.RefElevation = refElevation;
+
+                    placement = placement ?? Axis2Placement3D.Standard;
+                    s.ObjectPlacement = createLocalPlacement(model, placement);
+                });
+                txn.Commit();
+                //Log.Information("IfcSite created");
+                return site;
+            }
+        }
+
+        #region IfcGCS using TIN [Status: DRAFT - breakDist is missing]
+        /// <summary>
+        ///  Geländemodell aus Punkten und Bruchlinien
+        /// </summary>
+        /// <param name="model">       </param>
+        /// <param name="points">     Geländepunkte </param>
+        /// <param name="breaklines"> Bruchlinien mit indizes der Punkte </param>
+        /// <returns>  </returns>
+        private static IfcGeometricCurveSet createGeometricCurveSetViaTin(IfcStore model, Vector3 origin, Tin tin,
+            double? breakDist,
+            out RepresentationType representationType,
+            out RepresentationIdentifier representationIdentifier)
+        {
+            //init Logger
+            Logger logger = LogManager.GetCurrentClassLogger();
+
+            //begin a transaction
+            using (var txn = model.BeginTransaction("Create DTM"))
+            {
+                // CartesianPoints erzeugen //TODO: Punkte filtern, die nicht im DGM enthalten sind
+                var cps = tin.Points.Select(p => model.Instances.New<IfcCartesianPoint>(c => c.SetXYZ(p.X - origin.X, p.Y - origin.Y, p.Z - origin.Z))).ToList();
+
+                // DTM
+                var dtm = model.Instances.New<IfcGeometricCurveSet>(g =>
+                {
+                    var edges = new HashSet<TupleIdx>();
+                    g.Elements.AddRange(cps);
+                    if (breakDist is double dist)
+                    {
+                        /* ÜBERARBEITEN - ist noch die Funktionalität aus MESH
+                        // Hilfsfunktion zum Punkte auf Kante erzeugen
+                        void addEdgePoints(Point3 start, Point3 dest)
+                        {
+                            var dir = dest - start;
+                            double len = Vector3.Norm(dir);
+                            double fac = len / dist;
+                            if (fac > 1.0)
+                            {
+                                start -= origin;
+                                dir /= len;
+                                double currLen = dist;
+                                while (currLen < len)
+                                {
+                                    var p = start + (dir * currLen);
+                                    g.Elements.Add(model.Instances.New<IfcCartesianPoint>(c => c.SetXYZ(p.X, p.Y, p.Z)));
+                                    currLen += dist;
+                                }
+                            }
+                        }
+                        /*
+                        // evtl. Bruchlinien erzeugen
+                        foreach (var edge in mesh.FixedEdges)
+                        {
+                            addEdgePoints(mesh.Points[edge.Idx1], mesh.Points[edge.Idx2]);
+                            edges.Add(edge);
+                        }
+
+                        // Kanten der Faces (falls vorhanden und ohne Doppelung)
+                        foreach (var edge in mesh.EdgeIndices.Keys)
+                        {
+                            if (!edges.Contains(TupleIdx.Flipped(edge)) && edges.Add(edge))
+                            { addEdgePoints(mesh.Points[edge.Idx1], mesh.Points[edge.Idx2]); }
+                        }
+                        */
+
+                    }
+                    else
+                    {
+                        //Read out each triangle
+                        foreach (var tri in tin.TriangleVertexPointIndizes())
+                        {
+                            //first edge
+                            g.Elements.Add(model.Instances.New<IfcPolyline>(p => p.Points.AddRange(new[] { cps[tri[0]], cps[tri[1]] })));
+                            //next edge
+                            g.Elements.Add(model.Instances.New<IfcPolyline>(p => p.Points.AddRange(new[] { cps[tri[1]], cps[tri[2]] })));
+                            //last edge
+                            g.Elements.Add(model.Instances.New<IfcPolyline>(p => p.Points.AddRange(new[] { cps[tri[2]], cps[tri[0]] })));
+                        }
+                    }
+                });
+                int numEdges = dtm.Elements.Count - cps.Count;
+
+                logger.Debug("Processed: " + cps.Count + " points; " + numEdges + " edges (of " + numEdges / 3 + " triangels)"); //nach dem commit von txn loggen .. nur für Debugging hier stehen lassen
+
+                txn.Commit();
+                representationIdentifier = RepresentationIdentifier.SurveyPoints;
+                representationType = RepresentationType.GeometricCurveSet;
+                return dtm;
+            }
+        }
+        #endregion
+
+        #region IfcSBSM [Status: Complete]
+        private static IfcShellBasedSurfaceModel createShellBasedSurfaceModelViaTin(IfcStore model, Vector3 origin, Tin tin,
+            out RepresentationType representationType,
+            out RepresentationIdentifier representationIdentifier)
+        {
+            /* Validierung -> bereits bei Reader implementieren?
+            if (mesh.MaxFaceCorners < 3)
+            { throw new Exception("Mesh has no Faces"); }
+            */
+
+            //init Logger
+            Logger logger = LogManager.GetCurrentClassLogger();
+
+            using (var txn = model.BeginTransaction("Create Tin"))
+            {
+                var vmap = new Dictionary<int, int>();
+                var cpl = new List<IfcCartesianPoint>();
+                for (int i = 0, j = 0; i < tin.Points.Count; i++)
+                {
+                    vmap.Add(i, j);
+                    var pt = tin.Points[i];
+                    cpl.Add(model.Instances.New<IfcCartesianPoint>(c => c.SetXYZ(pt.X - origin.X, pt.Y - origin.Y, pt.Z - origin.Z)));
+                    j++;
+                }
+
+                var sbsm = model.Instances.New<IfcShellBasedSurfaceModel>(s =>
+                    s.SbsmBoundary.Add(model.Instances.New<IfcOpenShell>(o => o.CfsFaces
+                        .AddRange(tin.TriangleVertexPointIndizes().Select(tri => model.Instances.New<IfcFace>(x => x.Bounds
+                            .Add(model.Instances.New<IfcFaceOuterBound>(b =>
+                            {
+                                b.Bound = model.Instances.New<IfcPolyLoop>(p =>
+                                {
+                                    p.Polygon.Add(cpl[vmap[tri[0]]]);
+                                    p.Polygon.Add(cpl[vmap[tri[1]]]);
+                                    p.Polygon.Add(cpl[vmap[tri[2]]]);
+                                });
+                                b.Orientation = true;
+                            }))))))));
+
+                //logger.Debug("Processed: " + );
+                txn.Commit();
+                representationIdentifier = RepresentationIdentifier.Body;
+                representationType = RepresentationType.SurfaceModel;
+                //TRASHLÖSUNG below:
+                long numTri = ((sbsm.Model.Instances.Count - vmap.Count) / 3) - 10;
+                logger.Debug("Processed: " + vmap.Count + " points; " + numTri + " triangels)");
+                return sbsm;
+            }
+        }
+        #endregion
+
+        #region Shape Representation
+        private static IfcShapeRepresentation createShapeRepresentation(IfcStore model, IfcGeometricRepresentationItem item, RepresentationIdentifier identifier, RepresentationType type)
+        {
+            //
+            //begin a transaction
+            using (var txn = model.BeginTransaction("Create Shaperepresentation"))
+            {
+                //Create a Definition shape to hold the geometry
+                var shape = model.Instances.New<IfcShapeRepresentation>(s =>
+                {
+                    s.ContextOfItems = model.Instances.OfType<IfcGeometricRepresentationContext>().FirstOrDefault();
+                    s.RepresentationType = type.ToString();
+                    s.RepresentationIdentifier = identifier.ToString();
+                    s.Items.Add(item);
+                });
+
+                txn.Commit();
+                return shape;
+            }
+        }
+        #endregion
+
+        /// <summary>
+        ///  Site mit DGM
+        /// </summary>
+        public static IfcStore CreateSite(
+            string projectName,
+            string editorsFamilyName,
+            string editorsGivenName,
+            string editorsOrganisationName,
+            IfcLabel siteName,
+            Axis2Placement3D sitePlacement,
+            Tin tin,
+            SurfaceType surfaceType,
+            double? breakDist = null,
+             double? refLatitude = null,
+             double? refLongitude = null,
+             double? refElevation = null)
+        {
+            var model = createandInitModel(projectName, editorsFamilyName, editorsGivenName, editorsOrganisationName, out var project);
+            var site = createSite(model, siteName, sitePlacement, refLatitude, refLongitude, refElevation);
+            RepresentationType representationType;
+            RepresentationIdentifier representationIdentifier;
+            IfcGeometricRepresentationItem shape;
+            switch (surfaceType)
+            {
+                case SurfaceType.TFS:
+                    return null;
+                case SurfaceType.SBSM:
+                    shape = createShellBasedSurfaceModelViaTin(model, sitePlacement.Location, tin, out representationType, out representationIdentifier);
+                    break;
+                default:
+                    shape = createGeometricCurveSetViaTin(model, sitePlacement.Location, tin, breakDist, out representationType, out representationIdentifier);
+                    break;
+            }
+            var repres = createShapeRepresentation(model, shape, representationIdentifier, representationType);
+
+            using (var txn = model.BeginTransaction("Add Site to Project"))
+            {
+                site.Representation = model.Instances.New<IfcProductDefinitionShape>(r => r.Representations.Add(repres));
+                project.AddSite(site);
+
+                model.OwnerHistoryAddObject.CreationDate = DateTime.Now;
+                model.OwnerHistoryAddObject.LastModifiedDate = model.OwnerHistoryAddObject.CreationDate;
+
+                txn.Commit();
+            }
+
+            return model;
+        }
+        public static void WriteFile(IfcStore model, string fileName, bool asXML = false)
+        {
+            if (asXML)
             { model.SaveAs(fileName, StorageType.IfcXml); }
             else
             { model.SaveAs(fileName, StorageType.Ifc); }

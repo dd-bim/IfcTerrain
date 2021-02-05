@@ -205,6 +205,7 @@ namespace IFCTerrainGUI
             this.ttStart = new System.Windows.Forms.ToolTip(this.components);
             this.tt = new System.Windows.Forms.ToolTip(this.components);
             this.ttDEBUG = new System.Windows.Forms.ToolTip(this.components);
+            this.rb2x3TIN = new System.Windows.Forms.RadioButton();
             this.gpFile.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpXML.SuspendLayout();
@@ -972,6 +973,7 @@ namespace IFCTerrainGUI
             // 
             // gpVersion
             // 
+            this.gpVersion.Controls.Add(this.rb2x3TIN);
             this.gpVersion.Controls.Add(this.rbIfc4TIN);
             this.gpVersion.Controls.Add(this.chkXML);
             this.gpVersion.Controls.Add(this.chkGeo);
@@ -1385,6 +1387,14 @@ namespace IFCTerrainGUI
             this.ttDEBUG.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Warning;
             this.ttDEBUG.ToolTipTitle = "Hinweis";
             // 
+            // rb2x3TIN
+            // 
+            resources.ApplyResources(this.rb2x3TIN, "rb2x3TIN");
+            this.rb2x3TIN.Name = "rb2x3TIN";
+            this.rb2x3TIN.TabStop = true;
+            this.rb2x3TIN.UseVisualStyleBackColor = true;
+            this.rb2x3TIN.CheckedChanged += new System.EventHandler(this.rb2x3TIN_CheckedChanged);
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
@@ -1629,5 +1639,6 @@ namespace IFCTerrainGUI
         private System.Windows.Forms.GroupBox gpOutPointtypes;
         private System.Windows.Forms.CheckBox chkOutTypes;
         private System.Windows.Forms.ToolTip ttDEBUG;
+        private System.Windows.Forms.RadioButton rb2x3TIN;
     }
 }

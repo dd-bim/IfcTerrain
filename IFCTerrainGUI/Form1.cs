@@ -777,6 +777,10 @@ namespace IFCTerrainGUI
             {
                 this.jSettings.outIFCType = "IFC4TIN";
             }
+            else if (rb2x3TIN.Checked)
+            {
+                this.jSettings.outIFCType = "IFC2x3TIN";
+            }
 
             //ersetzt durch obere Schleife
             //this.jSettings.outIFCType = rb4.Checked ? "IFC4": "IFC2x3";
@@ -1338,7 +1342,22 @@ namespace IFCTerrainGUI
 
         private void rbIfc4TIN_CheckedChanged(object sender, EventArgs e)
         {
+            if (rbIfc4TIN.Checked)
+            {
+                chkGeo.Enabled = true;
+                rbTFS.Enabled = true;
+                rbGCS.Checked = true;
+            }
+        }
 
+        private void rb2x3TIN_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rb2x3TIN.Checked)
+            {
+                chkGeo.Enabled = false;
+                rbTFS.Enabled = false;
+                rbTFS.Checked = false;
+            }
         }
         #endregion
 

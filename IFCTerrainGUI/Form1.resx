@@ -4415,6 +4415,51 @@ point types (e.g.: 20; 30): </value>
   <data name="&gt;&gt;tbHost.ZOrder" xml:space="preserve">
     <value>15</value>
   </data>
+  <data name="rb2x3TIN.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="rb2x3TIN.Location" type="System.Drawing.Point, System.Drawing">
+    <value>118, 21</value>
+  </data>
+  <data name="rb2x3TIN.Size" type="System.Drawing.Size, System.Drawing">
+    <value>69, 17</value>
+  </data>
+  <data name="rb2x3TIN.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="rb2x3TIN.Text" xml:space="preserve">
+    <value>2x3 (TIN)</value>
+  </data>
+  <data name="&gt;&gt;rb2x3TIN.Name" xml:space="preserve">
+    <value>rb2x3TIN</value>
+  </data>
+  <data name="&gt;&gt;rb2x3TIN.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rb2x3TIN.Parent" xml:space="preserve">
+    <value>gpVersion</value>
+  </data>
+  <data name="&gt;&gt;rb2x3TIN.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="rbIfc4TIN.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="rbIfc4TIN.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="rbIfc4TIN.Location" type="System.Drawing.Point, System.Drawing">
+    <value>118, 45</value>
+  </data>
+  <data name="rbIfc4TIN.Size" type="System.Drawing.Size, System.Drawing">
+    <value>88, 17</value>
+  </data>
+  <data name="rbIfc4TIN.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="rbIfc4TIN.Text" xml:space="preserve">
+    <value>4 add 1 (TIN)</value>
+  </data>
   <data name="&gt;&gt;rbIfc4TIN.Name" xml:space="preserve">
     <value>rbIfc4TIN</value>
   </data>
@@ -4425,7 +4470,22 @@ point types (e.g.: 20; 30): </value>
     <value>gpVersion</value>
   </data>
   <data name="&gt;&gt;rbIfc4TIN.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
+  </data>
+  <data name="chkXML.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkXML.Location" type="System.Drawing.Point, System.Drawing">
+    <value>223, 22</value>
+  </data>
+  <data name="chkXML.Size" type="System.Drawing.Size, System.Drawing">
+    <value>97, 17</value>
+  </data>
+  <data name="chkXML.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="chkXML.Text" xml:space="preserve">
+    <value>Export IFCXML</value>
   </data>
   <data name="&gt;&gt;chkXML.Name" xml:space="preserve">
     <value>chkXML</value>
@@ -4437,7 +4497,22 @@ point types (e.g.: 20; 30): </value>
     <value>gpVersion</value>
   </data>
   <data name="&gt;&gt;chkXML.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
+  </data>
+  <data name="chkGeo.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkGeo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>223, 46</value>
+  </data>
+  <data name="chkGeo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 17</value>
+  </data>
+  <data name="chkGeo.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="chkGeo.Text" xml:space="preserve">
+    <value>IfcGeographicElement</value>
   </data>
   <data name="&gt;&gt;chkGeo.Name" xml:space="preserve">
     <value>chkGeo</value>
@@ -4449,7 +4524,22 @@ point types (e.g.: 20; 30): </value>
     <value>gpVersion</value>
   </data>
   <data name="&gt;&gt;chkGeo.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
+  </data>
+  <data name="rb4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="rb4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 45</value>
+  </data>
+  <data name="rb4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>101, 17</value>
+  </data>
+  <data name="rb4.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="rb4.Text" xml:space="preserve">
+    <value>4 add 1 (MESH)</value>
   </data>
   <data name="&gt;&gt;rb4.Name" xml:space="preserve">
     <value>rb4</value>
@@ -4461,7 +4551,22 @@ point types (e.g.: 20; 30): </value>
     <value>gpVersion</value>
   </data>
   <data name="&gt;&gt;rb4.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
+  </data>
+  <data name="rb2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="rb2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 21</value>
+  </data>
+  <data name="rb2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>82, 17</value>
+  </data>
+  <data name="rb2.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="rb2.Text" xml:space="preserve">
+    <value>2x3 (MESH)</value>
   </data>
   <data name="&gt;&gt;rb2.Name" xml:space="preserve">
     <value>rb2</value>
@@ -4473,7 +4578,7 @@ point types (e.g.: 20; 30): </value>
     <value>gpVersion</value>
   </data>
   <data name="&gt;&gt;rb2.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="gpVersion.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 8.25pt</value>
@@ -4502,143 +4607,113 @@ point types (e.g.: 20; 30): </value>
   <data name="&gt;&gt;gpVersion.ZOrder" xml:space="preserve">
     <value>13</value>
   </data>
-  <data name="rbIfc4TIN.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="&gt;&gt;rbIfcTIN.Name" xml:space="preserve">
+    <value>rbIfcTIN</value>
   </data>
-  <data name="rbIfc4TIN.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="rbIfc4TIN.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 70</value>
-  </data>
-  <data name="rbIfc4TIN.Size" type="System.Drawing.Size, System.Drawing">
-    <value>88, 17</value>
-  </data>
-  <data name="rbIfc4TIN.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="rbIfc4TIN.Text" xml:space="preserve">
-    <value>4 add 1 (TIN)</value>
-  </data>
-  <data name="&gt;&gt;rbIfc4TIN.Name" xml:space="preserve">
-    <value>rbIfc4TIN</value>
-  </data>
-  <data name="&gt;&gt;rbIfc4TIN.Type" xml:space="preserve">
+  <data name="&gt;&gt;rbIfcTIN.Type" xml:space="preserve">
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;rbIfc4TIN.Parent" xml:space="preserve">
-    <value>gpVersion</value>
+  <data name="&gt;&gt;rbIfcTIN.Parent" xml:space="preserve">
+    <value>gpType</value>
   </data>
-  <data name="&gt;&gt;rbIfc4TIN.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;rbIfcTIN.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="chkXML.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="&gt;&gt;lblUnit.Name" xml:space="preserve">
+    <value>lblUnit</value>
   </data>
-  <data name="chkXML.Location" type="System.Drawing.Point, System.Drawing">
-    <value>175, 21</value>
+  <data name="&gt;&gt;lblUnit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="chkXML.Size" type="System.Drawing.Size, System.Drawing">
-    <value>97, 17</value>
+  <data name="&gt;&gt;lblUnit.Parent" xml:space="preserve">
+    <value>gpType</value>
   </data>
-  <data name="chkXML.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="chkXML.Text" xml:space="preserve">
-    <value>Export IFCXML</value>
-  </data>
-  <data name="&gt;&gt;chkXML.Name" xml:space="preserve">
-    <value>chkXML</value>
-  </data>
-  <data name="&gt;&gt;chkXML.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;chkXML.Parent" xml:space="preserve">
-    <value>gpVersion</value>
-  </data>
-  <data name="&gt;&gt;chkXML.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;lblUnit.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="chkGeo.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="&gt;&gt;tbDist.Name" xml:space="preserve">
+    <value>tbDist</value>
   </data>
-  <data name="chkGeo.Location" type="System.Drawing.Point, System.Drawing">
-    <value>175, 46</value>
+  <data name="&gt;&gt;tbDist.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="chkGeo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>131, 17</value>
+  <data name="&gt;&gt;tbDist.Parent" xml:space="preserve">
+    <value>gpType</value>
   </data>
-  <data name="chkGeo.TabIndex" type="System.Int32, mscorlib">
+  <data name="&gt;&gt;tbDist.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="chkGeo.Text" xml:space="preserve">
-    <value>IfcGeographicElement</value>
+  <data name="&gt;&gt;lblDist.Name" xml:space="preserve">
+    <value>lblDist</value>
   </data>
-  <data name="&gt;&gt;chkGeo.Name" xml:space="preserve">
-    <value>chkGeo</value>
+  <data name="&gt;&gt;lblDist.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;chkGeo.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;lblDist.Parent" xml:space="preserve">
+    <value>gpType</value>
   </data>
-  <data name="&gt;&gt;chkGeo.Parent" xml:space="preserve">
-    <value>gpVersion</value>
-  </data>
-  <data name="&gt;&gt;chkGeo.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="rb4.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="rb4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 45</value>
-  </data>
-  <data name="rb4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>101, 17</value>
-  </data>
-  <data name="rb4.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="rb4.Text" xml:space="preserve">
-    <value>4 add 1 (MESH)</value>
-  </data>
-  <data name="&gt;&gt;rb4.Name" xml:space="preserve">
-    <value>rb4</value>
-  </data>
-  <data name="&gt;&gt;rb4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;rb4.Parent" xml:space="preserve">
-    <value>gpVersion</value>
-  </data>
-  <data name="&gt;&gt;rb4.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;lblDist.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="rb2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="&gt;&gt;rbTFS.Name" xml:space="preserve">
+    <value>rbTFS</value>
   </data>
-  <data name="rb2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>7, 20</value>
-  </data>
-  <data name="rb2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>42, 17</value>
-  </data>
-  <data name="rb2.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="rb2.Text" xml:space="preserve">
-    <value>2x3</value>
-  </data>
-  <data name="&gt;&gt;rb2.Name" xml:space="preserve">
-    <value>rb2</value>
-  </data>
-  <data name="&gt;&gt;rb2.Type" xml:space="preserve">
+  <data name="&gt;&gt;rbTFS.Type" xml:space="preserve">
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;rb2.Parent" xml:space="preserve">
-    <value>gpVersion</value>
+  <data name="&gt;&gt;rbTFS.Parent" xml:space="preserve">
+    <value>gpType</value>
   </data>
-  <data name="&gt;&gt;rb2.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;rbTFS.ZOrder" xml:space="preserve">
     <value>4</value>
+  </data>
+  <data name="&gt;&gt;rbSSM.Name" xml:space="preserve">
+    <value>rbSSM</value>
+  </data>
+  <data name="&gt;&gt;rbSSM.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rbSSM.Parent" xml:space="preserve">
+    <value>gpType</value>
+  </data>
+  <data name="&gt;&gt;rbSSM.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;rbGCS.Name" xml:space="preserve">
+    <value>rbGCS</value>
+  </data>
+  <data name="&gt;&gt;rbGCS.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rbGCS.Parent" xml:space="preserve">
+    <value>gpType</value>
+  </data>
+  <data name="&gt;&gt;rbGCS.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="gpType.Location" type="System.Drawing.Point, System.Drawing">
+    <value>380, 165</value>
+  </data>
+  <data name="gpType.Size" type="System.Drawing.Size, System.Drawing">
+    <value>360, 120</value>
+  </data>
+  <data name="gpType.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="gpType.Text" xml:space="preserve">
+    <value>Shape</value>
+  </data>
+  <data name="&gt;&gt;gpType.Name" xml:space="preserve">
+    <value>gpType</value>
+  </data>
+  <data name="&gt;&gt;gpType.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;gpType.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;gpType.ZOrder" xml:space="preserve">
+    <value>12</value>
   </data>
   <data name="rbIfcTIN.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -4840,30 +4915,6 @@ point types (e.g.: 20; 30): </value>
   </data>
   <data name="&gt;&gt;rbGCS.ZOrder" xml:space="preserve">
     <value>6</value>
-  </data>
-  <data name="gpType.Location" type="System.Drawing.Point, System.Drawing">
-    <value>380, 165</value>
-  </data>
-  <data name="gpType.Size" type="System.Drawing.Size, System.Drawing">
-    <value>360, 120</value>
-  </data>
-  <data name="gpType.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
-  </data>
-  <data name="gpType.Text" xml:space="preserve">
-    <value>Shape</value>
-  </data>
-  <data name="&gt;&gt;gpType.Name" xml:space="preserve">
-    <value>gpType</value>
-  </data>
-  <data name="&gt;&gt;gpType.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;gpType.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;gpType.ZOrder" xml:space="preserve">
-    <value>12</value>
   </data>
   <data name="lblName.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
