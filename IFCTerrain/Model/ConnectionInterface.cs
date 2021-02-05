@@ -61,7 +61,6 @@ namespace IFCTerrain.Model
             {
                 case "LandXML":
                     result = LandXml.ReadTIN(jSettings.is3D, jSettings.fileName, jSettings.minDist, jSettings.logFilePath, jSettings.verbosityLevel);
-
                     break;
 
                 case "CityGML":

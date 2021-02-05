@@ -3,7 +3,9 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
-using BimGisCad.Collections;
+//using BimGisCad.Collections; //removed [MESH]
+//implementing TIN instead of MESH
+using BimGisCad.Representation.Geometry.Composed;
 using BimGisCad.Representation.Geometry.Elementary;
 using NLog;
 
@@ -18,11 +20,11 @@ namespace IFCTerrain.Model.Read
         /// <returns>  </returns>
         public static Result ReadTIN(bool is3d, string fileName, double minDist, string logFilePath, string verbosityLevel)
         {
-            //Serilog.Log.Logger = new LoggerConfiguration()
-            //                   .MinimumLevel.Debug()
-            //                   .WriteTo.File(logFilePath)
-            //                   .CreateLogger();
             var logger = LogManager.GetCurrentClassLogger();
+
+            //TIN-Builder
+            var tinB = Tin.CreateBuilder(true);
+            int pnr = 0;
 
             var result = new Result();
             try
@@ -50,7 +52,7 @@ namespace IFCTerrain.Model.Read
                                 { reader.Read(); }
                                 if(insideTri)
                                 {
-                                    var tin = new Mesh(is3d, minDist);
+                                    //var tin = new Mesh(is3d, minDist);
                                     while(reader.NodeType == XmlNodeType.Element && reader.LocalName == "Triangle"
                                         && XElement.ReadFrom(reader) is XElement el)
                                     {
@@ -63,20 +65,35 @@ namespace IFCTerrain.Model.Read
                                             && Point3.Create(pl, out var pt2, 3)
                                             && Point3.Create(pl, out var pt3, 6))
                                         {
-                                            tin.AddFace(new[] { pt1, pt2, pt3 });
+                                            //first Add points to tin with point index (pnr)
+                                            tinB.AddPoint(pnr++, pt1);
+                                            tinB.AddPoint(pnr++, pt2);
+                                            tinB.AddPoint(pnr++, pt3);
+
+                                            //adding Triangle to TIN-Builder
+                                            tinB.AddTriangle(pnr - 3, pnr - 2, pnr - 1, true);
+                                            
+                                            //tin.AddFace(new[] { pt1, pt2, pt3 });
                                         }
                                         reader.Read();
-
                                     }
+                                    /*
                                     if(!tin.Points.Any() || !tin.FaceEdges.Any())
                                     {
                                         result.Error = string.Format(Properties.Resources.errNoTINData, Path.GetFileName(fileName));
                                         logger.Error("No TIN-data found");
                                         return result;
                                     }
-                                    result.Mesh = tin;
+                                    */
+                                    //result.Mesh = tin;
                                     logger.Info("Reading GML-data successful");
-                                    logger.Info(tin.Points.Count + " points, " + tin.FixedEdges.Count + " lines and " + tin.FaceEdges.Count +" faces read");
+                                    logger.Info(result.Tin.Points.Count() + " points; " + result.Tin.NumTriangles + " triangels processed");
+
+                                    //TIN aus TIN-Builder erzeugen
+                                    Tin tin = tinB.ToTin(out var pointIndex2NumberMap, out var triangleIndex2NumberMap);
+                                    //Result beschreiben
+                                    result.Tin = tin;
+                                    //Result übergeben
                                     return result;
                                 }
                             }
