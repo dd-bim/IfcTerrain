@@ -118,8 +118,8 @@ namespace IFCTerrain.Model.Read
                             }
                             */
                             logger.Info("Reading LandXML-Data successful");
-                            //logger.Info(mesh.Points.Count + " points, " + mesh.FixedEdges.Count + " lines and " + mesh.FaceEdges.Count + " faces read");
-
+                            logger.Info(result.Tin.Points.Count() + " points; " + result.Tin.NumTriangles + " triangels processed");
+                            
                             //TIN aus TIN-Builder erzeugen
                             Tin tin = tinB.ToTin(out var pointIndex2NumberMap, out var triangleIndex2NumberMap);
                             //Result beschreiben
