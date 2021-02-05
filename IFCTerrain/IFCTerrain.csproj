@@ -365,7 +365,7 @@
     <Compile Include="Model\Read\GEOgraf\Out.cs" />
     <Compile Include="Model\Read\DXF.cs" />
     <Compile Include="Model\Read\ElevationGrid.cs" />
-    <Compile Include="Model\Read\PostGIS_TIN.cs" />
+    <Compile Include="Model\Read\PostGIS.cs" />
     <Compile Include="Model\Read\ReadInput.cs" />
     <Compile Include="Model\Read\LandXml.cs" />
     <Compile Include="Model\Read\RebDa.cs" />
