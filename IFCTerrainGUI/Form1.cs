@@ -953,6 +953,7 @@ namespace IFCTerrainGUI
                 chkGeo.Enabled = false;
                 rbTFS.Enabled = false;
                 rbTFS.Checked = false;
+                tbDist.ReadOnly = false;
             }
         }
 
@@ -963,6 +964,7 @@ namespace IFCTerrainGUI
                 chkGeo.Enabled = true;
                 rbTFS.Enabled = true;
                 rbGCS.Checked = true;
+                tbDist.ReadOnly = false;
             }
         }
 
@@ -1347,6 +1349,7 @@ namespace IFCTerrainGUI
                 chkGeo.Enabled = true;
                 rbTFS.Enabled = true;
                 rbGCS.Checked = true;
+                tbDist.ReadOnly = true;
             }
         }
 
@@ -1357,6 +1360,7 @@ namespace IFCTerrainGUI
                 chkGeo.Enabled = false;
                 rbTFS.Enabled = false;
                 rbTFS.Checked = false;
+                tbDist.ReadOnly = true;
             }
         }
         #endregion

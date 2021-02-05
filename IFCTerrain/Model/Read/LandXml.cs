@@ -7,8 +7,9 @@ using System.IO;
 using System.Xml;
 using System.Xml.Linq;
 using BimGisCad.Representation.Geometry.Elementary;
+using BimGisCad.Representation.Geometry.Composed;
 using static IFCTerrain.Model.Common;
-using BimGisCad.Collections;
+//using BimGisCad.Collections; removed - added Geometry.Composed instead
 using NLog;
 using NLog.Config;
 using NLog.Targets;
@@ -41,7 +42,12 @@ namespace IFCTerrain.Model.Read
                     XElement el;
                     double? scale = null;
                     var pntIds = new Dictionary<string, int>();
-                    var mesh = new Mesh(is3d, minDist);
+                    
+                    //TIN-Builder erzeugen
+                    var tinB = Tin.CreateBuilder(true);
+                    //PNR "künstlich erzeugen" & für TIN nutzen
+                    int pnr = 0;
+
                     bool insideTin = false;
                     reader.MoveToContent();
                     // Parse the file and display each of the nodes.
@@ -75,7 +81,9 @@ namespace IFCTerrain.Model.Read
                                         if(att != null && Point3.Create(
                                             el.Value.Replace(',', '.').Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries), out var pt))
                                         {
-                                            pntIds.Add(att.Value, mesh.AddPoint(scale.HasValue ? scale.Value * pt : pt));
+                                            Point3 point = Point3.Create(pt.Y,pt.X,pt.Z);
+                                            tinB.AddPoint(pnr, point);
+                                            pntIds.Add(att.Value, pnr++);
                                         }
                                     }
                                     break;
@@ -89,7 +97,8 @@ namespace IFCTerrain.Model.Read
                                             && pntIds.TryGetValue(pts[1], out int p2)
                                             && pntIds.TryGetValue(pts[2], out int p3))
                                         {
-                                            mesh.AddFace(new[] { p1, p2, p3 });
+                                            //mesh.AddFace(new[] { p1, p2, p3 });
+                                            tinB.AddTriangle(p1, p2, p3);
                                         }
                                     }
                                     break;
@@ -100,15 +109,23 @@ namespace IFCTerrain.Model.Read
                         }
                         else if(insideTin && reader.NodeType == XmlNodeType.EndElement && reader.Name == "Definition")
                         {
+                            /*
                             if(!mesh.Points.Any() || !mesh.FaceEdges.Any())
                             {
                                 result.Error = string.Format(Properties.Resources.errNoTINData, Path.GetFileName(fileName));
                                 logger.Error("No TIN-data found");
                                 return result;
                             }
+                            */
                             logger.Info("Reading LandXML-Data successful");
-                            logger.Info(mesh.Points.Count + " points, " + mesh.FixedEdges.Count + " lines and " + mesh.FaceEdges.Count + " faces read");
-                            result.Mesh = mesh;
+                            //logger.Info(mesh.Points.Count + " points, " + mesh.FixedEdges.Count + " lines and " + mesh.FaceEdges.Count + " faces read");
+
+                            //TIN aus TIN-Builder erzeugen
+                            Tin tin = tinB.ToTin(out var pointIndex2NumberMap, out var triangleIndex2NumberMap);
+                            //Result beschreiben
+                            result.Tin = tin;
+
+                            //result.Mesh = mesh;
                             return result;
                         }
                         else
